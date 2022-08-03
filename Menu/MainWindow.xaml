@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Menu"
         mc:Ignorable="d"
-Title="MainWindow" Height="1920" Width="1080" WindowStartupLocation="Manual" Loaded="Window_Loaded" WindowStyle="None"  ShowInTaskbar="False" Topmost="True" Closing="Window_Closing">
+Title="MainWindow" Height="1920" Width="1080"   WindowStartupLocation="Manual" Loaded="Window_Loaded" WindowStyle="None"  ShowInTaskbar="False" Topmost="True" Closing="Window_Closing">
     <!--WindowStyle="None"-->
 
     <Grid>
@@ -22,7 +22,7 @@ Title="MainWindow" Height="1920" Width="1080" WindowStartupLocation="Manual" Loa
         <ItemsControl Grid.Row="1" x:Name="FoodList">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Margin="35,0,0,0"/>
+                    <WrapPanel Name="MyList"  Margin="35,0,0,0" Opacity="1"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

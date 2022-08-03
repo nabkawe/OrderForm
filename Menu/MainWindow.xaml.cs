@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -32,16 +33,20 @@ namespace Menu
         }
 
         public BindingList<FoodItem> foodItems { get; set; }
-        private void X_Destroyed(object sender, FoodItem e)
-        {
-            foodItems.Remove(e);
-        }
         public string CurrentMenu;
         public void LaunchMenu(List<object> list, string CurrentMenuIn)
         {
             try
             {
-                foodItems.ToList<FoodItem>().ForEach(x => { x.Destroyed += X_Destroyed; x.DestroyMe(); });
+                foodItems.Clear();
+                Storyboard storyboard = new Storyboard();
+                TimeSpan duration = TimeSpan.FromMilliseconds(400); //
+                DoubleAnimation fadeInAnimation = new DoubleAnimation()
+                { From = 1, To = 0, AutoReverse = true, Duration = new Duration(duration) };
+                Storyboard.SetTargetName(fadeInAnimation, this.FoodList.Name) ;
+                Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
+                storyboard.Children.Add(fadeInAnimation);
+                storyboard.Begin(this);
                 CurrentMenu = CurrentMenuIn;
                 foreach (object item in list)
                 {

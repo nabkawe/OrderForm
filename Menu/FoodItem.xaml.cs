@@ -23,27 +23,23 @@ namespace Menu
     {
         public bool IsMulti {get;set;}
         public System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-        public event EventHandler<FoodItem> Destroyed;
-        public FoodItem()
-        {
-            InitializeComponent();
-        }
+        
         public FoodItem(MenuItemsX pos)
         {
-            InitializeComponent();
-            FillInfo(pos);
-            IsMulti = false;
-            Fadein();
+            this.InitializeComponent();
+            this.FillInfo(pos);
+            this.IsMulti = false;
+            this.Fadein();
         }
         int Count = 0;
         public FoodItem(IEnumerable<MenuItemsX> pos)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             pos.ToList().ForEach(x => posLoop.Add(x));
-            StartTimer();
-            FillInfo(pos.Last());
+            this.StartTimer();
+            this.FillInfo(pos.Last());
             IsMulti = true;
-            Fadein();
+            this.Fadein();
 
         }
         public List<MenuItemsX> posLoop = new List<MenuItemsX>();
@@ -54,25 +50,25 @@ namespace Menu
             try
             {
                
-                if (Count < posLoop.Count)
+                if (this.Count < this.posLoop.Count)
                 {
-                    FadeOut();
+                    this.FadeOut();
 
-                    Count += 1;
-                    FillInfo(posLoop[Count]);
-                    Fadein();
+                    this.Count += 1;
+                    this.FillInfo(this.posLoop[Count]);
+                    this.Fadein();
                 }
-                else if (Count == posLoop.Count)
+                else if (this.Count == this.posLoop.Count)
                 {
-                    Count = -1;
+                    this.Count = -1;
                 }
             }
             catch (Exception)
             {
-                Count = -1;
-                Count += 1;
-                FillInfo(posLoop[Count]);
-                Fadein();
+                this.Count = -1;
+                this.Count += 1;
+                this.FillInfo(this.posLoop[Count]);
+                this.Fadein();
 
 
             }
@@ -83,7 +79,7 @@ namespace Menu
 
         private void FadeOut()
         {
-            RegisterName("foodi", this.FI);
+            this.RegisterName("foodi", this.FI);
 
             Storyboard storyboard = new Storyboard();
             
@@ -100,9 +96,9 @@ namespace Menu
 
         private void StartTimer()
         {
-            dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
-            dispatcherTimer.Start();
+            this.dispatcherTimer.Tick += dispatcherTimer_Tick;
+            this.dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
+            this.dispatcherTimer.Start();
 
         }
 
@@ -113,28 +109,28 @@ namespace Menu
         }
         public void FillInfo(MenuItemsX pos)
         {
-            var Name = Reg("kName");
+            var Name = this.Reg("kName");
             Name.Content = pos.Name;
 
-            var Details = Reg("kDetails");
+            var Details = this.Reg("kDetails");
            Details.Content = pos.Details;
 
-            var Price = Reg("kPrice");
+            var Price = this.Reg("kPrice");
             Price.Content = pos.Price.ToString();
 
-            var PictureName = Reg("kPicture");
+            var PictureName = this.Reg("kPicture");
             PictureName.Content = pos.ImagePath;
             
-            var Cal = Reg("kCalories");
+            var Cal = this.Reg("kCalories");
             Cal.Content = pos.Cal;
-            var bar = Reg("kBarCode");
+            var bar = this.Reg("kBarCode");
             bar.Content = pos.Barcode;
             this.Tag = pos.Barcode;
         }
 
         public void Fadein()
         {
-            RegisterName("foodi", this.FI);
+            this.RegisterName("foodi", this.FI);
 
             Storyboard storyboard = new Storyboard();
             TimeSpan duration = TimeSpan.FromMilliseconds(1000); //
@@ -144,8 +140,8 @@ namespace Menu
 
             Storyboard.SetTargetName(fadeInAnimation, "foodi");
             Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-            storyboard.Children.Add(fadeInAnimation);
-            storyboard.Begin(this);
+          storyboard.Children.Add(fadeInAnimation);
+          storyboard.Begin(this);
         }
 
      
@@ -155,56 +151,57 @@ namespace Menu
             this.dispatcherTimer.Stop();
 
 
-            RegisterName("BlurEffect", this.dropEffect);
+            this.RegisterName("BlurEffect", this.dropEffect);
 
             Storyboard s = new Storyboard();
             TimeSpan duration = TimeSpan.FromMilliseconds(1000); //
             DoubleAnimation fadeInAnimation = new DoubleAnimation()
-            { From = 0.00, To = 10, RepeatBehavior = new RepeatBehavior(5), AutoReverse = true, Duration = new Duration(duration) };
+            { From = 0.00, To = 40, RepeatBehavior = new RepeatBehavior(5), AutoReverse = true, Duration = new Duration(duration) };
 
             Storyboard.SetTargetName(fadeInAnimation, "BlurEffect");
             //Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("ShadowDepth", 1));
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("ShadowDepth", 1));
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("BlurRadius", 1));
             s.Completed += S_Completed;
             s.Children.Add(fadeInAnimation);
             s.Begin(this);
 
         }
-        public  void  DestroyMe()
-        {
-            this.dispatcherTimer.Stop();
-            dispatcherTimer.Tick -= dispatcherTimer_Tick;
-
-
-            Storyboard s = new Storyboard();
-            Storyboard a = new Storyboard();
-            TimeSpan duration = TimeSpan.FromMilliseconds(200); //
-            DoubleAnimation fadeInAnimation = new DoubleAnimation()
-            { From = 1.0, To = 0.1 ,  Duration = new Duration(duration) };
-
-            Storyboard.SetTargetName(fadeInAnimation, this.Name);
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-            s.Children.Add(fadeInAnimation);
-            //s.Begin(this);
-            //DoubleAnimation collapse = new DoubleAnimation()
-            //{ From = 0, To = this.Height, Duration = new Duration(duration) };
-            //Storyboard.SetTargetName(collapse, this.Name);
-            //Storyboard.SetTargetProperty(collapse, new PropertyPath("Height", 1));
-            //s.Children.Add(collapse);
-            s.Completed += S_Completed2;
-            s.Begin(this);
-
-        }
-
         private void S_Completed(object sender, EventArgs e)
         {
             this.dispatcherTimer.Start();
 
         }
-        private void S_Completed2(object sender, EventArgs e)
-        {
-            Destroyed?.Invoke(this, this);
-        }
+        //public  void  DestroyMe()
+        //{
+        //    this.dispatcherTimer.Stop();
+        //    dispatcherTimer.Tick -= dispatcherTimer_Tick;
+
+
+        //    Storyboard s = new Storyboard();
+        //    Storyboard a = new Storyboard();
+        //    TimeSpan duration = TimeSpan.FromMilliseconds(200); //
+        //    DoubleAnimation fadeInAnimation = new DoubleAnimation()
+        //    { From = 1.0, To = 0.1 ,  Duration = new Duration(duration) };
+
+        //    Storyboard.SetTargetName(fadeInAnimation, this.Name);
+        //    Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
+        //    s.Children.Add(fadeInAnimation);
+        //    //s.Begin(this);
+        //    //DoubleAnimation collapse = new DoubleAnimation()
+        //    //{ From = 0, To = this.Height, Duration = new Duration(duration) };
+        //    //Storyboard.SetTargetName(collapse, this.Name);
+        //    //Storyboard.SetTargetProperty(collapse, new PropertyPath("Height", 1));
+        //    //s.Children.Add(collapse);
+        //    s.Completed += S_Completed2;
+        //    s.Begin(this);
+
+        //}
+
+
+        //private void S_Completed2(object sender, EventArgs e)
+        //{
+        //    Destroyed?.Invoke(this, this);
+        //}
 
 
 

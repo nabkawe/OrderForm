@@ -47,7 +47,8 @@
                 <Image   x:Name="Picture"
                         Grid.ZIndex ="5"   Canvas.Right="0" 
                         Source="{Binding Content, Mode=OneWay, Source={StaticResource kPicture}}"
-                        Stretch="Uniform" MaxWidth="140" MaxHeight="140" MinHeight="140" MinWidth ="140" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="134"  />
+                        Stretch="Uniform" MaxWidth="130" MaxHeight="130" MinHeight="130" MinWidth ="130
+" HorizontalAlignment="Center"  VerticalAlignment="Center"  />
             </Canvas>
             <!--Name and Details-->
             <Border    Grid.Row="1" Grid.RowSpan="2" CornerRadius="0,0,0,0" Margin="5" 
