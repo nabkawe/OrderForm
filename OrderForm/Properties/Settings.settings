@@ -1,0 +1,132 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OrderForm.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="barcodetb" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:TextBox1]</Value>
+    </Setting>
+    <Setting Name="invoiceprc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Label56]</Value>
+    </Setting>
+    <Setting Name="invoicenotes" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:TextBox8]</Value>
+    </Setting>
+    <Setting Name="btntogo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME: ButtonX1]</Value>
+    </Setting>
+    <Setting Name="btnphone" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME: ButtonX11]</Value>
+    </Setting>
+    <Setting Name="btn1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button1]</Value>
+    </Setting>
+    <Setting Name="btn2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button2]</Value>
+    </Setting>
+    <Setting Name="btn3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button3]</Value>
+    </Setting>
+    <Setting Name="btn4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button4]</Value>
+    </Setting>
+    <Setting Name="btn5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button5]</Value>
+    </Setting>
+    <Setting Name="btn6" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button6]</Value>
+    </Setting>
+    <Setting Name="btn7" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button7]</Value>
+    </Setting>
+    <Setting Name="btn8" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button8]</Value>
+    </Setting>
+    <Setting Name="btn9" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button9]</Value>
+    </Setting>
+    <Setting Name="btn0" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button12]</Value>
+    </Setting>
+    <Setting Name="btnsubmit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Button13]</Value>
+    </Setting>
+    <Setting Name="amountlbl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Label25]</Value>
+    </Setting>
+    <Setting Name="CashTextBox" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:TextBox5]</Value>
+    </Setting>
+    <Setting Name="SaveBTN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Label34]</Value>
+    </Setting>
+    <Setting Name="SwitchBTN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:SwitchButton1]</Value>
+    </Setting>
+    <Setting Name="pos" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> نقطة بيع مطعم سحائب طيبه سليمانية 2022</Value>
+    </Setting>
+    <Setting Name="Mada1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:TextBox22]</Value>
+    </Setting>
+    <Setting Name="Mada2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:TextBox25]</Value>
+    </Setting>
+    <Setting Name="Mada3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:TextBox27]</Value>
+    </Setting>
+    <Setting Name="PartCash" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:TextBox29]</Value>
+    </Setting>
+    <Setting Name="Mada1Combo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:ComboBox15]</Value>
+    </Setting>
+    <Setting Name="Mada2Combo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:ComboBox16]</Value>
+    </Setting>
+    <Setting Name="Mada3Combo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:ComboBox17]</Value>
+    </Setting>
+    <Setting Name="DBConnection" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Filename=C:\db\db.db;Connection=shared</Value>
+    </Setting>
+    <Setting Name="defaultOrder" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="InvoiceNumberTB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:TextBox4]</Value>
+    </Setting>
+    <Setting Name="InvoiceTime" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Label30]</Value>
+    </Setting>
+    <Setting Name="POSMainName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Libra Soft® مطعم سحائب طيبه سليمانية 2022</Value>
+    </Setting>
+    <Setting Name="POSNewBTN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Label35]</Value>
+    </Setting>
+    <Setting Name="POSShortcut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:ToolStrip3]</Value>
+    </Setting>
+    <Setting Name="POSWinShortcut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME:Label222]</Value>
+    </Setting>
+    <Setting Name="POSClearNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[NAME: Button10]</Value>
+    </Setting>
+    <Setting Name="CurrentTax" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="BranchName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">فرع السليمانية</Value>
+    </Setting>
+    <Setting Name="TestingMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DefaultPrinter" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="showMenu" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
