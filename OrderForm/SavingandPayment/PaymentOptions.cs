@@ -220,7 +220,7 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         private void ManualBTN_Click(object sender, EventArgs e)
         {
-            if (Convert.ToDecimal(ait.ControlGetText(pos, "", invoiceprc)) != 0) { 
+            if (Convert.ToDecimal(ait.ControlGetText(pos, "", invoiceprc)) == 0) { 
                 SaveManualToPOS();
             }
 
@@ -313,6 +313,7 @@ namespace OrderForm.SavingandPayment
                 }
             }
             this.Close();
+            
         }
 
 
@@ -436,6 +437,8 @@ namespace OrderForm.SavingandPayment
         {
             if (ait.WinExists(pos) == 1)
             {
+                ait.WinSetState(pos, "", ait.SW_RESTORE);
+                ait.WinSetState(pos, "", ait.SW_MAXIMIZE);
                 ait.WinSetState("WhatsApp", "", ait.SW_MINIMIZE);
                 return true;
                 // code for checking empty or not.

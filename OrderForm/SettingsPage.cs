@@ -1042,7 +1042,20 @@ namespace OrderForm
         private void DeleteM_Click(object sender, EventArgs e)
         {
             if (MenuLB.SelectedIndex != -1)
+            {
+                int a = MenuLB.SelectedIndex;
                 MenuLB.Items.Remove(MenuLB.SelectedItem);
+                try
+                {
+                    MenuLB.SelectedIndex = a - 1;
+                }
+                catch (Exception)
+                {
+
+                }
+
+            }
+                
 
         }
 

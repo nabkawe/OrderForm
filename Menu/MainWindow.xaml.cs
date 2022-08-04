@@ -34,8 +34,10 @@ namespace Menu
 
         public BindingList<FoodItem> foodItems { get; set; }
         public string CurrentMenu;
+
         public void LaunchMenu(List<object> list, string CurrentMenuIn)
         {
+            
             try
             {
                 foodItems.Clear();

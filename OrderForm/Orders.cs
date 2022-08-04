@@ -58,6 +58,7 @@ namespace OrderForm
                     if (DM.Visibility != System.Windows.Visibility.Visible)
                     {
                         DM.Show();
+
                         DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First());
                     }
                 }
@@ -1169,7 +1170,7 @@ namespace OrderForm
             {
                 IsItPrinted = true;
                 button1.Enabled = false;
-                DbInv.LogAction("Printed Invoice Opened", heldInv.ID, heldInv.Status);
+                //DbInv.LogAction("Printed Invoice Opened", heldInv.ID, heldInv.Status);
                 LoadInvoiceUI(heldInv);
             }
             else
@@ -1197,7 +1198,7 @@ namespace OrderForm
         {
             this.panel1.Visible = false;
 
-            if (heldInv.Status == InvStat.Draft || heldInv.Status == InvStat.Printed)
+            if (heldInv.Status == InvStat.Draft)
             {
                 StopEditing = false;
                 ButtonStates(true);
@@ -1205,6 +1206,22 @@ namespace OrderForm
                 InvoiceNumberID.Text = heldInv.ID.ToString();
                 MobileTB.Text = heldInv.CustomerNumber;
                 NameTB.Text = heldInv.CustomerName + " ";
+                TimeTB.Text = heldInv.TimeAMPM;
+                DayMenuBTN.Text = GetDayName((int)heldInv.InvoiceDay);
+                CommentTB.Text = heldInv.Comment;
+                OrderStatus.Text = heldInv.OrderType;
+                Thread t = new Thread(() => FillPOS(heldInv.InvoiceItems));
+                t.Start();
+
+
+            } else if ( heldInv.Status == InvStat.Printed)
+            {
+                StopEditing = false;
+                ButtonStates(true);
+                OrdersPanel.Enabled = true;
+                InvoiceNumberID.Text = heldInv.ID.ToString();
+                MobileTB.Text = heldInv.CustomerNumber;
+                NameTB.Text = heldInv.CustomerName;
                 TimeTB.Text = heldInv.TimeAMPM;
                 DayMenuBTN.Text = GetDayName((int)heldInv.InvoiceDay);
                 CommentTB.Text = heldInv.Comment;
@@ -1741,6 +1758,11 @@ namespace OrderForm
         private void Orders_Load(object sender, EventArgs e)
         {
             NewBTN_Click(null, null);
+            if (Properties.Settings.Default.showMenu)
+            {
+                unfocusableButton3.Enabled = true;
+            }
+            else unfocusableButton3.Enabled = false;
         }
         private void TimeButton_Click(object sender, EventArgs e)
         {
@@ -2191,6 +2213,11 @@ namespace OrderForm
             DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First());
             MenuTimeOut.Stop();
 
+        }
+
+        private void AsrLBL_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 

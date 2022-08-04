@@ -1651,6 +1651,7 @@
             this.AsrLBL.Text = "العصر";
             this.AsrLBL.UseCompatibleTextRendering = true;
             this.AsrLBL.UseVisualStyleBackColor = false;
+            this.AsrLBL.Click += new System.EventHandler(this.AsrLBL_Click);
             // 
             // AsrBTN
             // 
@@ -1876,6 +1877,7 @@
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Text = "تحضير طلبيات برنامج ليبرا";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Orders_FormClosing);
             this.Load += new System.EventHandler(this.Orders_Load);
             this.rightClickMenu.ResumeLayout(false);
