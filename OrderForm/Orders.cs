@@ -50,6 +50,7 @@ namespace OrderForm
 
         private void LoadMethods()
         {
+            
             if (Properties.Settings.Default.showMenu)
             {
                 if (Screen.AllScreens.Count() > 1)
@@ -970,6 +971,7 @@ namespace OrderForm
                     dbQ.SaveContacts(customer);
                     Invoice PNI = PrintNewInvoice();
                     DbInv.LogAction("Invoice Printed", PNI.ID, PNI.Status);
+                    PNI.TimeOfPrinting = DateTime.Now.ToString();
                     DbInv.CreatePreparingInvoice(PNI);
                     // DbInv.DeleteDraftInvoice(PNI);
                     NewBTN_Click(null, null);
@@ -1060,7 +1062,6 @@ namespace OrderForm
             this.HeldPanel.Controls.Clear();
             AddDraftInvoices(e);
             CheckDay();
-            PrintSave2.Visible = false;
 
         }
 
@@ -1293,14 +1294,12 @@ namespace OrderForm
             if (t)
             {
                 PrintSave.Enabled = true;
-                PrintSave2.Enabled = true;
                 SaveInvoice.Enabled = true;
                 DeleteInvoice.Enabled = true;
             }
             else
             {
                 PrintSave.Enabled = false;
-                PrintSave2.Enabled = false;
                 SaveInvoice.Enabled = true;
                 DeleteInvoice.Enabled = false;
             }
@@ -1707,8 +1706,7 @@ namespace OrderForm
                 var List = DbInv.GetSavedInvoices();
                 foreach (var item in List)
                 {
-                    if (item.Status == InvStat.Deleted || item.Status == InvStat.SavedToPOS)
-                    {
+                   
                         _InvBTN PrintedBTN = new _InvBTN(item);
                         int ID = item.ID;
                         PrintedBTN.Tag = ID;
@@ -1716,7 +1714,7 @@ namespace OrderForm
                         PrintedBTN.Click += HeldOrder_click;
                         //PrintedBTN.MouseUp += HeldOrder_MouseUp;
                         PrintedInvoices.Controls.Add(PrintedBTN);
-                    }
+                    
                 }
             }
             else
@@ -1882,7 +1880,6 @@ namespace OrderForm
         private void SaveInvoice_Click(object sender, EventArgs e)
         {
             var SaveToPOS = PrintNewInvoice();
-            PrintSave2.Visible = false;
             if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
             {
                 Save2POS(SaveToPOS);
@@ -1915,11 +1912,23 @@ namespace OrderForm
         {
             this.Hide();
             var a = new SavingandPayment.PaymentOptions(SaveToPOS);
+            a.PrintOrNot += A_PrintOrNot;
+            d.Hide();
             a.ShowDialog();
             this.Show();
             this.WindowState = FormWindowState.Normal;
             NewBTN_Click(null, null);
 
+        }
+
+        private void A_PrintOrNot(object sender, Invoice e)
+        {
+            
+            if (checkBox1.Checked && e.OrderType == "هاتف")
+            {
+                PrintInvoiceReady.Print(Properties.Settings.Default.DefaultPrinter, e);
+            }
+            
         }
 
         private void FastComment_Closed(object sender, ToolStripDropDownClosedEventArgs e)
@@ -2082,21 +2091,13 @@ namespace OrderForm
             if (IsItPrinted/* && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID))*/)
             {
                 Save2POS(SaveToPOS);
-                PrintSave2.Visible = false;
 
             }
         }
 
         private void SaveInvoice_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                PrintSave2.Visible = true;
-            }
-            else
-            {
-                PrintSave2.Visible = false;
-            }
+   
         }
 
         private void HoldInvoice_click(object sender, EventArgs e)

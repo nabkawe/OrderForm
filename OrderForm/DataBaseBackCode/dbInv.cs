@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using sharedCode;
+using System.Globalization;
+
 namespace OrderForm
 {
     public static class DbInv
@@ -123,7 +125,7 @@ namespace OrderForm
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.Printed,0,100);
-                var d = draftInv.OrderBy(i => i.TimeOfInv).ToList();
+                var d = draftInv.ToList();
                 return d;
             }
         }
@@ -134,6 +136,10 @@ namespace OrderForm
                 var updatedInvoices = db.GetCollection<Invoice>("Invoices");
                 var updated = updatedInvoices.FindById(iD);
                 updated.POSInvoiceNumber = posID;
+                CultureInfo[] cultures = { new CultureInfo("ar-SA") };
+
+                DateTime DT = DateTime.Now;
+                updated.TimeOfSaving = DT;  
                 updated.Status = InvStat.SavedToPOS;
                 updatedInvoices.Update(updated);
             }
@@ -197,12 +203,23 @@ namespace OrderForm
             using (var db = Connect())
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
-                var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted, 0, 100);
-                return draftInv.OrderByDescending(x => x.TimeOfInv).ToList();
-            }
+                var draftInv = draft.Find(x => x.Status == InvStat.Deleted || x.Status == InvStat.SavedToPOS,draft.Find(y=> y.Status == InvStat.SavedToPOS || y.Status == InvStat.Deleted).Count()-200,200);
+                  return draftInv.OrderByDescending(x => Convert.ToInt32(x.POSInvoiceNumber)).ToList();
+            }//(x => x.TimeOfSaving)
+
         }
 
-        public static List<Invoice> GetAllSavedInvoices()
+        public static void UpdateInvoiceTime()
+        {
+            using (var db = Connect())
+            {
+                var draft = db.GetCollection<Invoice>("Invoices");
+                var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted);
+                draftInv.OrderByDescending(x => x.ID).ToList();
+
+            }
+        }
+            public static List<Invoice> GetAllSavedInvoices()
         {
             using (var db = Connect())
             {

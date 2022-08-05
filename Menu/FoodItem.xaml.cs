@@ -152,7 +152,7 @@ namespace Menu
         {
 
             Storyboard storyboard = new Storyboard();
-            TimeSpan duration = TimeSpan.FromMilliseconds(1000); //
+            TimeSpan duration = TimeSpan.FromMilliseconds(400); //
 
             DoubleAnimation fadeInAnimation = new DoubleAnimation()
             { From = 0, To = 1, Duration = new Duration(duration) };
@@ -183,7 +183,6 @@ namespace Menu
 
 
             this.RegisterName("BlurEffect", this.dropEffect);
-
             Storyboard s = new Storyboard();
             TimeSpan duration = TimeSpan.FromMilliseconds(200); //
             DoubleAnimation fadeInAnimation = new DoubleAnimation()
@@ -191,12 +190,22 @@ namespace Menu
             Storyboard.SetTargetName(fadeInAnimation, "BlurEffect");
             Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("ShadowDepth", 1));
             s.Completed += S_Completed;
+            
 
             duration = TimeSpan.FromMilliseconds(500);
             DoubleAnimation fadeInAnimation2 = new DoubleAnimation()
             { By=360, RepeatBehavior = new RepeatBehavior(5), Duration = new Duration(duration) };
             Storyboard.SetTargetName(fadeInAnimation2, "BlurEffect");
             Storyboard.SetTargetProperty(fadeInAnimation2, new PropertyPath("Direction", 1));
+
+            duration = TimeSpan.FromMilliseconds(500);
+            ColorAnimation fadeInAnimation3 = new ColorAnimation()
+            { From = Color.FromRgb(0, 255, 20), To = Color.FromRgb(169, 107, 40), SpeedRatio = 0.3,AccelerationRatio = 1, Duration = new Duration(duration) };
+            Storyboard.SetTargetName(fadeInAnimation3, "BlurEffect");
+            Storyboard.SetTargetProperty(fadeInAnimation3, new PropertyPath("Color", 1));
+
+
+            s.Children.Add(fadeInAnimation3);
             s.Children.Add(fadeInAnimation2);
             s.Children.Add(fadeInAnimation);
             s.Begin(this);
@@ -205,9 +214,11 @@ namespace Menu
         private void S_Completed(object sender, EventArgs e)
         {
             this.dispatcherTimer.Start();
+            this.dropEffect.Color = Color.FromRgb(169, 107, 40);
+
 
         }
-        
+
 
 
 

@@ -254,7 +254,7 @@ namespace OrderForm
             
             try
             {
-                if (order.OrderType == "هاتف") PrintDocument.Print(); else return;
+               PrintDocument.Print();
             }
             catch (Exception)
             {
@@ -302,7 +302,7 @@ namespace OrderForm
             e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += e.Graphics.MeasureString(" ", lfnt).Height;
             y += e.Graphics.MeasureString(" ", lfnt).Height;
-                        text = order.OrderType;
+            text = order.OrderType;
             e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             text = Environment.NewLine + order.InvoicePrice + " SAR ";
             e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);

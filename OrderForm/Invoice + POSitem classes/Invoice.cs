@@ -63,7 +63,7 @@ namespace OrderForm
         public string POSInvoiceNumber { get; set; }
         public string OrderType { get; set; }
         public InvStat Status { get; set; }
-
+        public DateTime TimeOfSaving { get; set; }
 
         /// <summary>
         /// sharing related code
@@ -148,6 +148,8 @@ namespace OrderForm
             CustomerNumber = "";
             TimeinArabic = "الآن";
             Tax = Properties.Settings.Default.CurrentTax;
+            TimeOfPrinting = "";
+            
         }
 
         // Database related code for improved search

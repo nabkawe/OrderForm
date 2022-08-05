@@ -48,6 +48,7 @@ namespace OrderForm.SavingandPayment
         public string POSWinShortcut = Properties.Settings.Default.POSWinShortcut;
         public string POSNewBTN = Properties.Settings.Default.POSNewBTN;
         public string POSClearNumber = Properties.Settings.Default.POSClearNumber;
+        public event EventHandler<Invoice> PrintOrNot;
 
         public bool singleOrMultipleInvoice;
         public List<Invoice> MultipleInvoices = new List<Invoice>();
@@ -55,7 +56,6 @@ namespace OrderForm.SavingandPayment
 
         public Invoice invoice;
         public AutoItX3 ait = new AutoItX3();
-
         public PaymentOptions(Invoice inv) // SingleInvoice Constructor
         {
             InitializeComponent();
@@ -297,7 +297,7 @@ namespace OrderForm.SavingandPayment
             if (single)
             {
                 DbInv.UpdateInvoice(this.invoice.ID, invoiceNTB);
-                PrintInvoiceReady.Print(Properties.Settings.Default.DefaultPrinter,this.invoice);
+                PrintOrNot?.Invoke(null, this.invoice);
             }
             else
             {
@@ -309,7 +309,7 @@ namespace OrderForm.SavingandPayment
                     DbInv.UpdateInvoice(inv.ID, invoiceNTB);
 
                 }
-                    PrintInvoiceReady.Print(Properties.Settings.Default.DefaultPrinter, MultipleInvoices[0]);
+                    PrintOrNot?.Invoke(null, MultipleInvoices[0]);
 
                 }
             }
