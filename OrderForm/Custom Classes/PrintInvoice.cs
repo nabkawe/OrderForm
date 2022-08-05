@@ -244,9 +244,9 @@ namespace OrderForm
         private static PrintDocument PrintDocument;
         public static Invoice order = Orders.globalInvoice;
 
-        public static void Print(string printername)
+        public static void Print(string printername,Invoice Orders )
         {
-            order = Orders.globalInvoice;
+            order = Orders;
             PrintDocument = new PrintDocument();
             PrintDocument.PrinterSettings.PrinterName = printername;
 
@@ -254,7 +254,7 @@ namespace OrderForm
             
             try
             {
-                 if (order.OrderType == "هاتف" )PrintDocument.Print();
+                if (order.OrderType == "هاتف") PrintDocument.Print(); else return;
             }
             catch (Exception)
             {
@@ -267,16 +267,11 @@ namespace OrderForm
 
 
         }
-        private static void clearlist()
-        {
-            Orders.PrintingList.Clear();
-        }
-
-
+        
         private static void FormatPage(object sender, PrintPageEventArgs e)
         {
             float x = 0;
-            float y = 20;
+            float y = 10;
             float width = 270.0F; // max width I found through trial and error
             float height = 0F;
 
@@ -300,18 +295,14 @@ namespace OrderForm
             StringFormat drawFormatRight = new StringFormat();
             drawFormatRight.Alignment = StringAlignment.Far;
             StringFormat rtlFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
-            y += 10;
 
-            // Order Department
             
             string text;
             text = "صاحب الطلب موجود" + Environment.NewLine + "يرجى تسليم الطلب"+Environment.NewLine + "Paid";
             e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-            y += e.Graphics.MeasureString(text, lfnt).Height;
-            y += e.Graphics.MeasureString(text, lfnt).Height;
-            y += e.Graphics.MeasureString(text, lfnt).Height;
-
-            text = order.OrderType;
+            y += e.Graphics.MeasureString(" ", lfnt).Height;
+            y += e.Graphics.MeasureString(" ", lfnt).Height;
+                        text = order.OrderType;
             e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             text = Environment.NewLine + order.InvoicePrice + " SAR ";
             e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);

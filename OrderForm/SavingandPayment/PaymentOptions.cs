@@ -297,7 +297,7 @@ namespace OrderForm.SavingandPayment
             if (single)
             {
                 DbInv.UpdateInvoice(this.invoice.ID, invoiceNTB);
-
+                PrintInvoiceReady.Print(Properties.Settings.Default.DefaultPrinter,this.invoice);
             }
             else
             {
@@ -309,6 +309,7 @@ namespace OrderForm.SavingandPayment
                     DbInv.UpdateInvoice(inv.ID, invoiceNTB);
 
                 }
+                    PrintInvoiceReady.Print(Properties.Settings.Default.DefaultPrinter, MultipleInvoices[0]);
 
                 }
             }

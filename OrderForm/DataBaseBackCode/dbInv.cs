@@ -122,7 +122,7 @@ namespace OrderForm
             using (var db = Connect())
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
-                var draftInv = draft.Find(x => x.Status == InvStat.Printed);
+                var draftInv = draft.Find(x => x.Status == InvStat.Printed,0,100);
                 var d = draftInv.OrderBy(i => i.TimeOfInv).ToList();
                 return d;
             }
