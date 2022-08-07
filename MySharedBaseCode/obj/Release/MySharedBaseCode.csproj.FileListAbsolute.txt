@@ -1,0 +1,9 @@
+C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\bin\Release\MySharedBaseCode.dll
+C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\bin\Release\MySharedBaseCode.pdb
+C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\bin\Release\LiteDB.dll
+C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\bin\Release\LiteDB.xml
+C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Release\MySharedBaseCode.csproj.AssemblyReference.cache
+C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Release\MySharedBaseCode.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Release\MySharedBaseCode.csproj.CopyComplete
+C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Release\MySharedBaseCode.dll
+C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Release\MySharedBaseCode.pdb

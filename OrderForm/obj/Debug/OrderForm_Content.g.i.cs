@@ -8,6 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("autoitx3.assembly.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("autoitx3.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("autoitx3_x64.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("to%20do%20list.txt")]
 
 

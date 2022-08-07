@@ -29,6 +29,7 @@ namespace OrderForm
             return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
         public event EventHandler<string> ItemsAddedToInvoice;
+        
         public bool DgvMouseDown = false;
         public BindingList<POSItems> POS = new BindingList<POSItems>();
         public event EventHandler<string> UpdatedDraft;
@@ -50,7 +51,7 @@ namespace OrderForm
 
         private void LoadMethods()
         {
-            
+
             if (Properties.Settings.Default.showMenu)
             {
                 if (Screen.AllScreens.Count() > 1)
@@ -1215,7 +1216,8 @@ namespace OrderForm
                 t.Start();
 
 
-            } else if ( heldInv.Status == InvStat.Printed)
+            }
+            else if (heldInv.Status == InvStat.Printed)
             {
                 StopEditing = false;
                 ButtonStates(true);
@@ -1706,15 +1708,15 @@ namespace OrderForm
                 var List = DbInv.GetSavedInvoices();
                 foreach (var item in List)
                 {
-                   
-                        _InvBTN PrintedBTN = new _InvBTN(item);
-                        int ID = item.ID;
-                        PrintedBTN.Tag = ID;
 
-                        PrintedBTN.Click += HeldOrder_click;
-                        //PrintedBTN.MouseUp += HeldOrder_MouseUp;
-                        PrintedInvoices.Controls.Add(PrintedBTN);
-                    
+                    _InvBTN PrintedBTN = new _InvBTN(item);
+                    int ID = item.ID;
+                    PrintedBTN.Tag = ID;
+
+                    PrintedBTN.Click += HeldOrder_click;
+                    //PrintedBTN.MouseUp += HeldOrder_MouseUp;
+                    PrintedInvoices.Controls.Add(PrintedBTN);
+
                 }
             }
             else
@@ -1923,12 +1925,12 @@ namespace OrderForm
 
         private void A_PrintOrNot(object sender, Invoice e)
         {
-            
+
             if (checkBox1.Checked && e.OrderType == "هاتف")
             {
                 PrintInvoiceReady.Print(Properties.Settings.Default.DefaultPrinter, e);
             }
-            
+
         }
 
         private void FastComment_Closed(object sender, ToolStripDropDownClosedEventArgs e)
@@ -2097,7 +2099,7 @@ namespace OrderForm
 
         private void SaveInvoice_MouseDown(object sender, MouseEventArgs e)
         {
-   
+
         }
 
         private void HoldInvoice_click(object sender, EventArgs e)
@@ -2154,25 +2156,34 @@ namespace OrderForm
 
         private void unfocusableButton4_Click(object sender, EventArgs e)
         {
-            try
+            
+            if (Screen.AllScreens.Count() > 0)
             {
-                if (!MenuShowing)
+                try
                 {
-                    MenuShowing = true;
-                    d.pbox.Image = Custom_Classes.CreateOffer.CreateOfferNow(PrintNewInvoice());
-                    d.Location = Screen.AllScreens[1].WorkingArea.Location;
-                    d.Top += 150;
-                    d.Left += 40;
-                    d.Show();
-                    d.timer1.Tick += new EventHandler(MenuShowingStatus);
-                    d.timer1.Start();
+                    if (!MenuShowing)
+                    {
+                        MenuShowing = true;
+                        d.pbox.Image = Custom_Classes.CreateOffer.CreateOfferNow(PrintNewInvoice());
+                        d.Location = Screen.AllScreens[1].WorkingArea.Location;
+                        d.Top += 150;
+                        d.Left += 40;
+                        d.Show();
+                        d.timer1.Tick += new EventHandler(MenuShowingStatus);
+                        d.timer1.Start();
+                    }
+                    else { d.stopNow(); MenuShowing = false; }
                 }
-                else { d.stopNow(); MenuShowing = false; }
+                catch (Exception)
+                {
 
-            }
-            catch (Exception)
-            {
-            }
+                    
+                }    
+                   
+                
+
+            }else Custom_Classes.CreateOffer.CreateOfferNow(PrintNewInvoice());
+
         }
         private void MenuSelection_Opening(object sender, CancelEventArgs e)
         {
@@ -2218,7 +2229,7 @@ namespace OrderForm
 
         private void AsrLBL_Click(object sender, EventArgs e)
         {
-           
+
         }
     }
 

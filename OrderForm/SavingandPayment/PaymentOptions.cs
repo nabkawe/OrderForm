@@ -1,4 +1,4 @@
-﻿using AutoItX3Lib;
+﻿using AutoIt;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -55,7 +55,6 @@ namespace OrderForm.SavingandPayment
         public List<POSItems> MultipleItems = new List<POSItems>();
 
         public Invoice invoice;
-        public AutoItX3 ait = new AutoItX3();
         public PaymentOptions(Invoice inv) // SingleInvoice Constructor
         {
             InitializeComponent();
@@ -114,45 +113,45 @@ namespace OrderForm.SavingandPayment
             }
             if (GetPOSWindow() && CheckIfReadyToSave())
             {
-                ait.WinActivate(pos);
-                if (Convert.ToDecimal(ait.ControlGetText(pos, "", invoiceprc)) != 0)
+                AutoItX.WinActivate(pos);
+                if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) != 0)
                 {
-                    ait.WinActivate(pos);
-                    ait.ControlClick(pos, "", POSNewBTN, "left", 1);
-                    ait.Send("{ENTER}");
+                    AutoItX.WinActivate(pos);
+                    AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
+                    AutoItX.Send("{ENTER}");
                     CashBTN_Click(null, null);
                     return;
                 }
 
                 AddItemsToPOS(singleOrMultipleInvoice);
-                if (Convert.ToInt32(ait.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
+                if (Convert.ToInt32(AutoItX.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
                 {
                     if (Cash.Text.Replace(" ", "") == "")
                     {
 
-                        ait.ControlSetText(pos, "", CashTextBox, dueLBL.Text);
+                        AutoItX.ControlSetText(pos, "", CashTextBox, dueLBL.Text);
                     }
                     else
                     {
                         var testPrice = Convert.ToDecimal(this.Cash.Text);
                         if (testPrice > Convert.ToDecimal(dueLBL.Text))
                         {
-                            ait.ControlSetText(pos, "", CashTextBox, testPrice.ToString());
+                            AutoItX.ControlSetText(pos, "", CashTextBox, testPrice.ToString());
                         }
-                        else ait.ControlSetText(pos, "", CashTextBox, dueLBL.Text);
+                        else AutoItX.ControlSetText(pos, "", CashTextBox, dueLBL.Text);
                     }
                 }
                 else
                 {
-                    ait.ControlClick(pos, "", SwitchBTN, "left", 1);
-                    ait.Sleep(500);
+                    AutoItX.ControlClick(pos, "", SwitchBTN, "left", 1);
+                    AutoItX.Sleep(500);
 
                 }
                 SaveInvoiceNumber(singleOrMultipleInvoice);
             }
             else if (!CheckIfReadyToSave())
             {
-                ait.ControlClick(pos, "", POSNewBTN, "left", 2);
+                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2);
                 CashBTN_Click(null, null);
             }
 
@@ -173,39 +172,39 @@ namespace OrderForm.SavingandPayment
             }
             if (GetPOSWindow() && CheckIfReadyToSave())
             {
-                if (Convert.ToDecimal(ait.ControlGetText(pos, "", invoiceprc)) != 0)
+                if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) != 0)
                 {
-                    ait.WinActivate(pos);
-                    ait.ControlClick(pos, "", POSNewBTN, "left", 1);
-                    ait.Send("{ENTER}");
+                    AutoItX.WinActivate(pos);
+                    AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
+                    AutoItX.Send("{ENTER}");
                     MadaBTN_Click(null, null);
                     return;
 
                 }
                 AddItemsToPOS(singleOrMultipleInvoice);
 
-                if (Convert.ToInt32(ait.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
+                if (Convert.ToInt32(AutoItX.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
                 {
-                    ait.ControlClick(pos, "", SwitchBTN, "left", 1);
-                    ait.Sleep(500);
+                    AutoItX.ControlClick(pos, "", SwitchBTN, "left", 1);
+                    AutoItX.Sleep(500);
                     SaveInvoiceNumber(singleOrMultipleInvoice);
-                    //ait.ControlClick(pos, "", SaveBTN, "left", 1);
+                    //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
                 }
                 else
                 {
-                    ait.ControlClick(pos, "", SwitchBTN, "left", 1);
-                    ait.Sleep(1000);
-                    ait.ControlClick(pos, "", SwitchBTN, "left", 1);
-                    ait.Sleep(1000);
+                    AutoItX.ControlClick(pos, "", SwitchBTN, "left", 1);
+                    AutoItX.Sleep(1000);
+                    AutoItX.ControlClick(pos, "", SwitchBTN, "left", 1);
+                    AutoItX.Sleep(1000);
                     SaveInvoiceNumber(singleOrMultipleInvoice);
-                    //ait.ControlClick(pos, "", SaveBTN, "left", 1);
+                    //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
                 }
 
 
             }
             else if (!CheckIfReadyToSave())
             {
-                ait.ControlClick(pos, "", POSNewBTN, "left", 2);
+                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2);
                 MadaBTN_Click(null, null);
             }
 
@@ -220,7 +219,7 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         private void ManualBTN_Click(object sender, EventArgs e)
         {
-            if (Convert.ToDecimal(ait.ControlGetText(pos, "", invoiceprc)) == 0) { 
+            if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) == 0) { 
                 SaveManualToPOS();
             }
 
@@ -236,49 +235,49 @@ namespace OrderForm.SavingandPayment
             }
             if (GetPOSWindow() && CheckIfReadyToSave())
             {
-                if (Convert.ToDecimal(ait.ControlGetText(pos, "", invoiceprc)) != 0)
+                if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) != 0)
                 {
-                    ait.WinActivate(pos);
-                    ait.ControlClick(pos, "", POSNewBTN, "left", 1);
+                    AutoItX.WinActivate(pos);
+                    AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
                     
-                    ait.Send("{ENTER}");
+                    AutoItX.Send("{ENTER}");
                     SaveManualToPOS();
                     return;
 
                 }
                 AddItemsToPOS(singleOrMultipleInvoice);
-                ait.ControlClick(pos, "", SwitchBTN, "left");
-                ait.Sleep(500);
+                AutoItX.ControlClick(pos, "", SwitchBTN, "left");
+                AutoItX.Sleep(500);
                 if (PartCash_.Text != "")
                 {
-                    ait.ControlSetText(pos, "", PartCash, PartCash_.Text);
+                    AutoItX.ControlSetText(pos, "", PartCash, PartCash_.Text);
                 }
-                else ait.ControlSetText(pos, "", PartCash, "0");
+                else AutoItX.ControlSetText(pos, "", PartCash, "0");
                 if (Mada1_.Text != "")
                 {
-                    ait.ControlSetText(pos, "", Mada1, Mada1_.Text);
+                    AutoItX.ControlSetText(pos, "", Mada1, Mada1_.Text);
                 }
-                else ait.ControlSetText(pos, "", Mada1, "0");
+                else AutoItX.ControlSetText(pos, "", Mada1, "0");
                 if (Mada2_.Text != "")
                 {
-                    ait.ControlSetText(pos, "", Mada2, Mada2_.Text);
-                    ait.ControlClick(pos, "", Mada2CB, "Left");
-                    ait.ControlSend(pos, "", Mada2CB, "{DOWN}{ENTER}", 0);
+                    AutoItX.ControlSetText(pos, "", Mada2, Mada2_.Text);
+                    AutoItX.ControlClick(pos, "", Mada2CB, "Left");
+                    AutoItX.ControlSend(pos, "", Mada2CB, "{DOWN}{ENTER}", 0);
                 }
 
                 if (Mada3_.Text != "")
                 {
-                    ait.ControlSetText(pos, "", Mada3, Mada3_.Text);
-                    ait.ControlClick(pos, "", Mada3CB, "Left");
-                    ait.ControlSend(pos, "", Mada3CB, "{DOWN}{ENTER}", 0);
+                    AutoItX.ControlSetText(pos, "", Mada3, Mada3_.Text);
+                    AutoItX.ControlClick(pos, "", Mada3CB, "Left");
+                    AutoItX.ControlSend(pos, "", Mada3CB, "{DOWN}{ENTER}", 0);
 
                 }
                 SaveInvoiceNumber(singleOrMultipleInvoice);
-                //ait.ControlClick(pos, "", SaveBTN, "left", 1);
+                //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
             }
             else if (!CheckIfReadyToSave())
             {
-                ait.ControlClick(pos, "", POSNewBTN, "left", 2);
+                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2);
                 SaveManualToPOS();
             }
 
@@ -291,8 +290,8 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         private void SaveInvoiceNumber(bool single)
         {
-            string invoiceNTB = ait.ControlGetText(pos, "", InvoiceNumberTB);
-            if (!Properties.Settings.Default.TestingMode) ait.ControlClick(pos, "", SaveBTN, "left", 1);
+            string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
+            if (!Properties.Settings.Default.TestingMode) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
 
             if (single)
             {
@@ -327,52 +326,52 @@ namespace OrderForm.SavingandPayment
          
             if (single)
             {
-                ait.ControlClick(pos, "", POSClearNumber, "left", 1);
+                AutoItX.ControlClick(pos, "", POSClearNumber, "left", 1);
                 foreach (var item in invoice.InvoiceItems)
                 {
-                    ait.ControlClick(pos, "", barcodetb, "left", 1);
-                    ait.ControlSend(pos, "", barcodetb, item.Barcode, 0);
-                    ait.ControlSend(pos, "", barcodetb, "{ENTER}", 0);
+                    AutoItX.ControlClick(pos, "", barcodetb, "left", 1);
+                    AutoItX.ControlSend(pos, "", barcodetb, item.Barcode, 0);
+                    AutoItX.ControlSend(pos, "", barcodetb, "{ENTER}", 0);
                     int q = Convert.ToInt32(item.Quantity);
-                    ait.ControlSetText(pos, "", amountlbl, q.ToString());
-                    ait.ControlClick(pos, "", btnsubmit, "left", 1);
+                    AutoItX.ControlSetText(pos, "", amountlbl, q.ToString());
+                    AutoItX.ControlClick(pos, "", btnsubmit, "left", 1);
                 }
                 if (this.invoice.CustomerName != null)
                 {
                     if (this.invoice.CustomerName.Replace(" ", "") != "")
                     {
-                        ait.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -" + this.invoice.CustomerName) ;
+                        AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -" + this.invoice.CustomerName) ;
 
                     }
-                    else ait.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -");
+                    else AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -");
                 }
                 else
-                ait.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -" );
+                AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -" );
 
             }
             else
             {
                 var InvoiceItems = CreateNewListOfItems();
-                ait.ControlClick(pos, "", POSClearNumber, "left", 1);
+                AutoItX.ControlClick(pos, "", POSClearNumber, "left", 1);
                 foreach (var item in InvoiceItems)
                 {
-                    ait.ControlClick(pos, "", barcodetb, "left", 1);
-                    ait.ControlSend(pos, "", barcodetb, item.Barcode, 0);
-                    ait.ControlSend(pos, "", barcodetb, "{ENTER}", 0);
+                    AutoItX.ControlClick(pos, "", barcodetb, "left", 1);
+                    AutoItX.ControlSend(pos, "", barcodetb, item.Barcode, 0);
+                    AutoItX.ControlSend(pos, "", barcodetb, "{ENTER}", 0);
                     int q = Convert.ToInt32(item.Quantity);
-                    ait.ControlSetText(pos, "", amountlbl, q.ToString());
-                    ait.ControlClick(pos, "", btnsubmit, "left", 1);
+                    AutoItX.ControlSetText(pos, "", amountlbl, q.ToString());
+                    AutoItX.ControlClick(pos, "", btnsubmit, "left", 1);
                 }
                 List<string> invoiceIDS = new List<string>();
                 MultipleInvoices.ForEach(x => invoiceIDS.Add(x.ID.ToString()));
                 var joinedNames = invoiceIDS.Aggregate((a, b) => a + "-" + b);
-                ait.ControlSetText(pos, "", invoicenotes, "أوراق تحضير:" + joinedNames);
+                AutoItX.ControlSetText(pos, "", invoicenotes, "أوراق تحضير:" + joinedNames);
             }
         }
 
         private void DoDiscount()
         {
-            ait.ControlSetText(pos, "", "[NAME:TextBox2]", textBox1.Text);
+            AutoItX.ControlSetText(pos, "", "[NAME:TextBox2]", textBox1.Text);
         }
 
         private List<POSItems> CreateNewListOfItems()
@@ -408,8 +407,8 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         private bool CheckIfReadyToSave()
         {
-            if (ait.ControlGetText(pos, "", InvoiceTime).Contains("PM") ||
-                ait.ControlGetText(pos, "", InvoiceTime).Contains("AM"))
+            if (AutoItX.ControlGetText(pos, "", InvoiceTime).Contains("PM") ||
+                AutoItX.ControlGetText(pos, "", InvoiceTime).Contains("AM"))
             {
                 return true;
             }
@@ -417,15 +416,15 @@ namespace OrderForm.SavingandPayment
         }
         private bool OpenNewPosWindow()
         {
-            ait.WinActivate(POSmainName);
-            ait.WinSetState(POSmainName, "", ait.SW_MAXIMIZE);
-            ait.WinSetOnTop(POSmainName, "", 1);
-            ait.ControlClick(POSmainName, "", POSShortcut, "LEFT", 2, 58, 232);
-            ait.ControlClick(POSmainName, "", POSWinShortcut, "LEFT", 1);
-            ait.WinSetOnTop(POSmainName, "", 0);
-            ait.WinSetState(POSmainName, "", ait.SW_MINIMIZE);
-            ait.WinActivate(pos);
-            if (ait.WinWaitActive(pos, "", 2000) == 1)
+            AutoItX.WinActivate(POSmainName);
+            AutoItX.WinSetState(POSmainName, "", AutoItX.SW_MAXIMIZE);
+            AutoItX.WinSetOnTop(POSmainName, "", 1);
+            AutoItX.ControlClick(POSmainName, "", POSShortcut, "LEFT", 2, 58, 232);
+            AutoItX.ControlClick(POSmainName, "", POSWinShortcut, "LEFT", 1);
+            AutoItX.WinSetOnTop(POSmainName, "", 0);
+            AutoItX.WinSetState(POSmainName, "", AutoItX.SW_MINIMIZE);
+            AutoItX.WinActivate(pos);
+            if (AutoItX.WinWaitActive(pos, "", 2000) == 1)
             {
                 return true;
             }
@@ -436,16 +435,16 @@ namespace OrderForm.SavingandPayment
          int repeat = 0;
         private bool GetPOSWindow()
         {
-            if (ait.WinExists(pos) == 1)
+            if (AutoItX.WinExists(pos) == 1)
             {
-                ait.WinSetState(pos, "", ait.SW_RESTORE);
-                ait.WinSetState(pos, "", ait.SW_MAXIMIZE);
-                ait.WinSetState("WhatsApp", "", ait.SW_MINIMIZE);
+                AutoItX.WinSetState(pos, "", AutoItX.SW_RESTORE);
+                AutoItX.WinSetState(pos, "", AutoItX.SW_MAXIMIZE);
+                AutoItX.WinSetState("WhatsApp", "", AutoItX.SW_MINIMIZE);
                 return true;
                 // code for checking empty or not.
 
             }
-            else if (ait.WinExists(POSmainName) == 1)
+            else if (AutoItX.WinExists(POSmainName) == 1)
             {
                 if (OpenNewPosWindow())
                 {

@@ -10,9 +10,10 @@ namespace OrderForm
 {
     public static class DbInv
     {
+        static LiteDatabase db = new LiteDatabase(Properties.Settings.Default.DBConnection);
+
         public static LiteDatabase Connect()
         {
-            var db = new LiteDatabase(Properties.Settings.Default.DBConnection);
             //var db = new LiteDatabase(@"Filename=C:\db\db.db;Connection=shared");
             return db;
         }
@@ -21,7 +22,6 @@ namespace OrderForm
         public static void LogAction(string action, int id, InvStat status)
         {
 
-            using (var db = Connect())
             {
                 if (status == InvStat.Draft)
                 {
@@ -46,7 +46,6 @@ namespace OrderForm
 
         public static int GetInvoicesCount()
         {
-            using (var db = Connect())
             {
                 var s = db.GetCollection<Invoice>("Invoices");
                 var S = s.FindAll();
@@ -70,7 +69,6 @@ namespace OrderForm
 
         public static List<Invoice> GetDraftInvoices()
         {
-            using (var db = Connect())
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.Draft && x.InvoiceItems.Count > 0).ToList();
@@ -79,7 +77,6 @@ namespace OrderForm
         }
         public static void DeleteInvoicesByID(int id)
         {
-            using (var db = Connect())
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 draft.DeleteMany(x => x.Status == InvStat.Draft && x.ID == id);
@@ -90,7 +87,6 @@ namespace OrderForm
 
         internal static void DeleteDBInvoices()
         {
-            using (var db = Connect())
             {
                 db.DropCollection("Invoices");
 
@@ -100,7 +96,6 @@ namespace OrderForm
         internal static void unlockall()
         {
 
-            using (var db = Connect())
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 draft.Find(x => x.Status == InvStat.Draft).ToList().ForEach(i => { i.InEditMode = false; draft.Update(i); });
@@ -110,7 +105,6 @@ namespace OrderForm
         }
         internal static List<Invoice> SearchPrintedInvoices(string text)
         {
-            using (var db = Connect())
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.Printed && x.SearchResult.Contains(text));
@@ -121,7 +115,6 @@ namespace OrderForm
         }
         public static List<Invoice> GetPrintedInvoices()
         {
-            using (var db = Connect())
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.Printed,0,100);
@@ -131,7 +124,6 @@ namespace OrderForm
         }
         internal static void UpdateInvoice(int iD, string posID)
         {
-            using (var db = Connect())
             {
                 var updatedInvoices = db.GetCollection<Invoice>("Invoices");
                 var updated = updatedInvoices.FindById(iD);
@@ -146,7 +138,6 @@ namespace OrderForm
         }
         internal static void UpdateDraftInvoice(int iD, bool edit)
         {
-            using (var db = Connect())
             {
                 var updatedInvoices = db.GetCollection<Invoice>("Invoices");
                 var updated = updatedInvoices.FindById(iD);
@@ -161,7 +152,6 @@ namespace OrderForm
         }
         internal static bool IsItOpen(int iD)
         {
-            using (var db = Connect())
             {
                 var updatedInvoices = db.GetCollection<Invoice>("Invoices");
                 var updated = updatedInvoices.FindById(iD);
@@ -180,7 +170,6 @@ namespace OrderForm
 
         public static Invoice GetInvoiceByID(int ID)
         {
-            using (var db = Connect())
             {
                 var invoices = db.GetCollection<Invoice>("Invoices");
                 Invoice invoice = invoices.FindOne(x => x.ID == ID);
@@ -190,7 +179,6 @@ namespace OrderForm
 
         public static Invoice GetDraftInvoiceByID(int ID)
         {
-            using (var db = Connect())
             {
                 var invoices = db.GetCollection<Invoice>("Invoices");
                 Invoice invoice = invoices.FindOne(x => x.ID == ID && x.Status == InvStat.Draft);
@@ -200,7 +188,6 @@ namespace OrderForm
 
         public static List<Invoice> GetSavedInvoices()
         {
-            using (var db = Connect())
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.Deleted || x.Status == InvStat.SavedToPOS,draft.Find(y=> y.Status == InvStat.SavedToPOS || y.Status == InvStat.Deleted).Count()-200,200);
@@ -211,7 +198,6 @@ namespace OrderForm
 
         public static void UpdateInvoiceTime()
         {
-            using (var db = Connect())
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted);
@@ -221,7 +207,7 @@ namespace OrderForm
         }
             public static List<Invoice> GetAllSavedInvoices()
         {
-            using (var db = Connect())
+ 
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted);
@@ -231,7 +217,7 @@ namespace OrderForm
         }
         public static void CreateDraftInvoice(Invoice inv)
         {
-            using (var db = Connect())
+ 
             {
                 var invoiceTable = db.GetCollection<Invoice>("Invoices");
                 invoiceTable.Upsert(inv);
@@ -248,7 +234,7 @@ namespace OrderForm
 
         public static bool DeleteInvoice(int id, int comment)
         {
-            using (var db = Connect())
+ 
             {
                 var Invoices = db.GetCollection<Invoice>("Invoices");
                 var Deleted = Invoices.FindById(id);
@@ -272,7 +258,7 @@ namespace OrderForm
 
         public static void CreatePreparingInvoice(Invoice inv)
         {
-            using (var db = Connect())
+ 
             {
                 var invoiceTable = db.GetCollection<Invoice>("Invoices");
                 invoiceTable.Upsert(inv);
@@ -284,7 +270,7 @@ namespace OrderForm
 
         public static void SaveContacts(Contacts contact)
         {
-            using (var db = Connect())
+ 
             {
                 var Deps = db.GetCollection<Contacts>("Customers");
                 Deps.Upsert(contact);
@@ -293,7 +279,7 @@ namespace OrderForm
         }
         public static List<Contacts> LoadContacts(string number)
         {
-            using (var db = Connect())
+ 
             {
                 var Deps = db.GetCollection<Contacts>("Customers");
                 List<Contacts> list = Deps.Find(x => x.Number == number).ToList();
@@ -302,7 +288,7 @@ namespace OrderForm
         }
         public static void SaveDepartments(List<POSDepartments> list)
         {
-            using (var db = Connect())
+ 
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
                 if (Deps.Count() > 0)
@@ -339,7 +325,7 @@ namespace OrderForm
 
         public static List<POSDepartments> LoadDepartments()
         {
-            using (var db = Connect())
+ 
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
                 List<POSDepartments> a = Deps.FindAll().ToList();
@@ -349,7 +335,7 @@ namespace OrderForm
 
         public static void DefaultPrinters(string printer)
         {
-            using (var db = Connect())
+ 
             {
                 var DefaultPrinterTable = db.GetCollection<BsonDocument>("DefaultPrinter");
                 DefaultPrinterTable.DeleteAll();
@@ -362,7 +348,7 @@ namespace OrderForm
         }
         public static string DelDefaultPrinters()
         {
-            using (var db = Connect())
+ 
             {
                 var DefaultPrinterTable = db.GetCollection<BsonDocument>("DefaultPrinter");
                 DefaultPrinterTable.DeleteAll();
@@ -377,7 +363,7 @@ namespace OrderForm
 
         public static POSsections GetSection(string name)
         {
-            using (var db = Connect())
+ 
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 POSsections s = sectionTable.FindOne(x => x.Name == name);
@@ -386,7 +372,7 @@ namespace OrderForm
         }
         public static List<POSsections> GetSections()
         {
-            using (var db = Connect())
+ 
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 List<POSsections> s = sectionTable.FindAll().ToList();
@@ -395,7 +381,7 @@ namespace OrderForm
         }
         public static void SaveSections(ListBox list)
         {
-            using (var db = Connect())
+ 
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 List<POSsections> sectionbackup = sectionTable.FindAll().ToList();
@@ -403,7 +389,7 @@ namespace OrderForm
                 sectionTable.DropIndex("Sections");
                 db.DropCollection("Sections");
             }
-            using (var db = Connect())
+ 
             {
                 var section = db.GetCollection<POSsections>("Sections");
                 foreach (POSsections s in list.Items)
@@ -429,7 +415,7 @@ namespace OrderForm
 
         public static List<POSItems> CreateNewMaterials(DataGridView dgv)
         {
-            using (var db = Connect())
+ 
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 var Cancel = Materials;
@@ -476,7 +462,7 @@ namespace OrderForm
 
         public static void CancelLastSave(List<POSItems> mat)
         {
-            using (var db = Connect())
+ 
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 Materials.DeleteAll();
@@ -492,7 +478,7 @@ namespace OrderForm
 
         public static List<POSItems> GetAllMaterials()
         {
-            using (var db = Connect())
+ 
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 var col = Materials.FindAll().ToList();
@@ -511,7 +497,7 @@ namespace OrderForm
 
         public static IEnumerable<POSsections> PopulateSections() //at Load
         {
-            using (var db = Connect())
+ 
             {
                 var s = db.GetCollection<POSsections>("Sections");
                 var S = s.FindAll();

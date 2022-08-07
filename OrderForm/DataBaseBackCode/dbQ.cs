@@ -10,6 +10,8 @@ namespace OrderForm
     public static class dbQ
     {
 
+        static LiteDatabase db = new LiteDatabase(Properties.Settings.Default.DBConnection);
+
         public static LiteDatabase Connect()
         {
 
@@ -20,7 +22,7 @@ namespace OrderForm
         }
         public static void UpdateSectionNotes(POSsections sect)
         {
-            using (var db = Connect())
+ 
             {
                 var Deps = db.GetCollection<POSsections>("Sections");
                 Deps.Update(sect);
@@ -29,7 +31,7 @@ namespace OrderForm
         }
         public static int SaveContacts(Contacts contact)
         {
-            using (var db = Connect())
+ 
             {
 
                 var Deps = db.GetCollection<Contacts>("Customers");
@@ -49,7 +51,7 @@ namespace OrderForm
         }
         public static List<Contacts> LoadContacts(string number)
         {
-            using (var db = Connect())
+ 
             {
                 var Deps = db.GetCollection<Contacts>("Customers");
                 List<Contacts> list = Deps.Find(x => x.Number == number).ToList();
@@ -58,7 +60,7 @@ namespace OrderForm
         }
         public static void SaveDepartments(List<POSDepartments> list)
         {
-            using (var db = Connect())
+ 
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
                 if (Deps.Count() > 0)
@@ -100,7 +102,7 @@ namespace OrderForm
 
         public static List<POSDepartments> LoadDepartments()
         {
-            using (var db = Connect())
+ 
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
                 List<POSDepartments> a = Deps.FindAll().ToList();
@@ -120,7 +122,7 @@ namespace OrderForm
 
         public static void UpdateAllItemsPrinters(List<POSItems> list)
         {
-            using (var db = Connect())
+ 
             {
                 var materials = db.GetCollection<POSItems>("Materials");
                 list.ForEach(x => materials.Update(x));
@@ -131,7 +133,7 @@ namespace OrderForm
 
         public static POSsections PrinterGetSectionMaterial(string selected)
         {
-            using (var db = Connect())
+ 
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 var materials = db.GetCollection<POSItems>("Materials");
@@ -142,7 +144,7 @@ namespace OrderForm
         static int order = 0;
         public static void UpdateItemSections(List<POSItems> list, string section)
         {
-            using (var db = Connect())
+ 
             {
                 
                 var materials = db.GetCollection<POSItems>("Materials");
@@ -154,7 +156,7 @@ namespace OrderForm
 
         public static List<POSItems> GetItemsForSection(string section)
         {
-            using (var db = Connect())
+ 
             {
                 var materials = db.GetCollection<POSItems>("Materials");
                 List<POSItems> items = materials.Find(x => x.SectionName == section).ToList();
@@ -168,7 +170,7 @@ namespace OrderForm
         static List<POSsections> result = new List<POSsections>();
         public static List<POSsections> GetSection(POSItems item)
         {
-            using (var db = Connect())
+ 
             {
                 result.Clear();
                 var sectionTable = db.GetCollection<POSsections>("Sections");
@@ -189,7 +191,7 @@ namespace OrderForm
         }
         public static List<POSsections> GetSections()
         {
-            using (var db = Connect())
+ 
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 List<POSsections> s = sectionTable.FindAll().ToList();
@@ -198,7 +200,7 @@ namespace OrderForm
         }
         public static void SaveSections(ListBox list)
         {
-            using (var db = Connect())
+ 
             {
                 var mat = db.GetCollection<POSItems>("Materials");
                var sectionTable = db.GetCollection<POSsections>("Sections");
@@ -230,7 +232,7 @@ namespace OrderForm
 
         public static List<POSItems> CreateNewMaterials(DataGridView dgv)
         {
-            using (var db = Connect())
+ 
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 var Cancel = Materials;
@@ -277,7 +279,7 @@ namespace OrderForm
 
         public static void CancelLastSave(List<POSItems> mat)
         {
-            using (var db = Connect())
+ 
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 Materials.DeleteAll();
@@ -293,7 +295,7 @@ namespace OrderForm
 
         public static List<POSItems> GetAllMaterials()
         {
-            using (var db = Connect())
+ 
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 var col = Materials.FindAll().ToList();
@@ -311,7 +313,7 @@ namespace OrderForm
 
         public static List<POSItems> PopulateItems() //at LOAD
         {
-            using (var db = Connect())
+ 
             {
                 try
                 {
@@ -342,7 +344,7 @@ namespace OrderForm
         }
         public static List<POSsections> PopulateSections() //at Load
         {
-            using (var db = Connect())
+ 
             {
                 var s = db.GetCollection<POSsections>("Sections");
                 var S = s.FindAll();
@@ -352,7 +354,7 @@ namespace OrderForm
         }
         public static int GetInvoicesCount()
         {
-            using (var db = Connect())
+ 
             {
                 var s = db.GetCollection<Invoice>("Invoices");
                 var S = s.FindAll();
@@ -363,7 +365,7 @@ namespace OrderForm
 
         internal static void SaveOrUpdateItems(List<POSItems> MAT)
         {
-            using (var db = Connect())
+ 
             {
                 var mat = db.GetCollection<POSItems>("Materials");
                 var deleted = mat.FindAll().Except(MAT);
@@ -374,7 +376,7 @@ namespace OrderForm
         }
         internal static List<POSItems> LoadMaterialItems()
         {
-            using (var db = Connect())
+ 
             {
                 var mat = db.GetCollection<POSItems>("Materials");
                 return mat.FindAll().ToList();

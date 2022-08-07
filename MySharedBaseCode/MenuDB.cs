@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 namespace sharedCode
 {
     public static class MenuDB
+
     {
+
         public static LiteDatabase Connect()
         {
             var db = new LiteDatabase(@"Filename=C:\\db\\MenuDB.db;Connection=shared"); return db;
