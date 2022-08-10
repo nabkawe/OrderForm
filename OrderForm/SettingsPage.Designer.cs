@@ -52,6 +52,7 @@
             this.label51 = new System.Windows.Forms.Label();
             this.BranchName = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.showMenu = new System.Windows.Forms.CheckBox();
             this.PartCash = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.Mada1 = new System.Windows.Forms.TextBox();
@@ -243,7 +244,7 @@
             this.mlistTB = new System.Windows.Forms.TextBox();
             this.MListLB = new System.Windows.Forms.ListBox();
             this.sectionsML = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.showMenu = new System.Windows.Forms.CheckBox();
+            this.available = new System.Windows.Forms.CheckBox();
             this.About.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.Pos.SuspendLayout();
@@ -521,6 +522,16 @@
             this.groupBox10.TabIndex = 75;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "مستطيلات الإدخال ليبرا";
+            // 
+            // showMenu
+            // 
+            this.showMenu.AutoSize = true;
+            this.showMenu.Location = new System.Drawing.Point(27, 405);
+            this.showMenu.Name = "showMenu";
+            this.showMenu.Size = new System.Drawing.Size(83, 17);
+            this.showMenu.TabIndex = 61;
+            this.showMenu.Text = "إظهار القائمة";
+            this.showMenu.UseVisualStyleBackColor = true;
             // 
             // PartCash
             // 
@@ -1802,6 +1813,7 @@
             // 
             // MaterialsEdit
             // 
+            this.MaterialsEdit.Controls.Add(this.available);
             this.MaterialsEdit.Controls.Add(this.SectionNameTB);
             this.MaterialsEdit.Controls.Add(this.PrinterTB);
             this.MaterialsEdit.Controls.Add(this.PicTB);
@@ -2631,15 +2643,17 @@
             this.sectionsML.Opening += new System.ComponentModel.CancelEventHandler(this.sectionsML_Opening);
             this.sectionsML.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.sectionsML_ItemClicked);
             // 
-            // showMenu
+            // available
             // 
-            this.showMenu.AutoSize = true;
-            this.showMenu.Location = new System.Drawing.Point(27, 405);
-            this.showMenu.Name = "showMenu";
-            this.showMenu.Size = new System.Drawing.Size(83, 17);
-            this.showMenu.TabIndex = 61;
-            this.showMenu.Text = "إظهار القائمة";
-            this.showMenu.UseVisualStyleBackColor = true;
+            this.available.AutoSize = true;
+            this.available.Checked = true;
+            this.available.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.available.Location = new System.Drawing.Point(554, 473);
+            this.available.Name = "available";
+            this.available.Size = new System.Drawing.Size(90, 17);
+            this.available.TabIndex = 26;
+            this.available.Text = "المادة متوفرة؟";
+            this.available.UseVisualStyleBackColor = true;
             // 
             // SettingsPage
             // 
@@ -2914,5 +2928,6 @@
         private System.Windows.Forms.Button SaveMulti;
         private System.Windows.Forms.ContextMenuStrip sectionsML;
         public System.Windows.Forms.CheckBox showMenu;
+        private System.Windows.Forms.CheckBox available;
     }
 }

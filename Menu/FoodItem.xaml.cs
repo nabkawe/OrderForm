@@ -112,7 +112,10 @@ namespace Menu
         public void FillInfo(MenuItemsX pos)
         {
             SwitchMe();
-
+            if (pos.Available)
+            {
+                this.AvailableLabel.Visibility = Visibility.Hidden;
+            }
             var Name = this.Reg("kName");
             Name.Content = pos.Name;
 

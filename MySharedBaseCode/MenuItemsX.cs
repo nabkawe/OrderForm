@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace sharedCode
 {
     public class MenuItemsX
@@ -14,42 +13,45 @@ namespace sharedCode
 
         public string Name { get; set; }
         public string Details { get; set; }
-       
+
         public string Cal { get; set; }
 
 
         public string Price { get; set; }
 
         public string ImagePath { get; set; }
-        
+
         public bool Available { get; set; }
-        public override string ToString()
-        {
-            return Name +" "+ Price;
-        }
+    
+
+public override string ToString()
+{
+    return Name + " " + Price;
+}
     }
     public class MenuSection
+{
+    public int ID { get; set; }
+    public int order { get; set; }
+    public string Name { get; set; }
+    public List<object> list { get; set; }
+    public override string ToString()
     {
-        public int ID { get; set; }
-        public int order { get; set; }
-        public string Name { get; set; }
-        public List<object> list { get; set; }
-        public override string ToString()
-        {
-            return Name; 
-        }
-        public MenuSection()
-        {
-            list = new List<object>();  
-        }
+        return Name;
     }
-    public class infoObject
+    public MenuSection()
     {
-        public int ID { get; set; }
-        public List<string> list { get; set; }
-        public infoObject() { 
+        list = new List<object>();
+    }
+}
+public class infoObject
+{
+    public int ID { get; set; }
+    public List<string> list { get; set; }
+    public infoObject()
+    {
         list = new List<string>();
 
-        }
     }
+}
 }

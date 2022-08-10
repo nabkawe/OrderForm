@@ -615,7 +615,7 @@ namespace OrderForm
                 Price = Convert.ToDecimal(prcTB.Text),
                 Quantity = Convert.ToInt32(quanTB.Text),
                 realquan = Convert.ToInt32(RealQuanTB.Text)
-                ,
+                , Available = available.Checked,
                 Tax = Properties.Settings.Default.CurrentTax,
                 PicturePath = PicTB.Text,
                 Comment = "",
@@ -636,7 +636,7 @@ namespace OrderForm
                 PicTB.Text = "";
                 PrinterTB.Text = "";
                 SectionNameTB.Text = "بدون قسم";
-
+                available.Checked= true;    
                 NameTB.Focus();
                 matLB.Enabled = true;
             }
@@ -694,12 +694,15 @@ namespace OrderForm
             pos.PicturePath = PicTB.Text;
             pos.PrinterName = PrinterTB.Text;
             pos.SectionName = SectionNameTB.Text;
+            pos.Available=available.Checked;
             AddMat.Enabled = true;
             EditMat.Enabled = false;
             matLB.DataSource = null;
             matLB.DataSource = MAT;
+            
             matLB.Update();
             matLB.Refresh();
+            available.Checked = true;
             NameTB.Text = "";
             BarTB.Text = "";
             prcTB.Text = "0";

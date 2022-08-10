@@ -87,7 +87,7 @@
       <Value Profile="(Default)">[NAME:ComboBox17]</Value>
     </Setting>
     <Setting Name="DBConnection" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Filename=C:\db\db.db;Connection=shared</Value>
+      <Value Profile="(Default)">filename=//desktop-piefrsj/db/db.db;connection=shared</Value>
     </Setting>
     <Setting Name="defaultOrder" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>

@@ -361,7 +361,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Filename=C:\\db\\db.db;Connection=shared")]
+        [global::System.Configuration.DefaultSettingValueAttribute("filename=//desktop-piefrsj/db/db.db;connection=shared")]
         public string DBConnection {
             get {
                 return ((string)(this["DBConnection"]));

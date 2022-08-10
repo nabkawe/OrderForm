@@ -38,6 +38,7 @@
 
             <!--Price And Image-->
             <Canvas Grid.Row="0" Grid.RowSpan="1">
+
                 <Image UseLayoutRounding="True"  x:Name="Picture"
                         Panel.ZIndex ="0"   Canvas.Right="0" 
                         Source="{Binding Content, Mode=OneWay, Source={StaticResource kPicture}}"
@@ -49,11 +50,20 @@
                             <GradientStop Color="White" Offset="1"/>
                         </LinearGradientBrush>
                     </TextBlock.Background><Run  FlowDirection="RightToLeft" FontSize="30"  FontFamily="Bahnschrift"  Text="{Binding Content, Mode=OneWay, Source={StaticResource kPrice}}"/>
-                    </TextBlock>
+                </TextBlock>
                 <Label Canvas.Top="40" Canvas.Left="9">
                     <Run  FontSize="13"   Foreground="#FF513519" FontWeight="ExtraBold" 
                      FlowDirection="RightToLeft" Text="{Binding Content, Mode=OneWay, Source={StaticResource kCurrency}}"/>
                 </Label>
+                <Label x:Name="AvailableLabel" Visibility="Visible" BorderThickness="3" Content="غير متوفر حاليا"  Foreground="Red" FontWeight="Bold" FontSize="18" Canvas.Top="80" Canvas.Left="38">
+                    <Label.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="Red" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Label.BorderBrush> 
+                </Label>
+
             </Canvas>
             <!--Name and Details-->
             <Border    Grid.Row="1" Grid.RowSpan="2" CornerRadius="0,0,0,0" Margin="5" 

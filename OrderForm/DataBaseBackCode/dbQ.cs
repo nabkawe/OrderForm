@@ -311,6 +311,31 @@ namespace OrderForm
 
         }
 
+        public static void MatAvailableSet(string barcode, bool state)
+        {
+            {
+                try
+                {
+                    var Materials = db.GetCollection<POSItems>("Materials");
+                    var col = Materials.Find(x => x.Barcode == barcode).First();
+
+                    var Mdb = new LiteDatabase(@"Filename=C:\\db\\MenuDB.db;Connection=shared");
+
+                    var sect = db.GetCollection<MenuSection>("Menus");
+                    var s = sect.FindAll().ToList();
+                    col.Available = state;
+                    Materials.Update(col);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    
+                }
+                
+            }
+        }
+
+
         public static List<POSItems> PopulateItems() //at LOAD
         {
  

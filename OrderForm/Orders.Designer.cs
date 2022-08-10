@@ -165,7 +165,7 @@
             this.rightClickMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.rightClickMenu.ShowImageMargin = false;
             this.rightClickMenu.ShowItemToolTips = false;
-            this.rightClickMenu.Size = new System.Drawing.Size(122, 76);
+            this.rightClickMenu.Size = new System.Drawing.Size(156, 98);
             // 
             // DeleteBTN
             // 
@@ -185,7 +185,7 @@
             // sep
             // 
             this.sep.Name = "sep";
-            this.sep.Size = new System.Drawing.Size(118, 6);
+            this.sep.Size = new System.Drawing.Size(152, 6);
             // 
             // commentBTN
             // 
@@ -195,7 +195,7 @@
             this.CustomComment});
             this.commentBTN.Name = "commentBTN";
             this.commentBTN.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.commentBTN.Size = new System.Drawing.Size(121, 22);
+            this.commentBTN.Size = new System.Drawing.Size(155, 22);
             this.commentBTN.Text = "ملاحظة المادة:";
             this.commentBTN.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -212,7 +212,8 @@
             // ItemNameTag
             // 
             this.ItemNameTag.Name = "ItemNameTag";
-            this.ItemNameTag.Size = new System.Drawing.Size(121, 22);
+            this.ItemNameTag.Size = new System.Drawing.Size(155, 22);
+            this.ItemNameTag.Click += new System.EventHandler(this.ItemNameTag_Click);
             // 
             // SalahTMR
             // 

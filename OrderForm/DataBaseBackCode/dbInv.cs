@@ -117,8 +117,8 @@ namespace OrderForm
         {
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
-                var draftInv = draft.Find(x => x.Status == InvStat.Printed,0,100);
-                var d = draftInv.ToList();
+                var draftInv = draft.Find(x => x.Status == InvStat.Printed);
+                var d = draftInv.OrderBy(x => x.TimeOfInv).ToList();
                 return d;
             }
         }

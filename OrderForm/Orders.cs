@@ -45,6 +45,8 @@ namespace OrderForm
         #region Form and Loading Region
         public Orders()
         {
+            Properties.Settings.Default.Reset();
+
             InitializeComponent();
             LoadMethods();
         }
@@ -971,9 +973,10 @@ namespace OrderForm
                     customer.ID = dbQ.SaveContacts(null) + 1;
                     dbQ.SaveContacts(customer);
                     Invoice PNI = PrintNewInvoice();
-                    DbInv.LogAction("Invoice Printed", PNI.ID, PNI.Status);
                     PNI.TimeOfPrinting = DateTime.Now.ToString();
                     DbInv.CreatePreparingInvoice(PNI);
+                    DbInv.LogAction("Invoice Printed", PNI.ID, PNI.Status);
+
                     // DbInv.DeleteDraftInvoice(PNI);
                     NewBTN_Click(null, null);
                     //dbQ.PrepareNewInvoice();
@@ -1123,6 +1126,13 @@ namespace OrderForm
                 var se = (_InvBTN)sender;
                 int id = (int)se.Tag;
                 AddListToSave(id);
+            }else if(e.Button == MouseButtons.Right && !GroupSave.Checked)
+            {
+                var a = new ContextMenuStrip() { Items = {"ملخص الفاتورة"}};
+                var se = (_InvBTN)sender;
+                int id = (int)se.Tag;
+                DbInv.GetInvoiceByID(id).InvoiceTimeloglist.ForEach(x=> a.Items.Add(x));
+                a.Show(se,new Point(0,0));
             }
         }
 
@@ -2229,6 +2239,21 @@ namespace OrderForm
 
         private void AsrLBL_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void ItemNameTag_Click(object sender, EventArgs e)
+               {
+            string text = "هل تريد تغيير حالة المادة؟" + Environment.NewLine + "Yes المادة متوفرة" + Environment.NewLine + " No المادة غير متوفرة";
+            DialogResult dialogResult = MessageBox.Show(text, "تعدل حالة توفر المادة", MessageBoxButtons.YesNo);
+            var s = (ToolStripMenuItem)sender;
+            var item = (POSItems)s.GetCurrentParent().Tag;
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                dbQ.MatAvailableSet(item.Barcode, true);
+            } else dbQ.MatAvailableSet(item.Barcode, false);
+
 
         }
     }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="OrderForm.exe" version="1.0.0.99" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
+  <asmv1:assemblyIdentity name="OrderForm.exe" version="1.0.0.101" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="OrderForm" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AutoItX3.Assembly.dll" size="44120">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AutoItX3.Assembly.dll" size="42664">
       <assemblyIdentity name="AutoItX3.Assembly" version="3.0.0.0" publicKeyToken="A646454C8D475470" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BIGf7kTkXTouhZGDE2SXcic9jaRSwOqE0MYtFW53ybM=</dsig:DigestValue>
+        <dsig:DigestValue>HeohTKScgmr3yCIuqQJWSts3l41q4ViA26ARPx+/PdQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Menu.exe" size="22528">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Menu.exe" size="23040">
       <assemblyIdentity name="Menu" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ok+lxk/j0lhildLCvDixh2KcVAE9JOO4BscJikzBgi8=</dsig:DigestValue>
+        <dsig:DigestValue>idK4hHIdmj+rZ++8AeYP0R7JO2DxSFZ3L3qxGDL/pQo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,19 +97,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Gl8OX0a7DV5xBkbpCzyCYUkt+U3TqYHqw3otVijiDzM=</dsig:DigestValue>
+        <dsig:DigestValue>zDZk7YgD5ECACwizbrEQXd7ufBzQFtWloIHKHF8MVDM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderForm.exe" size="425440">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderForm.exe" size="426976">
       <assemblyIdentity name="OrderForm" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>lDDNzSFV5vU1CuCLth9mbaHqImGhYj/DpLzBQ5gzHIA=</dsig:DigestValue>
+        <dsig:DigestValue>oKVQrfTzmeWmOSpr36pkppJfNc0h1czCK44wO/Hx1KQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -221,13 +221,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="OrderForm.exe.config" size="7197">
+  <file name="OrderForm.exe.config" size="7212">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>pA96jzXAJ8vx3/5BCCprCgGqXojN+6MXJmwAUcDsyWs=</dsig:DigestValue>
+      <dsig:DigestValue>HPZ/M12stXnnjH24gkdcXeVX2FvBAb/Y7cw4v5LE7jY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="to do list.txt" size="1686">
