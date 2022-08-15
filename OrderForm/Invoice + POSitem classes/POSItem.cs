@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Forms;
-using sharedCode;
-
-namespace OrderForm
+﻿namespace OrderForm
 {
-    
+
 
     public class POSDepartments
     {

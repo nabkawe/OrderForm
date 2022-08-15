@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -76,7 +70,7 @@ namespace OrderForm
             e.Graphics.DrawString(text, lfnt, drawBrush, new RectangleF(x, y, width, height), rtlFormat);
             y += e.Graphics.MeasureString(Orders.GetDayName((int)order.InvoiceDay), lfnt).Height;
             y += 10;
-            
+
             // Draw string to screen.
             if (order.CustomerName != null)
             {
@@ -85,7 +79,7 @@ namespace OrderForm
                 //y += 5;
                 y += 10;
                 text = order.CustomerName;
-                e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x-5, y, width, height), drawFormatRight);
+                e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x - 5, y, width, height), drawFormatRight);
                 if (order.CustomerNumber != "" && order.CustomerNumber != null)
                 {
                     text = order.CustomerNumber;
@@ -128,7 +122,7 @@ namespace OrderForm
                 }
             }
             text = order.InvoicePrice + " " + "ريال";
-            e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, this.Height -10 - e.Graphics.MeasureString(text, fnt).Height, width, height), rtlFormatCenter);
+            e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, this.Height - 10 - e.Graphics.MeasureString(text, fnt).Height, width, height), rtlFormatCenter);
 
             GraphicsPath p = new GraphicsPath();
             Point[] border = {
@@ -137,11 +131,11 @@ namespace OrderForm
                          new Point(Width-1  , Height-1  ),
                          new Point(0            , Height-1  )
                      };
-            
-            
+
+
             p.AddPolygon(border);
             e.Graphics.DrawPath(new Pen(Color.SteelBlue, 3), p);
-            
+
 
             ////e.Graphics.DrawPath(new Pen(Color.FromArgb(200, Color.White), 1), p);
             //GraphicsPath t = new GraphicsPath();

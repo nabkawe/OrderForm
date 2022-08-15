@@ -22,7 +22,7 @@ namespace OrderForm
         }
         public static void UpdateSectionNotes(POSsections sect)
         {
- 
+
             {
                 var Deps = db.GetCollection<POSsections>("Sections");
                 Deps.Update(sect);
@@ -31,7 +31,7 @@ namespace OrderForm
         }
         public static int SaveContacts(Contacts contact)
         {
- 
+
             {
 
                 var Deps = db.GetCollection<Contacts>("Customers");
@@ -51,7 +51,7 @@ namespace OrderForm
         }
         public static List<Contacts> LoadContacts(string number)
         {
- 
+
             {
                 var Deps = db.GetCollection<Contacts>("Customers");
                 List<Contacts> list = Deps.Find(x => x.Number == number).ToList();
@@ -60,7 +60,7 @@ namespace OrderForm
         }
         public static void SaveDepartments(List<POSDepartments> list)
         {
- 
+
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
                 if (Deps.Count() > 0)
@@ -98,11 +98,11 @@ namespace OrderForm
         internal static void DeleteItemSections(List<POSItems> list)
         {
             UpdateAllItemsPrinters(list);
-                }
+        }
 
         public static List<POSDepartments> LoadDepartments()
         {
- 
+
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
                 List<POSDepartments> a = Deps.FindAll().ToList();
@@ -122,7 +122,7 @@ namespace OrderForm
 
         public static void UpdateAllItemsPrinters(List<POSItems> list)
         {
- 
+
             {
                 var materials = db.GetCollection<POSItems>("Materials");
                 list.ForEach(x => materials.Update(x));
@@ -133,7 +133,7 @@ namespace OrderForm
 
         public static POSsections PrinterGetSectionMaterial(string selected)
         {
- 
+
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 var materials = db.GetCollection<POSItems>("Materials");
@@ -144,19 +144,19 @@ namespace OrderForm
         static int order = 0;
         public static void UpdateItemSections(List<POSItems> list, string section)
         {
- 
+
             {
-                
+
                 var materials = db.GetCollection<POSItems>("Materials");
                 //List<POSItems> old = materials.Find(x => x.SectionName == section).ToList();
-                materials.Find(x => x.SectionName == section).ToList().ForEach(x=> { x.SectionName = "بدون قسم"; materials.Update(x); });
-                list.ForEach(x => { order+=1 ; x.order = order;  x.SectionName = section; materials.Update(x); });
+                materials.Find(x => x.SectionName == section).ToList().ForEach(x => { x.SectionName = "بدون قسم"; materials.Update(x); });
+                list.ForEach(x => { order += 1; x.order = order; x.SectionName = section; materials.Update(x); });
             }
         }
 
         public static List<POSItems> GetItemsForSection(string section)
         {
- 
+
             {
                 var materials = db.GetCollection<POSItems>("Materials");
                 List<POSItems> items = materials.Find(x => x.SectionName == section).ToList();
@@ -170,7 +170,7 @@ namespace OrderForm
         static List<POSsections> result = new List<POSsections>();
         public static List<POSsections> GetSection(POSItems item)
         {
- 
+
             {
                 result.Clear();
                 var sectionTable = db.GetCollection<POSsections>("Sections");
@@ -191,7 +191,7 @@ namespace OrderForm
         }
         public static List<POSsections> GetSections()
         {
- 
+
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 List<POSsections> s = sectionTable.FindAll().ToList();
@@ -200,11 +200,11 @@ namespace OrderForm
         }
         public static void SaveSections(ListBox list)
         {
- 
+
             {
                 var mat = db.GetCollection<POSItems>("Materials");
-               var sectionTable = db.GetCollection<POSsections>("Sections");
-               var lll = list.Items.Cast<POSsections>().ToList();
+                var sectionTable = db.GetCollection<POSsections>("Sections");
+                var lll = list.Items.Cast<POSsections>().ToList();
                 sectionTable.DeleteAll();
                 lll.ForEach(x => { x.ID = sectionTable.Count() + 1; sectionTable.Insert(x); });
 
@@ -232,7 +232,7 @@ namespace OrderForm
 
         public static List<POSItems> CreateNewMaterials(DataGridView dgv)
         {
- 
+
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 var Cancel = Materials;
@@ -279,7 +279,7 @@ namespace OrderForm
 
         public static void CancelLastSave(List<POSItems> mat)
         {
- 
+
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 Materials.DeleteAll();
@@ -295,7 +295,7 @@ namespace OrderForm
 
         public static List<POSItems> GetAllMaterials()
         {
- 
+
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 var col = Materials.FindAll().ToList();
@@ -329,16 +329,16 @@ namespace OrderForm
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
-                    
+
                 }
-                
+
             }
         }
 
 
         public static List<POSItems> PopulateItems() //at LOAD
         {
- 
+
             {
                 try
                 {
@@ -369,7 +369,7 @@ namespace OrderForm
         }
         public static List<POSsections> PopulateSections() //at Load
         {
- 
+
             {
                 var s = db.GetCollection<POSsections>("Sections");
                 var S = s.FindAll();
@@ -379,7 +379,7 @@ namespace OrderForm
         }
         public static int GetInvoicesCount()
         {
- 
+
             {
                 var s = db.GetCollection<Invoice>("Invoices");
                 var S = s.FindAll();
@@ -390,7 +390,7 @@ namespace OrderForm
 
         internal static void SaveOrUpdateItems(List<POSItems> MAT)
         {
- 
+
             {
                 var mat = db.GetCollection<POSItems>("Materials");
                 var deleted = mat.FindAll().Except(MAT);
@@ -401,7 +401,7 @@ namespace OrderForm
         }
         internal static List<POSItems> LoadMaterialItems()
         {
- 
+
             {
                 var mat = db.GetCollection<POSItems>("Materials");
                 return mat.FindAll().ToList();

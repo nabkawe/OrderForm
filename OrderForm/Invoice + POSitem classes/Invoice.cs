@@ -1,9 +1,8 @@
-﻿using System;
+﻿using sharedCode;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using sharedCode;
 namespace OrderForm
 {
     public enum InvStat
@@ -12,7 +11,7 @@ namespace OrderForm
         Printed = 1,
         Deleted = 2,
         SavedToPOS = 3
-            
+
     }
     public enum InvDay
     {
@@ -78,7 +77,7 @@ namespace OrderForm
         {
             get
             {
-                
+
                 return this.ID.ToString();
             }
         }
@@ -88,7 +87,7 @@ namespace OrderForm
             get
             {
                 var tax = this.InvoicePrice / (1 + (Tax / 100));
-                return Decimal.Round(tax,2);
+                return Decimal.Round(tax, 2);
             }
         }
 
@@ -149,7 +148,7 @@ namespace OrderForm
             TimeinArabic = "الآن";
             Tax = Properties.Settings.Default.CurrentTax;
             TimeOfPrinting = "";
-            
+
         }
 
         // Database related code for improved search
@@ -165,7 +164,7 @@ namespace OrderForm
         static bool t = true;
         public bool Equal(Invoice New)
         {
-        if(New == null) return false;
+            if (New == null) return false;
             if (New.Comment == null) New.Comment = "";
             if (New.CustomerNumber == null) New.CustomerNumber = "";
             if (New.CustomerName == null) New.CustomerName = "";

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Printing;
 using System.Drawing.Text;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OrderForm.Custom_Classes
@@ -31,18 +27,18 @@ namespace OrderForm.Custom_Classes
                 else return 0;
             }
             else return 0;
-            
+
         }
         private static int NumbersSpace()
         {
-            if (order.CustomerName != null || order.CustomerNumber !=null)
+            if (order.CustomerName != null || order.CustomerNumber != null)
             {
                 if (order.CustomerName != "" || order.CustomerNumber != "")
                     return 75;
                 else return 0;
             }
             else return 0;
-            
+
         }
         private static Image FormatPage()
         {
@@ -54,12 +50,12 @@ namespace OrderForm.Custom_Classes
 
             Bitmap offerInit = new Bitmap(800, 1); //initial
             var e = Graphics.FromImage(offerInit);
-            int ItemSpace =70;
-            var commentCount = order.InvoiceItems.Where(Com => Com.Comment != null && Com.Comment !="").Count();
+            int ItemSpace = 70;
+            var commentCount = order.InvoiceItems.Where(Com => Com.Comment != null && Com.Comment != "").Count();
             int LogoSpace = 535;
             int footer = 440;
 
-            int h = LogoSpace + CommentSpace()+ NumbersSpace() +  ((order.InvoiceItems.Count + commentCount) * ItemSpace) + footer;
+            int h = LogoSpace + CommentSpace() + NumbersSpace() + ((order.InvoiceItems.Count + commentCount) * ItemSpace) + footer;
             var realH = h;
             Bitmap offer = new Bitmap(800, realH);
             e = Graphics.FromImage(offer);
@@ -265,9 +261,9 @@ namespace OrderForm.Custom_Classes
             e.DrawString(text, fnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += 10;
 
-            Bitmap Trimoffer = new Bitmap(800, Convert.ToInt32(y)+50);
+            Bitmap Trimoffer = new Bitmap(800, Convert.ToInt32(y) + 50);
             Graphics Trimmer = Graphics.FromImage(Trimoffer);
-            Trimmer.DrawImage(offer,0,0);
+            Trimmer.DrawImage(offer, 0, 0);
 
             Image a = (Image)Trimoffer;
             var p = new PictureBox();

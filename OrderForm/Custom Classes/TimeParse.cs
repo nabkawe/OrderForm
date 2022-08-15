@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderForm
 {
@@ -15,29 +12,30 @@ namespace OrderForm
         public static DateTime TT(string txt)
         {
             //bool AM;
-            if (txt != null) { 
-            if (txt.Contains("مساء")|| txt.Contains("ليلا")|| txt.Contains("عصرا")|| txt.Contains("ظهرا"))
+            if (txt != null)
             {
-                txt = txt.Replace("مساء", "").Replace("ليلا", "").Replace("عصرا", "").Replace("ظهرا", "");
-                txt += " PM";
-                var d = DateTime.Today;
-                DateTime.TryParse(txt, out d);
-                
-                return d;
-            }
-            else if (txt.Contains("صباحا"))
-            {
-                txt = txt.Replace("صباحا", "");
-                txt += " AM";
+                if (txt.Contains("مساء") || txt.Contains("ليلا") || txt.Contains("عصرا") || txt.Contains("ظهرا"))
+                {
+                    txt = txt.Replace("مساء", "").Replace("ليلا", "").Replace("عصرا", "").Replace("ظهرا", "");
+                    txt += " PM";
+                    var d = DateTime.Today;
+                    DateTime.TryParse(txt, out d);
+
+                    return d;
+                }
+                else if (txt.Contains("صباحا"))
+                {
+                    txt = txt.Replace("صباحا", "");
+                    txt += " AM";
 
                     var d = DateTime.Today;
                     DateTime.TryParse(txt, out d);
-                return d;
-            }
+                    return d;
+                }
             }
 
             return DateTime.Now.AddMinutes(15);
-         }
+        }
 
         public static string T(string txt)
         {

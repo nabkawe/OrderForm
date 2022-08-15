@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Menu.exe" version="1.0.0.4" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
+  <asmv1:assemblyIdentity name="Menu.exe" version="1.0.0.5" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Menu" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
+    <assemblyIdentity name="Menu" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="Menu.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -54,26 +54,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Menu.exe" size="24032">
-      <assemblyIdentity name="Menu" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Menu.exe" size="25568">
+      <assemblyIdentity name="Menu" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1TBFuOO4wj1hJblmzDE7i5CgKI3hpevZEzO6yj7lP/Y=</dsig:DigestValue>
+        <dsig:DigestValue>WkDxuJjp71r/ioZ9EX8XR8rejwkQxOH6GxG/Qw/ydj4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySharedBaseCode.dll" size="13824">
-      <assemblyIdentity name="MySharedBaseCode" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySharedBaseCode.dll" size="14336">
+      <assemblyIdentity name="MySharedBaseCode" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>zDZk7YgD5ECACwizbrEQXd7ufBzQFtWloIHKHF8MVDM=</dsig:DigestValue>
+        <dsig:DigestValue>LId8hbAXT9D15j/Zgq2ki3vQCNbNu/X7f9+05q+4eog=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

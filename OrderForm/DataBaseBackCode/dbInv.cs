@@ -1,10 +1,10 @@
 ﻿using LiteDB;
+using sharedCode;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using sharedCode;
-using System.Globalization;
 
 namespace OrderForm
 {
@@ -47,22 +47,32 @@ namespace OrderForm
         public static int GetInvoicesCount()
         {
             {
-                var s = db.GetCollection<Invoice>("Invoices");
-                var S = s.FindAll();
-                if (S.Count() == 0)
+                try
                 {
-                    return 1;
-                }
-                else
-                {
-                    Invoice Res = S.OrderByDescending(x => x.ID).First();
-                    if (Res.InEditMode)
+                    var s = db.GetCollection<Invoice>("Invoices");
+                    var S = s.FindAll();
+                    if (S.Count() == 0)
                     {
-                        return Res.ID + 2;
+                        return 1;
                     }
                     else
-                        return Res.ID + 1;
+                    {
+                        Invoice Res = S.OrderByDescending(x => x.ID).First();
+                        if (Res.InEditMode)
+                        {
+                            return Res.ID + 2;
+                        }
+                        else
+                            return Res.ID + 1;
+                    }
                 }
+                catch (Exception)
+                {
+                    return 0;
+
+
+                }
+                
             }
 
         }
@@ -107,10 +117,13 @@ namespace OrderForm
         {
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
+               
                 var draftInv = draft.Find(x => x.Status == InvStat.Printed && x.SearchResult.Contains(text));
                 //var draftInv = draft.Find(x => x.Status != InvStat.Draft);
-                var d = draftInv.OrderBy(i => i.TimeOfInv).ToList();
+                var d = draftInv.OrderBy(i => i.TimeOfInv).Take(100).ToList();
                 return d;
+               
+               
             }
         }
         public static List<Invoice> GetPrintedInvoices()
@@ -131,7 +144,7 @@ namespace OrderForm
                 CultureInfo[] cultures = { new CultureInfo("ar-SA") };
 
                 DateTime DT = DateTime.Now;
-                updated.TimeOfSaving = DT;  
+                updated.TimeOfSaving = DT;
                 updated.Status = InvStat.SavedToPOS;
                 updatedInvoices.Update(updated);
             }
@@ -190,8 +203,8 @@ namespace OrderForm
         {
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
-                var draftInv = draft.Find(x => x.Status == InvStat.Deleted || x.Status == InvStat.SavedToPOS,draft.Find(y=> y.Status == InvStat.SavedToPOS || y.Status == InvStat.Deleted).Count()-200,200);
-                  return draftInv.OrderByDescending(x => Convert.ToInt32(x.POSInvoiceNumber)).ToList();
+                var draftInv = draft.Find(x => x.Status == InvStat.Deleted || x.Status == InvStat.SavedToPOS, draft.Find(y => y.Status == InvStat.SavedToPOS || y.Status == InvStat.Deleted).Count() - 200, 200);
+                return draftInv.OrderByDescending(x => Convert.ToInt32(x.POSInvoiceNumber)).ToList();
             }//(x => x.TimeOfSaving)
 
         }
@@ -205,9 +218,9 @@ namespace OrderForm
 
             }
         }
-            public static List<Invoice> GetAllSavedInvoices()
+        public static List<Invoice> GetAllSavedInvoices()
         {
- 
+
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted);
@@ -217,7 +230,7 @@ namespace OrderForm
         }
         public static void CreateDraftInvoice(Invoice inv)
         {
- 
+
             {
                 var invoiceTable = db.GetCollection<Invoice>("Invoices");
                 invoiceTable.Upsert(inv);
@@ -234,7 +247,7 @@ namespace OrderForm
 
         public static bool DeleteInvoice(int id, int comment)
         {
- 
+
             {
                 var Invoices = db.GetCollection<Invoice>("Invoices");
                 var Deleted = Invoices.FindById(id);
@@ -258,7 +271,7 @@ namespace OrderForm
 
         public static void CreatePreparingInvoice(Invoice inv)
         {
- 
+
             {
                 var invoiceTable = db.GetCollection<Invoice>("Invoices");
                 invoiceTable.Upsert(inv);
@@ -270,7 +283,7 @@ namespace OrderForm
 
         public static void SaveContacts(Contacts contact)
         {
- 
+
             {
                 var Deps = db.GetCollection<Contacts>("Customers");
                 Deps.Upsert(contact);
@@ -279,7 +292,7 @@ namespace OrderForm
         }
         public static List<Contacts> LoadContacts(string number)
         {
- 
+
             {
                 var Deps = db.GetCollection<Contacts>("Customers");
                 List<Contacts> list = Deps.Find(x => x.Number == number).ToList();
@@ -288,7 +301,7 @@ namespace OrderForm
         }
         public static void SaveDepartments(List<POSDepartments> list)
         {
- 
+
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
                 if (Deps.Count() > 0)
@@ -325,7 +338,7 @@ namespace OrderForm
 
         public static List<POSDepartments> LoadDepartments()
         {
- 
+
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
                 List<POSDepartments> a = Deps.FindAll().ToList();
@@ -335,7 +348,7 @@ namespace OrderForm
 
         public static void DefaultPrinters(string printer)
         {
- 
+
             {
                 var DefaultPrinterTable = db.GetCollection<BsonDocument>("DefaultPrinter");
                 DefaultPrinterTable.DeleteAll();
@@ -348,7 +361,7 @@ namespace OrderForm
         }
         public static string DelDefaultPrinters()
         {
- 
+
             {
                 var DefaultPrinterTable = db.GetCollection<BsonDocument>("DefaultPrinter");
                 DefaultPrinterTable.DeleteAll();
@@ -363,7 +376,7 @@ namespace OrderForm
 
         public static POSsections GetSection(string name)
         {
- 
+
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 POSsections s = sectionTable.FindOne(x => x.Name == name);
@@ -372,7 +385,7 @@ namespace OrderForm
         }
         public static List<POSsections> GetSections()
         {
- 
+
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 List<POSsections> s = sectionTable.FindAll().ToList();
@@ -381,7 +394,7 @@ namespace OrderForm
         }
         public static void SaveSections(ListBox list)
         {
- 
+
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 List<POSsections> sectionbackup = sectionTable.FindAll().ToList();
@@ -389,7 +402,7 @@ namespace OrderForm
                 sectionTable.DropIndex("Sections");
                 db.DropCollection("Sections");
             }
- 
+
             {
                 var section = db.GetCollection<POSsections>("Sections");
                 foreach (POSsections s in list.Items)
@@ -415,7 +428,7 @@ namespace OrderForm
 
         public static List<POSItems> CreateNewMaterials(DataGridView dgv)
         {
- 
+
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 var Cancel = Materials;
@@ -462,7 +475,7 @@ namespace OrderForm
 
         public static void CancelLastSave(List<POSItems> mat)
         {
- 
+
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 Materials.DeleteAll();
@@ -478,7 +491,7 @@ namespace OrderForm
 
         public static List<POSItems> GetAllMaterials()
         {
- 
+
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
                 var col = Materials.FindAll().ToList();
@@ -497,7 +510,7 @@ namespace OrderForm
 
         public static IEnumerable<POSsections> PopulateSections() //at Load
         {
- 
+
             {
                 var s = db.GetCollection<POSsections>("Sections");
                 var S = s.FindAll();

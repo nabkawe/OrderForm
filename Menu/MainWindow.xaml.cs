@@ -35,7 +35,7 @@ namespace Menu
         public BindingList<FoodItem> foodItems { get; set; }
         public string CurrentMenu;
 
-        public void LaunchMenu(List<object> list, string CurrentMenuIn)
+        public async Task  LaunchMenu(List<object> list, string CurrentMenuIn)
         {
             
             try
@@ -50,14 +50,14 @@ namespace Menu
                 storyboard.Children.Add(fadeInAnimation);
                 storyboard.Begin(this);
                 CurrentMenu = CurrentMenuIn;
-                foreach (object item in list)
+                 foreach (object item in list)
                 {
                     if (item.GetType() == typeof(object[]))
                     {
                         List<object> L = (item as IEnumerable<object>).Cast<object>().ToList();
                         var LS = L.Cast<MenuItemsX>().ToList();
 
-                        FoodItem foodList = new FoodItem(LS);
+                         FoodItem foodList = new FoodItem(LS);
 
                         foodItems.Add(foodList);
 
@@ -71,7 +71,8 @@ namespace Menu
                     }
 
                 }
-                this.FoodList.ItemsSource = foodItems;
+                 this.FoodList.ItemsSource = foodItems;
+                await Task.CompletedTask;
             }
             catch (Exception ex)
             {

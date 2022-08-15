@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -96,7 +92,7 @@ namespace OrderForm
             string text;
 
 
-             text = order.OrderType;
+            text = order.OrderType;
             e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             text = Environment.NewLine + order.InvoicePrice + " SAR ";
             e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
@@ -244,17 +240,17 @@ namespace OrderForm
         private static PrintDocument PrintDocument;
         public static Invoice order = Orders.globalInvoice;
 
-        public static void Print(string printername,Invoice Orders )
+        public static void Print(string printername, Invoice Orders)
         {
             order = Orders;
             PrintDocument = new PrintDocument();
             PrintDocument.PrinterSettings.PrinterName = printername;
 
             PrintDocument.PrintPage += new PrintPageEventHandler(FormatPage);
-            
+
             try
             {
-               PrintDocument.Print();
+                PrintDocument.Print();
             }
             catch (Exception)
             {
@@ -267,7 +263,7 @@ namespace OrderForm
 
 
         }
-        
+
         private static void FormatPage(object sender, PrintPageEventArgs e)
         {
             float x = 0;
@@ -296,9 +292,9 @@ namespace OrderForm
             drawFormatRight.Alignment = StringAlignment.Far;
             StringFormat rtlFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
 
-            
+
             string text;
-            text = "صاحب الطلب موجود" + Environment.NewLine + "يرجى تسليم الطلب"+Environment.NewLine + "Paid";
+            text = "صاحب الطلب موجود" + Environment.NewLine + "يرجى تسليم الطلب" + Environment.NewLine + "Paid";
             e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += e.Graphics.MeasureString(" ", lfnt).Height;
             y += e.Graphics.MeasureString(" ", lfnt).Height;
@@ -310,7 +306,7 @@ namespace OrderForm
             text = order.ID.ToString();
             e.Graphics.DrawString(text, lfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += e.Graphics.MeasureString(text, lfnt).Height;
-            
+
             // Customer Name Check and print
             if (order.CustomerName != "")
             {
@@ -334,7 +330,7 @@ namespace OrderForm
                 e.Graphics.DrawLine(new Pen(Color.Black), new Point(0, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
                 y += 5;
             }
-                        // Order Notes Check and print
+            // Order Notes Check and print
             if (order.Comment != null)
             {
                 if (order.Comment != "")

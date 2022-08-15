@@ -83,6 +83,7 @@
             // 
             this.CashBTN.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.CashBTN.BackColor = System.Drawing.Color.LimeGreen;
+            this.CashBTN.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.CashBTN.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CashBTN.ForeColor = System.Drawing.Color.GhostWhite;
             this.CashBTN.Location = new System.Drawing.Point(15, 333);
@@ -97,6 +98,7 @@
             // 
             this.ManualBTN.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.ManualBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(165)))), ((int)(((byte)(153)))));
+            this.ManualBTN.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ManualBTN.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ManualBTN.ForeColor = System.Drawing.Color.GhostWhite;
             this.ManualBTN.Location = new System.Drawing.Point(335, 224);
@@ -111,6 +113,7 @@
             // 
             this.MadaBTN.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.MadaBTN.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.MadaBTN.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.MadaBTN.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MadaBTN.ForeColor = System.Drawing.Color.White;
             this.MadaBTN.Location = new System.Drawing.Point(13, 224);

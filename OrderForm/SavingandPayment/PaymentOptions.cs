@@ -1,13 +1,11 @@
-﻿using AutoIt;
+﻿using AutoItX3Lib;
+using sharedCode;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
-using sharedCode;
 
 namespace OrderForm.SavingandPayment
 {
@@ -49,6 +47,7 @@ namespace OrderForm.SavingandPayment
         public string POSNewBTN = Properties.Settings.Default.POSNewBTN;
         public string POSClearNumber = Properties.Settings.Default.POSClearNumber;
         public event EventHandler<Invoice> PrintOrNot;
+        public AutoItX3 AutoItX = new AutoItX3();
 
         public bool singleOrMultipleInvoice;
         public List<Invoice> MultipleInvoices = new List<Invoice>();
@@ -219,7 +218,8 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         private void ManualBTN_Click(object sender, EventArgs e)
         {
-            if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) == 0) { 
+            if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) == 0)
+            {
                 SaveManualToPOS();
             }
 
@@ -239,7 +239,7 @@ namespace OrderForm.SavingandPayment
                 {
                     AutoItX.WinActivate(pos);
                     AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
-                    
+
                     AutoItX.Send("{ENTER}");
                     SaveManualToPOS();
                     return;
@@ -296,24 +296,26 @@ namespace OrderForm.SavingandPayment
             if (single)
             {
                 DbInv.UpdateInvoice(this.invoice.ID, invoiceNTB);
+                DbInv.LogAction("Saved", invoice.ID, InvStat.SavedToPOS);
                 PrintOrNot?.Invoke(null, this.invoice);
             }
             else
             {
-                if (MultipleInvoices.Count> 0)
+                if (MultipleInvoices.Count > 0)
                 {
 
-                foreach (Invoice inv in MultipleInvoices)
-                {
-                    DbInv.UpdateInvoice(inv.ID, invoiceNTB);
+                    foreach (Invoice inv in MultipleInvoices)
+                    {
+                        DbInv.UpdateInvoice(inv.ID, invoiceNTB);
+                        DbInv.LogAction("Multiple Saved", invoice.ID, InvStat.SavedToPOS);
 
-                }
+                    }
                     PrintOrNot?.Invoke(null, MultipleInvoices[0]);
 
                 }
             }
             this.Close();
-            
+
         }
 
 
@@ -322,8 +324,8 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         private void AddItemsToPOS(bool single)
         {
-            if (textBox1.Text != null || textBox1.Text != "0" || textBox1.Text !="") { DoDiscount(); }
-         
+            if (textBox1.Text != null || textBox1.Text != "0" || textBox1.Text != "") { DoDiscount(); }
+
             if (single)
             {
                 AutoItX.ControlClick(pos, "", POSClearNumber, "left", 1);
@@ -340,13 +342,13 @@ namespace OrderForm.SavingandPayment
                 {
                     if (this.invoice.CustomerName.Replace(" ", "") != "")
                     {
-                        AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -" + this.invoice.CustomerName) ;
+                        AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -" + this.invoice.CustomerName);
 
                     }
                     else AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -");
                 }
                 else
-                AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -" );
+                    AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -");
 
             }
             else
@@ -432,7 +434,7 @@ namespace OrderForm.SavingandPayment
 
 
         }
-         int repeat = 0;
+        int repeat = 0;
         private bool GetPOSWindow()
         {
             if (AutoItX.WinExists(pos) == 1)
@@ -655,9 +657,9 @@ namespace OrderForm.SavingandPayment
         {
 
             if (textBox1.Text == "") { textBox1.Text = "0"; dueLBL.Text = invoice_price; }
-                        
+
             decimal discounted = Convert.ToDecimal(invoice_price) - Convert.ToDecimal(textBox1.Text);
-            dueLBL.Text = discounted.ToString(); 
+            dueLBL.Text = discounted.ToString();
         }
 
         private void Btn50_Click(object sender, EventArgs e)

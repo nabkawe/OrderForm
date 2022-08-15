@@ -1,10 +1,9 @@
-﻿using System;
+﻿using sharedCode;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using sharedCode;
 
 namespace OrderForm
 {
@@ -182,7 +181,7 @@ namespace OrderForm
 
             defaultOrder.Text = Properties.Settings.Default.defaultOrder.ToString();
             DBConnection.Text = Properties.Settings.Default.DBConnection;
-            
+
             showMenu.Checked = Properties.Settings.Default.showMenu;
 
         }
@@ -615,7 +614,8 @@ namespace OrderForm
                 Price = Convert.ToDecimal(prcTB.Text),
                 Quantity = Convert.ToInt32(quanTB.Text),
                 realquan = Convert.ToInt32(RealQuanTB.Text)
-                , Available = available.Checked,
+                ,
+                Available = available.Checked,
                 Tax = Properties.Settings.Default.CurrentTax,
                 PicturePath = PicTB.Text,
                 Comment = "",
@@ -636,7 +636,7 @@ namespace OrderForm
                 PicTB.Text = "";
                 PrinterTB.Text = "";
                 SectionNameTB.Text = "بدون قسم";
-                available.Checked= true;    
+                available.Checked = true;
                 NameTB.Focus();
                 matLB.Enabled = true;
             }
@@ -694,12 +694,12 @@ namespace OrderForm
             pos.PicturePath = PicTB.Text;
             pos.PrinterName = PrinterTB.Text;
             pos.SectionName = SectionNameTB.Text;
-            pos.Available=available.Checked;
+            pos.Available = available.Checked;
             AddMat.Enabled = true;
             EditMat.Enabled = false;
             matLB.DataSource = null;
             matLB.DataSource = MAT;
-            
+
             matLB.Update();
             matLB.Refresh();
             available.Checked = true;
@@ -956,7 +956,7 @@ namespace OrderForm
                     {
                         MultiLB.Items.Clear();
                         SaveMulti.Enabled = false;
-                        AddMultiItem.Enabled = true ;
+                        AddMultiItem.Enabled = true;
 
                         using (var form = new EditMenuItemX())
                         {
@@ -1058,7 +1058,7 @@ namespace OrderForm
                 }
 
             }
-                
+
 
         }
 
@@ -1160,7 +1160,7 @@ namespace OrderForm
         private void FastAdd_Click(object sender, EventArgs e)
         {
 
-            if (SectionsName.Text != "NoMenu") sectionsML.Show(QuickAdd,0,0);
+            if (SectionsName.Text != "NoMenu") sectionsML.Show(QuickAdd, 0, 0);
         }
 
         private void SaveMulti_Click(object sender, EventArgs e)
@@ -1188,7 +1188,7 @@ namespace OrderForm
 
         private void sectionsML_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            
+
             foreach (var item in dbQ.GetItemsForSection(e.ClickedItem.Text))
 
             {

@@ -10,7 +10,7 @@ namespace OrderForm
             AsrPeriod = 2, AsrSalahPeriod = 3,
             MagribPeriod = 4, MagribSalahPeriod = 5,
             IshaPeriod = 6, IshaSalahPeriod = 7,
-            AfterIsha = 8, After12am = 9,stateless=10
+            AfterIsha = 8, After12am = 9, stateless = 10
         }
         public static string UpdateCounter()
         {

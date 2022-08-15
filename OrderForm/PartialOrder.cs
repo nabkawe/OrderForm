@@ -1,16 +1,15 @@
-﻿using System;
+﻿using sharedCode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Color = System.Drawing.Color;
-using sharedCode;
 
 namespace OrderForm
 {
     public partial class Orders : Form
     {
+        public List<POSItems> ItemsLists = new List<POSItems>();
 
 
         #region Materials related logic
@@ -19,7 +18,7 @@ namespace OrderForm
 
         public void CreateSectionBtns(FlowLayoutPanel FlowPanel, POSsections obj)
         {
-            Button item = new UnfocusableButton()
+            UnfocusableButton item = new UnfocusableButton()
             {
                 Tag = obj,
                 Text = obj.Name,
@@ -52,15 +51,25 @@ namespace OrderForm
                 Margin = new Padding(2),
                 FlatStyle = FlatStyle.Flat,
                 TabStop = false,
-                TabIndex = 1000,Font= new System.Drawing.Font("Segoe UI",10,System.Drawing.FontStyle.Bold)
+                TabIndex = 1000,
+                Font = new System.Drawing.Font("Segoe UI", 10, System.Drawing.FontStyle.Bold)
             };
             obj.Comment = "";
             item.FlatAppearance.BorderSize = 1;
             item.Click += new EventHandler(Item_Clicked);
             item.MouseWheel += new MouseEventHandler(Item_MouseWheel);
             item.MouseDown += new MouseEventHandler(Item_MouseDown);
+            //item.MouseHover += Item_MouseHover;
             FlowPanel.Controls.Add(item);
         }
+
+        //private void Item_MouseHover(object sender, EventArgs e)
+        //{
+        //    var btn = (UnfocusableButton)sender;
+        //    var item = (POSItems)btn.Tag;
+
+        //    if (Properties.Settings.Default.showMenu) { DM.FindByBarcode(item.Barcode); }
+        //}
         #endregion
 
         #region Mouse related logic for materials
@@ -68,18 +77,19 @@ namespace OrderForm
         {
             if (e.Button == MouseButtons.Right)
             {
-                var btn = (Button)sender;
+                var btn = (UnfocusableButton)sender;
                 var item = (POSItems)btn.Tag;
                 if (Properties.Settings.Default.showMenu) { DM.FindByBarcode(item.Barcode); }
 
-                    
+
                 rightClickMenu.Show(Cursor.Position);
                 rightClickMenu.Items[3].Text = btn.Text;
                 rightClickMenu.Items[2].Visible = false;
                 rightClickMenu.Tag = item;
-            }else
+            }
+            else
             {
-                var btn = (Button)sender;
+                var btn = (UnfocusableButton)sender;
                 var item = (POSItems)btn.Tag;
                 if (Properties.Settings.Default.showMenu) { DM.FindByBarcode(item.Barcode); }
             }
@@ -107,8 +117,10 @@ namespace OrderForm
             var sectionbtn = (Button)sender;
             var section = (POSsections)sectionbtn.Tag;
             ItemsPanel1.Controls.Clear();
-            dbQ.GetItemsForSection(section.Name).ForEach(x => CreateItemBtns(ItemsPanel1, x));
+            var ind = SectionsPanel.Controls.GetChildIndex(sectionbtn);
 
+            ItemsLists.ForEach(x => { if (section.Name == x.SectionName) CreateItemBtns(ItemsPanel1, x); });
+            //dbQ.GetItemsForSection(section.Name).ForEach(x => CreateItemBtns(ItemsPanel1, x));
         }
         protected void Item_Clicked(object sender, EventArgs e)
         {
@@ -169,7 +181,7 @@ namespace OrderForm
 
                     }
                 }
-                ItemsAddedToInvoice?.Invoke(this, item.Name); 
+                ItemsAddedToInvoice?.Invoke(this, item.Name);
             }
         }
         public void EditItemGrid(POSItems item)
@@ -220,7 +232,8 @@ namespace OrderForm
 
 
 
-            }        }
+            }
+        }
         #endregion
 
         #endregion
@@ -231,11 +244,13 @@ namespace OrderForm
             {
                 List<POSsections> lists = dbQ.PopulateSections();
                 SectionsPanel.Controls.Clear();
-                lists.ForEach(l => CreateSectionBtns(SectionsPanel, l));
-                List<POSItems> list = dbQ.PopulateItems() ;
+
+                int c = -1;
+                lists.ForEach(l => { c += 1; CreateSectionBtns(SectionsPanel, l); dbQ.GetItemsForSection(l.Name).ForEach(i => ItemsLists.Add(i)); });
+                List<POSItems> list = dbQ.PopulateItems();
                 ItemsPanel1.Controls.Clear();
                 list.ForEach(x => CreateItemBtns(ItemsPanel1, x));
-                
+
             }
             catch (Exception)
             {
