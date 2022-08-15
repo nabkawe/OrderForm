@@ -132,6 +132,18 @@ namespace OrderForm
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.Printed);
                 var d = draftInv.OrderBy(x => x.TimeOfInv).ToList();
+                //d.ForEach(x=> {
+                //    var doc = BsonMapper.Global.ToDocument(x);
+                //    var jsonString = LiteDB.JsonSerializer.Serialize(doc);
+                //    Console.WriteLine(jsonString);
+                //    BsonValue jsonStrings = LiteDB.JsonSerializer.Deserialize(jsonString);
+                //    Invoice c = BsonMapper.Global.Deserialize<Invoice>(jsonStrings);
+                    
+                //    Console.WriteLine(c.CustomerName);
+
+                //});
+                
+
                 return d;
             }
         }
@@ -216,6 +228,7 @@ namespace OrderForm
                 var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted);
                 draftInv.OrderByDescending(x => x.ID).ToList();
 
+
             }
         }
         public static List<Invoice> GetAllSavedInvoices()
@@ -234,7 +247,8 @@ namespace OrderForm
             {
                 var invoiceTable = db.GetCollection<Invoice>("Invoices");
                 invoiceTable.Upsert(inv);
-            }
+
+                }
         }
         public static void DeleteDraftInvoice(Invoice inv)
         {
