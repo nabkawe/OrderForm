@@ -57,20 +57,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.CommentLBL = new System.Windows.Forms.Label();
             this.OrdersPanel = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.ItemCount = new System.Windows.Forms.Label();
-            this.AmountPriceLBL = new System.Windows.Forms.Label();
-            this.DeleteInvoice = new System.Windows.Forms.Button();
-            this.SaveInvoice = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.OrderStatus = new System.Windows.Forms.Button();
-            this.DOWTB = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.TimeTB = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.sortType = new System.Windows.Forms.GroupBox();
             this.GroupSave = new System.Windows.Forms.CheckBox();
@@ -88,8 +74,22 @@
             this.Thu = new System.Windows.Forms.RadioButton();
             this.Wed = new System.Windows.Forms.RadioButton();
             this.HeldInvoices = new System.Windows.Forms.Label();
-            this.HeldPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.PrintedInvoices = new System.Windows.Forms.FlowLayoutPanel();
+            this.HeldPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.ItemCount = new System.Windows.Forms.Label();
+            this.AmountPriceLBL = new System.Windows.Forms.Label();
+            this.DeleteInvoice = new System.Windows.Forms.Button();
+            this.SaveInvoice = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.OrderStatus = new System.Windows.Forms.Button();
+            this.DOWTB = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.TimeTB = new System.Windows.Forms.TextBox();
             this.InvoiceTypeOptions = new System.Windows.Forms.ToolStrip();
             this.TelButton = new System.Windows.Forms.ToolStripButton();
             this.ToGoButton = new System.Windows.Forms.ToolStripButton();
@@ -104,6 +104,26 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.FastComment = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MenuTimeOut = new System.Windows.Forms.Timer(this.components);
+            this.MainMenu = new OrderForm.UnfocusableButton();
+            this.OrdersPage = new OrderForm.UnfocusableButton();
+            this.TimeLeftLBL = new OrderForm.UnfocusableButton();
+            this.TimeTillCountdown = new OrderForm.UnfocusableButton();
+            this.DhuhrLBL = new OrderForm.UnfocusableButton();
+            this.DhuhrBTN = new OrderForm.UnfocusableButton();
+            this.AsrLBL = new OrderForm.UnfocusableButton();
+            this.AsrBTN = new OrderForm.UnfocusableButton();
+            this.MaghribLBL = new OrderForm.UnfocusableButton();
+            this.MaghribBTN = new OrderForm.UnfocusableButton();
+            this.IshaLBL = new OrderForm.UnfocusableButton();
+            this.IshaBTN = new OrderForm.UnfocusableButton();
+            this.DayLBL = new OrderForm.UnfocusableButton();
+            this.DateLBL = new OrderForm.UnfocusableButton();
+            this.unfocusableButton4 = new OrderForm.UnfocusableButton();
+            this.unfocusableButton3 = new OrderForm.UnfocusableButton();
+            this.TimeButton = new OrderForm.UnfocusableButton();
+            this.SettingsPage = new OrderForm.UnfocusableButton();
+            this.LastOrder = new OrderForm.UnfocusableButton();
+            this.RepeatOrder = new OrderForm.UnfocusableButton();
             this.unfocusableButton2 = new OrderForm.UnfocusableButton();
             this.unfocusableButton1 = new OrderForm.UnfocusableButton();
             this.NewBTN = new OrderForm.UnfocusableButton();
@@ -125,24 +145,6 @@
             this.TimeInfo = new OrderForm.UnfocusableButton();
             this.WhatAppBTN = new OrderForm.UnfocusableButton();
             this.DayMenuBTN = new OrderForm.UnfocusableButton();
-            this.MainMenu = new OrderForm.UnfocusableButton();
-            this.OrdersPage = new OrderForm.UnfocusableButton();
-            this.TimeLeftLBL = new OrderForm.UnfocusableButton();
-            this.TimeTillCountdown = new OrderForm.UnfocusableButton();
-            this.DhuhrLBL = new OrderForm.UnfocusableButton();
-            this.DhuhrBTN = new OrderForm.UnfocusableButton();
-            this.AsrLBL = new OrderForm.UnfocusableButton();
-            this.AsrBTN = new OrderForm.UnfocusableButton();
-            this.MaghribLBL = new OrderForm.UnfocusableButton();
-            this.MaghribBTN = new OrderForm.UnfocusableButton();
-            this.IshaLBL = new OrderForm.UnfocusableButton();
-            this.IshaBTN = new OrderForm.UnfocusableButton();
-            this.DayLBL = new OrderForm.UnfocusableButton();
-            this.DateLBL = new OrderForm.UnfocusableButton();
-            this.unfocusableButton4 = new OrderForm.UnfocusableButton();
-            this.unfocusableButton3 = new OrderForm.UnfocusableButton();
-            this.TimeButton = new OrderForm.UnfocusableButton();
-            this.SettingsPage = new OrderForm.UnfocusableButton();
             this.rightClickMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvItems)).BeginInit();
             this.OrdersPanel.SuspendLayout();
@@ -398,6 +400,7 @@
             this.CommentTB.TabIndex = 150;
             this.CommentTB.WordWrap = false;
             this.CommentTB.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
+            this.CommentTB.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CommentTB_MouseDown);
             this.CommentTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
             // 
             // InvoiceCommentsMenu
@@ -462,6 +465,8 @@
             // 
             this.OrdersPanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.OrdersPanel.Controls.Add(this.panel1);
+            this.OrdersPanel.Controls.Add(this.LastOrder);
+            this.OrdersPanel.Controls.Add(this.RepeatOrder);
             this.OrdersPanel.Controls.Add(this.checkBox1);
             this.OrdersPanel.Controls.Add(this.unfocusableButton2);
             this.OrdersPanel.Controls.Add(this.unfocusableButton1);
@@ -517,193 +522,10 @@
             this.OrdersPanel.TabIndex = 21;
             this.OrdersPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrdersPanel_Paint);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(85, 848);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(85, 15);
-            this.checkBox1.TabIndex = 166;
-            this.checkBox1.Text = "طباعة أمر التسليم";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(288, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(156, 32);
-            this.button1.TabIndex = 163;
-            this.button1.TabStop = false;
-            this.button1.Text = "تعليق الطلب";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.HoldInvoice_click);
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.GhostWhite;
-            this.label7.Location = new System.Drawing.Point(459, 603);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(98, 26);
-            this.label7.TabIndex = 160;
-            this.label7.Text = "V";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label7.Click += new System.EventHandler(this.label7_Click);
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.GhostWhite;
-            this.label5.Location = new System.Drawing.Point(459, 573);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 26);
-            this.label5.TabIndex = 159;
-            this.label5.Text = "^";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.GhostWhite;
-            this.label6.Location = new System.Drawing.Point(130, 580);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(89, 26);
-            this.label6.TabIndex = 158;
-            this.label6.Text = "عدد المواد";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ItemCount
-            // 
-            this.ItemCount.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ItemCount.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.ItemCount.ForeColor = System.Drawing.Color.GhostWhite;
-            this.ItemCount.Location = new System.Drawing.Point(34, 580);
-            this.ItemCount.Name = "ItemCount";
-            this.ItemCount.Size = new System.Drawing.Size(81, 25);
-            this.ItemCount.TabIndex = 157;
-            this.ItemCount.Text = "0";
-            this.ItemCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // AmountPriceLBL
-            // 
-            this.AmountPriceLBL.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmountPriceLBL.ForeColor = System.Drawing.Color.GhostWhite;
-            this.AmountPriceLBL.Location = new System.Drawing.Point(31, 567);
-            this.AmountPriceLBL.Name = "AmountPriceLBL";
-            this.AmountPriceLBL.Size = new System.Drawing.Size(422, 39);
-            this.AmountPriceLBL.TabIndex = 156;
-            this.AmountPriceLBL.Text = "السعر";
-            this.AmountPriceLBL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DeleteInvoice
-            // 
-            this.DeleteInvoice.BackColor = System.Drawing.Color.White;
-            this.DeleteInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DeleteInvoice.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeleteInvoice.ForeColor = System.Drawing.Color.Red;
-            this.DeleteInvoice.Location = new System.Drawing.Point(31, 875);
-            this.DeleteInvoice.Name = "DeleteInvoice";
-            this.DeleteInvoice.Size = new System.Drawing.Size(52, 47);
-            this.DeleteInvoice.TabIndex = 154;
-            this.DeleteInvoice.TabStop = false;
-            this.DeleteInvoice.Text = "X";
-            this.DeleteInvoice.UseVisualStyleBackColor = false;
-            this.DeleteInvoice.Click += new System.EventHandler(this.DeleteInvoice_Click);
-            // 
-            // SaveInvoice
-            // 
-            this.SaveInvoice.BackColor = System.Drawing.Color.White;
-            this.SaveInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveInvoice.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveInvoice.ForeColor = System.Drawing.Color.Blue;
-            this.SaveInvoice.Location = new System.Drawing.Point(89, 875);
-            this.SaveInvoice.Name = "SaveInvoice";
-            this.SaveInvoice.Size = new System.Drawing.Size(80, 47);
-            this.SaveInvoice.TabIndex = 153;
-            this.SaveInvoice.TabStop = false;
-            this.SaveInvoice.Text = "تخزين الطلب";
-            this.SaveInvoice.UseVisualStyleBackColor = false;
-            this.SaveInvoice.Click += new System.EventHandler(this.SaveInvoice_Click);
-            this.SaveInvoice.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SaveInvoice_MouseDown);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(346, 847);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 20);
-            this.label2.TabIndex = 152;
-            this.label2.Text = "نوع الطلب";
-            // 
-            // OrderStatus
-            // 
-            this.OrderStatus.BackColor = System.Drawing.Color.White;
-            this.OrderStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OrderStatus.Location = new System.Drawing.Point(336, 875);
-            this.OrderStatus.Name = "OrderStatus";
-            this.OrderStatus.Size = new System.Drawing.Size(97, 47);
-            this.OrderStatus.TabIndex = 151;
-            this.OrderStatus.TabStop = false;
-            this.OrderStatus.UseVisualStyleBackColor = false;
-            this.OrderStatus.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
-            this.OrderStatus.Click += new System.EventHandler(this.OrderStatus_Click);
-            // 
-            // DOWTB
-            // 
-            this.DOWTB.BackColor = System.Drawing.Color.GhostWhite;
-            this.DOWTB.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.DOWTB.Location = new System.Drawing.Point(737, 782);
-            this.DOWTB.Margin = new System.Windows.Forms.Padding(0);
-            this.DOWTB.Name = "DOWTB";
-            this.DOWTB.Size = new System.Drawing.Size(109, 43);
-            this.DOWTB.TabIndex = 104;
-            this.DOWTB.WordWrap = false;
-            this.DOWTB.TextChanged += new System.EventHandler(this.DOWTB_TextChanged);
-            this.DOWTB.DoubleClick += new System.EventHandler(this.DOWTB_DoubleClick);
-            this.DOWTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(884, 794);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 17);
-            this.label3.TabIndex = 103;
-            this.label3.Text = "يوم الطلب";
-            // 
-            // TimeTB
-            // 
-            this.TimeTB.BackColor = System.Drawing.Color.GhostWhite;
-            this.TimeTB.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.TimeTB.Location = new System.Drawing.Point(737, 734);
-            this.TimeTB.Margin = new System.Windows.Forms.Padding(0);
-            this.TimeTB.Name = "TimeTB";
-            this.TimeTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TimeTB.Size = new System.Drawing.Size(109, 43);
-            this.TimeTB.TabIndex = 100;
-            this.TimeTB.WordWrap = false;
-            this.TimeTB.TextChanged += new System.EventHandler(this.TimeTB_TextChanged);
-            this.TimeTB.DoubleClick += new System.EventHandler(this.TimeTB_DoubleClick);
-            this.TimeTB.Leave += new System.EventHandler(this.TimeTB_Leave);
-            this.TimeTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSlateGray;
+            this.panel1.Controls.Add(this.PrintedInvoices);
             this.panel1.Controls.Add(this.sortType);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.AllDays);
@@ -719,8 +541,7 @@
             this.panel1.Controls.Add(this.Wed);
             this.panel1.Controls.Add(this.HeldInvoices);
             this.panel1.Controls.Add(this.HeldPanel);
-            this.panel1.Controls.Add(this.PrintedInvoices);
-            this.panel1.Location = new System.Drawing.Point(0, 1);
+            this.panel1.Location = new System.Drawing.Point(2, 1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(960, 938);
             this.panel1.TabIndex = 51;
@@ -974,16 +795,6 @@
             this.HeldInvoices.TabIndex = 52;
             this.HeldInvoices.Text = "الفواتير المعلقة (غير المطبوعة):";
             // 
-            // HeldPanel
-            // 
-            this.HeldPanel.AutoScroll = true;
-            this.HeldPanel.BackColor = System.Drawing.Color.GhostWhite;
-            this.HeldPanel.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.HeldPanel.Location = new System.Drawing.Point(0, 20);
-            this.HeldPanel.Name = "HeldPanel";
-            this.HeldPanel.Size = new System.Drawing.Size(961, 199);
-            this.HeldPanel.TabIndex = 40;
-            // 
             // PrintedInvoices
             // 
             this.PrintedInvoices.AllowDrop = true;
@@ -994,6 +805,200 @@
             this.PrintedInvoices.Name = "PrintedInvoices";
             this.PrintedInvoices.Size = new System.Drawing.Size(960, 645);
             this.PrintedInvoices.TabIndex = 41;
+            // 
+            // HeldPanel
+            // 
+            this.HeldPanel.AutoScroll = true;
+            this.HeldPanel.BackColor = System.Drawing.Color.GhostWhite;
+            this.HeldPanel.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.HeldPanel.Location = new System.Drawing.Point(0, 20);
+            this.HeldPanel.Name = "HeldPanel";
+            this.HeldPanel.Size = new System.Drawing.Size(961, 199);
+            this.HeldPanel.TabIndex = 40;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.ForeColor = System.Drawing.Color.White;
+            this.checkBox1.Location = new System.Drawing.Point(85, 848);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(85, 15);
+            this.checkBox1.TabIndex = 166;
+            this.checkBox1.Text = "طباعة أمر التسليم";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(288, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(156, 32);
+            this.button1.TabIndex = 163;
+            this.button1.TabStop = false;
+            this.button1.Text = "تعليق الطلب";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.HoldInvoice_click);
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.GhostWhite;
+            this.label7.Location = new System.Drawing.Point(459, 603);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(98, 26);
+            this.label7.TabIndex = 160;
+            this.label7.Text = "V";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.GhostWhite;
+            this.label5.Location = new System.Drawing.Point(459, 573);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 26);
+            this.label5.TabIndex = 159;
+            this.label5.Text = "^";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.GhostWhite;
+            this.label6.Location = new System.Drawing.Point(130, 580);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(89, 26);
+            this.label6.TabIndex = 158;
+            this.label6.Text = "عدد المواد";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ItemCount
+            // 
+            this.ItemCount.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.ItemCount.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.ItemCount.ForeColor = System.Drawing.Color.GhostWhite;
+            this.ItemCount.Location = new System.Drawing.Point(34, 580);
+            this.ItemCount.Name = "ItemCount";
+            this.ItemCount.Size = new System.Drawing.Size(81, 25);
+            this.ItemCount.TabIndex = 157;
+            this.ItemCount.Text = "0";
+            this.ItemCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AmountPriceLBL
+            // 
+            this.AmountPriceLBL.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmountPriceLBL.ForeColor = System.Drawing.Color.GhostWhite;
+            this.AmountPriceLBL.Location = new System.Drawing.Point(31, 567);
+            this.AmountPriceLBL.Name = "AmountPriceLBL";
+            this.AmountPriceLBL.Size = new System.Drawing.Size(422, 39);
+            this.AmountPriceLBL.TabIndex = 156;
+            this.AmountPriceLBL.Text = "السعر";
+            this.AmountPriceLBL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // DeleteInvoice
+            // 
+            this.DeleteInvoice.BackColor = System.Drawing.Color.White;
+            this.DeleteInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteInvoice.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeleteInvoice.ForeColor = System.Drawing.Color.Red;
+            this.DeleteInvoice.Location = new System.Drawing.Point(31, 875);
+            this.DeleteInvoice.Name = "DeleteInvoice";
+            this.DeleteInvoice.Size = new System.Drawing.Size(52, 47);
+            this.DeleteInvoice.TabIndex = 154;
+            this.DeleteInvoice.TabStop = false;
+            this.DeleteInvoice.Text = "X";
+            this.DeleteInvoice.UseVisualStyleBackColor = false;
+            this.DeleteInvoice.Click += new System.EventHandler(this.DeleteInvoice_Click);
+            // 
+            // SaveInvoice
+            // 
+            this.SaveInvoice.BackColor = System.Drawing.Color.White;
+            this.SaveInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveInvoice.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveInvoice.ForeColor = System.Drawing.Color.Blue;
+            this.SaveInvoice.Location = new System.Drawing.Point(89, 875);
+            this.SaveInvoice.Name = "SaveInvoice";
+            this.SaveInvoice.Size = new System.Drawing.Size(80, 47);
+            this.SaveInvoice.TabIndex = 153;
+            this.SaveInvoice.TabStop = false;
+            this.SaveInvoice.Text = "تخزين الطلب";
+            this.SaveInvoice.UseVisualStyleBackColor = false;
+            this.SaveInvoice.Click += new System.EventHandler(this.SaveInvoice_Click);
+            this.SaveInvoice.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SaveInvoice_MouseDown);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(346, 847);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 20);
+            this.label2.TabIndex = 152;
+            this.label2.Text = "نوع الطلب";
+            // 
+            // OrderStatus
+            // 
+            this.OrderStatus.BackColor = System.Drawing.Color.White;
+            this.OrderStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OrderStatus.Location = new System.Drawing.Point(336, 875);
+            this.OrderStatus.Name = "OrderStatus";
+            this.OrderStatus.Size = new System.Drawing.Size(97, 47);
+            this.OrderStatus.TabIndex = 151;
+            this.OrderStatus.TabStop = false;
+            this.OrderStatus.UseVisualStyleBackColor = false;
+            this.OrderStatus.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
+            this.OrderStatus.Click += new System.EventHandler(this.OrderStatus_Click);
+            // 
+            // DOWTB
+            // 
+            this.DOWTB.BackColor = System.Drawing.Color.GhostWhite;
+            this.DOWTB.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.DOWTB.Location = new System.Drawing.Point(737, 782);
+            this.DOWTB.Margin = new System.Windows.Forms.Padding(0);
+            this.DOWTB.Name = "DOWTB";
+            this.DOWTB.Size = new System.Drawing.Size(109, 43);
+            this.DOWTB.TabIndex = 104;
+            this.DOWTB.WordWrap = false;
+            this.DOWTB.TextChanged += new System.EventHandler(this.DOWTB_TextChanged);
+            this.DOWTB.DoubleClick += new System.EventHandler(this.DOWTB_DoubleClick);
+            this.DOWTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(884, 794);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 17);
+            this.label3.TabIndex = 103;
+            this.label3.Text = "يوم الطلب";
+            // 
+            // TimeTB
+            // 
+            this.TimeTB.BackColor = System.Drawing.Color.GhostWhite;
+            this.TimeTB.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.TimeTB.Location = new System.Drawing.Point(737, 734);
+            this.TimeTB.Margin = new System.Windows.Forms.Padding(0);
+            this.TimeTB.Name = "TimeTB";
+            this.TimeTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.TimeTB.Size = new System.Drawing.Size(109, 43);
+            this.TimeTB.TabIndex = 100;
+            this.TimeTB.WordWrap = false;
+            this.TimeTB.TextChanged += new System.EventHandler(this.TimeTB_TextChanged);
+            this.TimeTB.DoubleClick += new System.EventHandler(this.TimeTB_DoubleClick);
+            this.TimeTB.Leave += new System.EventHandler(this.TimeTB_Leave);
+            this.TimeTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
             // 
             // InvoiceTypeOptions
             // 
@@ -1163,6 +1168,357 @@
             // 
             this.MenuTimeOut.Interval = 60000;
             this.MenuTimeOut.Tick += new System.EventHandler(this.MenuTimeOut_Tick);
+            // 
+            // MainMenu
+            // 
+            this.MainMenu.BackColor = System.Drawing.Color.White;
+            this.MainMenu.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.MainMenu.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.MainMenu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.MainMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.MainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MainMenu.Location = new System.Drawing.Point(12, 6);
+            this.MainMenu.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.MainMenu.Name = "MainMenu";
+            this.MainMenu.Size = new System.Drawing.Size(96, 62);
+            this.MainMenu.TabIndex = 40;
+            this.MainMenu.Text = "الرئيسية";
+            this.MainMenu.UseVisualStyleBackColor = false;
+            this.MainMenu.Click += new System.EventHandler(this.MainMenu_Click);
+            // 
+            // OrdersPage
+            // 
+            this.OrdersPage.BackColor = System.Drawing.Color.White;
+            this.OrdersPage.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.OrdersPage.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.OrdersPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.OrdersPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.OrdersPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OrdersPage.Location = new System.Drawing.Point(113, 6);
+            this.OrdersPage.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.OrdersPage.Name = "OrdersPage";
+            this.OrdersPage.Size = new System.Drawing.Size(96, 62);
+            this.OrdersPage.TabIndex = 39;
+            this.OrdersPage.Text = "الطلبات";
+            this.OrdersPage.UseVisualStyleBackColor = false;
+            this.OrdersPage.Click += new System.EventHandler(this.OrdersPage_Click);
+            // 
+            // TimeLeftLBL
+            // 
+            this.TimeLeftLBL.BackColor = System.Drawing.Color.White;
+            this.TimeLeftLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.TimeLeftLBL.FlatAppearance.BorderSize = 0;
+            this.TimeLeftLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TimeLeftLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeLeftLBL.Location = new System.Drawing.Point(646, 1);
+            this.TimeLeftLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.TimeLeftLBL.Name = "TimeLeftLBL";
+            this.TimeLeftLBL.Size = new System.Drawing.Size(63, 35);
+            this.TimeLeftLBL.TabIndex = 19;
+            this.TimeLeftLBL.Text = "متبقي للصلاة";
+            this.TimeLeftLBL.UseCompatibleTextRendering = true;
+            this.TimeLeftLBL.UseVisualStyleBackColor = false;
+            // 
+            // TimeTillCountdown
+            // 
+            this.TimeTillCountdown.BackColor = System.Drawing.Color.White;
+            this.TimeTillCountdown.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.TimeTillCountdown.FlatAppearance.BorderSize = 0;
+            this.TimeTillCountdown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TimeTillCountdown.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeTillCountdown.Location = new System.Drawing.Point(646, 37);
+            this.TimeTillCountdown.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.TimeTillCountdown.Name = "TimeTillCountdown";
+            this.TimeTillCountdown.Size = new System.Drawing.Size(63, 26);
+            this.TimeTillCountdown.TabIndex = 10;
+            this.TimeTillCountdown.Text = "TimeTillCountdown";
+            this.TimeTillCountdown.UseCompatibleTextRendering = true;
+            this.TimeTillCountdown.UseVisualStyleBackColor = false;
+            // 
+            // DhuhrLBL
+            // 
+            this.DhuhrLBL.BackColor = System.Drawing.Color.White;
+            this.DhuhrLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.DhuhrLBL.FlatAppearance.BorderSize = 0;
+            this.DhuhrLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DhuhrLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DhuhrLBL.Location = new System.Drawing.Point(582, 1);
+            this.DhuhrLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.DhuhrLBL.Name = "DhuhrLBL";
+            this.DhuhrLBL.Size = new System.Drawing.Size(63, 35);
+            this.DhuhrLBL.TabIndex = 9;
+            this.DhuhrLBL.Text = "الظهر";
+            this.DhuhrLBL.UseCompatibleTextRendering = true;
+            this.DhuhrLBL.UseVisualStyleBackColor = false;
+            this.DhuhrLBL.Click += new System.EventHandler(this.DhuhrLBL_Click);
+            // 
+            // DhuhrBTN
+            // 
+            this.DhuhrBTN.BackColor = System.Drawing.Color.White;
+            this.DhuhrBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.DhuhrBTN.FlatAppearance.BorderSize = 0;
+            this.DhuhrBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DhuhrBTN.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DhuhrBTN.Location = new System.Drawing.Point(582, 37);
+            this.DhuhrBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.DhuhrBTN.Name = "DhuhrBTN";
+            this.DhuhrBTN.Size = new System.Drawing.Size(63, 26);
+            this.DhuhrBTN.TabIndex = 15;
+            this.DhuhrBTN.Text = "DhuhrBTN";
+            this.DhuhrBTN.UseCompatibleTextRendering = true;
+            this.DhuhrBTN.UseVisualStyleBackColor = false;
+            // 
+            // AsrLBL
+            // 
+            this.AsrLBL.BackColor = System.Drawing.Color.White;
+            this.AsrLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.AsrLBL.FlatAppearance.BorderSize = 0;
+            this.AsrLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AsrLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AsrLBL.Location = new System.Drawing.Point(518, 1);
+            this.AsrLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.AsrLBL.Name = "AsrLBL";
+            this.AsrLBL.Size = new System.Drawing.Size(63, 35);
+            this.AsrLBL.TabIndex = 8;
+            this.AsrLBL.Text = "العصر";
+            this.AsrLBL.UseCompatibleTextRendering = true;
+            this.AsrLBL.UseVisualStyleBackColor = false;
+            this.AsrLBL.Click += new System.EventHandler(this.AsrLBL_Click);
+            // 
+            // AsrBTN
+            // 
+            this.AsrBTN.BackColor = System.Drawing.Color.White;
+            this.AsrBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.AsrBTN.FlatAppearance.BorderSize = 0;
+            this.AsrBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AsrBTN.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AsrBTN.Location = new System.Drawing.Point(518, 37);
+            this.AsrBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.AsrBTN.Name = "AsrBTN";
+            this.AsrBTN.Size = new System.Drawing.Size(63, 26);
+            this.AsrBTN.TabIndex = 7;
+            this.AsrBTN.Text = "AsrBTN";
+            this.AsrBTN.UseCompatibleTextRendering = true;
+            this.AsrBTN.UseVisualStyleBackColor = false;
+            // 
+            // MaghribLBL
+            // 
+            this.MaghribLBL.BackColor = System.Drawing.Color.White;
+            this.MaghribLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.MaghribLBL.FlatAppearance.BorderSize = 0;
+            this.MaghribLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MaghribLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaghribLBL.Location = new System.Drawing.Point(454, 1);
+            this.MaghribLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.MaghribLBL.Name = "MaghribLBL";
+            this.MaghribLBL.Size = new System.Drawing.Size(63, 35);
+            this.MaghribLBL.TabIndex = 16;
+            this.MaghribLBL.Text = "المغرب";
+            this.MaghribLBL.UseCompatibleTextRendering = true;
+            this.MaghribLBL.UseVisualStyleBackColor = false;
+            // 
+            // MaghribBTN
+            // 
+            this.MaghribBTN.BackColor = System.Drawing.Color.White;
+            this.MaghribBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.MaghribBTN.FlatAppearance.BorderSize = 0;
+            this.MaghribBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MaghribBTN.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaghribBTN.Location = new System.Drawing.Point(454, 37);
+            this.MaghribBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.MaghribBTN.Name = "MaghribBTN";
+            this.MaghribBTN.Size = new System.Drawing.Size(63, 26);
+            this.MaghribBTN.TabIndex = 6;
+            this.MaghribBTN.Text = "MaghribBTN";
+            this.MaghribBTN.UseCompatibleTextRendering = true;
+            this.MaghribBTN.UseVisualStyleBackColor = false;
+            // 
+            // IshaLBL
+            // 
+            this.IshaLBL.BackColor = System.Drawing.Color.White;
+            this.IshaLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.IshaLBL.FlatAppearance.BorderSize = 0;
+            this.IshaLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IshaLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IshaLBL.Location = new System.Drawing.Point(390, 1);
+            this.IshaLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.IshaLBL.Name = "IshaLBL";
+            this.IshaLBL.Size = new System.Drawing.Size(63, 35);
+            this.IshaLBL.TabIndex = 17;
+            this.IshaLBL.Text = "العشاء";
+            this.IshaLBL.UseCompatibleTextRendering = true;
+            this.IshaLBL.UseVisualStyleBackColor = false;
+            // 
+            // IshaBTN
+            // 
+            this.IshaBTN.BackColor = System.Drawing.Color.White;
+            this.IshaBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.IshaBTN.FlatAppearance.BorderSize = 0;
+            this.IshaBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IshaBTN.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IshaBTN.Location = new System.Drawing.Point(390, 37);
+            this.IshaBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.IshaBTN.Name = "IshaBTN";
+            this.IshaBTN.Size = new System.Drawing.Size(63, 26);
+            this.IshaBTN.TabIndex = 14;
+            this.IshaBTN.Text = "IshaBTN";
+            this.IshaBTN.UseCompatibleTextRendering = true;
+            this.IshaBTN.UseVisualStyleBackColor = false;
+            // 
+            // DayLBL
+            // 
+            this.DayLBL.BackColor = System.Drawing.Color.White;
+            this.DayLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.DayLBL.FlatAppearance.BorderSize = 0;
+            this.DayLBL.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.DayLBL.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.DayLBL.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.DayLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DayLBL.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DayLBL.Location = new System.Drawing.Point(264, 1);
+            this.DayLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.DayLBL.Name = "DayLBL";
+            this.DayLBL.Size = new System.Drawing.Size(125, 35);
+            this.DayLBL.TabIndex = 12;
+            this.DayLBL.Text = "DayOfTheWeek";
+            this.DayLBL.UseCompatibleTextRendering = true;
+            this.DayLBL.UseVisualStyleBackColor = false;
+            this.DayLBL.Click += new System.EventHandler(this.DayLBL_Click);
+            // 
+            // DateLBL
+            // 
+            this.DateLBL.BackColor = System.Drawing.Color.White;
+            this.DateLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.DateLBL.FlatAppearance.BorderSize = 0;
+            this.DateLBL.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.DateLBL.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.DateLBL.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.DateLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DateLBL.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.DateLBL.Location = new System.Drawing.Point(264, 37);
+            this.DateLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.DateLBL.Name = "DateLBL";
+            this.DateLBL.Size = new System.Drawing.Size(125, 26);
+            this.DateLBL.TabIndex = 11;
+            this.DateLBL.Text = "Date";
+            this.DateLBL.UseCompatibleTextRendering = true;
+            this.DateLBL.UseVisualStyleBackColor = false;
+            // 
+            // unfocusableButton4
+            // 
+            this.unfocusableButton4.BackColor = System.Drawing.Color.AliceBlue;
+            this.unfocusableButton4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.unfocusableButton4.FlatAppearance.BorderSize = 0;
+            this.unfocusableButton4.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.unfocusableButton4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.unfocusableButton4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            this.unfocusableButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.unfocusableButton4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unfocusableButton4.Location = new System.Drawing.Point(98, 0);
+            this.unfocusableButton4.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.unfocusableButton4.Name = "unfocusableButton4";
+            this.unfocusableButton4.Size = new System.Drawing.Size(161, 30);
+            this.unfocusableButton4.TabIndex = 21;
+            this.unfocusableButton4.Text = "تصوير/عرض السعر";
+            this.unfocusableButton4.UseCompatibleTextRendering = true;
+            this.unfocusableButton4.UseVisualStyleBackColor = false;
+            this.unfocusableButton4.Click += new System.EventHandler(this.unfocusableButton4_Click);
+            // 
+            // unfocusableButton3
+            // 
+            this.unfocusableButton3.BackColor = System.Drawing.Color.AliceBlue;
+            this.unfocusableButton3.ContextMenuStrip = this.MenuSelection;
+            this.unfocusableButton3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.unfocusableButton3.FlatAppearance.BorderSize = 0;
+            this.unfocusableButton3.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.unfocusableButton3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.unfocusableButton3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            this.unfocusableButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.unfocusableButton3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unfocusableButton3.Location = new System.Drawing.Point(98, 31);
+            this.unfocusableButton3.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.unfocusableButton3.Name = "unfocusableButton3";
+            this.unfocusableButton3.Size = new System.Drawing.Size(161, 30);
+            this.unfocusableButton3.TabIndex = 20;
+            this.unfocusableButton3.Text = "تغيير القائمة";
+            this.unfocusableButton3.UseCompatibleTextRendering = true;
+            this.unfocusableButton3.UseVisualStyleBackColor = false;
+            this.unfocusableButton3.Click += new System.EventHandler(this.unfocusableButton3_Click);
+            // 
+            // TimeButton
+            // 
+            this.TimeButton.BackColor = System.Drawing.SystemColors.WindowText;
+            this.TimeButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.TimeButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.TimeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.TimeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.TimeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TimeButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeButton.ForeColor = System.Drawing.Color.Lime;
+            this.TimeButton.Location = new System.Drawing.Point(3, 1);
+            this.TimeButton.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.TimeButton.Name = "TimeButton";
+            this.TimeButton.Size = new System.Drawing.Size(94, 63);
+            this.TimeButton.TabIndex = 13;
+            this.TimeButton.Text = "Time";
+            this.TimeButton.UseCompatibleTextRendering = true;
+            this.TimeButton.UseMnemonic = false;
+            this.TimeButton.UseVisualStyleBackColor = false;
+            this.TimeButton.Click += new System.EventHandler(this.TimeButton_Click);
+            // 
+            // SettingsPage
+            // 
+            this.SettingsPage.BackColor = System.Drawing.Color.White;
+            this.SettingsPage.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.SettingsPage.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.SettingsPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.SettingsPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.SettingsPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SettingsPage.Font = new System.Drawing.Font("Wingdings", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.SettingsPage.Location = new System.Drawing.Point(929, 5);
+            this.SettingsPage.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.SettingsPage.Name = "SettingsPage";
+            this.SettingsPage.Size = new System.Drawing.Size(30, 62);
+            this.SettingsPage.TabIndex = 38;
+            this.SettingsPage.Text = ":";
+            this.SettingsPage.UseCompatibleTextRendering = true;
+            this.SettingsPage.UseVisualStyleBackColor = false;
+            this.SettingsPage.Click += new System.EventHandler(this.SettingsPage_Click);
+            // 
+            // LastOrder
+            // 
+            this.LastOrder.BackColor = System.Drawing.Color.White;
+            this.LastOrder.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.LastOrder.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.LastOrder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.LastOrder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.LastOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LastOrder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastOrder.Location = new System.Drawing.Point(459, 686);
+            this.LastOrder.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.LastOrder.Name = "LastOrder";
+            this.LastOrder.Size = new System.Drawing.Size(93, 43);
+            this.LastOrder.TabIndex = 167;
+            this.LastOrder.Text = "إدخال آخر طلب";
+            this.LastOrder.UseCompatibleTextRendering = true;
+            this.LastOrder.UseVisualStyleBackColor = false;
+            this.LastOrder.Visible = false;
+            this.LastOrder.Click += new System.EventHandler(this.LastOrder_Click);
+            // 
+            // RepeatOrder
+            // 
+            this.RepeatOrder.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.RepeatOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RepeatOrder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RepeatOrder.ForeColor = System.Drawing.Color.White;
+            this.RepeatOrder.Location = new System.Drawing.Point(450, 881);
+            this.RepeatOrder.Name = "RepeatOrder";
+            this.RepeatOrder.Size = new System.Drawing.Size(125, 41);
+            this.RepeatOrder.TabIndex = 0;
+            this.RepeatOrder.Text = "إعادة تحضير الطلب";
+            this.RepeatOrder.UseVisualStyleBackColor = false;
+            this.RepeatOrder.Visible = false;
+            this.RepeatOrder.Click += new System.EventHandler(this.RepeatOrder_Click);
             // 
             // unfocusableButton2
             // 
@@ -1534,322 +1890,6 @@
             this.DayMenuBTN.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
             this.DayMenuBTN.Click += new System.EventHandler(this.DayBTN_Click);
             // 
-            // MainMenu
-            // 
-            this.MainMenu.BackColor = System.Drawing.Color.White;
-            this.MainMenu.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.MainMenu.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.MainMenu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.MainMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.MainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MainMenu.Location = new System.Drawing.Point(12, 6);
-            this.MainMenu.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(96, 62);
-            this.MainMenu.TabIndex = 40;
-            this.MainMenu.Text = "الرئيسية";
-            this.MainMenu.UseVisualStyleBackColor = false;
-            this.MainMenu.Click += new System.EventHandler(this.MainMenu_Click);
-            // 
-            // OrdersPage
-            // 
-            this.OrdersPage.BackColor = System.Drawing.Color.White;
-            this.OrdersPage.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.OrdersPage.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.OrdersPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.OrdersPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.OrdersPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OrdersPage.Location = new System.Drawing.Point(113, 6);
-            this.OrdersPage.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.OrdersPage.Name = "OrdersPage";
-            this.OrdersPage.Size = new System.Drawing.Size(96, 62);
-            this.OrdersPage.TabIndex = 39;
-            this.OrdersPage.Text = "الطلبات";
-            this.OrdersPage.UseVisualStyleBackColor = false;
-            this.OrdersPage.Click += new System.EventHandler(this.OrdersPage_Click);
-            // 
-            // TimeLeftLBL
-            // 
-            this.TimeLeftLBL.BackColor = System.Drawing.Color.White;
-            this.TimeLeftLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.TimeLeftLBL.FlatAppearance.BorderSize = 0;
-            this.TimeLeftLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TimeLeftLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeLeftLBL.Location = new System.Drawing.Point(646, 1);
-            this.TimeLeftLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.TimeLeftLBL.Name = "TimeLeftLBL";
-            this.TimeLeftLBL.Size = new System.Drawing.Size(63, 35);
-            this.TimeLeftLBL.TabIndex = 19;
-            this.TimeLeftLBL.Text = "متبقي للصلاة";
-            this.TimeLeftLBL.UseCompatibleTextRendering = true;
-            this.TimeLeftLBL.UseVisualStyleBackColor = false;
-            // 
-            // TimeTillCountdown
-            // 
-            this.TimeTillCountdown.BackColor = System.Drawing.Color.White;
-            this.TimeTillCountdown.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.TimeTillCountdown.FlatAppearance.BorderSize = 0;
-            this.TimeTillCountdown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TimeTillCountdown.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeTillCountdown.Location = new System.Drawing.Point(646, 37);
-            this.TimeTillCountdown.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.TimeTillCountdown.Name = "TimeTillCountdown";
-            this.TimeTillCountdown.Size = new System.Drawing.Size(63, 26);
-            this.TimeTillCountdown.TabIndex = 10;
-            this.TimeTillCountdown.Text = "TimeTillCountdown";
-            this.TimeTillCountdown.UseCompatibleTextRendering = true;
-            this.TimeTillCountdown.UseVisualStyleBackColor = false;
-            // 
-            // DhuhrLBL
-            // 
-            this.DhuhrLBL.BackColor = System.Drawing.Color.White;
-            this.DhuhrLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.DhuhrLBL.FlatAppearance.BorderSize = 0;
-            this.DhuhrLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DhuhrLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DhuhrLBL.Location = new System.Drawing.Point(582, 1);
-            this.DhuhrLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.DhuhrLBL.Name = "DhuhrLBL";
-            this.DhuhrLBL.Size = new System.Drawing.Size(63, 35);
-            this.DhuhrLBL.TabIndex = 9;
-            this.DhuhrLBL.Text = "الظهر";
-            this.DhuhrLBL.UseCompatibleTextRendering = true;
-            this.DhuhrLBL.UseVisualStyleBackColor = false;
-            this.DhuhrLBL.Click += new System.EventHandler(this.DhuhrLBL_Click);
-            // 
-            // DhuhrBTN
-            // 
-            this.DhuhrBTN.BackColor = System.Drawing.Color.White;
-            this.DhuhrBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.DhuhrBTN.FlatAppearance.BorderSize = 0;
-            this.DhuhrBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DhuhrBTN.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DhuhrBTN.Location = new System.Drawing.Point(582, 37);
-            this.DhuhrBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.DhuhrBTN.Name = "DhuhrBTN";
-            this.DhuhrBTN.Size = new System.Drawing.Size(63, 26);
-            this.DhuhrBTN.TabIndex = 15;
-            this.DhuhrBTN.Text = "DhuhrBTN";
-            this.DhuhrBTN.UseCompatibleTextRendering = true;
-            this.DhuhrBTN.UseVisualStyleBackColor = false;
-            // 
-            // AsrLBL
-            // 
-            this.AsrLBL.BackColor = System.Drawing.Color.White;
-            this.AsrLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.AsrLBL.FlatAppearance.BorderSize = 0;
-            this.AsrLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AsrLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AsrLBL.Location = new System.Drawing.Point(518, 1);
-            this.AsrLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.AsrLBL.Name = "AsrLBL";
-            this.AsrLBL.Size = new System.Drawing.Size(63, 35);
-            this.AsrLBL.TabIndex = 8;
-            this.AsrLBL.Text = "العصر";
-            this.AsrLBL.UseCompatibleTextRendering = true;
-            this.AsrLBL.UseVisualStyleBackColor = false;
-            this.AsrLBL.Click += new System.EventHandler(this.AsrLBL_Click);
-            // 
-            // AsrBTN
-            // 
-            this.AsrBTN.BackColor = System.Drawing.Color.White;
-            this.AsrBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.AsrBTN.FlatAppearance.BorderSize = 0;
-            this.AsrBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AsrBTN.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AsrBTN.Location = new System.Drawing.Point(518, 37);
-            this.AsrBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.AsrBTN.Name = "AsrBTN";
-            this.AsrBTN.Size = new System.Drawing.Size(63, 26);
-            this.AsrBTN.TabIndex = 7;
-            this.AsrBTN.Text = "AsrBTN";
-            this.AsrBTN.UseCompatibleTextRendering = true;
-            this.AsrBTN.UseVisualStyleBackColor = false;
-            // 
-            // MaghribLBL
-            // 
-            this.MaghribLBL.BackColor = System.Drawing.Color.White;
-            this.MaghribLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.MaghribLBL.FlatAppearance.BorderSize = 0;
-            this.MaghribLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MaghribLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaghribLBL.Location = new System.Drawing.Point(454, 1);
-            this.MaghribLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.MaghribLBL.Name = "MaghribLBL";
-            this.MaghribLBL.Size = new System.Drawing.Size(63, 35);
-            this.MaghribLBL.TabIndex = 16;
-            this.MaghribLBL.Text = "المغرب";
-            this.MaghribLBL.UseCompatibleTextRendering = true;
-            this.MaghribLBL.UseVisualStyleBackColor = false;
-            // 
-            // MaghribBTN
-            // 
-            this.MaghribBTN.BackColor = System.Drawing.Color.White;
-            this.MaghribBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.MaghribBTN.FlatAppearance.BorderSize = 0;
-            this.MaghribBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MaghribBTN.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaghribBTN.Location = new System.Drawing.Point(454, 37);
-            this.MaghribBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.MaghribBTN.Name = "MaghribBTN";
-            this.MaghribBTN.Size = new System.Drawing.Size(63, 26);
-            this.MaghribBTN.TabIndex = 6;
-            this.MaghribBTN.Text = "MaghribBTN";
-            this.MaghribBTN.UseCompatibleTextRendering = true;
-            this.MaghribBTN.UseVisualStyleBackColor = false;
-            // 
-            // IshaLBL
-            // 
-            this.IshaLBL.BackColor = System.Drawing.Color.White;
-            this.IshaLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.IshaLBL.FlatAppearance.BorderSize = 0;
-            this.IshaLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.IshaLBL.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IshaLBL.Location = new System.Drawing.Point(390, 1);
-            this.IshaLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.IshaLBL.Name = "IshaLBL";
-            this.IshaLBL.Size = new System.Drawing.Size(63, 35);
-            this.IshaLBL.TabIndex = 17;
-            this.IshaLBL.Text = "العشاء";
-            this.IshaLBL.UseCompatibleTextRendering = true;
-            this.IshaLBL.UseVisualStyleBackColor = false;
-            // 
-            // IshaBTN
-            // 
-            this.IshaBTN.BackColor = System.Drawing.Color.White;
-            this.IshaBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.IshaBTN.FlatAppearance.BorderSize = 0;
-            this.IshaBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.IshaBTN.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IshaBTN.Location = new System.Drawing.Point(390, 37);
-            this.IshaBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.IshaBTN.Name = "IshaBTN";
-            this.IshaBTN.Size = new System.Drawing.Size(63, 26);
-            this.IshaBTN.TabIndex = 14;
-            this.IshaBTN.Text = "IshaBTN";
-            this.IshaBTN.UseCompatibleTextRendering = true;
-            this.IshaBTN.UseVisualStyleBackColor = false;
-            // 
-            // DayLBL
-            // 
-            this.DayLBL.BackColor = System.Drawing.Color.White;
-            this.DayLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.DayLBL.FlatAppearance.BorderSize = 0;
-            this.DayLBL.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.DayLBL.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.DayLBL.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.DayLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DayLBL.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DayLBL.Location = new System.Drawing.Point(264, 1);
-            this.DayLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.DayLBL.Name = "DayLBL";
-            this.DayLBL.Size = new System.Drawing.Size(125, 35);
-            this.DayLBL.TabIndex = 12;
-            this.DayLBL.Text = "DayOfTheWeek";
-            this.DayLBL.UseCompatibleTextRendering = true;
-            this.DayLBL.UseVisualStyleBackColor = false;
-            this.DayLBL.Click += new System.EventHandler(this.DayLBL_Click);
-            // 
-            // DateLBL
-            // 
-            this.DateLBL.BackColor = System.Drawing.Color.White;
-            this.DateLBL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.DateLBL.FlatAppearance.BorderSize = 0;
-            this.DateLBL.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.DateLBL.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.DateLBL.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.DateLBL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DateLBL.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.DateLBL.Location = new System.Drawing.Point(264, 37);
-            this.DateLBL.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.DateLBL.Name = "DateLBL";
-            this.DateLBL.Size = new System.Drawing.Size(125, 26);
-            this.DateLBL.TabIndex = 11;
-            this.DateLBL.Text = "Date";
-            this.DateLBL.UseCompatibleTextRendering = true;
-            this.DateLBL.UseVisualStyleBackColor = false;
-            // 
-            // unfocusableButton4
-            // 
-            this.unfocusableButton4.BackColor = System.Drawing.Color.AliceBlue;
-            this.unfocusableButton4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.unfocusableButton4.FlatAppearance.BorderSize = 0;
-            this.unfocusableButton4.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.unfocusableButton4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.unfocusableButton4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
-            this.unfocusableButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unfocusableButton4.Location = new System.Drawing.Point(98, 0);
-            this.unfocusableButton4.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.unfocusableButton4.Name = "unfocusableButton4";
-            this.unfocusableButton4.Size = new System.Drawing.Size(161, 30);
-            this.unfocusableButton4.TabIndex = 21;
-            this.unfocusableButton4.Text = "تصوير/عرض السعر";
-            this.unfocusableButton4.UseCompatibleTextRendering = true;
-            this.unfocusableButton4.UseVisualStyleBackColor = false;
-            this.unfocusableButton4.Click += new System.EventHandler(this.unfocusableButton4_Click);
-            // 
-            // unfocusableButton3
-            // 
-            this.unfocusableButton3.BackColor = System.Drawing.Color.AliceBlue;
-            this.unfocusableButton3.ContextMenuStrip = this.MenuSelection;
-            this.unfocusableButton3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.unfocusableButton3.FlatAppearance.BorderSize = 0;
-            this.unfocusableButton3.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.unfocusableButton3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.unfocusableButton3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
-            this.unfocusableButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unfocusableButton3.Location = new System.Drawing.Point(98, 31);
-            this.unfocusableButton3.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
-            this.unfocusableButton3.Name = "unfocusableButton3";
-            this.unfocusableButton3.Size = new System.Drawing.Size(161, 30);
-            this.unfocusableButton3.TabIndex = 20;
-            this.unfocusableButton3.Text = "تغيير القائمة";
-            this.unfocusableButton3.UseCompatibleTextRendering = true;
-            this.unfocusableButton3.UseVisualStyleBackColor = false;
-            this.unfocusableButton3.Click += new System.EventHandler(this.unfocusableButton3_Click);
-            // 
-            // TimeButton
-            // 
-            this.TimeButton.BackColor = System.Drawing.SystemColors.WindowText;
-            this.TimeButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.TimeButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.TimeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.TimeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.TimeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TimeButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeButton.ForeColor = System.Drawing.Color.Lime;
-            this.TimeButton.Location = new System.Drawing.Point(3, 1);
-            this.TimeButton.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.TimeButton.Name = "TimeButton";
-            this.TimeButton.Size = new System.Drawing.Size(94, 63);
-            this.TimeButton.TabIndex = 13;
-            this.TimeButton.Text = "Time";
-            this.TimeButton.UseCompatibleTextRendering = true;
-            this.TimeButton.UseMnemonic = false;
-            this.TimeButton.UseVisualStyleBackColor = false;
-            this.TimeButton.Click += new System.EventHandler(this.TimeButton_Click);
-            // 
-            // SettingsPage
-            // 
-            this.SettingsPage.BackColor = System.Drawing.Color.White;
-            this.SettingsPage.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.SettingsPage.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.SettingsPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.SettingsPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.SettingsPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SettingsPage.Font = new System.Drawing.Font("Wingdings", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.SettingsPage.Location = new System.Drawing.Point(929, 5);
-            this.SettingsPage.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.SettingsPage.Name = "SettingsPage";
-            this.SettingsPage.Size = new System.Drawing.Size(30, 62);
-            this.SettingsPage.TabIndex = 38;
-            this.SettingsPage.Text = ":";
-            this.SettingsPage.UseCompatibleTextRendering = true;
-            this.SettingsPage.UseVisualStyleBackColor = false;
-            this.SettingsPage.Click += new System.EventHandler(this.SettingsPage_Click);
-            // 
             // Orders
             // 
             this.AllowDrop = true;
@@ -1857,11 +1897,11 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(961, 1009);
-            this.Controls.Add(this.OrdersPanel);
             this.Controls.Add(this.MainMenu);
             this.Controls.Add(this.OrdersPage);
             this.Controls.Add(this.SalahTimes);
             this.Controls.Add(this.SettingsPage);
+            this.Controls.Add(this.OrdersPanel);
             this.HelpButton = true;
             this.KeyPreview = true;
             this.Location = new System.Drawing.Point(945, 0);
@@ -2001,5 +2041,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         public System.Windows.Forms.Timer MenuTimeOut;
         private System.Windows.Forms.CheckBox checkBox1;
+        private UnfocusableButton RepeatOrder;
+        private UnfocusableButton LastOrder;
     }
 }

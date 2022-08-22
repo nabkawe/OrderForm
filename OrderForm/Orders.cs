@@ -1307,12 +1307,16 @@ namespace OrderForm
                 PrintSave.Enabled = true;
                 SaveInvoice.Enabled = true;
                 DeleteInvoice.Enabled = true;
+                RepeatOrder.Visible = false;
+                LastOrder.Visible = false;
+
             }
             else
             {
                 PrintSave.Enabled = false;
                 SaveInvoice.Enabled = true;
                 DeleteInvoice.Enabled = false;
+                RepeatOrder.Visible = true;
             }
         }
 
@@ -1509,7 +1513,7 @@ namespace OrderForm
         {
             var con = dbQ.LoadContacts(MobileTB.Text);
             CommentTB.AutoCompleteSource = AutoCompleteSource.None;
-
+            LastOrder.Visible = true;
             if (con.Count > 0)
             {
                 NameTB.Text = con[0].Name;
@@ -1940,6 +1944,10 @@ namespace OrderForm
         private void Save2POS(Invoice SaveToPOS)
         {
             this.Hide();
+            var canceled = new _InvBTN(SaveToPOS);
+            int id = SaveToPOS.ID;
+            canceled.Tag = id;
+           
             var a = new SavingandPayment.PaymentOptions(SaveToPOS);
             a.PrintOrNot += A_PrintOrNot;
             d.Hide();
@@ -1953,6 +1961,8 @@ namespace OrderForm
             {
                 this.Show();
                 this.WindowState = FormWindowState.Normal;
+                
+                HeldOrder_click(canceled, null);
             }
 
 
@@ -2167,25 +2177,25 @@ namespace OrderForm
         public bool DMShown = false;
         private void DhuhrLBL_Click(object sender, EventArgs e)
         {
-            if (DMShown)
-            {
-                DM.Hide();
-                DMShown = false;
-            }
-            else
-            {
-                DMShown = true;
-                DM.Show();
+            //if (DMShown)
+            //{
+            //    DM.Hide();
+            //    DMShown = false;
+            //}
+            //else
+            //{
+            //    DMShown = true;
+            //    DM.Show();
 
-                List<object> list = new List<object>();
-                List<POSItems> po = POS.ToList<POSItems>();
-                list.Add(po);
-                foreach (sharedCode.POSItems item in POS)
-                {
-                    list.Add(item);
-                }
-                _ = DM.LaunchMenu(list, "فطاير شامية");
-            }
+            //    List<object> list = new List<object>();
+            //    List<POSItems> po = POS.ToList<POSItems>();
+            //    list.Add(po);
+            //    foreach (sharedCode.POSItems item in POS)
+            //    {
+            //        list.Add(item);
+            //    }
+            //    _ = DM.LaunchMenu(list, "فطاير شامية");
+            //}
 
         }
 
@@ -2287,6 +2297,42 @@ namespace OrderForm
             else dbQ.MatAvailableSet(item.Barcode, false);
 
 
+        }
+
+        private void RepeatOrder_Click(object sender, EventArgs e)
+        {
+            List<POSItems> a = new List<POSItems>();
+            POS.ToList().ForEach(x => a.Add(x));
+            NameTB.Text += " ";
+            MobileTB.Text += " ";
+            string name = " " + NameTB.Text;
+            string number = MobileTB.Text;
+            NewBTN_Click(null, null);
+            a.ForEach(x => POS.Add(x));
+            DialogResult dialogResult = MessageBox.Show("هل تريد إستخدام الإسم والرقم؟", "هل الطلب لنفس العميل؟", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+            {
+                NameTB.Text= name;
+                MobileTB.Text = number; 
+            }
+            a.Clear();
+           
+        }
+
+        private void LastOrder_Click(object sender, EventArgs e)
+        {
+            Invoice invoice = DbInv.GetInvoiceByPhoneNumber(MobileTB.Text);
+            if (invoice != null) { 
+            invoice.InvoiceItems.ForEach(x => POS.Add(x));
+            CommentTB.Text=invoice.Comment;
+            LastOrder.Visible = false;
+            }
+
+        }
+
+        private void CommentTB_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (InvoiceCommentsMenu.Items.Count > 0 && e.Button == MouseButtons.Right) InvoiceCommentsMenu.Show();
         }
     }
 

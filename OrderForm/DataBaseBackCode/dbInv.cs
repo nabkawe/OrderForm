@@ -72,7 +72,7 @@ namespace OrderForm
 
 
                 }
-                
+
             }
 
         }
@@ -117,13 +117,13 @@ namespace OrderForm
         {
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
-               
+
                 var draftInv = draft.Find(x => x.Status == InvStat.Printed && x.SearchResult.Contains(text));
                 //var draftInv = draft.Find(x => x.Status != InvStat.Draft);
                 var d = draftInv.OrderBy(i => i.TimeOfInv).Take(100).ToList();
                 return d;
-               
-               
+
+
             }
         }
         public static List<Invoice> GetPrintedInvoices()
@@ -138,11 +138,11 @@ namespace OrderForm
                 //    Console.WriteLine(jsonString);
                 //    BsonValue jsonStrings = LiteDB.JsonSerializer.Deserialize(jsonString);
                 //    Invoice c = BsonMapper.Global.Deserialize<Invoice>(jsonStrings);
-                    
+
                 //    Console.WriteLine(c.CustomerName);
 
                 //});
-                
+
 
                 return d;
             }
@@ -248,7 +248,7 @@ namespace OrderForm
                 var invoiceTable = db.GetCollection<Invoice>("Invoices");
                 invoiceTable.Upsert(inv);
 
-                }
+            }
         }
         public static void DeleteDraftInvoice(Invoice inv)
         {
@@ -542,6 +542,10 @@ namespace OrderForm
 
         }
 
-
+        internal static Invoice GetInvoiceByPhoneNumber(string number)
+        {
+            var c = GetSavedInvoices().Find(x => x.CustomerNumber == number);
+            return c;
+        }
     }
 }

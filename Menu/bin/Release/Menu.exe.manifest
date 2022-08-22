@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Menu.exe" size="26592">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Menu.exe" size="25568">
       <assemblyIdentity name="Menu" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3ElPR1g7rgVmmsuBE3jzw41MigjbgsyCvcnG3Cr5dJM=</dsig:DigestValue>
+        <dsig:DigestValue>raxFf7hknq/pGKSFhEafJZVeG4mYegZZAcZGq5FyKsA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -73,7 +73,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>LId8hbAXT9D15j/Zgq2ki3vQCNbNu/X7f9+05q+4eog=</dsig:DigestValue>
+        <dsig:DigestValue>tKcEKhNa1omzXSpbeKSHFelA57TxCtX7vj53VeiTioc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
