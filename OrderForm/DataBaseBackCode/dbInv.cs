@@ -132,16 +132,6 @@ namespace OrderForm
                 var draft = db.GetCollection<Invoice>("Invoices");
                 var draftInv = draft.Find(x => x.Status == InvStat.Printed);
                 var d = draftInv.OrderBy(x => x.TimeOfInv).ToList();
-                //d.ForEach(x=> {
-                //    var doc = BsonMapper.Global.ToDocument(x);
-                //    var jsonString = LiteDB.JsonSerializer.Serialize(doc);
-                //    Console.WriteLine(jsonString);
-                //    BsonValue jsonStrings = LiteDB.JsonSerializer.Deserialize(jsonString);
-                //    Invoice c = BsonMapper.Global.Deserialize<Invoice>(jsonStrings);
-
-                //    Console.WriteLine(c.CustomerName);
-
-                //});
 
 
                 return d;
@@ -544,8 +534,11 @@ namespace OrderForm
 
         internal static Invoice GetInvoiceByPhoneNumber(string number)
         {
-            var c = GetSavedInvoices().Find(x => x.CustomerNumber == number);
-            return c;
+            var Invoices = db.GetCollection<Invoice>("Invoices");
+
+            var c = Invoices.Find(x => x.CustomerNumber.Contains(number));
+            var b = c.ToList();
+            if (b[0] == null) return null;else return b[0];
         }
     }
 }

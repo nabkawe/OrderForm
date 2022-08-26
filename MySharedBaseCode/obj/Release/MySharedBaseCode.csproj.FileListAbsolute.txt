@@ -10,7 +10,9 @@ C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Rel
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\MySharedBaseCode\bin\Release\MySharedBaseCode.dll
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\MySharedBaseCode\bin\Release\MySharedBaseCode.pdb
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\MySharedBaseCode\bin\Release\LiteDB.dll
+C:\Users\Admin\Source\Repos\nabkawe\OrderForm\MySharedBaseCode\bin\Release\PrayerTimes.dll
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\MySharedBaseCode\bin\Release\LiteDB.xml
+C:\Users\Admin\Source\Repos\nabkawe\OrderForm\MySharedBaseCode\bin\Release\PrayerTimes.pdb
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\MySharedBaseCode\obj\Release\MySharedBaseCode.csproj.AssemblyReference.cache
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\MySharedBaseCode\obj\Release\MySharedBaseCode.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\MySharedBaseCode\obj\Release\MySharedBaseCode.csproj.CopyComplete

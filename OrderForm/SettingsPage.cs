@@ -576,7 +576,7 @@ namespace OrderForm
 
         private void ClearDB_Click(object sender, EventArgs e)
         {
-            if (sharedCode.repeatedBehavior.AreYouSure("متأكد؟", "متأكد؟") == true)
+            if (repeatedBehavior.AreYouSure("متأكد؟", "متأكد؟") == true)
             {
                 DbInv.DeleteDBInvoices();
             }

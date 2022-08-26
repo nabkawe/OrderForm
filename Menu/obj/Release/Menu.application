@@ -7,14 +7,14 @@
     <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Menu.exe.manifest" size="6506">
+    <dependentAssembly dependencyType="install" codebase="Menu.exe.manifest" size="7146">
       <assemblyIdentity name="Menu.exe" version="1.0.0.5" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rMKAkcQomBAqd3a2h0pfKdZhS6bTk9fDQC/uZnvEHlg=</dsig:DigestValue>
+        <dsig:DigestValue>RB6GVMjGUyRTmr/8IW5yWLlRWiHSGnsycVS4U5RyIco=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

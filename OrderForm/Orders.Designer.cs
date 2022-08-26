@@ -57,25 +57,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.CommentLBL = new System.Windows.Forms.Label();
             this.OrdersPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.sortType = new System.Windows.Forms.GroupBox();
-            this.GroupSave = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.AllDays = new System.Windows.Forms.RadioButton();
-            this.History = new System.Windows.Forms.RadioButton();
-            this.SearchLBL = new System.Windows.Forms.Label();
-            this.Sat = new System.Windows.Forms.RadioButton();
-            this.SearchTB = new System.Windows.Forms.TextBox();
-            this.Sun = new System.Windows.Forms.RadioButton();
-            this.Mon = new System.Windows.Forms.RadioButton();
-            this.Fri = new System.Windows.Forms.RadioButton();
-            this.Tue = new System.Windows.Forms.RadioButton();
-            this.Thu = new System.Windows.Forms.RadioButton();
-            this.Wed = new System.Windows.Forms.RadioButton();
-            this.HeldInvoices = new System.Windows.Forms.Label();
-            this.PrintedInvoices = new System.Windows.Forms.FlowLayoutPanel();
-            this.HeldPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -95,6 +76,25 @@
             this.ToGoButton = new System.Windows.Forms.ToolStripButton();
             this.DineButton = new System.Windows.Forms.ToolStripButton();
             this.AppsButton = new System.Windows.Forms.ToolStripButton();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.PrintedInvoices = new System.Windows.Forms.FlowLayoutPanel();
+            this.sortType = new System.Windows.Forms.GroupBox();
+            this.GroupSave = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.AllDays = new System.Windows.Forms.RadioButton();
+            this.History = new System.Windows.Forms.RadioButton();
+            this.SearchLBL = new System.Windows.Forms.Label();
+            this.Sat = new System.Windows.Forms.RadioButton();
+            this.SearchTB = new System.Windows.Forms.TextBox();
+            this.Sun = new System.Windows.Forms.RadioButton();
+            this.Mon = new System.Windows.Forms.RadioButton();
+            this.Fri = new System.Windows.Forms.RadioButton();
+            this.Tue = new System.Windows.Forms.RadioButton();
+            this.Thu = new System.Windows.Forms.RadioButton();
+            this.Wed = new System.Windows.Forms.RadioButton();
+            this.HeldInvoices = new System.Windows.Forms.Label();
+            this.HeldPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.DayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.HourPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MinutesPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -148,9 +148,9 @@
             this.rightClickMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvItems)).BeginInit();
             this.OrdersPanel.SuspendLayout();
+            this.InvoiceTypeOptions.SuspendLayout();
             this.panel1.SuspendLayout();
             this.sortType.SuspendLayout();
-            this.InvoiceTypeOptions.SuspendLayout();
             this.SalahTimes.SuspendLayout();
             this.MenuSelection.SuspendLayout();
             this.SuspendLayout();
@@ -522,300 +522,6 @@
             this.OrdersPanel.TabIndex = 21;
             this.OrdersPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrdersPanel_Paint);
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.LightSlateGray;
-            this.panel1.Controls.Add(this.PrintedInvoices);
-            this.panel1.Controls.Add(this.sortType);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.AllDays);
-            this.panel1.Controls.Add(this.History);
-            this.panel1.Controls.Add(this.SearchLBL);
-            this.panel1.Controls.Add(this.Sat);
-            this.panel1.Controls.Add(this.SearchTB);
-            this.panel1.Controls.Add(this.Sun);
-            this.panel1.Controls.Add(this.Mon);
-            this.panel1.Controls.Add(this.Fri);
-            this.panel1.Controls.Add(this.Tue);
-            this.panel1.Controls.Add(this.Thu);
-            this.panel1.Controls.Add(this.Wed);
-            this.panel1.Controls.Add(this.HeldInvoices);
-            this.panel1.Controls.Add(this.HeldPanel);
-            this.panel1.Location = new System.Drawing.Point(2, 1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(960, 938);
-            this.panel1.TabIndex = 51;
-            this.panel1.Visible = false;
-            // 
-            // sortType
-            // 
-            this.sortType.Controls.Add(this.GroupSave);
-            this.sortType.Controls.Add(this.label8);
-            this.sortType.Location = new System.Drawing.Point(54, 220);
-            this.sortType.Name = "sortType";
-            this.sortType.Size = new System.Drawing.Size(143, 67);
-            this.sortType.TabIndex = 59;
-            this.sortType.TabStop = false;
-            // 
-            // GroupSave
-            // 
-            this.GroupSave.Appearance = System.Windows.Forms.Appearance.Button;
-            this.GroupSave.BackColor = System.Drawing.Color.GhostWhite;
-            this.GroupSave.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.GroupSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GroupSave.Location = new System.Drawing.Point(4, 10);
-            this.GroupSave.Name = "GroupSave";
-            this.GroupSave.Size = new System.Drawing.Size(135, 23);
-            this.GroupSave.TabIndex = 63;
-            this.GroupSave.Text = "وضع التخزين المتعدد";
-            this.GroupSave.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.GroupSave.UseVisualStyleBackColor = false;
-            this.GroupSave.CheckedChanged += new System.EventHandler(this.GroupSave_CheckedChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(10, 32);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(121, 26);
-            this.label8.TabIndex = 60;
-            this.label8.Text = "اختر الفواتير التي تريد\r\n تخزينها بالزر الأيمن للفأرة";
-            this.label8.Visible = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(828, 277);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(128, 13);
-            this.label4.TabIndex = 58;
-            this.label4.Text = "الفواتير المطبوعة للتحضير:";
-            // 
-            // AllDays
-            // 
-            this.AllDays.Appearance = System.Windows.Forms.Appearance.Button;
-            this.AllDays.BackColor = System.Drawing.Color.GhostWhite;
-            this.AllDays.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.AllDays.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.AllDays.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.AllDays.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.AllDays.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AllDays.Location = new System.Drawing.Point(199, 231);
-            this.AllDays.Name = "AllDays";
-            this.AllDays.Size = new System.Drawing.Size(65, 52);
-            this.AllDays.TabIndex = 50;
-            this.AllDays.TabStop = true;
-            this.AllDays.Text = "جميع الطلبات";
-            this.AllDays.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.AllDays.UseVisualStyleBackColor = false;
-            this.AllDays.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            // 
-            // History
-            // 
-            this.History.Appearance = System.Windows.Forms.Appearance.Button;
-            this.History.BackColor = System.Drawing.Color.GhostWhite;
-            this.History.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.History.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.History.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.History.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.History.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.History.Location = new System.Drawing.Point(2, 231);
-            this.History.Name = "History";
-            this.History.Size = new System.Drawing.Size(50, 52);
-            this.History.TabIndex = 53;
-            this.History.TabStop = true;
-            this.History.Text = "التاريخ";
-            this.History.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.History.UseVisualStyleBackColor = false;
-            this.History.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            // 
-            // SearchLBL
-            // 
-            this.SearchLBL.AutoSize = true;
-            this.SearchLBL.ForeColor = System.Drawing.Color.White;
-            this.SearchLBL.Location = new System.Drawing.Point(890, 220);
-            this.SearchLBL.Name = "SearchLBL";
-            this.SearchLBL.Size = new System.Drawing.Size(66, 13);
-            this.SearchLBL.TabIndex = 51;
-            this.SearchLBL.Text = "بحث الفواتير:";
-            // 
-            // Sat
-            // 
-            this.Sat.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Sat.BackColor = System.Drawing.Color.GhostWhite;
-            this.Sat.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Sat.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.Sat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.Sat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Sat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Sat.Location = new System.Drawing.Point(710, 236);
-            this.Sat.Name = "Sat";
-            this.Sat.Size = new System.Drawing.Size(74, 42);
-            this.Sat.TabIndex = 49;
-            this.Sat.TabStop = true;
-            this.Sat.Text = "السبت";
-            this.Sat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Sat.UseVisualStyleBackColor = false;
-            this.Sat.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            // 
-            // SearchTB
-            // 
-            this.SearchTB.BackColor = System.Drawing.Color.GhostWhite;
-            this.SearchTB.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchTB.Location = new System.Drawing.Point(786, 241);
-            this.SearchTB.Name = "SearchTB";
-            this.SearchTB.Size = new System.Drawing.Size(168, 35);
-            this.SearchTB.TabIndex = 42;
-            this.SearchTB.TextChanged += new System.EventHandler(this.SearchTB_TextChanged);
-            // 
-            // Sun
-            // 
-            this.Sun.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Sun.BackColor = System.Drawing.Color.GhostWhite;
-            this.Sun.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Sun.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.Sun.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.Sun.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Sun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Sun.Location = new System.Drawing.Point(636, 236);
-            this.Sun.Name = "Sun";
-            this.Sun.Size = new System.Drawing.Size(74, 42);
-            this.Sun.TabIndex = 48;
-            this.Sun.TabStop = true;
-            this.Sun.Text = "الأحد";
-            this.Sun.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Sun.UseVisualStyleBackColor = false;
-            this.Sun.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            // 
-            // Mon
-            // 
-            this.Mon.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Mon.BackColor = System.Drawing.Color.GhostWhite;
-            this.Mon.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Mon.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.Mon.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.Mon.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Mon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Mon.Location = new System.Drawing.Point(562, 236);
-            this.Mon.Name = "Mon";
-            this.Mon.Size = new System.Drawing.Size(74, 42);
-            this.Mon.TabIndex = 47;
-            this.Mon.TabStop = true;
-            this.Mon.Text = "الإثنين";
-            this.Mon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mon.UseVisualStyleBackColor = false;
-            this.Mon.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            // 
-            // Fri
-            // 
-            this.Fri.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Fri.BackColor = System.Drawing.Color.GhostWhite;
-            this.Fri.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Fri.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.Fri.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.Fri.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Fri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Fri.Location = new System.Drawing.Point(266, 236);
-            this.Fri.Name = "Fri";
-            this.Fri.Size = new System.Drawing.Size(74, 42);
-            this.Fri.TabIndex = 43;
-            this.Fri.TabStop = true;
-            this.Fri.Text = "الجمعة";
-            this.Fri.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Fri.UseVisualStyleBackColor = false;
-            this.Fri.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            this.Fri.Click += new System.EventHandler(this.Fri_Click);
-            // 
-            // Tue
-            // 
-            this.Tue.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Tue.BackColor = System.Drawing.Color.GhostWhite;
-            this.Tue.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Tue.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.Tue.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.Tue.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Tue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Tue.Location = new System.Drawing.Point(488, 236);
-            this.Tue.Name = "Tue";
-            this.Tue.Size = new System.Drawing.Size(74, 42);
-            this.Tue.TabIndex = 46;
-            this.Tue.TabStop = true;
-            this.Tue.Text = "الثلاثاء";
-            this.Tue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Tue.UseVisualStyleBackColor = false;
-            this.Tue.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            // 
-            // Thu
-            // 
-            this.Thu.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Thu.BackColor = System.Drawing.Color.GhostWhite;
-            this.Thu.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Thu.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.Thu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.Thu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Thu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Thu.Location = new System.Drawing.Point(340, 236);
-            this.Thu.Name = "Thu";
-            this.Thu.Size = new System.Drawing.Size(74, 42);
-            this.Thu.TabIndex = 44;
-            this.Thu.TabStop = true;
-            this.Thu.Text = "الخميس";
-            this.Thu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Thu.UseVisualStyleBackColor = false;
-            this.Thu.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            // 
-            // Wed
-            // 
-            this.Wed.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Wed.BackColor = System.Drawing.Color.GhostWhite;
-            this.Wed.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Wed.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
-            this.Wed.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.Wed.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Wed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Wed.Location = new System.Drawing.Point(414, 236);
-            this.Wed.Name = "Wed";
-            this.Wed.Size = new System.Drawing.Size(74, 42);
-            this.Wed.TabIndex = 45;
-            this.Wed.TabStop = true;
-            this.Wed.Text = "الأربعاء";
-            this.Wed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Wed.UseVisualStyleBackColor = false;
-            this.Wed.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            // 
-            // HeldInvoices
-            // 
-            this.HeldInvoices.AutoSize = true;
-            this.HeldInvoices.ForeColor = System.Drawing.Color.White;
-            this.HeldInvoices.Location = new System.Drawing.Point(807, 3);
-            this.HeldInvoices.Name = "HeldInvoices";
-            this.HeldInvoices.Size = new System.Drawing.Size(154, 13);
-            this.HeldInvoices.TabIndex = 52;
-            this.HeldInvoices.Text = "الفواتير المعلقة (غير المطبوعة):";
-            // 
-            // PrintedInvoices
-            // 
-            this.PrintedInvoices.AllowDrop = true;
-            this.PrintedInvoices.AutoScroll = true;
-            this.PrintedInvoices.BackColor = System.Drawing.Color.GhostWhite;
-            this.PrintedInvoices.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.PrintedInvoices.Location = new System.Drawing.Point(1, 293);
-            this.PrintedInvoices.Name = "PrintedInvoices";
-            this.PrintedInvoices.Size = new System.Drawing.Size(960, 645);
-            this.PrintedInvoices.TabIndex = 41;
-            // 
-            // HeldPanel
-            // 
-            this.HeldPanel.AutoScroll = true;
-            this.HeldPanel.BackColor = System.Drawing.Color.GhostWhite;
-            this.HeldPanel.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.HeldPanel.Location = new System.Drawing.Point(0, 20);
-            this.HeldPanel.Name = "HeldPanel";
-            this.HeldPanel.Size = new System.Drawing.Size(961, 199);
-            this.HeldPanel.TabIndex = 40;
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -1071,6 +777,300 @@
             this.AppsButton.Size = new System.Drawing.Size(100, 52);
             this.AppsButton.Text = "تطبيقات";
             this.AppsButton.Click += new System.EventHandler(this.TelBTN_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.LightSlateGray;
+            this.panel1.Controls.Add(this.PrintedInvoices);
+            this.panel1.Controls.Add(this.sortType);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.AllDays);
+            this.panel1.Controls.Add(this.History);
+            this.panel1.Controls.Add(this.SearchLBL);
+            this.panel1.Controls.Add(this.Sat);
+            this.panel1.Controls.Add(this.SearchTB);
+            this.panel1.Controls.Add(this.Sun);
+            this.panel1.Controls.Add(this.Mon);
+            this.panel1.Controls.Add(this.Fri);
+            this.panel1.Controls.Add(this.Tue);
+            this.panel1.Controls.Add(this.Thu);
+            this.panel1.Controls.Add(this.Wed);
+            this.panel1.Controls.Add(this.HeldInvoices);
+            this.panel1.Controls.Add(this.HeldPanel);
+            this.panel1.Location = new System.Drawing.Point(2, 1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(960, 938);
+            this.panel1.TabIndex = 51;
+            this.panel1.Visible = false;
+            // 
+            // PrintedInvoices
+            // 
+            this.PrintedInvoices.AllowDrop = true;
+            this.PrintedInvoices.AutoScroll = true;
+            this.PrintedInvoices.BackColor = System.Drawing.Color.GhostWhite;
+            this.PrintedInvoices.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.PrintedInvoices.Location = new System.Drawing.Point(1, 293);
+            this.PrintedInvoices.Name = "PrintedInvoices";
+            this.PrintedInvoices.Size = new System.Drawing.Size(960, 645);
+            this.PrintedInvoices.TabIndex = 41;
+            // 
+            // sortType
+            // 
+            this.sortType.Controls.Add(this.GroupSave);
+            this.sortType.Controls.Add(this.label8);
+            this.sortType.Location = new System.Drawing.Point(54, 220);
+            this.sortType.Name = "sortType";
+            this.sortType.Size = new System.Drawing.Size(143, 67);
+            this.sortType.TabIndex = 59;
+            this.sortType.TabStop = false;
+            // 
+            // GroupSave
+            // 
+            this.GroupSave.Appearance = System.Windows.Forms.Appearance.Button;
+            this.GroupSave.BackColor = System.Drawing.Color.GhostWhite;
+            this.GroupSave.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.GroupSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GroupSave.Location = new System.Drawing.Point(4, 10);
+            this.GroupSave.Name = "GroupSave";
+            this.GroupSave.Size = new System.Drawing.Size(135, 23);
+            this.GroupSave.TabIndex = 63;
+            this.GroupSave.Text = "وضع التخزين المتعدد";
+            this.GroupSave.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.GroupSave.UseVisualStyleBackColor = false;
+            this.GroupSave.CheckedChanged += new System.EventHandler(this.GroupSave_CheckedChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(10, 32);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(121, 26);
+            this.label8.TabIndex = 60;
+            this.label8.Text = "اختر الفواتير التي تريد\r\n تخزينها بالزر الأيمن للفأرة";
+            this.label8.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(828, 277);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(128, 13);
+            this.label4.TabIndex = 58;
+            this.label4.Text = "الفواتير المطبوعة للتحضير:";
+            // 
+            // AllDays
+            // 
+            this.AllDays.Appearance = System.Windows.Forms.Appearance.Button;
+            this.AllDays.BackColor = System.Drawing.Color.GhostWhite;
+            this.AllDays.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.AllDays.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.AllDays.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.AllDays.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.AllDays.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AllDays.Location = new System.Drawing.Point(199, 231);
+            this.AllDays.Name = "AllDays";
+            this.AllDays.Size = new System.Drawing.Size(65, 52);
+            this.AllDays.TabIndex = 50;
+            this.AllDays.TabStop = true;
+            this.AllDays.Text = "جميع الطلبات";
+            this.AllDays.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.AllDays.UseVisualStyleBackColor = false;
+            this.AllDays.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            // 
+            // History
+            // 
+            this.History.Appearance = System.Windows.Forms.Appearance.Button;
+            this.History.BackColor = System.Drawing.Color.GhostWhite;
+            this.History.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.History.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.History.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.History.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.History.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.History.Location = new System.Drawing.Point(2, 231);
+            this.History.Name = "History";
+            this.History.Size = new System.Drawing.Size(50, 52);
+            this.History.TabIndex = 53;
+            this.History.TabStop = true;
+            this.History.Text = "التاريخ";
+            this.History.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.History.UseVisualStyleBackColor = false;
+            this.History.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            // 
+            // SearchLBL
+            // 
+            this.SearchLBL.AutoSize = true;
+            this.SearchLBL.ForeColor = System.Drawing.Color.White;
+            this.SearchLBL.Location = new System.Drawing.Point(890, 220);
+            this.SearchLBL.Name = "SearchLBL";
+            this.SearchLBL.Size = new System.Drawing.Size(66, 13);
+            this.SearchLBL.TabIndex = 51;
+            this.SearchLBL.Text = "بحث الفواتير:";
+            // 
+            // Sat
+            // 
+            this.Sat.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Sat.BackColor = System.Drawing.Color.GhostWhite;
+            this.Sat.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Sat.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.Sat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.Sat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Sat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Sat.Location = new System.Drawing.Point(710, 236);
+            this.Sat.Name = "Sat";
+            this.Sat.Size = new System.Drawing.Size(74, 42);
+            this.Sat.TabIndex = 49;
+            this.Sat.TabStop = true;
+            this.Sat.Text = "السبت";
+            this.Sat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Sat.UseVisualStyleBackColor = false;
+            this.Sat.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            // 
+            // SearchTB
+            // 
+            this.SearchTB.BackColor = System.Drawing.Color.GhostWhite;
+            this.SearchTB.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchTB.Location = new System.Drawing.Point(786, 241);
+            this.SearchTB.Name = "SearchTB";
+            this.SearchTB.Size = new System.Drawing.Size(168, 35);
+            this.SearchTB.TabIndex = 42;
+            this.SearchTB.TextChanged += new System.EventHandler(this.SearchTB_TextChanged);
+            // 
+            // Sun
+            // 
+            this.Sun.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Sun.BackColor = System.Drawing.Color.GhostWhite;
+            this.Sun.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Sun.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.Sun.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.Sun.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Sun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Sun.Location = new System.Drawing.Point(636, 236);
+            this.Sun.Name = "Sun";
+            this.Sun.Size = new System.Drawing.Size(74, 42);
+            this.Sun.TabIndex = 48;
+            this.Sun.TabStop = true;
+            this.Sun.Text = "الأحد";
+            this.Sun.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Sun.UseVisualStyleBackColor = false;
+            this.Sun.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            // 
+            // Mon
+            // 
+            this.Mon.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Mon.BackColor = System.Drawing.Color.GhostWhite;
+            this.Mon.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Mon.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.Mon.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.Mon.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Mon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Mon.Location = new System.Drawing.Point(562, 236);
+            this.Mon.Name = "Mon";
+            this.Mon.Size = new System.Drawing.Size(74, 42);
+            this.Mon.TabIndex = 47;
+            this.Mon.TabStop = true;
+            this.Mon.Text = "الإثنين";
+            this.Mon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mon.UseVisualStyleBackColor = false;
+            this.Mon.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            // 
+            // Fri
+            // 
+            this.Fri.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Fri.BackColor = System.Drawing.Color.GhostWhite;
+            this.Fri.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Fri.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.Fri.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.Fri.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Fri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Fri.Location = new System.Drawing.Point(266, 236);
+            this.Fri.Name = "Fri";
+            this.Fri.Size = new System.Drawing.Size(74, 42);
+            this.Fri.TabIndex = 43;
+            this.Fri.TabStop = true;
+            this.Fri.Text = "الجمعة";
+            this.Fri.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Fri.UseVisualStyleBackColor = false;
+            this.Fri.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            this.Fri.Click += new System.EventHandler(this.Fri_Click);
+            // 
+            // Tue
+            // 
+            this.Tue.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Tue.BackColor = System.Drawing.Color.GhostWhite;
+            this.Tue.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Tue.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.Tue.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.Tue.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Tue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Tue.Location = new System.Drawing.Point(488, 236);
+            this.Tue.Name = "Tue";
+            this.Tue.Size = new System.Drawing.Size(74, 42);
+            this.Tue.TabIndex = 46;
+            this.Tue.TabStop = true;
+            this.Tue.Text = "الثلاثاء";
+            this.Tue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Tue.UseVisualStyleBackColor = false;
+            this.Tue.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            // 
+            // Thu
+            // 
+            this.Thu.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Thu.BackColor = System.Drawing.Color.GhostWhite;
+            this.Thu.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Thu.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.Thu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.Thu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Thu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Thu.Location = new System.Drawing.Point(340, 236);
+            this.Thu.Name = "Thu";
+            this.Thu.Size = new System.Drawing.Size(74, 42);
+            this.Thu.TabIndex = 44;
+            this.Thu.TabStop = true;
+            this.Thu.Text = "الخميس";
+            this.Thu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Thu.UseVisualStyleBackColor = false;
+            this.Thu.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            // 
+            // Wed
+            // 
+            this.Wed.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Wed.BackColor = System.Drawing.Color.GhostWhite;
+            this.Wed.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Wed.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.Wed.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.Wed.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Wed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Wed.Location = new System.Drawing.Point(414, 236);
+            this.Wed.Name = "Wed";
+            this.Wed.Size = new System.Drawing.Size(74, 42);
+            this.Wed.TabIndex = 45;
+            this.Wed.TabStop = true;
+            this.Wed.Text = "الأربعاء";
+            this.Wed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Wed.UseVisualStyleBackColor = false;
+            this.Wed.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            // 
+            // HeldInvoices
+            // 
+            this.HeldInvoices.AutoSize = true;
+            this.HeldInvoices.ForeColor = System.Drawing.Color.White;
+            this.HeldInvoices.Location = new System.Drawing.Point(807, 3);
+            this.HeldInvoices.Name = "HeldInvoices";
+            this.HeldInvoices.Size = new System.Drawing.Size(154, 13);
+            this.HeldInvoices.TabIndex = 52;
+            this.HeldInvoices.Text = "الفواتير المعلقة (غير المطبوعة):";
+            // 
+            // HeldPanel
+            // 
+            this.HeldPanel.AutoScroll = true;
+            this.HeldPanel.BackColor = System.Drawing.Color.GhostWhite;
+            this.HeldPanel.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.HeldPanel.Location = new System.Drawing.Point(0, 20);
+            this.HeldPanel.Name = "HeldPanel";
+            this.HeldPanel.Size = new System.Drawing.Size(961, 199);
+            this.HeldPanel.TabIndex = 40;
             // 
             // DayMenu
             // 
@@ -1921,12 +1921,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dvItems)).EndInit();
             this.OrdersPanel.ResumeLayout(false);
             this.OrdersPanel.PerformLayout();
+            this.InvoiceTypeOptions.ResumeLayout(false);
+            this.InvoiceTypeOptions.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.sortType.ResumeLayout(false);
             this.sortType.PerformLayout();
-            this.InvoiceTypeOptions.ResumeLayout(false);
-            this.InvoiceTypeOptions.PerformLayout();
             this.SalahTimes.ResumeLayout(false);
             this.MenuSelection.ResumeLayout(false);
             this.ResumeLayout(false);

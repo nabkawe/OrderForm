@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-
 namespace OrderForm.SavingandPayment
 {
     public partial class PaymentOptions : Form
@@ -54,6 +53,20 @@ namespace OrderForm.SavingandPayment
         public List<POSItems> MultipleItems = new List<POSItems>();
 
         public Invoice invoice;
+
+
+        public PaymentOptions(string posID)
+        {
+            if (GetPOSWindow())
+            {
+                AutoItX.WinActivate(pos);
+                AutoItX.ControlSetText(pos, "", InvoiceNumberTB, posID);
+                AutoItX.ControlSend(pos, "", InvoiceNumberTB, "{ENTER}");
+            }
+        }
+
+
+
         public PaymentOptions(Invoice inv) // SingleInvoice Constructor
         {
             InitializeComponent();
@@ -150,7 +163,7 @@ namespace OrderForm.SavingandPayment
             }
             else if (!CheckIfReadyToSave())
             {
-                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2);
+                if (!ModifierKeys.HasFlag(Keys.Control)) { AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2); }
                 CashBTN_Click(null, null);
             }
 
@@ -174,7 +187,7 @@ namespace OrderForm.SavingandPayment
                 if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) != 0)
                 {
                     AutoItX.WinActivate(pos);
-                    AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
+                    if (!ModifierKeys.HasFlag(Keys.Control)) { AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1); }
                     AutoItX.Send("{ENTER}");
                     MadaBTN_Click(null, null);
                     return;
@@ -203,7 +216,7 @@ namespace OrderForm.SavingandPayment
             }
             else if (!CheckIfReadyToSave())
             {
-                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2);
+                if (!ModifierKeys.HasFlag(Keys.Control)) { AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2); }
                 MadaBTN_Click(null, null);
             }
 
@@ -238,7 +251,7 @@ namespace OrderForm.SavingandPayment
                 if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) != 0)
                 {
                     AutoItX.WinActivate(pos);
-                    AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
+                    if (!ModifierKeys.HasFlag(Keys.Control)) { AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1); }
 
                     AutoItX.Send("{ENTER}");
                     SaveManualToPOS();
@@ -277,7 +290,7 @@ namespace OrderForm.SavingandPayment
             }
             else if (!CheckIfReadyToSave())
             {
-                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2);
+                if (!ModifierKeys.HasFlag(Keys.Control)) { AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2); }
                 SaveManualToPOS();
             }
 
@@ -291,7 +304,7 @@ namespace OrderForm.SavingandPayment
         private void SaveInvoiceNumber(bool single)
         {
             string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
-            if (!Properties.Settings.Default.TestingMode) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
+            if (!Properties.Settings.Default.TestingMode || !ModifierKeys.HasFlag(Keys.Control)) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
 
             if (single)
             {

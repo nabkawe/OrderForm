@@ -1,0 +1,101 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj",
+        "projectName": "MySharedBaseCode",
+        "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj",
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {}
+      }
+    },
+    "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj",
+        "projectName": "NetworkSynq",
+        "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj",
+        "packagesPath": "C:\\Users\\libra\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Source\\Repos\\nabkawe\\OrderForm\\NetworkSynq\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\libra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj": {
+                "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "LiteDB": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

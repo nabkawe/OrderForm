@@ -47,7 +47,7 @@ namespace Menu
         public List<MenuItemsX> posLoop = new List<MenuItemsX>();
 
        
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             try
             {
@@ -79,26 +79,26 @@ namespace Menu
 
         }
 
-        private void FadeOut()
-        {
-            this.RegisterName("foodi", this.FI);
+        //private void FadeOut()
+        //{
+        //    this.RegisterName("foodi", this.FI);
 
-            Storyboard storyboard = new Storyboard();
+        //    Storyboard storyboard = new Storyboard();
             
-            TimeSpan duration = TimeSpan.FromMilliseconds(1000); //
+        //    TimeSpan duration = TimeSpan.FromMilliseconds(1000); //
 
-            DoubleAnimation fadeInAnimation = new DoubleAnimation()
-            { From = 1, To = 0, Duration = new Duration(duration) };
+        //    DoubleAnimation fadeInAnimation = new DoubleAnimation()
+        //    { From = 1, To = 0, Duration = new Duration(duration) };
 
-            Storyboard.SetTargetName(fadeInAnimation, "foodi");
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-            storyboard.Children.Add(fadeInAnimation);
-            storyboard.Begin(this);
-        }
+        //    Storyboard.SetTargetName(fadeInAnimation, "foodi");
+        //    Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
+        //    storyboard.Children.Add(fadeInAnimation);
+        //    storyboard.Begin(this);
+        //}
 
         private void StartTimer()
         {
-            this.dispatcherTimer.Tick += dispatcherTimer_Tick;
+            this.dispatcherTimer.Tick += DispatcherTimer_Tick;
             this.dispatcherTimer.Interval = new TimeSpan(0, 0, 8);
             this.dispatcherTimer.Start();
 
@@ -192,7 +192,7 @@ namespace Menu
             { From = 1, To = 5, AccelerationRatio=1, RepeatBehavior = new RepeatBehavior(3), AutoReverse = true, Duration = new Duration(duration) };
             Storyboard.SetTargetName(fadeInAnimation, "BlurEffect");
             Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("ShadowDepth", 1));
-            s.Completed += S_Completed;
+            s.Completed += Story_Completed;
             
 
             duration = TimeSpan.FromMilliseconds(500);
@@ -214,7 +214,7 @@ namespace Menu
             s.Begin(this);
 
         }
-        private void S_Completed(object sender, EventArgs e)
+        private void Story_Completed(object sender, EventArgs e)
         {
             this.dispatcherTimer.Start();
             this.dropEffect.Color = Color.FromRgb(169, 107, 40);

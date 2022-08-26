@@ -269,7 +269,7 @@ namespace OrderForm
             /// ChangeBackground("bm");
         }
         private bool after = false;
-        private NextPrayer.state state = NextPrayer.state.stateless;
+        public NextPrayer.state state = NextPrayer.state.stateless;
         private void SalahTMR_Tick(object sender, EventArgs e)
         {
             var now = DateTime.Now.ToString("hh:mm tt");
@@ -953,7 +953,7 @@ namespace OrderForm
         private void PrintSave_Click(object sender, EventArgs e)
         {
             //TimeTB_Leave(sender, e);  
-            
+
             InvoiceTypeOptions.Hide();
             InvoiceTypeOptions.SendToBack();
             Custom_Classes.CreateOffer.CreateOfferNow(PrintNewInvoice());
@@ -1069,7 +1069,7 @@ namespace OrderForm
             this.panel1.Visible = true;
             this.HeldPanel.Controls.Clear();
             _ = AddDraftInvoicesAsync(); _ = CheckDay();
-
+            LastOrder.Visible = false;
             await Task.CompletedTask;
         }
 
@@ -1130,9 +1130,35 @@ namespace OrderForm
                 var a = new ContextMenuStrip() { Items = { "ملخص الفاتورة" } };
                 var se = (_InvBTN)sender;
                 int id = (int)se.Tag;
-                DbInv.GetInvoiceByID(id).InvoiceTimeloglist.ForEach(x => a.Items.Add(x));
+                var inv = DbInv.GetInvoiceByID(id);
+                inv.InvoiceTimeloglist.ForEach(x => a.Items.Add(x));
+                
+                if (inv.POSInvoiceNumber != null) {
+                    var btn = new ToolStripButton() { Text = "فتح الفاتورة في ليبرا" };
+                    btn.Click += Btn_Click;
+                    string posinv = inv.POSInvoiceNumber;
+                    btn.Tag = posinv;
+                    a.Items.Add(btn);
+                }
+                
                 a.Show(se, new Point(0, 0));
             }
+        }
+        /// <summary>
+        /// Btn_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Btn_Click(object sender, EventArgs e)
+        {
+           
+            var se = (ToolStripButton)sender;
+            string posid = (string)se.Tag;
+            
+           if (posid != null) {
+                var a = new SavingandPayment.PaymentOptions(posid);
+                            }
+
         }
 
         private bool AddListToSave(int id)
@@ -1452,11 +1478,12 @@ namespace OrderForm
                                 var tb = (TextBox)sender;
                                 TODPicker.Show(tb, tb.Location);
                             }
-                            else {
+                            else
+                            {
                                 var tb = (Button)sender;
                                 TODPicker.Show(tb, tb.Location);
                             }
-                            
+
                         }
 
                     }
@@ -1912,33 +1939,39 @@ namespace OrderForm
 
         private void SaveInvoice_Click(object sender, EventArgs e)
         {
-            var SaveToPOS = PrintNewInvoice();
-            if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
+            if (!PrintSave.Enabled)
             {
-                Save2POS(SaveToPOS);
-
-            }
-            else if (IsItPrinted && !SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
-            {
-                DialogResult dialogResult = MessageBox.Show("هل تريد إعادة الطباعة؟", "تم تعديل الفاتورة", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                if (repeatedBehavior.AreYouSure("تم تخزين الفاتورة من قبل هل تريد تخزينها مجددا؟", "هل فشلت عملية التخزين؟"))
                 {
+                    var SaveToPOS = PrintNewInvoice();
+                    if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
+                    {
+                        Save2POS(SaveToPOS);
 
-                    PrintSave_Click(sender, null);
-                    Save2POS(SaveToPOS);
+                    }
+                    else if (IsItPrinted && !SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
+                    {
+                        DialogResult dialogResult = MessageBox.Show("هل تريد إعادة الطباعة؟", "تم تعديل الفاتورة", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                            PrintSave_Click(sender, null);
+                            Save2POS(SaveToPOS);
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+
+                            Save2POS(SaveToPOS);
+                        }
+
+                    }
+                    else
+                    {
+                        PrintSave_Click(sender, null);
+                        Save2POS(SaveToPOS);
+
+                    }
                 }
-                else if (dialogResult == DialogResult.No)
-                {
-
-                    Save2POS(SaveToPOS);
-                }
-
-            }
-            else
-            {
-                PrintSave_Click(sender, null);
-                Save2POS(SaveToPOS);
-
             }
         }
         private void Save2POS(Invoice SaveToPOS)
@@ -1947,7 +1980,7 @@ namespace OrderForm
             var canceled = new _InvBTN(SaveToPOS);
             int id = SaveToPOS.ID;
             canceled.Tag = id;
-           
+
             var a = new SavingandPayment.PaymentOptions(SaveToPOS);
             a.PrintOrNot += A_PrintOrNot;
             d.Hide();
@@ -1961,7 +1994,7 @@ namespace OrderForm
             {
                 this.Show();
                 this.WindowState = FormWindowState.Normal;
-                
+
                 HeldOrder_click(canceled, null);
             }
 
@@ -2312,21 +2345,24 @@ namespace OrderForm
             DialogResult dialogResult = MessageBox.Show("هل تريد إستخدام الإسم والرقم؟", "هل الطلب لنفس العميل؟", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                NameTB.Text= name;
-                MobileTB.Text = number; 
+                NameTB.Text = name;
+                MobileTB.Text = number;
             }
             a.Clear();
-           
+
         }
 
         private void LastOrder_Click(object sender, EventArgs e)
         {
             Invoice invoice = DbInv.GetInvoiceByPhoneNumber(MobileTB.Text);
-            if (invoice != null) { 
-            invoice.InvoiceItems.ForEach(x => POS.Add(x));
-            CommentTB.Text=invoice.Comment;
-            LastOrder.Visible = false;
+            if (invoice != null)
+            {
+                POS.Clear();
+                invoice.InvoiceItems.ForEach(x => POS.Add(x));
+                CommentTB.Text = invoice.Comment;
+                LastOrder.Visible = false;
             }
+
 
         }
 

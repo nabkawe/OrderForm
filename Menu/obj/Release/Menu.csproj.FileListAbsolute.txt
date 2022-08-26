@@ -37,8 +37,10 @@ C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\bin\Release\Menu.exe
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\bin\Release\Menu.pdb
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\bin\Release\MySharedBaseCode.dll
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\bin\Release\WpfScreenHelper.dll
+C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\bin\Release\PrayerTimes.dll
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\bin\Release\LiteDB.dll
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\bin\Release\MySharedBaseCode.pdb
+C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\bin\Release\PrayerTimes.pdb
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\bin\Release\LiteDB.xml
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\obj\Release\Menu.csproj.AssemblyReference.cache
 C:\Users\Admin\Source\Repos\nabkawe\OrderForm\Menu\obj\Release\Menu.csproj.SuggestedBindingRedirects.cache
