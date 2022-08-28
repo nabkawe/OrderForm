@@ -1132,15 +1132,16 @@ namespace OrderForm
                 int id = (int)se.Tag;
                 var inv = DbInv.GetInvoiceByID(id);
                 inv.InvoiceTimeloglist.ForEach(x => a.Items.Add(x));
-                
-                if (inv.POSInvoiceNumber != null) {
+
+                if (inv.POSInvoiceNumber != null)
+                {
                     var btn = new ToolStripButton() { Text = "فتح الفاتورة في ليبرا" };
                     btn.Click += Btn_Click;
                     string posinv = inv.POSInvoiceNumber;
                     btn.Tag = posinv;
                     a.Items.Add(btn);
                 }
-                
+
                 a.Show(se, new Point(0, 0));
             }
         }
@@ -1151,13 +1152,14 @@ namespace OrderForm
         /// <param name="e"></param>
         private void Btn_Click(object sender, EventArgs e)
         {
-           
+
             var se = (ToolStripButton)sender;
             string posid = (string)se.Tag;
-            
-           if (posid != null) {
+
+            if (posid != null)
+            {
                 var a = new SavingandPayment.PaymentOptions(posid);
-                            }
+            }
 
         }
 
@@ -1939,11 +1941,12 @@ namespace OrderForm
 
         private void SaveInvoice_Click(object sender, EventArgs e)
         {
+            var SaveToPOS = PrintNewInvoice();
+
             if (!PrintSave.Enabled)
             {
                 if (repeatedBehavior.AreYouSure("تم تخزين الفاتورة من قبل هل تريد تخزينها مجددا؟", "هل فشلت عملية التخزين؟"))
                 {
-                    var SaveToPOS = PrintNewInvoice();
                     if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
                     {
                         Save2POS(SaveToPOS);
@@ -1971,6 +1974,36 @@ namespace OrderForm
                         Save2POS(SaveToPOS);
 
                     }
+                }
+            }
+            else
+            {
+                if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
+                {
+                    Save2POS(SaveToPOS);
+
+                }
+                else if (IsItPrinted && !SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
+                {
+                    DialogResult dialogResult = MessageBox.Show("هل تريد إعادة الطباعة؟", "تم تعديل الفاتورة", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+
+                        PrintSave_Click(sender, null);
+                        Save2POS(SaveToPOS);
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+
+                        Save2POS(SaveToPOS);
+                    }
+
+                }
+                else
+                {
+                    PrintSave_Click(sender, null);
+                    Save2POS(SaveToPOS);
+
                 }
             }
         }

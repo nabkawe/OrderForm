@@ -1,14 +1,14 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj": {}
+    "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj": {
+    "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj",
+        "projectUniqueName": "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj",
         "projectName": "MySharedBaseCode",
-        "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj",
+        "projectPath": "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj",
         "frameworks": {
           "net48": {
             "projectReferences": {}
@@ -19,20 +19,21 @@
         "net48": {}
       }
     },
-    "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj": {
+    "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj",
+        "projectUniqueName": "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj",
         "projectName": "NetworkSynq",
-        "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj",
-        "packagesPath": "C:\\Users\\libra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Source\\Repos\\nabkawe\\OrderForm\\NetworkSynq\\obj\\",
+        "projectPath": "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj",
+        "packagesPath": "C:\\Users\\sahae\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\NetworkSynq\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\libra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sahae\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,8 +47,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj": {
-                "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj"
+              "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj": {
+                "projectPath": "C:\\Users\\sahae\\Source\\Repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj"
               }
             }
           }
@@ -93,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
