@@ -527,9 +527,10 @@ namespace OrderForm
         {
 
         }
-        public static void CreateOrder(Invoice inv)
+        public static void CreateAppOrder(Invoice inv)
         {
-
+            var Invoices = db.GetCollection<Invoice>("Invoices");
+            Invoices.Upsert(inv);
         }
 
         internal static Invoice GetInvoiceByPhoneNumber(string number)

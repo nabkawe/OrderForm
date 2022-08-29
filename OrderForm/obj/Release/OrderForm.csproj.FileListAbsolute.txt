@@ -169,3 +169,6 @@ C:\Users\sahae\Source\Repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.ap
 C:\Users\sahae\Source\Repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.csproj.CopyComplete
 C:\Users\sahae\Source\Repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.exe
 C:\Users\sahae\Source\Repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.pdb
+C:\Users\Admin\Source\Repos\nabkawe\OrderForm\OrderForm\bin\Release\System.Numerics.Vectors.dll
+C:\Users\Admin\Source\Repos\nabkawe\OrderForm\OrderForm\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Admin\Source\Repos\nabkawe\OrderForm\OrderForm\bin\Release\System.ValueTuple.dll

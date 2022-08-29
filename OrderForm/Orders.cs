@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Animation;
 using Color = System.Drawing.Color;
 
 namespace OrderForm
@@ -1943,9 +1944,42 @@ namespace OrderForm
         {
             var SaveToPOS = PrintNewInvoice();
 
-            if (!PrintSave.Enabled)
+            if (SaveToPOS.OrderType != "تطبيقات")
             {
-                if (repeatedBehavior.AreYouSure("تم تخزين الفاتورة من قبل هل تريد تخزينها مجددا؟", "هل فشلت عملية التخزين؟"))
+                if (!PrintSave.Enabled)
+                {
+                    if (repeatedBehavior.AreYouSure("تم تخزين الفاتورة من قبل هل تريد تخزينها مجددا؟", "هل فشلت عملية التخزين؟"))
+                    {
+                        if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
+                        {
+                            Save2POS(SaveToPOS);
+
+                        }
+                        else if (IsItPrinted && !SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
+                        {
+                            DialogResult dialogResult = MessageBox.Show("هل تريد إعادة الطباعة؟", "تم تعديل الفاتورة", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+
+                                PrintSave_Click(sender, null);
+                                Save2POS(SaveToPOS);
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+
+                                Save2POS(SaveToPOS);
+                            }
+
+                        }
+                        else
+                        {
+                            PrintSave_Click(sender, null);
+                            Save2POS(SaveToPOS);
+
+                        }
+                    }
+                }
+                else
                 {
                     if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
                     {
@@ -1978,32 +2012,11 @@ namespace OrderForm
             }
             else
             {
-                if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
+                if (repeatedBehavior.AreYouSure("هل قمت بتسليم الطلب للمندوب؟", "تأكيد تسليم الفاتورة"))
                 {
-                    Save2POS(SaveToPOS);
-
-                }
-                else if (IsItPrinted && !SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
-                {
-                    DialogResult dialogResult = MessageBox.Show("هل تريد إعادة الطباعة؟", "تم تعديل الفاتورة", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-
-                        PrintSave_Click(sender, null);
-                        Save2POS(SaveToPOS);
-                    }
-                    else if (dialogResult == DialogResult.No)
-                    {
-
-                        Save2POS(SaveToPOS);
-                    }
-
-                }
-                else
-                {
-                    PrintSave_Click(sender, null);
-                    Save2POS(SaveToPOS);
-
+                    SaveToPOS.Status = InvStat.SavedToPOS;
+                    SaveToPOS.POSInvoiceNumber = "جاهز";
+                    DbInv.CreateAppOrder(SaveToPOS);
                 }
             }
         }

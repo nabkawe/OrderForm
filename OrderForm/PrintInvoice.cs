@@ -94,7 +94,7 @@ namespace OrderForm
 
             text = order.OrderType;
             e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-            text = Environment.NewLine + order.InvoicePrice + " SAR ";
+            if (order.OrderType != "تطبيقات") text = Environment.NewLine + order.InvoicePrice + " SAR "; else { text = "جاهز"; }
             e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
             y += e.Graphics.MeasureString(text, hfnt).Height;
             y += 10;
