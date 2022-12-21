@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Linq;
 using System.Windows.Forms;
 using sharedCode;
 namespace OrderForm
@@ -58,8 +59,14 @@ namespace OrderForm
             float height = 0F;
 
             // الخطوط الافتراضية
-            string FntName = "Arial";
-            Font fnt = new Font(FntName, 17, FontStyle.Bold);
+            string FntName = Properties.Settings.Default.FontCombo;
+             Font fnt = new Font(FntName, Properties.Settings.Default.Fnt, FontStyle.Bold); 
+            if (Orders.CurrentList.Count <= 17) {  fnt = new Font(FntName, Properties.Settings.Default.Fnt, FontStyle.Bold); }
+            else if (Orders.CurrentList.Count <= 25 ) {  fnt = new Font(FntName, Properties.Settings.Default.Fnt -4 , FontStyle.Bold); }
+            else if (Orders.CurrentList.Count <= 35 ) {  fnt = new Font(FntName, Properties.Settings.Default.Fnt -6 , FontStyle.Bold); }
+            else if (Orders.CurrentList.Count <= 60 ) {  fnt = new Font(FntName, Properties.Settings.Default.Fnt -12 , FontStyle.Bold); }
+
+
             Font tfnt = new Font(FntName, 7, FontStyle.Bold);
             Font sfnt = new Font(FntName, 11, FontStyle.Bold);
             Font mfnt = new Font(FntName, 15, FontStyle.Bold);
@@ -134,7 +141,6 @@ namespace OrderForm
                 {
                     text = order.CustomerNumber;
                     e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                    //y += e.Graphics.MeasureString(text, fnt).Height;
                 }
 
                 y += e.Graphics.MeasureString(text, hfnt).Height;
@@ -171,7 +177,7 @@ namespace OrderForm
 
             //  Items List
             RectangleF rectangleF = new RectangleF(x, y, width, height * 2);
-            foreach (var item in Orders.CurrentList)
+            foreach (var item in Orders.CurrentList.ToList().OrderBy(item => item.Barcode))
             {
                 // starting Top Line
                 y += 5;
@@ -181,20 +187,21 @@ namespace OrderForm
                 text = RtlMark + item.Name;
 
                 string quan;
-                if (item.realquan == 1)
+                if (item.realquan <= 1)
                 {
                     quan = item.Quantity.ToString();
                 }
                 else quan = item.Quantity.ToString() + $" ({item.RealQuantity})";
 
                 // Checking and fixing long names
-                if (e.Graphics.MeasureString(text, fnt).Width > width)
+                if (e.Graphics.MeasureString(text, fnt).Width > width - e.Graphics.MeasureString(quan, fnt).Width)
                 {
                     rectangleF = new RectangleF(x, y, width, height * 2);
                     var rectangleN = new RectangleF(x, y + 35, width, height * 2);
                     e.Graphics.DrawString(text, fnt, drawBrush, rectangleF, rtlFormat);
+                    y += e.Graphics.MeasureString(text, fnt).Height;
                     e.Graphics.DrawString(quan, fnt, drawBrush, rectangleN, drawFormatLeft);
-                    y += e.Graphics.MeasureString(text, fnt).Height * 2;
+                    y += Convert.ToInt32(e.Graphics.MeasureString(text, fnt).Height * 1.1);
                 }
                 else // regular sized names
                 {
@@ -322,7 +329,6 @@ namespace OrderForm
                 {
                     text = order.CustomerNumber;
                     e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                    //y += e.Graphics.MeasureString(text, fnt).Height;
                 }
 
                 y += e.Graphics.MeasureString(text, hfnt).Height;

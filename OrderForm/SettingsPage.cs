@@ -1,8 +1,19 @@
-﻿using sharedCode;
+﻿using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using RestSharp;
+using sharedCode;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.Dynamic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Runtime.Remoting.Messaging;
+using System.Text.Json;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -36,8 +47,10 @@ namespace OrderForm
         {
             if (groupTB.Text != "")
             {
-                POSsections sect = new POSsections();
-                sect.Name = groupTB.Text;
+                POSsections sect = new POSsections
+                {
+                    Name = groupTB.Text
+                };
                 if (sList.Items.Count > 0)
                 {
                     bool exists = false;
@@ -125,6 +138,21 @@ namespace OrderForm
             {
                 GetSettings();
             }
+            else if (e.TabPage.Name == "About")
+            {
+                infolist.Items.Clear();
+                var list = MenuDB.LoadInfo();
+                if (list != null)
+                {
+                    if (list.list.Count > 0)
+                    {
+                        foreach (string item in list.list)
+                        {
+                            infolist.Items.Add(item);
+                        }
+                    }
+                }
+            }
             else if (e.TabPage.Name == "MenuDisplaySettings")
             {
                 MultiLB.Items.Clear();
@@ -181,11 +209,32 @@ namespace OrderForm
 
             defaultOrder.Text = Properties.Settings.Default.defaultOrder.ToString();
             DBConnection.Text = Properties.Settings.Default.DBConnection;
-
+            CloseWin_.Checked = Properties.Settings.Default.CloseWindow;
             showMenu.Checked = Properties.Settings.Default.showMenu;
+            TestingMode.Checked = Properties.Settings.Default.TestingMode;
+            FntUpDown.Value = Properties.Settings.Default.Fnt;
+            POSClientName_.Text = Properties.Settings.Default.POSClientName;
+            POSPhoneNumber_.Text = Properties.Settings.Default.POSPhoneNumber;
+            WheelCheck.Checked = Properties.Settings.Default.WheelEnabled;
+            WheelGridCheck.Checked = Properties.Settings.Default.WheelGridEnabled;
+            LoadFile.FileName = Properties.Settings.Default.API_Server_Path;
+            ipTB.Text = Properties.Settings.Default.API_Connection; 
+
+            GetFonts();
+            comboBox1.Text = Properties.Settings.Default.FontCombo;
+            APICheck.Checked = Properties.Settings.Default.API_ACCESS;
 
         }
 
+        private void GetFonts()
+        {
+            List<string> fonts = new List<string>();
+
+            foreach (FontFamily font in System.Drawing.FontFamily.Families)
+            {
+                comboBox1.Items.Add(font.Name);
+            }
+        }
         private void GetListOfPrinters()
         {
             PrintersList1.Items.Clear();
@@ -569,8 +618,19 @@ namespace OrderForm
             Properties.Settings.Default.defaultOrder = Convert.ToInt32(defaultOrder.Text);
             Properties.Settings.Default.DBConnection = DBConnection.Text;
             Properties.Settings.Default.showMenu = showMenu.Checked;
+            Properties.Settings.Default.CloseWindow = CloseWin_.Checked;
+            Properties.Settings.Default.TestingMode = TestingMode.Checked;
+            Properties.Settings.Default.Fnt = Convert.ToInt32(FntUpDown.Value);
+            Properties.Settings.Default.FontCombo = comboBox1.Text;
 
-
+            Properties.Settings.Default.POSClientName = POSClientName_.Text;
+            Properties.Settings.Default.POSPhoneNumber = POSPhoneNumber_.Text;
+            Properties.Settings.Default.WheelEnabled = WheelCheck.Checked;
+            Properties.Settings.Default.WheelGridEnabled = WheelGridCheck.Checked;
+            Properties.Settings.Default.API_ACCESS = APICheck.Checked;
+            Properties.Settings.Default.API_Server_Path = LoadFile.FileName;
+            Properties.Settings.Default.API_Connection = ipTB.Text;
+            Orders.APIConnection = ipTB.Text;
             Properties.Settings.Default.Save();
         }
 
@@ -590,7 +650,7 @@ namespace OrderForm
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
+            if (TestingMode.Checked == true)
             {
                 Properties.Settings.Default.TestingMode = true;
             }
@@ -765,7 +825,37 @@ namespace OrderForm
 
         private void SaveAndUpdateMat_Click(object sender, EventArgs e)
         {
-            dbQ.SaveOrUpdateItems(MAT.ToList());
+            if (ModifierKeys.HasFlag(Keys.Control) && TestingMode.Checked)
+            {
+                string path = @"C:\db\worod menu\worodmats.txt";
+
+
+                string[] readText = File.ReadAllLines(path);
+                foreach (string s in readText)
+                {
+                    var mat = s.Split('-');
+                    POSItems pos = new POSItems()
+                    {
+                        Name = mat[1],
+                        Barcode = mat[0],
+                        Price = Convert.ToDecimal(mat[2]),
+                        Quantity = 1,
+                        realquan = 1,
+                        Available = true,
+                        Tax = Properties.Settings.Default.CurrentTax,
+                        PicturePath = " ",
+                        Comment = "",
+                        PrinterName = "",
+                        SectionName = "بدون قسم"
+                    };
+                    MAT.Add(pos);
+                }
+            }
+            else
+            {
+                dbQ.SaveOrUpdateItems(MAT.ToList());
+            }
+
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -837,17 +927,44 @@ namespace OrderForm
         {
             if (SectionsName.Text != "NoMenu")
             {
-                MenuItemsX m = new MenuItemsX()
+                if (ModifierKeys.HasFlag(Keys.Control) && TestingMode.Checked)
                 {
-                    Name = MnameTB.Text,
-                    Barcode = MBarcode.Text,
-                    ImagePath = Mpath.Text,
-                    Price = MPrice.Text,
-                    Details = Mdetails.Text,
-                    Cal = Mcal.Text,
-                    Available = Availables.Checked
-                };
-                MenuLB.Items.Add(m);
+
+                    string path = @"C:\db\worod menu\dbs\sware.txt";
+
+
+                    string[] readText = File.ReadAllLines(path);
+                    foreach (string s in readText)
+                    {
+                        var mat = s.Split('|');
+                        MenuItemsX fast = new MenuItemsX()
+                        {
+                            Name = mat[1],
+                            Barcode = "000000",
+                            ImagePath = mat[3],
+                            Price = mat[0],
+                            Details = mat[4],
+                            Cal = mat[2],
+                            Available = true
+                        };
+                        MenuLB.Items.Add(fast);
+                    }
+                }
+                else
+                {
+
+                    MenuItemsX m = new MenuItemsX()
+                    {
+                        Name = MnameTB.Text,
+                        Barcode = MBarcode.Text,
+                        ImagePath = Mpath.Text,
+                        Price = MPrice.Text,
+                        Details = Mdetails.Text,
+                        Cal = Mcal.Text,
+                        Available = Availables.Checked
+                    };
+                    MenuLB.Items.Add(m);
+                }
             }
         }
 
@@ -952,7 +1069,7 @@ namespace OrderForm
             {
                 if (MenuLB.SelectedItem.GetType() == typeof(MenuItemsX))
                 {
-                    if (Control.ModifierKeys != Keys.Control)
+                    if (!Control.ModifierKeys.HasFlag(Keys.Control))
                     {
                         MultiLB.Items.Clear();
                         SaveMulti.Enabled = false;
@@ -991,16 +1108,6 @@ namespace OrderForm
                 }
             }
         }
-        private void EditItems(MenuItemsX x)
-        {
-            MnameTB.Text = x.Name;
-            MBarcode.Text = x.Barcode;
-            MPrice.Text = x.Price;
-            Mdetails.Text = x.Details;
-            Mcal.Text = x.Cal;
-            Mpath.Text = x.ImagePath;
-            Availables.Checked = x.Available;
-        }
         private void EditItems()
         {
             MnameTB.Text = "";
@@ -1014,29 +1121,44 @@ namespace OrderForm
 
         private void MultiLB_DoubleClick(object sender, EventArgs e)
         {
+
+
+
             if (MultiLB.SelectedIndex != -1)
             {
-                if (MultiLB.SelectedItem.GetType() == typeof(MenuItemsX))
+                if (!ModifierKeys.HasFlag(Keys.Control))
                 {
-                    using (var form = new EditMenuItemX())
+
+
+                    if (MultiLB.SelectedItem.GetType() == typeof(MenuItemsX))
                     {
-                        form.EditItems((MenuItemsX)MultiLB.SelectedItem);
-                        var result = form.ShowDialog();
-                        if (result == DialogResult.OK)
+                        using (var form = new EditMenuItemX())
                         {
-                            MenuItemsX val = form.MIX;            //values preserved after close
-                                                                  //Do something here with these values
+                            form.EditItems((MenuItemsX)MultiLB.SelectedItem);
+                            var result = form.ShowDialog();
+                            if (result == DialogResult.OK)
+                            {
+                                MenuItemsX val = form.MIX;            //values preserved after close
+                                                                      //Do something here with these values
 
-                            var a = (MenuItemsX)MultiLB.SelectedItem;
-                            //MenuLB.Items.RemoveAt(MenuLB.SelectedIndex);
-                            MultiLB.Items[MultiLB.SelectedIndex] = val;
+                                var a = (MenuItemsX)MultiLB.SelectedItem;
+                                //MenuLB.Items.RemoveAt(MenuLB.SelectedIndex);
+                                MultiLB.Items[MultiLB.SelectedIndex] = val;
 
 
+                            }
                         }
                     }
                 }
+                else
+                {
+                    {
+                        MenuLB.Items.Add(MultiLB.Items[MultiLB.SelectedIndex]);
+                        MultiLB.Items.Remove(MultiLB.Items[MultiLB.SelectedIndex]);
 
+                    }
 
+                }
                 //EditItems((MenuItemsX)MultiLB.SelectedItem);
             }
         }
@@ -1198,5 +1320,153 @@ namespace OrderForm
 
 
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SettingsPage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            LoadFile.ShowDialog();
+            if (LoadFile.FileName.Contains("NetworkSynq"))
+            {
+                ipTB.Text = "http://" + GetLocalIPAddress() + ":5000";
+
+                var appSettingsPath = Path.Combine(LoadFile.FileName.Replace("NetworkSynq.exe",""), "appsettings.json");
+                var json = File.ReadAllText(appSettingsPath);
+                var jsonSettings = new JsonSerializerSettings();
+                jsonSettings.Converters.Add(new ExpandoObjectConverter());
+                jsonSettings.Converters.Add(new StringEnumConverter());
+                dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
+                config.Kestrel.Endpoints.Http.Url = ipTB.Text;
+                config.Kestrel.Endpoints.Https.Url = ipTB.Text.Replace(":5000",":5001").Replace("http://","https://");
+                config.ConnectionString = Properties.Settings.Default.DBConnection;
+                var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
+                File.WriteAllText(appSettingsPath, newJson);
+
+
+            }
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            string host = Dns.GetHostName();
+            IPHostEntry ip = Dns.GetHostEntry(host);
+               {
+
+                BackgroundWorker bw = new BackgroundWorker();
+                bw.DoWork += Bw_DoWork;
+                bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
+                
+                bw.WorkerReportsProgress = true;
+                bw.RunWorkerAsync();
+                ipTB.ForeColor = Color.Red;
+                ipTB.Text = "جاري البحث: 1-9~ د";
+            }
+        }
+
+        private void Bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+
+            Console.WriteLine("I'm Here.");
+            var OwnIp = GetLocalIPAddress().Split('.');
+            string NetworkIP = OwnIp[0] + "." + OwnIp[1] + "." + OwnIp[2] + ".";
+            Console.WriteLine(NetworkIP);
+            for (int i = 1; i <= 255; i++)
+            {
+                if (scanForAPI(NetworkIP + i.ToString()))
+                {
+                    Console.WriteLine(i);
+                    e.Result =  NetworkIP + i.ToString();
+                    return;
+                }
+            }
+            e.Result = "فشل العثور على السيرفر";
+        }
+
+        private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+         
+            ipTB.Text = "http://" + e.Result + ":5000";
+            ipTB.ForeColor = Color.Green;
+            
+        }
+
+        private bool scanForAPI(string ip)
+        {
+            
+            try
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient("http://" + ip + ":5000" + "/LoadDB/AreYouAlive");
+                var request = new RestRequest();
+                request.Timeout = 2000;
+                var response = client.Get(request);
+                if (response != null) { return true; }else{ return false; }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(ip + "Failed");
+
+                return false;
+            }
+            
+
+        }
+
+
+
+        public static string GetLocalIPAddress()
+        {
+            var EthernetNetwork = GetLocalIPv4(NetworkInterfaceType.Ethernet);
+            var WifiNetwork = GetLocalIPv4(NetworkInterfaceType.Wireless80211);
+
+            if (EthernetNetwork != "")
+            {
+                return EthernetNetwork;
+            }else if (WifiNetwork != "")
+            {
+                return WifiNetwork;
+            }else
+            {
+                throw new Exception("لم يتم العثور على أي شبكة محلية الرجاء الإتصال بنفس الشبكة المحلية التي يتصل عليها السيرفر");
+            }
+            
+                
+                
+        }
+
+        private void SettingsPage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        public static string GetLocalIPv4(NetworkInterfaceType _type)
+        {
+            string output = "";
+            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up)
+                {
+                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            output = ip.Address.ToString();
+                        }
+                    }
+                }
+            }
+            return output;
+        }
+
     }
 }

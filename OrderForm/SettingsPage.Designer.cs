@@ -39,9 +39,13 @@
             this.AddInfo = new System.Windows.Forms.Button();
             this.infopanel = new System.Windows.Forms.TextBox();
             this.infolist = new System.Windows.Forms.ListBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ClearDB = new System.Windows.Forms.Button();
             this.Pos = new System.Windows.Forms.TabPage();
+            this.button17 = new System.Windows.Forms.Button();
+            this.label70 = new System.Windows.Forms.Label();
+            this.ipTB = new System.Windows.Forms.TextBox();
+            this.button16 = new System.Windows.Forms.Button();
+            this.APICheck = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.defaultOrder = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
@@ -52,6 +56,7 @@
             this.label51 = new System.Windows.Forms.Label();
             this.BranchName = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.CloseWin_ = new System.Windows.Forms.CheckBox();
             this.showMenu = new System.Windows.Forms.CheckBox();
             this.PartCash = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
@@ -82,6 +87,16 @@
             this.label6 = new System.Windows.Forms.Label();
             this.posInvoiceTB = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.WheelGridCheck = new System.Windows.Forms.CheckBox();
+            this.WheelCheck = new System.Windows.Forms.CheckBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.POSClientName_ = new System.Windows.Forms.TextBox();
+            this.label68 = new System.Windows.Forms.Label();
+            this.POSPhoneNumber_ = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.FntUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label67 = new System.Windows.Forms.Label();
+            this.TestingMode = new System.Windows.Forms.CheckBox();
             this.POSNewBTN = new System.Windows.Forms.TextBox();
             this.label38 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
@@ -175,6 +190,7 @@
             this.groupTB = new System.Windows.Forms.TextBox();
             this.SettingTabs = new System.Windows.Forms.TabControl();
             this.MaterialsEdit = new System.Windows.Forms.TabPage();
+            this.available = new System.Windows.Forms.CheckBox();
             this.SectionNameTB = new System.Windows.Forms.TextBox();
             this.PrinterTB = new System.Windows.Forms.TextBox();
             this.PicTB = new System.Windows.Forms.TextBox();
@@ -244,13 +260,14 @@
             this.mlistTB = new System.Windows.Forms.TextBox();
             this.MListLB = new System.Windows.Forms.ListBox();
             this.sectionsML = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.available = new System.Windows.Forms.CheckBox();
+            this.LoadFile = new System.Windows.Forms.OpenFileDialog();
             this.About.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.Pos.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FntUpDown)).BeginInit();
             this.groupBox9.SuspendLayout();
             this.prntSetting.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -272,7 +289,6 @@
             // About
             // 
             this.About.Controls.Add(this.groupBox13);
-            this.About.Controls.Add(this.checkBox1);
             this.About.Controls.Add(this.ClearDB);
             this.About.Location = new System.Drawing.Point(4, 22);
             this.About.Name = "About";
@@ -363,17 +379,6 @@
             this.infolist.Size = new System.Drawing.Size(370, 329);
             this.infolist.TabIndex = 2;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(38, 449);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(87, 17);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "TestingMode";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // ClearDB
             // 
             this.ClearDB.Location = new System.Drawing.Point(8, 481);
@@ -386,6 +391,11 @@
             // 
             // Pos
             // 
+            this.Pos.Controls.Add(this.button17);
+            this.Pos.Controls.Add(this.label70);
+            this.Pos.Controls.Add(this.ipTB);
+            this.Pos.Controls.Add(this.button16);
+            this.Pos.Controls.Add(this.APICheck);
             this.Pos.Controls.Add(this.groupBox11);
             this.Pos.Controls.Add(this.groupBox10);
             this.Pos.Controls.Add(this.groupBox1);
@@ -399,6 +409,57 @@
             this.Pos.Text = "إعدادت ليبرا";
             this.Pos.UseVisualStyleBackColor = true;
             this.Pos.Click += new System.EventHandler(this.Pos_Click);
+            // 
+            // button17
+            // 
+            this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button17.Location = new System.Drawing.Point(424, 483);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(47, 21);
+            this.button17.TabIndex = 86;
+            this.button17.Text = "تلقائي";
+            this.button17.UseCompatibleTextRendering = true;
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(474, 461);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(139, 13);
+            this.label70.TabIndex = 73;
+            this.label70.Text = "عنوان آي بي و منفذ السيرفر";
+            // 
+            // ipTB
+            // 
+            this.ipTB.Location = new System.Drawing.Point(477, 484);
+            this.ipTB.Name = "ipTB";
+            this.ipTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ipTB.Size = new System.Drawing.Size(132, 20);
+            this.ipTB.TabIndex = 73;
+            // 
+            // button16
+            // 
+            this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button16.Location = new System.Drawing.Point(304, 483);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(85, 21);
+            this.button16.TabIndex = 85;
+            this.button16.Text = "مسار السيرفر";
+            this.button16.UseCompatibleTextRendering = true;
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
+            // APICheck
+            // 
+            this.APICheck.AutoSize = true;
+            this.APICheck.Location = new System.Drawing.Point(320, 460);
+            this.APICheck.Name = "APICheck";
+            this.APICheck.Size = new System.Drawing.Size(141, 17);
+            this.APICheck.TabIndex = 84;
+            this.APICheck.Text = "الإتصال عبر API (تجريبي)";
+            this.APICheck.UseVisualStyleBackColor = true;
             // 
             // groupBox11
             // 
@@ -487,6 +548,7 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.CloseWin_);
             this.groupBox10.Controls.Add(this.showMenu);
             this.groupBox10.Controls.Add(this.PartCash);
             this.groupBox10.Controls.Add(this.label30);
@@ -522,6 +584,16 @@
             this.groupBox10.TabIndex = 75;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "مستطيلات الإدخال ليبرا";
+            // 
+            // CloseWin_
+            // 
+            this.CloseWin_.AutoSize = true;
+            this.CloseWin_.Location = new System.Drawing.Point(150, 406);
+            this.CloseWin_.Name = "CloseWin_";
+            this.CloseWin_.Size = new System.Drawing.Size(138, 17);
+            this.CloseWin_.TabIndex = 62;
+            this.CloseWin_.Text = "أغلق النافذة قبل التخزين";
+            this.CloseWin_.UseVisualStyleBackColor = true;
             // 
             // showMenu
             // 
@@ -773,6 +845,16 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.WheelGridCheck);
+            this.groupBox1.Controls.Add(this.WheelCheck);
+            this.groupBox1.Controls.Add(this.label69);
+            this.groupBox1.Controls.Add(this.POSClientName_);
+            this.groupBox1.Controls.Add(this.label68);
+            this.groupBox1.Controls.Add(this.POSPhoneNumber_);
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.FntUpDown);
+            this.groupBox1.Controls.Add(this.label67);
+            this.groupBox1.Controls.Add(this.TestingMode);
             this.groupBox1.Controls.Add(this.POSNewBTN);
             this.groupBox1.Controls.Add(this.label38);
             this.groupBox1.Controls.Add(this.label39);
@@ -797,10 +879,121 @@
             this.groupBox1.Controls.Add(this.label36);
             this.groupBox1.Location = new System.Drawing.Point(6, 17);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(292, 438);
+            this.groupBox1.Size = new System.Drawing.Size(292, 487);
             this.groupBox1.TabIndex = 73;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "أزرار  و نوافذ ليبرا";
+            // 
+            // WheelGridCheck
+            // 
+            this.WheelGridCheck.AutoSize = true;
+            this.WheelGridCheck.Checked = true;
+            this.WheelGridCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.WheelGridCheck.Location = new System.Drawing.Point(6, 464);
+            this.WheelGridCheck.Name = "WheelGridCheck";
+            this.WheelGridCheck.Size = new System.Drawing.Size(197, 17);
+            this.WheelGridCheck.TabIndex = 83;
+            this.WheelGridCheck.Text = "تمكين تغيير العدد بالدولاب في الجدول";
+            this.WheelGridCheck.UseVisualStyleBackColor = true;
+            // 
+            // WheelCheck
+            // 
+            this.WheelCheck.AutoSize = true;
+            this.WheelCheck.Checked = true;
+            this.WheelCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.WheelCheck.Location = new System.Drawing.Point(7, 444);
+            this.WheelCheck.Name = "WheelCheck";
+            this.WheelCheck.Size = new System.Drawing.Size(196, 17);
+            this.WheelCheck.TabIndex = 82;
+            this.WheelCheck.Text = "تمكين تغيير العدد بالدولاب فوق المواد";
+            this.WheelCheck.UseVisualStyleBackColor = true;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(196, 286);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(86, 13);
+            this.label69.TabIndex = 80;
+            this.label69.Text = "مربع اسم العميل";
+            // 
+            // POSClientName_
+            // 
+            this.POSClientName_.Location = new System.Drawing.Point(6, 283);
+            this.POSClientName_.Name = "POSClientName_";
+            this.POSClientName_.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.POSClientName_.Size = new System.Drawing.Size(174, 20);
+            this.POSClientName_.TabIndex = 81;
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(218, 260);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(62, 13);
+            this.label68.TabIndex = 78;
+            this.label68.Text = "مربع التلفون";
+            // 
+            // POSPhoneNumber_
+            // 
+            this.POSPhoneNumber_.Location = new System.Drawing.Point(6, 257);
+            this.POSPhoneNumber_.Name = "POSPhoneNumber_";
+            this.POSPhoneNumber_.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.POSPhoneNumber_.Size = new System.Drawing.Size(174, 20);
+            this.POSPhoneNumber_.TabIndex = 79;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(78, 318);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 77;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // FntUpDown
+            // 
+            this.FntUpDown.Location = new System.Drawing.Point(6, 318);
+            this.FntUpDown.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.FntUpDown.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.FntUpDown.Name = "FntUpDown";
+            this.FntUpDown.Size = new System.Drawing.Size(66, 20);
+            this.FntUpDown.TabIndex = 77;
+            this.FntUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.FntUpDown.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.FntUpDown.Value = new decimal(new int[] {
+            17,
+            0,
+            0,
+            0});
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(221, 318);
+            this.label67.Name = "label67";
+            this.label67.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label67.Size = new System.Drawing.Size(57, 13);
+            this.label67.TabIndex = 77;
+            this.label67.Text = "حجم الخط:";
+            // 
+            // TestingMode
+            // 
+            this.TestingMode.AutoSize = true;
+            this.TestingMode.Location = new System.Drawing.Point(6, 349);
+            this.TestingMode.Name = "TestingMode";
+            this.TestingMode.Size = new System.Drawing.Size(187, 17);
+            this.TestingMode.TabIndex = 71;
+            this.TestingMode.Text = "TestingMode عدم التخزين في ليبرا";
+            this.TestingMode.UseVisualStyleBackColor = true;
             // 
             // POSNewBTN
             // 
@@ -1345,16 +1538,16 @@
             this.groupBox7.Controls.Add(this.defaultPrinterTB);
             this.groupBox7.Controls.Add(this.button1);
             this.groupBox7.Controls.Add(this.button7);
-            this.groupBox7.Location = new System.Drawing.Point(9, 18);
+            this.groupBox7.Location = new System.Drawing.Point(9, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(268, 134);
+            this.groupBox7.Size = new System.Drawing.Size(268, 146);
             this.groupBox7.TabIndex = 26;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "الطابعة الإفتراضية لورقة التحضير الرئيسية";
             // 
             // defaultPrinterTB
             // 
-            this.defaultPrinterTB.Location = new System.Drawing.Point(6, 22);
+            this.defaultPrinterTB.Location = new System.Drawing.Point(6, 32);
             this.defaultPrinterTB.Name = "defaultPrinterTB";
             this.defaultPrinterTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.defaultPrinterTB.Size = new System.Drawing.Size(256, 20);
@@ -1367,9 +1560,9 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(3, 47);
+            this.button1.Location = new System.Drawing.Point(3, 58);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(262, 42);
+            this.button1.Size = new System.Drawing.Size(262, 49);
             this.button1.TabIndex = 25;
             this.button1.Text = "تعيين الطابعة المحددة";
             this.button1.UseVisualStyleBackColor = false;
@@ -1382,9 +1575,9 @@
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(3, 89);
+            this.button7.Location = new System.Drawing.Point(3, 107);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(262, 42);
+            this.button7.Size = new System.Drawing.Size(262, 36);
             this.button7.TabIndex = 27;
             this.button7.Text = "إلغاء تعيين الطابعة";
             this.button7.UseVisualStyleBackColor = false;
@@ -1395,9 +1588,9 @@
             this.groupBox6.Controls.Add(this.AddPrinterToItems);
             this.groupBox6.Controls.Add(this.PrintersList1);
             this.groupBox6.Controls.Add(this.AddNewDepartment);
-            this.groupBox6.Location = new System.Drawing.Point(283, 18);
+            this.groupBox6.Location = new System.Drawing.Point(283, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(312, 435);
+            this.groupBox6.Size = new System.Drawing.Size(312, 447);
             this.groupBox6.TabIndex = 25;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "الطابعات المتوفرة";
@@ -1409,7 +1602,7 @@
             this.AddPrinterToItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddPrinterToItems.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddPrinterToItems.ForeColor = System.Drawing.Color.White;
-            this.AddPrinterToItems.Location = new System.Drawing.Point(3, 360);
+            this.AddPrinterToItems.Location = new System.Drawing.Point(3, 372);
             this.AddPrinterToItems.Name = "AddPrinterToItems";
             this.AddPrinterToItems.Size = new System.Drawing.Size(306, 36);
             this.AddPrinterToItems.TabIndex = 30;
@@ -1437,7 +1630,7 @@
             this.AddNewDepartment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddNewDepartment.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddNewDepartment.ForeColor = System.Drawing.Color.White;
-            this.AddNewDepartment.Location = new System.Drawing.Point(3, 396);
+            this.AddNewDepartment.Location = new System.Drawing.Point(3, 408);
             this.AddNewDepartment.Name = "AddNewDepartment";
             this.AddNewDepartment.Size = new System.Drawing.Size(306, 36);
             this.AddNewDepartment.TabIndex = 29;
@@ -1451,9 +1644,9 @@
             this.groupBox5.Controls.Add(this.sectionsListCB);
             this.groupBox5.Controls.Add(this.sectionList);
             this.groupBox5.Controls.Add(this.button2);
-            this.groupBox5.Location = new System.Drawing.Point(601, 18);
+            this.groupBox5.Location = new System.Drawing.Point(601, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(370, 435);
+            this.groupBox5.Size = new System.Drawing.Size(370, 447);
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "المواد والأقسام";
@@ -1484,7 +1677,7 @@
             this.sectionList.DisplayMember = "NameAndPrinter";
             this.sectionList.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.sectionList.FormattingEnabled = true;
-            this.sectionList.Location = new System.Drawing.Point(3, 55);
+            this.sectionList.Location = new System.Drawing.Point(3, 67);
             this.sectionList.Name = "sectionList";
             this.sectionList.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.sectionList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
@@ -1847,6 +2040,18 @@
             this.MaterialsEdit.Text = "المواد";
             this.MaterialsEdit.UseVisualStyleBackColor = true;
             this.MaterialsEdit.Enter += new System.EventHandler(this.MaterialsEdit_Enter);
+            // 
+            // available
+            // 
+            this.available.AutoSize = true;
+            this.available.Checked = true;
+            this.available.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.available.Location = new System.Drawing.Point(554, 473);
+            this.available.Name = "available";
+            this.available.Size = new System.Drawing.Size(90, 17);
+            this.available.TabIndex = 26;
+            this.available.Text = "المادة متوفرة؟";
+            this.available.UseVisualStyleBackColor = true;
             // 
             // SectionNameTB
             // 
@@ -2643,17 +2848,9 @@
             this.sectionsML.Opening += new System.ComponentModel.CancelEventHandler(this.sectionsML_Opening);
             this.sectionsML.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.sectionsML_ItemClicked);
             // 
-            // available
+            // LoadFile
             // 
-            this.available.AutoSize = true;
-            this.available.Checked = true;
-            this.available.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.available.Location = new System.Drawing.Point(554, 473);
-            this.available.Name = "available";
-            this.available.Size = new System.Drawing.Size(90, 17);
-            this.available.TabIndex = 26;
-            this.available.Text = "المادة متوفرة؟";
-            this.available.UseVisualStyleBackColor = true;
+            this.LoadFile.FileName = "NetworkSynq.exe";
             // 
             // SettingsPage
             // 
@@ -2671,17 +2868,19 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "الإعدادات";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.SettingsPage_Load);
             this.About.ResumeLayout(false);
-            this.About.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.Pos.ResumeLayout(false);
+            this.Pos.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FntUpDown)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.prntSetting.ResumeLayout(false);
@@ -2835,7 +3034,6 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.TextBox POSNewBTN;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TabPage MaterialsEdit;
         private System.Windows.Forms.ListBox matLB;
         private System.Windows.Forms.Button EditMat;
@@ -2929,5 +3127,22 @@
         private System.Windows.Forms.ContextMenuStrip sectionsML;
         public System.Windows.Forms.CheckBox showMenu;
         private System.Windows.Forms.CheckBox available;
+        public System.Windows.Forms.CheckBox CloseWin_;
+        private System.Windows.Forms.CheckBox TestingMode;
+        private System.Windows.Forms.NumericUpDown FntUpDown;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.TextBox POSClientName_;
+        private System.Windows.Forms.Label label68;
+        private System.Windows.Forms.TextBox POSPhoneNumber_;
+        private System.Windows.Forms.CheckBox WheelGridCheck;
+        private System.Windows.Forms.CheckBox WheelCheck;
+        private System.Windows.Forms.CheckBox APICheck;
+        private System.Windows.Forms.OpenFileDialog LoadFile;
+        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.TextBox ipTB;
+        private System.Windows.Forms.Button button17;
     }
 }

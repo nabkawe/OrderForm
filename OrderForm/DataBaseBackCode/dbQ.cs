@@ -1,16 +1,18 @@
 ﻿using LiteDB;
+using RestSharp;
 using sharedCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 
 namespace OrderForm
 {
     public static class dbQ
     {
 
-        static LiteDatabase db = new LiteDatabase(Properties.Settings.Default.DBConnection);
+        //static LiteDatabase db = new LiteDatabase(Properties.Settings.Default.DBConnection);
 
         public static LiteDatabase Connect()
         {
@@ -22,6 +24,7 @@ namespace OrderForm
         }
         public static void UpdateSectionNotes(POSsections sect)
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var Deps = db.GetCollection<POSsections>("Sections");
@@ -29,37 +32,84 @@ namespace OrderForm
 
             }
         }
-        public static int SaveContacts(Contacts contact)
-        {
 
+
+        public static void SaveContacts(Contacts contact)
+        {
+            if (Properties.Settings.Default.API_ACCESS)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Orders.APIConnection + "/LoadDB/SaveContacts");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(contact, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
+            }
+            else
             {
 
-                var Deps = db.GetCollection<Contacts>("Customers");
-                if (contact != null)
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
                 {
-                    var oldContact = Deps.FindOne(x => x.Number == contact.Number);
-                    if (oldContact != null)
+                    var Deps = db.GetCollection<Contacts>("Customers");
+                    if (contact != null)
                     {
-                        oldContact.Name = contact.Name;
-                        Deps.Update(oldContact);
+                        var oldContact = Deps.FindOne(x => x.Number == contact.Number);
+                        if (oldContact != null)
+                        {
+                            oldContact.Name = contact.Name;
+                            Deps.Update(oldContact);
+                        }
+                        else Deps.Upsert(contact);
                     }
-                    else Deps.Upsert(contact);
                 }
-
-                return Deps.Count();
             }
         }
-        public static List<Contacts> LoadContacts(string number)
+        public static Contacts LoadContacts(string number)
         {
-
+            if (Properties.Settings.Default.API_ACCESS)
             {
-                var Deps = db.GetCollection<Contacts>("Customers");
-                List<Contacts> list = Deps.Find(x => x.Number == number).ToList();
-                return list;
+
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Orders.APIConnection + "/LoadDB/LoadContacts");
+                var request = new RestRequest();
+                request.AddParameter("number", number);
+                RestResponse response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        {
+                            var i = Newtonsoft.Json.JsonConvert.DeserializeObject<Contacts>(response.Content.ToString());
+                            return i;
+                        }
+                    }
+                    else return null;
+                }
+                else return null;
+
+
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                {
+                    var con = db.GetCollection<Contacts>("Customers");
+                    Contacts Con = con.FindOne(x => x.Number == number);
+                    return Con;
+                }
             }
         }
+
+
+
         public static void SaveDepartments(List<POSDepartments> list)
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
@@ -102,6 +152,7 @@ namespace OrderForm
 
         public static List<POSDepartments> LoadDepartments()
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var Deps = db.GetCollection<POSDepartments>("POSDepartment");
@@ -122,6 +173,7 @@ namespace OrderForm
 
         public static void UpdateAllItemsPrinters(List<POSItems> list)
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var materials = db.GetCollection<POSItems>("Materials");
@@ -133,6 +185,7 @@ namespace OrderForm
 
         public static POSsections PrinterGetSectionMaterial(string selected)
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
@@ -144,6 +197,7 @@ namespace OrderForm
         static int order = 0;
         public static void UpdateItemSections(List<POSItems> list, string section)
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
 
@@ -156,7 +210,28 @@ namespace OrderForm
 
         public static List<POSItems> GetItemsForSection(string section)
         {
+            
+            if (Properties.Settings.Default.API_ACCESS)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Orders.APIConnection + "/LoadDB/GetMaterialsForSection");
+                var request = new RestRequest();
+                request.AddParameter("section", section);
+                RestResponse response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSItems>>(response.Content.ToString());
+                        return i;
+                    }
+                    else return null;
 
+                }
+                else return null;
+
+            }
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
             {
                 var materials = db.GetCollection<POSItems>("Materials");
                 List<POSItems> items = materials.Find(x => x.SectionName == section).ToList();
@@ -170,6 +245,13 @@ namespace OrderForm
         static List<POSsections> result = new List<POSsections>();
         public static List<POSsections> GetSection(POSItems item)
         {
+            //if (Properties.Settings.Default.API_ACCESS)
+            //{
+            //    result.Clear();
+
+            //}
+            //else { 
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 result.Clear();
@@ -188,9 +270,11 @@ namespace OrderForm
                 }
                 return result;
             }
+            //}
         }
         public static List<POSsections> GetSections()
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var sectionTable = db.GetCollection<POSsections>("Sections");
@@ -200,6 +284,7 @@ namespace OrderForm
         }
         public static void SaveSections(ListBox list)
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var mat = db.GetCollection<POSItems>("Materials");
@@ -232,6 +317,7 @@ namespace OrderForm
 
         public static List<POSItems> CreateNewMaterials(DataGridView dgv)
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
@@ -279,6 +365,7 @@ namespace OrderForm
 
         public static void CancelLastSave(List<POSItems> mat)
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
@@ -295,6 +382,7 @@ namespace OrderForm
 
         public static List<POSItems> GetAllMaterials()
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var Materials = db.GetCollection<POSItems>("Materials");
@@ -316,15 +404,27 @@ namespace OrderForm
             {
                 try
                 {
-                    var Materials = db.GetCollection<POSItems>("Materials");
-                    var col = Materials.Find(x => x.Barcode == barcode).First();
+                    //var Mdb = new LiteDatabase(@"Filename=C:\\db\\MenuDB.db;Connection=shared");
+                    //var Menus = Mdb.GetCollection<MenuSection>("Menus");
+                    //foreach (MenuSection item in Menus.FindAll().ToList())
+                    //{
+                    //    foreach (object items in item.list)
+                    //    {
 
-                    var Mdb = new LiteDatabase(@"Filename=C:\\db\\MenuDB.db;Connection=shared");
 
-                    var sect = db.GetCollection<MenuSection>("Menus");
-                    var s = sect.FindAll().ToList();
-                    col.Available = state;
-                    Materials.Update(col);
+
+
+
+                    //    if (MenuItemsX items.Barcode == barcode)
+                    //        {
+                    //            items.Available =state;
+                    //            Menus.Update(item);
+                    //            break;  
+                    //        }
+                    //    }
+                    //}
+
+
                 }
                 catch (Exception ex)
                 {
@@ -342,20 +442,23 @@ namespace OrderForm
             {
                 try
                 {
-                    var s = db.GetCollection<POSsections>("Sections");
-                    POSsections S = s.FindOne(Query.All("ID", Query.Ascending));
-                    if (S != null)
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
                     {
-                        return dbQ.GetItemsForSection(S.Name);
+                        var s = db.GetCollection<POSsections>("Sections");
+                        POSsections S = s.FindOne(Query.All("ID", Query.Ascending));
+                        if (S != null)
+                        {
+                            return dbQ.GetItemsForSection(S.Name);
+                        }
+                        else
+                        {
+                            List<POSItems> l = new List<POSItems>();
+                            return l;
+                        }
+
+
                     }
-                    else
-                    {
-                        List<POSItems> l = new List<POSItems>();
-                        return l;
-                    }
-
-
-
                 }
                 catch (Exception)
                 {
@@ -369,27 +472,49 @@ namespace OrderForm
         }
         public static List<POSsections> PopulateSections() //at Load
         {
-
+            if (Properties.Settings.Default.API_ACCESS)
             {
-                var s = db.GetCollection<POSsections>("Sections");
-                var S = s.FindAll();
-                return S.ToList();
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Orders.APIConnection + "/LoadDB/GetSections");
+                var request = new RestRequest();
+                RestResponse response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSsections>>(response.Content.ToString());
+                        return i;
+                    }else return null;
+
+                }
+                else return null;
+                    
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                {
+                    var s = db.GetCollection<POSsections>("Sections");
+                    var S = s.FindAll();
+                    return S.ToList();
+                }
             }
 
         }
         public static int GetInvoicesCount()
         {
-
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
             {
                 var s = db.GetCollection<Invoice>("Invoices");
-                var S = s.FindAll();
-                return S.Count();
+                return s.Count();
             }
 
         }
 
         internal static void SaveOrUpdateItems(List<POSItems> MAT)
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var mat = db.GetCollection<POSItems>("Materials");
@@ -401,6 +526,7 @@ namespace OrderForm
         }
         internal static List<POSItems> LoadMaterialItems()
         {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
             {
                 var mat = db.GetCollection<POSItems>("Materials");

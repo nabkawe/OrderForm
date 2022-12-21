@@ -57,7 +57,8 @@
             // 
             // pbox
             // 
-            this.pbox.BackColor = System.Drawing.Color.Transparent;
+            this.pbox.BackColor = System.Drawing.Color.White;
+            this.pbox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbox.Location = new System.Drawing.Point(3, 25);
             this.pbox.Name = "pbox";

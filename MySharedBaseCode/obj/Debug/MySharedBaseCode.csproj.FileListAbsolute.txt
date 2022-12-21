@@ -7,3 +7,14 @@ C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Deb
 C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Debug\MySharedBaseCode.csproj.CopyComplete
 C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Debug\MySharedBaseCode.dll
 C:\Users\Admin\Documents\repos\ACM2\OrderForm\OrderForm\MySharedBaseCode\obj\Debug\MySharedBaseCode.pdb
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\bin\Debug\MySharedBaseCode.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\bin\Debug\MySharedBaseCode.pdb
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\bin\Debug\LiteDB.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\bin\Debug\PrayerTimes.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\bin\Debug\LiteDB.xml
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\bin\Debug\PrayerTimes.pdb
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\obj\Debug\MySharedBaseCode.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\obj\Debug\MySharedBaseCode.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\obj\Debug\MySharedBaseCode.csproj.CopyComplete
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\obj\Debug\MySharedBaseCode.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\MySharedBaseCode\obj\Debug\MySharedBaseCode.pdb

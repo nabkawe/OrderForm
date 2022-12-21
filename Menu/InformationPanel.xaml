@@ -16,7 +16,7 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="2" VerticalAlignment="Stretch" Height="114">
+        <StackPanel Grid.Column="2" VerticalAlignment="Top" Height="114" Margin="0,5,0,0">
             <TextBlock  Foreground="#FFA96B28"  FlowDirection="RightToLeft" TextWrapping="Wrap" Text="معلومات غذائية" TextAlignment="Left" FontSize="10" FontFamily="AbdoMaster ☞" Margin="0,0,15,0" />
             <Border x:Name="InfoBorder" CornerRadius="20,20,20,20" Padding="10" BorderBrush="#FF513519" BorderThickness="0"  HorizontalAlignment="Right" Margin="0,0,0,0" Height="95"  >
                 <Border.Background>
@@ -30,13 +30,13 @@
                 <TextBlock x:Name="InfoContent" Foreground="#FF513519"   FlowDirection="RightToLeft" TextWrapping="Wrap" Text="تنبيه الحساسية: تحتوي/قد تحتوي جميع الفطائر والوجبات على الحليب، البيض، الجلوتين  والمكسرات" Width="340"  FontSize="13" FontFamily="AbdoMaster ☞"/>
             </Border>
         </StackPanel>
-        <Image x:Name="logoMid" Grid.Column="1" Source="C:\db\images\HeaderSource\logo.png" Stretch="Uniform"  Margin="0,0,0,0" Height="167" Width="196" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Image x:Name="logoMid" Grid.Column="1" Source="C:\db\images\HeaderSource\logo.png" Stretch="Uniform"  Margin="0,-40,0,0" Height="137" Width="167" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         <StackPanel Grid.Column="0" FlowDirection="RightToLeft"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight"  HorizontalAlignment="Right">
-                <Image  Source="C:\db\images\HeaderSource\VAT.png" Stretch="Uniform" Height="65" Width="84"   />
+                <Image  Source="C:\db\images\HeaderSource\VAT.png" Stretch="Uniform" Height="65" Width="84" Margin="0,0,5,0"   />
                 <Image  Source="C:\db\images\HeaderSource\pricesinclude.jpg" Visibility="Visible" Stretch="Uniform" Height="69" Width="162" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
             </StackPanel>
-            <Image x:Name="MadaMid" Source="C:\db\images\HeaderSource\Mada.jpg"  Panel.ZIndex="1" Stretch="Uniform" Margin="0,-4,0,0" HorizontalAlignment="Right" Height="100"  />
+            <Image x:Name="MadaMid" Source="C:\db\images\HeaderSource\Mada.jpg"  Panel.ZIndex="1" Stretch="Uniform" Margin="0,0,5,0" HorizontalAlignment="Right" Height="80"  />
         </StackPanel>
         <!--Source="{DynamicResource mada}"-->
 

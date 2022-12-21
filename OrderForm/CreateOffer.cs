@@ -10,10 +10,12 @@ namespace OrderForm.Custom_Classes
 {
     internal static class CreateOffer
     {
+        private static bool clip;
         private static Invoice order;
-        public static Image CreateOfferNow(Invoice inv)
+        public static Image CreateOfferNow(Invoice inv,bool clipboard)
         {
             order = inv;
+            clip = clipboard;
             return FormatPage();
         }
         const string RtlMark = "\u200F";
@@ -269,8 +271,9 @@ namespace OrderForm.Custom_Classes
             Image a = (Image)Trimoffer;
             var p = new PictureBox();
             p.Image = a;
-            System.Windows.Forms.Clipboard.SetImage(p.Image);
-            Console.Beep(1000, 100);
+            if (clip) { System.Windows.Forms.Clipboard.SetImage(p.Image); }
+            
+            //Console.Beep(1000, 100);
             return a;
         }
 

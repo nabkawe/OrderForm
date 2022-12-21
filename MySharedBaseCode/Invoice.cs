@@ -1,4 +1,5 @@
-﻿using sharedCode;
+﻿using LiteDB;
+using sharedCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,7 @@ namespace sharedCode
         }
 
         // invoice info related code
+        [BsonId]
         public int ID { get; set; }
         public string CustomerName { get; set; }
         public string CustomerNumber { get; set; }
@@ -169,18 +171,27 @@ namespace sharedCode
             if (New.CustomerNumber == null) New.CustomerNumber = "";
             if (New.CustomerName == null) New.CustomerName = "";
             t = true;
-            if (this.Comment == New.Comment && this.CustomerNumber == New.CustomerNumber &&
+            if (this.InvoiceItems.Count() != New.InvoiceItems.Count())
+            {
+                t= false;
+                return t;
+            }
+
+                if (this.Comment == New.Comment && this.CustomerNumber == New.CustomerNumber &&
                 this.ID == New.ID /*&& this.InvoicePrice == New.InvoicePrice*/ &&
                 this.TimeinArabic == New.TimeinArabic && this.CustomerName == New.CustomerName &&
-                this.OrderType == New.OrderType) { t = true; /*MessageBox.Show("All Good at Text level");*/ }
-            else { t = false;/* MessageBox.Show("Not Equal at text level?");*/ }
+                this.OrderType == New.OrderType && this.InvoiceDay == New.InvoiceDay) { t = true; /*MessageBox.Show("All Good at Text level");*/ }
+            else { t = false; return t;     }
 
+            
             foreach (var item in this.InvoiceItems)
             {
                 var a = New.InvoiceItems.Any(x => x.Name == item.Name && x.Quantity == item.Quantity && x.Comment == item.Comment);
                 if (!a)
                 {
                     t = false;
+                    return t;
+                    
                 }
 
             }

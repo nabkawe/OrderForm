@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Menu"
              mc:Ignorable="d" 
- d:DesignHeight="250" d:DesignWidth="200" Height="245" Width="200" Padding="6" x:Name="FI">
+ d:DesignHeight="250" d:DesignWidth="200" Height="222" Width="200" Padding="6" x:Name="FI">
     <UserControl.Resources>
         <ContentControl x:Name="FoodName" x:Key="kName" Content="إسم الفطيرة"/>
         <ContentControl x:Name="FoodDetails" x:Key="kDetails" Content="تفاصيل الفطيرة"/>
@@ -19,12 +19,12 @@
     </UserControl.Resources>
 
 
-    <Border BorderBrush="#a96b28" Background="White" BorderThickness="1" CornerRadius="25,25,25,25" x:Name="MyBorder" UseLayoutRounding="True">
+    <Border BorderBrush="#a96b28" Background="White" BorderThickness="1" CornerRadius="25,25,25,25" x:Name="MyBorder" UseLayoutRounding="False">
         <Border.Effect >
             <DropShadowEffect x:Name="dropEffect" ShadowDepth="1"
                           Color="#a96b28"
                           Opacity="1"
-                          BlurRadius="0" Direction="90"/>
+                          BlurRadius="1" Direction="90" />
 
         </Border.Effect>
 
@@ -49,10 +49,10 @@
                             <GradientStop Color="Transparent" Offset="0"/>
                             <GradientStop Color="White" Offset="1"/>
                         </LinearGradientBrush>
-                    </TextBlock.Background><Run  FlowDirection="RightToLeft" FontSize="30"  FontFamily="Bahnschrift"  Text="{Binding Content, Mode=OneWay, Source={StaticResource kPrice}}"/>
+                    </TextBlock.Background><Run x:Name="PricePlate" FlowDirection="RightToLeft" FontSize="30"  FontFamily="Bahnschrift"  Text="{Binding Content, Mode=OneWay, Source={StaticResource kPrice}}"/>
                 </TextBlock>
                 <Label Canvas.Top="40" Canvas.Left="9">
-                    <Run  FontSize="13"   Foreground="#FF513519" FontWeight="ExtraBold" 
+                    <Run x:Name="KCur" FontSize="13"   Foreground="#FF513519" FontWeight="ExtraBold" 
                      FlowDirection="RightToLeft" Text="{Binding Content, Mode=OneWay, Source={StaticResource kCurrency}}"/>
                 </Label>
                 <Label x:Name="AvailableLabel" Visibility="Visible" BorderThickness="3" Content="غير متوفر حاليا"  Foreground="Red" FontWeight="Bold" FontSize="18" Canvas.Top="80" Canvas.Left="38">

@@ -742,10 +742,10 @@
             // 
             this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(335, 654);
+            this.textBox1.Location = new System.Drawing.Point(337, 654);
             this.textBox1.Name = "textBox1";
             this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox1.Size = new System.Drawing.Size(156, 29);
+            this.textBox1.Size = new System.Drawing.Size(154, 29);
             this.textBox1.TabIndex = 50;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -763,6 +763,7 @@
             this.label1.TabIndex = 51;
             this.label1.Text = "خصم";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // PaymentOptions
             // 
@@ -831,6 +832,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "كيف تريد تخزين الفاتورة";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PaymentOptions_FormClosing);
             this.Load += new System.EventHandler(this.PaymentOptions_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

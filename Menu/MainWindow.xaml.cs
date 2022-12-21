@@ -124,13 +124,13 @@ namespace Menu
             // portrait mode
             if (Width> Height)
             {
-                this.Top_Row.Height = new GridLength(1,GridUnitType.Star);
-                this.Bot_Row.Height = new GridLength(9,GridUnitType.Star);
-                this.InfoPanels.Width = Width;
-                this.InfoPanels.MadaMid.Visibility = Visibility.Hidden;
-                this.InfoPanels.logoMid.Height = this.InfoPanels.logoMid.Height / 2;
-                this.InfoPanels.logoMid.Width = this.InfoPanels.logoMid.Width / 2;
-                this.InfoPanels.logoMid.VerticalAlignment = VerticalAlignment.Top;
+                this.Top_Row.Height = new GridLength(0,GridUnitType.Star);
+                this.Bot_Row.Height = new GridLength(1,GridUnitType.Star);
+                
+                //this.InfoPanels.MadaMid.Visibility = Visibility.Hidden;
+                //this.InfoPanels.logoMid.Height = this.InfoPanels.logoMid.Height / 2;
+                //this.InfoPanels.logoMid.Width = this.InfoPanels.logoMid.Width / 2;
+                //this.InfoPanels.logoMid.VerticalAlignment = VerticalAlignment.Top;
 
             }
             else

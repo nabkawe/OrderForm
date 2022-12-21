@@ -12,7 +12,7 @@ namespace OrderForm.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -361,7 +361,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("filename=//desktop-piefrsj/db/db.db;connection=shared")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Filename=C:\\db\\db.db")]
         public string DBConnection {
             get {
                 return ((string)(this["DBConnection"]));
@@ -524,6 +524,126 @@ namespace OrderForm.Properties {
             }
             set {
                 this["showMenu"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CloseWindow {
+            get {
+                return ((bool)(this["CloseWindow"]));
+            }
+            set {
+                this["CloseWindow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int Fnt {
+            get {
+                return ((int)(this["Fnt"]));
+            }
+            set {
+                this["Fnt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Arial")]
+        public string FontCombo {
+            get {
+                return ((string)(this["FontCombo"]));
+            }
+            set {
+                this["FontCombo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[NAME:TextBox6]")]
+        public string POSPhoneNumber {
+            get {
+                return ((string)(this["POSPhoneNumber"]));
+            }
+            set {
+                this["POSPhoneNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[NAME:TextBox7]")]
+        public string POSClientName {
+            get {
+                return ((string)(this["POSClientName"]));
+            }
+            set {
+                this["POSClientName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WheelEnabled {
+            get {
+                return ((bool)(this["WheelEnabled"]));
+            }
+            set {
+                this["WheelEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WheelGridEnabled {
+            get {
+                return ((bool)(this["WheelGridEnabled"]));
+            }
+            set {
+                this["WheelGridEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool API_ACCESS {
+            get {
+                return ((bool)(this["API_ACCESS"]));
+            }
+            set {
+                this["API_ACCESS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string API_Server_Path {
+            get {
+                return ((string)(this["API_Server_Path"]));
+            }
+            set {
+                this["API_Server_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string API_Connection {
+            get {
+                return ((string)(this["API_Connection"]));
+            }
+            set {
+                this["API_Connection"] = value;
             }
         }
     }

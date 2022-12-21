@@ -16,14 +16,15 @@ using System.Windows.Shapes;
 using sharedCode;
 namespace Menu
 {
+
     /// <summary>
     /// Interaction logic for FoodItem.xaml
     /// </summary>
-    public partial class FoodItem : UserControl , IAllMenuItems
+    public partial class FoodItem : UserControl, IAllMenuItems
     {
-        public bool IsMulti {get;set;}
+        public bool IsMulti { get; set; }
         public System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-        
+
         public FoodItem(MenuItemsX pos)
         {
             this.InitializeComponent();
@@ -31,153 +32,129 @@ namespace Menu
             this.IsMulti = false;
             this.Fadein();
             this.RegisterName("BackGroundGrid", scopedElement: this.BackGroundGrid);
-
         }
-        int Count = 0;
+        int totalcount = 0;
         public FoodItem(IEnumerable<MenuItemsX> pos)
         {
             this.InitializeComponent();
-            pos.ToList().ForEach(x => posLoop.Add(x));
-            this.StartTimer();
-            this.FillInfo(pos.Last());
             IsMulti = true;
+            pos.ToList().ForEach(x => posLoop.Add(x));
+            this.FillInfo(pos.Last());
+            //this.pos = pos.Last();
+            totalcount = pos.Count();
+            this.StartTimer();
             this.Fadein();
-
         }
         public List<MenuItemsX> posLoop = new List<MenuItemsX>();
 
-       
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
+
+        public void FillInfo(MenuItemsX poss)
         {
-            try
+
+            if (poss.Available)
             {
-               
-                if (this.Count < this.posLoop.Count)
-                {
-                    //this.FadeOut();
-
-                    this.Count += 1;
-                    this.FillInfo(this.posLoop[Count]);
-                    this.BackGroundGrid.Opacity = 0;
-                }
-                else if (this.Count == this.posLoop.Count)
-                {
-                    this.Count = -1;
-                }
+                this.AvailableLabel.Visibility = Visibility.Hidden;
             }
-            catch (Exception)
+
+            var Name = this.Reg("kName");
+            Name.Content = poss.Name;
+            var Details = this.Reg("kDetails");
+            Details.Content = poss.Details;
+            var PictureName = this.Reg("kPicture");
+            PictureName.Content = poss.ImagePath;
+            var Cal = this.Reg("kCalories");
+            Cal.Content = poss.Cal;
+            var bar = this.Reg("kBarCode");
+            bar.Content = poss.Barcode;
+            this.Tag = poss.Barcode;
+
+
+            if (poss.Price != null)
             {
-                this.Count = -1;
-                this.Count += 1;
-                this.FillInfo(this.posLoop[Count]);
-                SwitchMe();
+                var Price = this.Reg("kPrice");
+                Price.Content = poss.Price.ToString();
+            }else if (poss.Price == null){ this.KCur.Text = " "; PricePlate.Text = " "; }
+            //else if (poss.Price == "")
+            //{
+            //    //var Price = this.Reg("kPrice");
+            //    //this.PricePlate.Text = string.Empty;
+            //    //Price.Content = string.Empty;
+            //    //this.KCur.Text = "-";
+            //    MessageBox.Show("");
+            //}
+            //else if (poss.Price.ToString() != "")
+            //{
+            //   // var Price = this.Reg("kPrice");
+            //   // Price.Content = poss.Price.ToString();
+            //}
 
 
-            }
+
 
 
 
         }
-
-        //private void FadeOut()
-        //{
-        //    this.RegisterName("foodi", this.FI);
-
-        //    Storyboard storyboard = new Storyboard();
-            
-        //    TimeSpan duration = TimeSpan.FromMilliseconds(1000); //
-
-        //    DoubleAnimation fadeInAnimation = new DoubleAnimation()
-        //    { From = 1, To = 0, Duration = new Duration(duration) };
-
-        //    Storyboard.SetTargetName(fadeInAnimation, "foodi");
-        //    Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-        //    storyboard.Children.Add(fadeInAnimation);
-        //    storyboard.Begin(this);
-        //}
+        int Count = 0;
+        private void Storyboard_Completed(object sender, EventArgs e)
+        {
+            FillInfo(posLoop[Count]);
+            this.Count += 1;
+            Fadein();
+        }
 
         private void StartTimer()
         {
             this.dispatcherTimer.Tick += DispatcherTimer_Tick;
-            this.dispatcherTimer.Interval = new TimeSpan(0, 0, 8);
+            this.dispatcherTimer.Interval = new TimeSpan(0, 0, 18);
             this.dispatcherTimer.Start();
-
         }
 
-        private ContentControl Reg(string r)
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            var contentControl = (ContentControl)this.FindResource(r);
-            return contentControl;
-        }
-        public void FillInfo(MenuItemsX pos)
-        {
-            SwitchMe();
-            if (pos.Available)
+
+            if (Count > totalcount || Count == totalcount)
             {
-                this.AvailableLabel.Visibility = Visibility.Hidden;
+                Count = 0;
             }
-            var Name = this.Reg("kName");
-            Name.Content = pos.Name;
+            else if (Count < totalcount)
+            {
 
-            var Details = this.Reg("kDetails");
-           Details.Content = pos.Details;
-            var PictureName = this.Reg("kPicture");
-            PictureName.Content = pos.ImagePath;
+                Storyboard storyboard = new Storyboard();
+                TimeSpan duration = TimeSpan.FromMilliseconds(1500); //
+                DoubleAnimation fadeInAnimation = new DoubleAnimation()
+                { From = 1, To = 0, AutoReverse = false, Duration = new Duration(duration) };
+                Storyboard.SetTargetName(fadeInAnimation, "BackGroundGrid");
+                Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
+                storyboard.Children.Add(fadeInAnimation);
+                storyboard.Completed += Storyboard_Completed;
+                storyboard.Begin(this);
 
 
-            var Price = this.Reg("kPrice");
-            Price.Content = pos.Price.ToString();
+            }
 
-            var Cal = this.Reg("kCalories");
-            Cal.Content = pos.Cal;
-            var bar = this.Reg("kBarCode");
-            bar.Content = pos.Barcode;
-            this.Tag = pos.Barcode;
+
         }
+
+
+
 
         public void Fadein()
         {
             this.RegisterName("foodi", this.FI);
-
             Storyboard storyboard = new Storyboard();
-            TimeSpan duration = TimeSpan.FromMilliseconds(200); //
-
+            TimeSpan duration = TimeSpan.FromMilliseconds(1500); //
             DoubleAnimation fadeInAnimation = new DoubleAnimation()
             { From = 0.0, To = 1.0, Duration = new Duration(duration) };
-
             Storyboard.SetTargetName(fadeInAnimation, "BackGroundGrid");
             Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-          storyboard.Children.Add(fadeInAnimation);
-          storyboard.Begin(this);
+            storyboard.Children.Add(fadeInAnimation);
+            storyboard.Begin(this);
         }
 
-          public void SwitchMe()
+        private void Story_Completed(object sender, EventArgs e)
         {
-
-            Storyboard storyboard = new Storyboard();
-            TimeSpan duration = TimeSpan.FromMilliseconds(400); //
-
-            DoubleAnimation fadeInAnimation = new DoubleAnimation()
-            { From = 0, To = 1, Duration = new Duration(duration) };
-            Storyboard.SetTargetName(fadeInAnimation, "BackGroundGrid");
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-          storyboard.Children.Add(fadeInAnimation);
-            storyboard.Completed += Storyboard_Completed;
-          storyboard.Begin(this);
-        }
-
-        private void Storyboard_Completed(object sender, EventArgs e)
-        {
-            //this.BackGroundGrid.Opacity = 0;
-            //Storyboard storyboard = new Storyboard();
-            //TimeSpan duration = TimeSpan.FromMilliseconds(500); //
-            //DoubleAnimation fadeInAnimation = new DoubleAnimation()
-            //{ From = 1, To = 0, AutoReverse = true, Duration = new Duration(duration) };
-            //Storyboard.SetTargetName(fadeInAnimation, "BackGroundGrid");
-            //Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-            //storyboard.Children.Add(fadeInAnimation);
-            //storyboard.Begin(this);
-
+            this.dispatcherTimer.Start();
+            this.dropEffect.Color = Color.FromRgb(169, 107, 40);
         }
 
         public void PickedYou()
@@ -187,42 +164,37 @@ namespace Menu
 
             this.RegisterName("BlurEffect", this.dropEffect);
             Storyboard s = new Storyboard();
-            TimeSpan duration = TimeSpan.FromMilliseconds(200); //
+            TimeSpan duration = TimeSpan.FromMilliseconds(500); //
             DoubleAnimation fadeInAnimation = new DoubleAnimation()
-            { From = 1, To = 5, AccelerationRatio=1, RepeatBehavior = new RepeatBehavior(3), AutoReverse = true, Duration = new Duration(duration) };
+            { From = 0, To = 100, AccelerationRatio = 0.3, RepeatBehavior = new RepeatBehavior(2), AutoReverse = true, Duration = new Duration(duration) };
             Storyboard.SetTargetName(fadeInAnimation, "BlurEffect");
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("ShadowDepth", 1));
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("BlurRadius", 50));
             s.Completed += Story_Completed;
-            
 
-            duration = TimeSpan.FromMilliseconds(500);
+            duration = TimeSpan.FromMilliseconds(1000);
             DoubleAnimation fadeInAnimation2 = new DoubleAnimation()
-            { By=360, RepeatBehavior = new RepeatBehavior(5), Duration = new Duration(duration) };
+            {  By = 360, RepeatBehavior = new RepeatBehavior(2), AutoReverse = true, Duration = new Duration(duration) };
             Storyboard.SetTargetName(fadeInAnimation2, "BlurEffect");
-            Storyboard.SetTargetProperty(fadeInAnimation2, new PropertyPath("Direction", 1));
+            Storyboard.SetTargetProperty(fadeInAnimation2, new PropertyPath("Direction", 5));
 
-            duration = TimeSpan.FromMilliseconds(500);
+            duration = TimeSpan.FromMilliseconds(1000);
             ColorAnimation fadeInAnimation3 = new ColorAnimation()
-            { From = Color.FromRgb(0, 255, 20), To = Color.FromRgb(169, 107, 40), SpeedRatio = 0.3,AccelerationRatio = 1, Duration = new Duration(duration) };
+            { From = Color.FromRgb(0, 255, 0), To = Color.FromRgb(169, 107, 40), SpeedRatio = 0.2, AccelerationRatio = 1, Duration = new Duration(duration) };
             Storyboard.SetTargetName(fadeInAnimation3, "BlurEffect");
-            Storyboard.SetTargetProperty(fadeInAnimation3, new PropertyPath("Color", 1));
+            Storyboard.SetTargetProperty(fadeInAnimation3, new PropertyPath("Color", 5));
 
 
             s.Children.Add(fadeInAnimation3);
             s.Children.Add(fadeInAnimation2);
             s.Children.Add(fadeInAnimation);
             s.Begin(this);
-
         }
-        private void Story_Completed(object sender, EventArgs e)
+
+        private ContentControl Reg(string r)
         {
-            this.dispatcherTimer.Start();
-            this.dropEffect.Color = Color.FromRgb(169, 107, 40);
-
-
+            var contentControl = (ContentControl)this.FindResource(r);
+            return contentControl;
         }
-
-
 
 
     }

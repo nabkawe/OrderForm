@@ -13,11 +13,11 @@ Title="MainWindow" Height="1920" Width="1080"   WindowStartupLocation="Manual" L
 
 
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="Top_Row"  Height="0.86*"/>
-            <RowDefinition x:Name="Bot_Row" Height="9*"/>
+            <RowDefinition x:Name="Top_Row"  Height="7*"/>
+            <RowDefinition x:Name="Bot_Row" Height="89*"/>
         </Grid.RowDefinitions>
 
-        <local:InformationPanel x:Name="InfoPanels"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="1080" Grid.Row="0"/>
+        <local:InformationPanel x:Name="InfoPanels" Grid.Row="0" Margin="0,0,0,1740" Grid.RowSpan="2"/>
 
         <ItemsControl Grid.Row="1" x:Name="FoodList">
             <ItemsControl.ItemsPanel>

@@ -45,6 +45,8 @@ namespace OrderForm.SavingandPayment
         public string POSWinShortcut = Properties.Settings.Default.POSWinShortcut;
         public string POSNewBTN = Properties.Settings.Default.POSNewBTN;
         public string POSClearNumber = Properties.Settings.Default.POSClearNumber;
+        public string POSPhoneNumber = Properties.Settings.Default.POSPhoneNumber;
+        public string POSClientName = Properties.Settings.Default.POSClientName;
         public event EventHandler<Invoice> PrintOrNot;
         public AutoItX3 AutoItX = new AutoItX3();
 
@@ -231,7 +233,7 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         private void ManualBTN_Click(object sender, EventArgs e)
         {
-            if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) == 0)
+            //if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) == 0)
             {
                 SaveManualToPOS();
             }
@@ -258,6 +260,8 @@ namespace OrderForm.SavingandPayment
                     return;
 
                 }
+
+
                 AddItemsToPOS(singleOrMultipleInvoice);
                 AutoItX.ControlClick(pos, "", SwitchBTN, "left");
                 AutoItX.Sleep(500);
@@ -304,7 +308,7 @@ namespace OrderForm.SavingandPayment
         private void SaveInvoiceNumber(bool single)
         {
             string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
-            if (!Properties.Settings.Default.TestingMode || !ModifierKeys.HasFlag(Keys.Control)) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
+            if (!Properties.Settings.Default.TestingMode) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
 
             if (single)
             {
@@ -351,17 +355,23 @@ namespace OrderForm.SavingandPayment
                     AutoItX.ControlSetText(pos, "", amountlbl, q.ToString());
                     AutoItX.ControlClick(pos, "", btnsubmit, "left", 1);
                 }
+                string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
+
                 if (this.invoice.CustomerName != null)
                 {
                     if (this.invoice.CustomerName.Replace(" ", "") != "")
                     {
-                        AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -" + this.invoice.CustomerName);
+
+                        AutoItX.ControlSetText(pos, "", POSClientName , this.invoice.CustomerName  );
+                        AutoItX.ControlSetText(pos, "", POSPhoneNumber , this.invoice.CustomerNumber  );
+                        AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
+
 
                     }
-                    else AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -");
+                    else AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
+
                 }
-                else
-                    AutoItX.ControlSetText(pos, "", invoicenotes, "ورقة التحضير:" + " - " + this.invoice.ID.ToString() + " -");
+                else  AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
 
             }
             else
@@ -380,7 +390,15 @@ namespace OrderForm.SavingandPayment
                 List<string> invoiceIDS = new List<string>();
                 MultipleInvoices.ForEach(x => invoiceIDS.Add(x.ID.ToString()));
                 var joinedNames = invoiceIDS.Aggregate((a, b) => a + "-" + b);
+                string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
+
+                AutoItX.ControlSetText(pos, "", POSClientName, this.MultipleInvoices[0].CustomerName);
+                AutoItX.ControlSetText(pos, "", POSPhoneNumber, this.MultipleInvoices[0].CustomerNumber);
+
+
                 AutoItX.ControlSetText(pos, "", invoicenotes, "أوراق تحضير:" + joinedNames);
+                AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.MultipleInvoices[0].ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.MultipleInvoices[0].Comment);
+
             }
         }
 
@@ -498,22 +516,42 @@ namespace OrderForm.SavingandPayment
         decimal d, m1, m2, m3, c;
         private void CalculateMultiMoney()
         {
-            d = Convert.ToDecimal(dueLBL.Text);
-            if (PartCash_.Text != "" && PartCash_.Text != "-")
+            if (dueLBL.Text != null || dueLBL.Text != "")
             {
-                c = Convert.ToDecimal(PartCash_.Text);
+                d = Convert.ToDecimal(dueLBL.Text);
             }
-            if (Mada1_.Text != "")
+            // الكاش
             {
-                m1 = Convert.ToDecimal(Mada1_.Text);
+                if (PartCash_.Text == null || PartCash_.Text == "") c = 0;
+                else if (PartCash_.Text != "" && PartCash_.Text != "-")
+                {
+                    c = Convert.ToDecimal(PartCash_.Text);
+                }
             }
-            if (Mada2_.Text != "")
+            // 1المدى
             {
-                m2 = Convert.ToDecimal(Mada2_.Text);
+                if (Mada1_.Text == null || Mada1_.Text == "") m1 = 0;
+                else if (Mada1_.Text != "" || Mada1_.Text != null)
+                {
+                    m1 = Convert.ToDecimal(Mada1_.Text);
+                }
             }
-            if (Mada3_.Text != "")
+            // المدى 2
             {
-                m3 = Convert.ToDecimal(Mada3_.Text);
+                if (Mada2_.Text == null || Mada2_.Text == "")
+                    m2 = 0;
+                else if (Mada2_.Text != "" || Mada2_.Text != null)
+                {
+                    m2 = Convert.ToDecimal(Mada2_.Text);
+                }
+            }
+            {
+                if (Mada3_.Text == null || Mada3_.Text == "")
+                    m3 = 0;
+                else if (Mada3_.Text != "" || Mada3_.Text != null)
+                {
+                    m3 = Convert.ToDecimal(Mada3_.Text);
+                }
             }
             var paid = c + m1 + m2 + m3;
             paidLBL.Text = paid.ToString();
@@ -597,7 +635,6 @@ namespace OrderForm.SavingandPayment
         }
         private void TB_TextChanged(object sender, EventArgs e)
         {
-            CalculateMultiMoney();
             var se = (TextBox)sender;
 
             if (se.Text == "")
@@ -606,6 +643,8 @@ namespace OrderForm.SavingandPayment
                 se.Focus();
                 SendKeys.Send("{End}");
             }
+            CalculateMultiMoney();
+
 
         }
         private void CashTB_TextChanged(object sender, EventArgs e)
@@ -663,7 +702,17 @@ namespace OrderForm.SavingandPayment
 
         private void PaymentOptions_Load(object sender, EventArgs e)
         {
-
+            if (Properties.Settings.Default.CloseWindow)
+            {
+                while (AutoItX.WinExists(pos, "") == 1)
+                {
+                    AutoItX.WinClose(pos, "");
+                }
+                
+                
+                
+            }
+            
         }
         string invoice_price;
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -673,6 +722,23 @@ namespace OrderForm.SavingandPayment
 
             decimal discounted = Convert.ToDecimal(invoice_price) - Convert.ToDecimal(textBox1.Text);
             dueLBL.Text = discounted.ToString();
+        }
+
+        private void PaymentOptions_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Properties.Settings.Default.CloseWindow)
+            {
+                while (AutoItX.WinExists(pos, "") == 1)
+                {
+                    AutoItX.WinClose(pos, "");
+                }
+            }
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "0.5";
         }
 
         private void Btn50_Click(object sender, EventArgs e)

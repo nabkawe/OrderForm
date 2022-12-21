@@ -33,14 +33,13 @@
             // _InvBTN
             // 
             this.BackColor = System.Drawing.Color.White;
-            this.Size = new System.Drawing.Size(230, 190);
-            this.FlatAppearance.BorderSize = 1;
             this.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSteelBlue;
-            this.UseVisualStyleBackColor = false;
+            this.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Size = new System.Drawing.Size(230, 130);
             this.TabStop = false;
+            this.UseVisualStyleBackColor = false;
             this.ResumeLayout(false);
 
         }

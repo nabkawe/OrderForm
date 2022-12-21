@@ -1,0 +1,16 @@
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\NetworkSynq.exe
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\appsettings.Development.json
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\appsettings.json
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\NetworkSynq.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\NetworkSynq.deps.json
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\NetworkSynq.runtimeconfig.json
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\NetworkSynq.pdb
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\LiteDB.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\MySharedBaseCode.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\PrayerTimes.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\MySharedBaseCode.pdb
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0-windows\PubTmp\Out\PrayerTimes.pdb

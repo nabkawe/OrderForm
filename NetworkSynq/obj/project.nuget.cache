@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "OA2rU+We7vR1DNyHRQZZli2C0yYTSfhL42FsEDosGFl6l0JnG+shnRIdFYoD0BUB+bOWnfFJha11F2CDOjLTXQ==",
+  "dgSpecHash": "JUaa7IdkLymBAGeuM0dLFny615jvtSqhXGNytuXO2OGj+uRUs3/fAsahZhIaxj+uduoomiRZTw48hrrcy48fNA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\Source\\Repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\litedb\\5.0.12\\litedb.5.0.12.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
