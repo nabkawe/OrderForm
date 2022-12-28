@@ -978,12 +978,12 @@
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(221, 318);
+            this.label67.Location = new System.Drawing.Point(212, 318);
             this.label67.Name = "label67";
             this.label67.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label67.Size = new System.Drawing.Size(57, 13);
+            this.label67.Size = new System.Drawing.Size(57, 26);
             this.label67.TabIndex = 77;
-            this.label67.Text = "حجم الخط:";
+            this.label67.Text = "حجم الخط:\r\n (طباعة)";
             // 
             // TestingMode
             // 

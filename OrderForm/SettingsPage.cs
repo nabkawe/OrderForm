@@ -1318,7 +1318,7 @@ namespace OrderForm
                 jsonSettings.Converters.Add(new StringEnumConverter());
                 dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
                 config.Kestrel.Endpoints.Http.Url = ipTB.Text;
-                config.Kestrel.Endpoints.Https.Url = ipTB.Text.Replace(":5000",":5001").Replace("http://","https://");
+                //config.Kestrel.Endpoints.Https.Url = ipTB.Text.Replace(":5000",":5001").Replace("http://","https://");
                 config.ConnectionString = Properties.Settings.Default.DBConnection;
                 var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
                 File.WriteAllText(appSettingsPath, newJson);

@@ -51,7 +51,15 @@ namespace OrderForm
             }
         }
 
-
+        public static bool AreYouAlive()
+        {
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            var client = new RestClient(Orders.APIConnection + "/LoadDB/AreYouAlive");
+            var request = new RestRequest();
+            request.Timeout = 3000;
+            var response = client.Get(request);
+            if (response != null) { return true; } else { return false; }
+        }
 
         public static int GetInvoicesCount()
         {

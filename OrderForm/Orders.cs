@@ -72,7 +72,11 @@ namespace OrderForm
                     processInfo.CreateNoWindow = true;
                     processInfo.UseShellExecute = false;
                     Process.Start(processInfo);
-                    
+                    bool connected = false;
+                    while (!connected)
+                    {
+                        connected = DbInv.AreYouAlive();
+                    }
 
                 }
             }
@@ -353,7 +357,20 @@ namespace OrderForm
 
         private void retryConnection()
         {
-            throw new NotImplementedException();
+            if (File.Exists(Properties.Settings.Default.API_Server_Path))
+            {
+                foreach (var process in Process.GetProcessesByName("NetworkSynq"))
+                {
+                    MessageBox.Show(process.Id.ToString());
+                    process.Kill();
+                }
+
+                ProcessStartInfo processInfo = new ProcessStartInfo(Properties.Settings.Default.API_Server_Path, "");
+                processInfo.WorkingDirectory = Properties.Settings.Default.API_Server_Path.Replace("NetworkSynq.exe", "");
+                processInfo.CreateNoWindow = true;
+                processInfo.UseShellExecute = false;
+                Process.Start(processInfo);
+            }
         }
 
         List<POSsections> lists = new List<POSsections>();
