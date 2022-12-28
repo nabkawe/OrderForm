@@ -80,8 +80,8 @@ namespace OrderForm
 
                 }
             }
-                InitializeComponent();
-            
+            InitializeComponent();
+
             LoadMethods();
             //Properties.Settings.Default.API_ACCESS = true;
             //Properties.Settings.Default.Save();
@@ -3163,10 +3163,13 @@ namespace OrderForm
         }
         private void WhatsSend_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            string details = dbQ.GetAllShortcuts().Where(x => x.Shortcut == e.ClickedItem.Text).First().Details;
-            string newdetails = details.Replace(" ", "%20").Replace("\n", "%0a");
-            string url = "whatsapp://send/?phone=" + "966" + this.MobileTB.Text + "&text=" + newdetails;
-            Process.Start(url);
+            if (MobileTB.Text != "")
+            {
+                string details = dbQ.GetAllShortcuts().Where(x => x.Shortcut == e.ClickedItem.Text).First().Details;
+                string newdetails = details.Replace(" ", "%20").Replace("\n", "%0a");
+                string url = "whatsapp://send/?phone=" + "966" + this.MobileTB.Text + "&text=" + newdetails;
+                Process.Start(url);
+            }
 
 
         }
