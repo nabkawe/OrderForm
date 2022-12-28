@@ -6,11 +6,7 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\Netwo
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\NetworkSynq.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\NetworkSynq.pdb
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\LiteDB.dll
-C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
-C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\System.Drawing.Common.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
@@ -30,7 +26,6 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\Netwo
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\NetworkSynq.AssemblyInfoInputs.cache
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\NetworkSynq.AssemblyInfo.cs
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\NetworkSynq.csproj.CoreCompileInputs.cache
-C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\NetworkSynq.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\NetworkSynq.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\staticwebassets.development.json
@@ -84,3 +79,5 @@ C:\Users\sahae\Source\Repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\Netwo
 C:\Users\sahae\Source\Repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\ref\NetworkSynq.dll
 C:\Users\sahae\Source\Repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\NetworkSynq.pdb
 C:\Users\sahae\Source\Repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0\NetworkSynq.genruntimeconfig.cache
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

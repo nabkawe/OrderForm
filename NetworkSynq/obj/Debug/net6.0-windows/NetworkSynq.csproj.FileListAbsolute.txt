@@ -19,8 +19,6 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windo
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windows\NetworkSynq.AssemblyInfoInputs.cache
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windows\NetworkSynq.AssemblyInfo.cs
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windows\NetworkSynq.csproj.CoreCompileInputs.cache
-C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windows\NetworkSynq.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windows\NetworkSynq.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windows\staticwebassets.build.json
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windows\staticwebassets.development.json
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windows\scopedcss\bundle\NetworkSynq.styles.css
@@ -32,3 +30,14 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windo
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Debug\net6.0-windows\ref\NetworkSynq.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\Microsoft.Win32.SystemEvents.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\System.Drawing.Common.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\System.Security.Permissions.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\System.Windows.Extensions.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Windows.Extensions.dll

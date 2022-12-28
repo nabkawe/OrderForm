@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>173</ApplicationRevision>
+    <ApplicationRevision>178</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -215,6 +215,12 @@
     <Compile Include="EditMenuItemX.Designer.cs">
       <DependentUpon>EditMenuItemX.cs</DependentUpon>
     </Compile>
+    <Compile Include="WhatsNotesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WhatsNotesForm.Designer.cs">
+      <DependentUpon>WhatsNotesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NotesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -271,6 +277,9 @@
     <EmbeddedResource Include="EditMenuItemX.resx">
       <DependentUpon>EditMenuItemX.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhatsNotesForm.resx">
+      <DependentUpon>WhatsNotesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NotesForm.resx">
       <DependentUpon>NotesForm.cs</DependentUpon>

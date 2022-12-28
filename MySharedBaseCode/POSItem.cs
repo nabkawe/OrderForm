@@ -16,6 +16,10 @@
         public POSDepartments(string name)
         {
             Name = name;
+        }   
+        public POSDepartments()
+        {
+
         }
 
         public override string ToString()

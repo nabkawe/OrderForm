@@ -1,8 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using LiteDB;
 using sharedCode;
-using static System.Collections.Specialized.BitVector32;
 using System.Configuration;
+using System.Collections.Generic;
+using System;
+using System.ComponentModel.Design;
+using System.Linq.Expressions;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Linq;
 
 namespace NetworkSynq.Controllers
 {
@@ -12,25 +18,37 @@ namespace NetworkSynq.Controllers
 
     public class LoadDBController : ControllerBase
     {
-        static IConfiguration conf = (new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
-        public static string DBConnection = conf["ConnectionString"].ToString();
-
+        static readonly IConfiguration conf = (new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
+        private readonly static string DBConnection = conf["ConnectionString"].ToString();
         static readonly LiteDatabase db = new(DBConnection);
+        static readonly string LogFile = @"C:\db";
 
+        private void LogMyAPI (string text)
+        {
+            try
+            {
+                using (System.IO.StreamWriter w = new System.IO.StreamWriter(LogFile + @"\log.text",true))
+                {
+                    w.WriteLine(text);
+                }
+            }
+            catch (Exception)
+            {
 
+            }
 
+        }
 
-        
         [HttpGet]
         [Route("GetList")]
         public ActionResult<IEnumerable<Invoice>> GetDraftInvoices(string inv)
         {
             var draft = db.GetCollection<Invoice>("Invoices");
-            Console.WriteLine("Got List of " + inv + " Invoices");
+            LogMyAPI("Got List of " + inv + " Invoices");
             if (inv == "draft")
             {
                 var draftInv = draft.Find(x => x.Status == InvStat.Draft && x.InvoiceItems.Count > 0).ToList();
-                Console.WriteLine(draftInv.Count.ToString());
+                LogMyAPI(draftInv.Count.ToString());
                 if (draftInv.Count > 0)
                 {
 
@@ -53,7 +71,7 @@ namespace NetworkSynq.Controllers
             {
 
                 var draftinv = draft.Find(x => x.Status == InvStat.Printed).Take(100).ToList().OrderByDescending(x => x.TimeinArabic == "ÇáÂä").ThenBy(x => x.TimeOfInv);
-                if (draftinv.Count() > 0) return Ok(draftinv);
+                if (draftinv.Any()) return Ok(draftinv);
                 else return NoContent();
 
             }
@@ -70,8 +88,6 @@ namespace NetworkSynq.Controllers
                 return Ok(d);
             }
             else return NoContent();
-
-
         }
 
         [HttpGet]
@@ -79,16 +95,17 @@ namespace NetworkSynq.Controllers
         public ActionResult<Invoice> GetDraftInvoices(int id)
         {
             var draft = db.GetCollection<Invoice>("Invoices");
+            LogMyAPI("got the invoice # " + " " + id);
 
             Invoice invoice = draft.FindOne(x => x.ID == id);
             if (invoice == null)
             {
-                Console.WriteLine("No Invoice By That ID was found");
+                LogMyAPI("No Invoice By That ID was found");
                 return NoContent();
             }
             else
             {
-                Console.WriteLine("Found Invoice ID:" + invoice.IDstring);
+                LogMyAPI("Found Invoice ID:" + invoice.IDstring);
                 return Ok(invoice);
             }
 
@@ -97,21 +114,69 @@ namespace NetworkSynq.Controllers
         [Route("GetSections")]
         public ActionResult<List<POSsections>> GetSections()
         {
-            Console.WriteLine("Loading Sections and Items.");
+            LogMyAPI("Loading Sections");
             var s = db.GetCollection<POSsections>("Sections");
             var S = s.FindAll();
             return Ok(S.ToList());
-                       
+
         }
-       
+
+        [HttpGet]
+        [Route("GetWhatsappShortcut")]
+        public ActionResult<List<WhatsAppShortCut>> WhatsappShortcut()
+        {
+            LogMyAPI("Getting Whatsapp Shortcuts");
+            var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
+            if (cuts.Count() > 0) return Ok(cuts.FindAll().ToList());
+            else { return NoContent(); }
+
+        }
+
+        [HttpPost]
+        [Route("SaveWhatsappShortcut")]
+        public ActionResult SaveWhatsappShortcut([FromBody] List<WhatsAppShortCut> list)
+        {
+            LogMyAPI("Saving Whatsapp Shortcuts");
+            var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
+            cuts.DeleteAll();
+
+            list.ForEach(x => cuts.Upsert(x));
+
+            return Ok();
+        }
+
+
+        [HttpGet]
+        [Route("GetDepartments")]
+        public ActionResult<List<POSDepartments>> GetDepartments()
+        {
+            LogMyAPI("Getting Departments.");
+            var s = db.GetCollection<POSDepartments>("POSDepartment");
+            var S = s.FindAll().ToList();
+            return Ok(S);
+
+        }
+
+
         [HttpGet]
         [Route("GetMaterialsForSection")]
         public ActionResult<List<POSItems>> GetMaterialsForSection(string section)
         {
-            Console.WriteLine("Loading Sections and Items.");
+            LogMyAPI("Getting materials for section.");
             var materials = db.GetCollection<POSItems>("Materials");
             List<POSItems> items = materials.Find(x => x.SectionName == section).ToList();
             return items.OrderBy(x => x.order).ToList();
+
+        }
+
+        [HttpGet]
+        [Route("GetAllMaterials")]
+        public ActionResult<List<POSItems>> GetAllMaterials()
+        {
+            LogMyAPI("Loading Materials for settings.");
+            var materials = db.GetCollection<POSItems>("Materials");
+            List<POSItems> items = materials.FindAll().ToList();
+            return items;
 
         }
 
@@ -122,19 +187,19 @@ namespace NetworkSynq.Controllers
         {
 
 
-            Console.WriteLine(inv.ID.ToString());
+            LogMyAPI(inv.ID.ToString());
 
             var invoiceTable = db.GetCollection<Invoice>("Invoices");
             bool Up = invoiceTable.Upsert(inv);
             if (Up)
             {
-                Console.WriteLine("Updated Invoice: " + inv.IDstring);
+                LogMyAPI("Updated Invoice: " + inv.IDstring);
                 return Ok("Updated");
 
             }
             else
             {
-                Console.WriteLine("New Invoice Was Created with ID:" + inv.IDstring);
+                LogMyAPI("New Invoice Was Created with ID:" + inv.IDstring);
                 return StatusCode(200);
             }
         }
@@ -145,19 +210,19 @@ namespace NetworkSynq.Controllers
         {
 
 
-            Console.WriteLine(inv.ID.ToString());
+            LogMyAPI(inv.ID.ToString());
 
             var invoiceTable = db.GetCollection<Invoice>("Invoices");
             bool Up = invoiceTable.Update(inv);
             if (Up)
             {
-                Console.WriteLine("Updated Invoice to Saved");
+                LogMyAPI("Updated Invoice to Saved");
                 return Ok("Updated Invoice to Saved");
 
             }
             else
             {
-                Console.WriteLine("Failed to Update");
+                LogMyAPI("Failed to Update");
                 return Ok("Failed to Update");
 
             }
@@ -165,25 +230,24 @@ namespace NetworkSynq.Controllers
 
         [HttpPost]
         [Route("UpdateInvoiceDraft")] // to Saved.
-        public ActionResult<string> CreateDraftInvoice([FromBody] Invoice inv)
+        public ActionResult<string> CreateDraftInvoice([FromBody] Invoice inv,string status)
         {
 
 
-            Console.WriteLine(inv.ID.ToString());
+            LogMyAPI(inv.ID.ToString());
 
             var invoiceTable = db.GetCollection<Invoice>("Invoices");
             bool Up = invoiceTable.Update(inv);
             if (Up)
             {
-                Console.WriteLine("Updated Invoice to Draft");
-                return Ok("Updated Invoice to Draft");
+                LogMyAPI("Updated Invoice to " + status);
+                return Ok("Updated Invoice to " + status);
 
             }
             else
             {
-                Console.WriteLine("Failed to Update");
+                LogMyAPI("Failed to Update");
                 return Ok("Failed to Update");
-
             }
         }
 
@@ -193,17 +257,17 @@ namespace NetworkSynq.Controllers
         {
 
 
-            Console.WriteLine(inv.ID.ToString());
+            LogMyAPI(inv.ID.ToString() + " Deleted");
             var invoiceTable = db.GetCollection<Invoice>("Invoices");
             bool Up = invoiceTable.Update(inv);
             if (Up)
             {
-                Console.WriteLine("Deleted Invoice");
+                LogMyAPI("Deleted Invoice");
                 return Ok(true);
             }
             else
             {
-                Console.WriteLine("Failed to Delete");
+                LogMyAPI("Failed to Delete");
                 return Ok(false);
             }
         }
@@ -213,6 +277,7 @@ namespace NetworkSynq.Controllers
         public ActionResult<bool> SaveContacts([FromBody] Contacts contact)
         {
 
+            LogMyAPI("Saving Contact");
             var con = db.GetCollection<Contacts>("Customers");
             if (contact != null)
             {
@@ -232,21 +297,23 @@ namespace NetworkSynq.Controllers
         [Route("LoadContacts")]
         public ActionResult<Contacts> LoadContacts(string number)
         {
+            LogMyAPI("loading Contact");
             var con = db.GetCollection<Contacts>("Customers");
             Contacts Contact = con.FindOne(x => x.Number == number);
             return Contact;
-        } 
+        }
 
         [HttpPost]
         [Route("CreateNewInvoice")]
-        public ActionResult<bool> CreateNewInvoice([FromBody]Invoice inv)
+        public ActionResult<bool> CreateNewInvoice([FromBody] Invoice inv)
         {
             {
+                LogMyAPI("Creating New Invoice");
                 var invoiceTable = db.GetCollection<Invoice>("Invoices");
                 try
                 {
                     invoiceTable.Insert(inv);
-                    return  Ok(true);
+                    return Ok(true);
                 }
                 catch (Exception)
                 {
@@ -257,71 +324,153 @@ namespace NetworkSynq.Controllers
 
         }
 
+
+        [HttpPost]
+        [Route("UpdateSectionNotes")]
+        public ActionResult UpdateSectionNotes([FromBody] POSsections POSsection)
+        {
+            LogMyAPI("Updating Section notes");
+            var Sections = db.GetCollection<POSsections>("Sections");
+            Sections.Update(POSsection);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("SaveDepartments")]
+        public ActionResult SaveDepartments([FromBody] List<POSDepartments> list)
+        {
+            LogMyAPI("Saving Departments");
+            var Deps = db.GetCollection<POSDepartments>("POSDepartment");
+            if (Deps.Count() > 0)
+            {
+                Deps.DeleteAll();
+                int c = 0;
+                foreach (POSDepartments deps in list)
+                {
+                    POSDepartments a = new POSDepartments(deps.Name, deps.DefaultPrinter);
+                    c = c++;
+                    a.ID = c;
+                    Deps.Insert(a);
+
+                }
+                return Ok();
+            }
+            else
+            {
+                int c = 0;
+
+                foreach (POSDepartments deps in list)
+
+                {
+                    POSDepartments a = new POSDepartments(deps.Name, deps.DefaultPrinter);
+                    c = c++;
+                    a.ID = c;
+                    Deps.Insert(a);
+
+                }
+                return Ok();
+            }
+
+
+
+        }
+
+        static int order = 0;
+        [HttpPost]
+        [Route("UpdateSectionMaterials")]
+        public ActionResult UpdateSectionMaterials([FromBody] List<POSItems> list, [FromQuery] string section)
+        {
+            LogMyAPI("Updating materials in section "+ section);
+            var materials = db.GetCollection<POSItems>("Materials");
+            materials.Find(x => x.SectionName == section).ToList().ForEach(x => { x.SectionName = "ÈÏæä ÞÓã"; materials.Update(x); });
+            list.ForEach(x => { order += 1; x.order = order; x.SectionName = section; materials.Update(x); });
+            return Ok();
+
+        }
+
+        [HttpPost]
+        [Route("UpdateSections")]
+        public ActionResult UpdateSections([FromBody] List<POSsections> list)
+        {
+            LogMyAPI("Updating Sections");
+
+            var mat = db.GetCollection<POSItems>("Materials");
+            var sectionTable = db.GetCollection<POSsections>("Sections");
+            sectionTable.DeleteAll();
+            list.ForEach(x => { x.ID = sectionTable.Count() + 1; sectionTable.Insert(x); });
+            //delete all groups
+            if (list.Count == 0)
+            {
+                sectionTable.DeleteAll();
+            }
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("UpdateMatSections")]
+        public ActionResult UpdateMatSections([FromBody] List<POSItems> list)
+        {
+            LogMyAPI("Updating Material Sections");
+            var materials = db.GetCollection<POSItems>("Materials");
+            list.ForEach(x => materials.Update(x));
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("SaveOrUpdateItems")]
+        public ActionResult SaveOrUpdateItems([FromBody] List<POSItems> list)
+        {
+            LogMyAPI("Saving list of materials");
+            var mat = db.GetCollection<POSItems>("Materials");
+            var deleted = mat.FindAll().Except(list);
+            deleted.ToList().ForEach(x => mat.Delete(x.ID));
+            list.ForEach(x => mat.Upsert(x));
+            return Ok();
+        }
+
         [HttpGet]
         [Route("AreYouAlive")]
         public ActionResult Alive()
         {
-            Console.WriteLine("Yes,I'm Alive");
+            Console.Write("Yes,I'm Alive");
             return Ok();
         }
-        
+
         [HttpGet]
         [Route("InvoiceCount")]
         public ActionResult<int> InvoiceCount()
         {
-            Console.WriteLine("Getting Invoice Count");
+            LogMyAPI("Getting Invoice Count");
             try
             {
-                
-                    var s = db.GetCollection<Invoice>("Invoices");
-                    int S = s.Max(x => x.ID);
-                    if (S == 0)
-                    {
-                        return Ok(1);
-                    }
-                    else return Ok(S);
-                
+
+                var s = db.GetCollection<Invoice>("Invoices");
+                int S = s.Max(x => x.ID);
+                if (S == 0)
+                {
+                    return Ok(1);
+                }
+                else return Ok(S);
+
             }
             catch (Exception)
             {
-                    var s = db.GetCollection<Invoice>("Invoices");
-                    if (s.Count() != 0)
-                    {
-                        int S = s.Max(x => x.ID);
-                        return Ok(S);
-                    }
-                    else return Ok(1);
-
+                var s = db.GetCollection<Invoice>("Invoices");
+                if (s.Count() != 0)
+                {
+                    int S = s.Max(x => x.ID);
+                    return Ok(S);
                 }
+                else return Ok(1);
 
             }
-        
+
 
         }
 
-        //[HttpGet]
-        //[Route("GetSectionCommentsList")]
-        //public ActionResult<List<POSsections>> GetSections(POSItems PosItem) //for Fast Comments
-        //{
-        //    var sectionTable = db.GetCollection<POSsections>("Sections");
-        //    List<POSsections> s = sectionTable.FindAll().ToList();
-        //    List<POSsections> result = new List<POSsections>();
-        //    foreach (POSsections ss in s)
-        //    {
-        //        var materials = db.GetCollection<POSItems>("Materials");
-        //        List<POSItems> items = materials.Find(x => x.SectionName == PosItem.SectionName).ToList();
-        //        return items.OrderBy(x => x.order).ToList();
 
-        //        foreach (var a in GetItemsForSection(ss.Name))
-        //        {
-        //            if (a.Name == item.Name)
-        //            {
-        //                result.Add(ss);
-        //            }
-        //        }
-        //    }
-        //    return result;
-        //}
+    }
 
 
 }

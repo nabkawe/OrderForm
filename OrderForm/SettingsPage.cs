@@ -87,11 +87,13 @@ namespace OrderForm
         {
             if (sList.SelectedIndex >= 0)
             {
-                List<POSItems> a = dbQ.GetAllMaterials().FindAll(x => x.SectionName == sList.SelectedItem.ToString());
+                if (repeatedBehavior.AreYouSure("لن تتمكن من التراجع عن الحذف، هل أنت متأكد من رغبتك في حذف القسم؟", "هل تريد حذف قسم المواد؟")){
+                List<POSItems> a = dbQ.LoadMaterialItems().FindAll(x => x.SectionName == sList.SelectedItem.ToString());
                 a.ForEach(x => x.SectionName = "بدون قسم");
                 dbQ.DeleteItemSections(a);
                 sList.Items.RemoveAt(sList.SelectedIndex);
                 listGB.Text = $"المجموعة:";
+                }
             }
         }
 
@@ -111,10 +113,9 @@ namespace OrderForm
             if (e.TabPage.Name == "Sections")
             {
                 sList.Items.Clear();
-                dbQ.GetSections().ForEach(i => sList.Items.Add(i));
-
+                dbQ.PopulateSections().ForEach(i => sList.Items.Add(i));
                 mat.Items.Clear();
-                dbQ.GetAllMaterials().Where(x => x.SectionName == "بدون قسم").ToList().ForEach(i => mat.Items.Add(i));
+                dbQ.LoadMaterialItems().Where(x => x.SectionName == "بدون قسم").ToList().ForEach(i => mat.Items.Add(i));
             }
 
             else if (e.TabPage.Name == "prntSetting")
@@ -262,14 +263,14 @@ namespace OrderForm
         {
             if (filterTB.Text == "")
             {
-                List<POSItems> m = dbQ.GetAllMaterials();
+                List<POSItems> m = dbQ.LoadMaterialItems();
                 mat.Items.Clear();
                 m.ForEach(x => mat.Items.Add(x));
             }
             else
             {
                 mat.Items.Clear();
-                List<POSItems> m = dbQ.GetAllMaterials();
+                List<POSItems> m = dbQ.LoadMaterialItems();
                 m.Where(x => x.Name.Contains(filterTB.Text)).ToList().ForEach(f => mat.Items.Add(f));
             }
 
@@ -825,36 +826,8 @@ namespace OrderForm
 
         private void SaveAndUpdateMat_Click(object sender, EventArgs e)
         {
-            if (ModifierKeys.HasFlag(Keys.Control) && TestingMode.Checked)
-            {
-                string path = @"C:\db\worod menu\worodmats.txt";
-
-
-                string[] readText = File.ReadAllLines(path);
-                foreach (string s in readText)
-                {
-                    var mat = s.Split('-');
-                    POSItems pos = new POSItems()
-                    {
-                        Name = mat[1],
-                        Barcode = mat[0],
-                        Price = Convert.ToDecimal(mat[2]),
-                        Quantity = 1,
-                        realquan = 1,
-                        Available = true,
-                        Tax = Properties.Settings.Default.CurrentTax,
-                        PicturePath = " ",
-                        Comment = "",
-                        PrinterName = "",
-                        SectionName = "بدون قسم"
-                    };
-                    MAT.Add(pos);
-                }
-            }
-            else
-            {
-                dbQ.SaveOrUpdateItems(MAT.ToList());
-            }
+         
+            dbQ.SaveOrUpdateItems(MAT.ToList());
 
         }
 
@@ -1350,7 +1323,12 @@ namespace OrderForm
                 var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
                 File.WriteAllText(appSettingsPath, newJson);
 
-
+            }
+            if (repeatedBehavior.AreYouSure("يجب إعادة تشغيل البرنامج للانتقال لوضع السيرفر","متأكد؟"))
+            {
+                Properties.Settings.Default.API_ACCESS = true;
+                Properties.Settings.Default.Save();
+                Application.Restart();
             }
         }
 

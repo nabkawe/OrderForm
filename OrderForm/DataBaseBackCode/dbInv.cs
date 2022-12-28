@@ -16,24 +16,16 @@ namespace OrderForm
 {
     public static class DbInv
     {
-        //static LiteDatabase db = new LiteDatabase(Properties.Settings.Default.DBConnection);
-
-        //public static LiteDatabase Connect()
-        //{
-        //    //var db = new LiteDatabase(@"Filename=C:\db\db.db;Connection=shared");
-        //    return db;
-        //}
-
         //log backcode
         public static void LogAction(string action, int id, InvStat status)
         {
             if (Properties.Settings.Default.API_ACCESS)
             {
-                    var Logged = GetInvoiceByID(id);
-                    Logged.LogThis(action);
-                    CreateDraftInvoice(Logged);
+                var Logged = GetInvoiceByID(id);
+                Logged.LogThis(action);
+                CreateDraftInvoice(Logged);
 
-                
+
 
             }
             else
@@ -83,39 +75,40 @@ namespace OrderForm
                     else return 0;
 
                 }
-                else { 
-                try
+                else
                 {
-                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
+                    try
                     {
-                        var s = db.GetCollection<Invoice>("Invoices");
-                        int S = s.Max(x => x.ID);
-                        if (S == 0)
-                        {
-                            return 1;
-                        }
-                        else return S;
-                    }
-                }
-                catch (Exception)
-                {
+                        using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
-                    using (var db = new LiteDatabase(@"Filename=C:\db\db.db;Connection=Shared"))
-
-                    {
-                        var s = db.GetCollection<Invoice>("Invoices");
-                        if (s.Count() != 0)
                         {
+                            var s = db.GetCollection<Invoice>("Invoices");
                             int S = s.Max(x => x.ID);
-                            return S;
+                            if (S == 0)
+                            {
+                                return 1;
+                            }
+                            else return S;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        using (var db = new LiteDatabase(@"Filename=C:\db\db.db;Connection=Shared"))
+
+                        {
+                            var s = db.GetCollection<Invoice>("Invoices");
+                            if (s.Count() != 0)
+                            {
+                                int S = s.Max(x => x.ID);
+                                return S;
+
+                            }
+                            else return 1;
 
                         }
-                        else return 1;
 
                     }
-
-                }
                 }
             }
 
@@ -155,26 +148,25 @@ namespace OrderForm
 
             }
         }
-        public static void DeleteInvoicesByID(int id)
-        {
-            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
-            {
-                var draft = db.GetCollection<Invoice>("Invoices");
-                draft.DeleteMany(x => x.Status == InvStat.Draft && x.ID == id);
-
-
-            }
-        }
 
         internal static void DeleteDBInvoices()
         {
-            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
+            try
             {
-                db.DropCollection("Invoices");
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                {
+
+                    db.DropCollection("Invoices");
+
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("You can't delete Invoice from the API");
 
             }
+
         }
 
 
@@ -275,23 +267,37 @@ namespace OrderForm
         }
 
         internal static void UpdateDraftInvoice(int iD, bool edit)
-
         {
-            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
+            if (Properties.Settings.Default.API_ACCESS)
             {
-                var updatedInvoices = db.GetCollection<Invoice>("Invoices");
-                var updated = updatedInvoices.FindById(iD);
-                if (updated != null)
-                {
-                    updated.Comment = updated.Comment + " ";
-                    updated.InEditMode = edit;
-                    updatedInvoices.Update(updated);
-                }
+                var updated = GetInvoiceByID(iD);
+                updated.Comment = updated.Comment + " ";
+                updated.InEditMode = edit;
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceSaved");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(updated, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
 
             }
-        }
+            else
+            {
 
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                {
+                    var updatedInvoices = db.GetCollection<Invoice>("Invoices");
+                    var updated = updatedInvoices.FindById(iD);
+
+
+                }
+            }
+        }
 
         public static Invoice GetInvoiceByID(int ID)
         {
@@ -415,6 +421,8 @@ namespace OrderForm
                 request.RequestFormat = DataFormat.Json;
                 string i = Newtonsoft.Json.JsonConvert.SerializeObject(inv, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
                 request.AddParameter("application/json", i, ParameterType.RequestBody);
+                request.AddQueryParameter("status", inv.Status);
+
                 var response = client.Post(request);
             }
             else
@@ -438,7 +446,7 @@ namespace OrderForm
             {
                 if (comment == 1)
                 {
-                    
+
                     DbInv.LogAction("Printed Invoice Deleted Canceled", id, InvStat.Deleted);
                     Deleted = GetInvoiceByID(id);
                     Deleted.Comment = "تم الإلغاء من العميل";
@@ -451,6 +459,8 @@ namespace OrderForm
                     request.RequestFormat = DataFormat.Json;
                     string i = Newtonsoft.Json.JsonConvert.SerializeObject(Deleted, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
                     request.AddParameter("application/json", i, ParameterType.RequestBody);
+                    request.AddQueryParameter("status", Deleted.Status);
+
                     var response = client.Post(request);
 
                     return response.IsSuccessStatusCode;
@@ -470,6 +480,8 @@ namespace OrderForm
                     request.RequestFormat = DataFormat.Json;
                     string i = Newtonsoft.Json.JsonConvert.SerializeObject(Deleted, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
                     request.AddParameter("application/json", i, ParameterType.RequestBody);
+                    request.AddQueryParameter("status", Deleted.Status);
+
                     var response = client.Post(request);
 
                     return response.IsSuccessStatusCode;
@@ -505,6 +517,7 @@ namespace OrderForm
 
         public static bool CreatePreparingInvoice(Invoice inv)
         {
+
             if (Properties.Settings.Default.API_ACCESS)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -529,43 +542,63 @@ namespace OrderForm
                     }
                     else return false;
                 }
-                else throw new HttpRequestException() ;
-                
+                else throw new HttpRequestException();
+
             }
-            else { 
-            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+            else
             {
-                var invoiceTable = db.GetCollection<Invoice>("Invoices");
-                try
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
                 {
-                    invoiceTable.Insert(inv);
-                    return true;
+                    var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                    try
+                    {
+                        invoiceTable.Insert(inv);
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        // invoiceTable.Update(inv);
+                        return false;
+                    }
                 }
-                catch (Exception)
-                {
-                    // invoiceTable.Update(inv);
-                    return false;
-                }
-            }
             }
         }
 
-        
+
 
         public static bool UpdatePreparingInvoice(Invoice inv)
         {
-            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+            if (Properties.Settings.Default.API_ACCESS)
             {
-                var invoiceTable = db.GetCollection<Invoice>("Invoices");
-                try
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceDraft");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(inv, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                request.AddQueryParameter("status", inv.Status);
+                var response = client.Post(request);
+                return response.IsSuccessStatusCode; 
+            }
+            else
+            {
+
+
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
                 {
-                    invoiceTable.Update(inv);
-                    return true;
-                }
-                catch (Exception)
-                {
-                    // invoiceTable.Update(inv);
-                    return false;
+                    var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                    try
+                    {
+                        invoiceTable.Update(inv);
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        // invoiceTable.Update(inv);
+                        return false;
+                    }
                 }
             }
         }
@@ -857,9 +890,18 @@ namespace OrderForm
         {
             if (Properties.Settings.Default.API_ACCESS)
             {
-                var c = GetSavedInvoices();
-                var result = c.FindLast(x => x.CustomerNumber == number);
-                if (result == null) return null; else return result;
+                try
+                {
+                    var c = GetSavedInvoices();
+                    var result = c.FindLast(x => x.CustomerNumber == number);
+                    if (result == null) return null; else return result;
+                }
+                catch (Exception)
+                {
+                    return null;
+
+                }
+
             }
             else
             {

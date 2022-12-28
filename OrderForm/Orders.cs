@@ -28,6 +28,8 @@ using System.Text.Json;
 using System.Windows.Media;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using System.Net.Http.Headers;
+using System.Web;
+using System.Web.Hosting;
 
 namespace OrderForm
 {
@@ -53,8 +55,33 @@ namespace OrderForm
         #region Form and Loading Region
         public Orders()
         {
-            InitializeComponent();
+            //Properties.Settings.Default.DBConnection = @"Filename=C:\db\db.db;connection=Shared";
+            //Properties.Settings.Default.Save();
+            if (Properties.Settings.Default.API_ACCESS)
+            {
+                if (File.Exists(Properties.Settings.Default.API_Server_Path))
+                {
+                    foreach (var process in Process.GetProcessesByName("NetworkSynq"))
+                    {
+                        MessageBox.Show(process.Id.ToString());
+                        process.Kill();
+                    }
+
+                    ProcessStartInfo processInfo = new ProcessStartInfo(Properties.Settings.Default.API_Server_Path, "");
+                    processInfo.WorkingDirectory = Properties.Settings.Default.API_Server_Path.Replace("NetworkSynq.exe", "");
+                    processInfo.CreateNoWindow = true;
+                    processInfo.UseShellExecute = false;
+                    Process.Start(processInfo);
+                    
+
+                }
+            }
+                InitializeComponent();
+            
             LoadMethods();
+            //Properties.Settings.Default.API_ACCESS = true;
+            //Properties.Settings.Default.Save();
+            //Application.Exit();
         }
         public List<POSItems> ItemsLists = new List<POSItems>();
 
@@ -313,15 +340,14 @@ namespace OrderForm
 
                 int c = -1;
                 lists.ForEach(l => { c += 1; CreateSectionBtns(SectionsPanel, l); dbQ.GetItemsForSection(l.Name).ForEach(i => ItemsLists.Add(i)); });
-                list = dbQ.PopulateItems();
                 ItemsPanel1.Controls.Clear();
-                list.ForEach(x => CreateItemBtns(ItemsPanel1, x));
+                if (SectionsPanel.Controls.Count > 0) { Section_Clicked(SectionsPanel.Controls[0], null); }
 
             }
             catch (Exception)
             {
                 //throw;
-                Console.WriteLine("LoadMaterials");
+                Console.WriteLine("LoadMaterials Error.");
             }
         }
 
@@ -1928,21 +1954,20 @@ namespace OrderForm
                     row.Selected = true;
                     var c = dbQ.GetSection(item);
                     FastComment.Items.Clear();
+                    FastComment.Items.Add("(((ملاحظة مخصصة)))");
 
-                    foreach (var sect in c)
+
+                    if (c.NotesList.Count > 0)
                     {
-                        if (sect.NotesList.Count > 0)
+
+                        foreach (string it in c.NotesList)
                         {
-
-                            foreach (string it in sect.NotesList)
-                            {
-                                FastComment.Items.Add(it);
-                            }
-
+                            FastComment.Items.Add(it);
                         }
+
                     }
 
-                    FastComment.Items.Add("");
+
                     FastComment.Show(Cursor.Position);
                     FastComment.Tag = item;
 
@@ -1968,8 +1993,7 @@ namespace OrderForm
         {
             if (dvItems.Rows.Count > 0)
             {
-
-                if (e.ClickedItem.Text != "")
+                if (e.ClickedItem.Text != "(((ملاحظة مخصصة)))")
                 {
                     dvItems.Focus();
                     //var a = dvItems.SelectedRows[0].Cells[4];
@@ -1985,7 +2009,6 @@ namespace OrderForm
                     //var a = dvItems.SelectedRows[0].Cells[4];
                     dvItems.SelectedRows[0].Cells[4].Selected = true;
                     dvItems.SelectedRows[0].Cells[4].Value = "";
-
                 }
             }
 
@@ -2240,7 +2263,7 @@ namespace OrderForm
 
             if (ModifierKeys.HasFlag(Keys.Control))
             {
-
+                DbInv.UpdatePreparingInvoice(SaveToPOS);
                 Save2POS(SaveToPOS);
 
             }
@@ -2678,48 +2701,63 @@ namespace OrderForm
 
         private void ItemNameTag_Click(object sender, EventArgs e)
         {
-            string text = "هل تريد تغيير حالة المادة؟" + Environment.NewLine + "Yes المادة متوفرة" + Environment.NewLine + " No المادة غير متوفرة";
-            DialogResult dialogResult = MessageBox.Show(text, "تعدل حالة توفر المادة", MessageBoxButtons.YesNo);
-            var s = (ToolStripMenuItem)sender;
-            var item = (POSItems)s.GetCurrentParent().Tag;
+            //string text = "هل تريد تغيير حالة المادة؟" + Environment.NewLine + "Yes المادة متوفرة" + Environment.NewLine + " No المادة غير متوفرة";
+            //DialogResult dialogResult = MessageBox.Show(text, "تعدل حالة توفر المادة", MessageBoxButtons.YesNo);
+            //var s = (ToolStripMenuItem)sender;
+            //var item = (POSItems)s.GetCurrentParent().Tag;
 
-            if (dialogResult == DialogResult.Yes)
-            {
-                dbQ.MatAvailableSet(item.Barcode, true);
-            }
-            else dbQ.MatAvailableSet(item.Barcode, false);
+            //if (dialogResult == DialogResult.Yes)
+            //{
+            //    dbQ.MatAvailableSet(item.Barcode, true);
+            //}
+            //else dbQ.MatAvailableSet(item.Barcode, false);
 
-
+            /////////// To Be Programmed.
         }
 
         private void RepeatOrder_Click(object sender, EventArgs e)
         {
-            List<POSItems> a = new List<POSItems>();
-            POS.ToList().ForEach(x => a.Add(x));
+            List<POSItems> NewPrices = new List<POSItems>();
+
+            foreach (var i in POS)
+            {
+                var a = ItemsLists.First(x => x.Barcode == i.Barcode);
+                a.Quantity = i.Quantity;
+                a.Comment = i.Comment;
+                NewPrices.Add(a);
+            }
             NameTB.Text += " ";
             MobileTB.Text += " ";
             string name = " " + NameTB.Text;
             string number = MobileTB.Text;
+
             NewBTN_Click(null, null);
-            a.ForEach(x => POS.Add(x));
+            NewPrices.ForEach(x => POS.Add(x));
+            NewPrices.Clear();
             DialogResult dialogResult = MessageBox.Show("هل تريد إستخدام الإسم والرقم؟", "هل الطلب لنفس العميل؟", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
                 NameTB.Text = name;
                 MobileTB.Text = number;
             }
-            a.Clear();
+
 
         }
 
         private void LastOrder_Click(object sender, EventArgs e)
         {
-            Invoice invoice = DbInv.GetInvoiceByPhoneNumber(MobileTB.Text);
+
+            Invoice invoice = DbInv.GetInvoiceByPhoneNumber(MobileTB.Text.Replace(" ", ""));
             if (invoice != null)
             {
                 POS.Clear();
-                invoice.InvoiceItems.ForEach(x => POS.Add(x));
-                CommentTB.Text = invoice.Comment;
+                foreach (var i in invoice.InvoiceItems)
+                {
+                    var a = ItemsLists.First(x => x.Barcode == i.Barcode);
+                    a.Quantity = i.Quantity;
+                    a.Comment = i.Comment;
+                    POS.Add(a);
+                }
                 LastOrder.Visible = false;
             }
 
@@ -2736,93 +2774,218 @@ namespace OrderForm
         }
         private void dvItems_DragDrop(object sender, DragEventArgs e)
         {
+
             string JahezParser = "";
             JahezParser = e.Data.GetData(DataFormats.UnicodeText).ToString().Replace("x", "");
-            POS.Clear();
-            String MatParser = "";
             if (JahezParser.Contains("Order"))
             {
-                Regex JOrderID = new Regex(@"Order#\s*\d*");
-                if (JOrderID.Match(JahezParser).Success)
+                POS.Clear();
+                String MatParser = "";
+                if (JahezParser.Contains("Order"))
                 {
-                    NameTB.Text = "جاهز" + JOrderID.Match(JahezParser).Value.ToString().Replace("Order#", "");
-                }
-                //if (JahezParser.Split('\u000a')[0].Count() > 0)
-                //{
-
-                //    NameTB.Text = "جاهز" + JahezParser.Split('\u000a')[0].Replace("Order", "");
-                //}
-                //else NameTB.Text = "جاهز" + JahezParser.Split('\u000a')[1].Replace("Order", "");
-
-                foreach (string s in JahezParser.Split('\u000a'))
-                {
-                    if (s.StartsWith("Comment:"))
+                    Regex JOrderID = new Regex(@"Order#\s*\d*");
+                    if (JOrderID.Match(JahezParser).Success)
                     {
-                        CommentTB.Text = s.Split(':')[1];
+                        NameTB.Text = "جاهز" + JOrderID.Match(JahezParser).Value.ToString().Replace("Order#", "");
                     }
-                    if (s.StartsWith("Grand Total:\t"))
-                    {
-                        jahezPrice.Text = s.Split('\t')[1];
-                    }
-                    if (s.Contains("\""))
-                    {
-                        var start = s.IndexOf("\"") + 1;//add one to not include quote
-                        var end = s.LastIndexOf("\"") - start;
-                        var result = s.Substring(start, end);
-                        MatParser += Environment.NewLine + "*" + result;
-                    }
-                    if (s.Contains('\u0009'))
-                    {
+                    //if (JahezParser.Split('\u000a')[0].Count() > 0)
+                    //{
 
-                        MatParser += Environment.NewLine + s.Split('\u0009')[0];
-                    }
-                    MatParser = MatParser.Replace("Total", "");
-                    MatParser = MatParser.Replace("Grand ", "");
-                    MatParser = MatParser.Replace("Discount", "");
-                    MatParser = MatParser.Replace("Product", "");
-                    MatParser = MatParser.Replace(":", "");
-                    MatParser = Regex.Replace(MatParser, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
-                }
+                    //    NameTB.Text = "جاهز" + JahezParser.Split('\u000a')[0].Replace("Order", "");
+                    //}
+                    //else NameTB.Text = "جاهز" + JahezParser.Split('\u000a')[1].Replace("Order", "");
 
-                try
-                {
-
-                    for (int i = 1; i < MatParser.Split('*').Count() + 1; i++)
+                    foreach (string s in JahezParser.Split('\u000a'))
                     {
-                        string JahezBarcode = MatParser.Split('*')[i].Split('\u000a')[0];
-                        string JahezQuantity = MatParser.Split('*')[i].Split('\u000a')[1];
-                        JahezBarcode = JahezBarcode.Replace('\r', ' ').Replace(" ", "");
-                        JahezQuantity = JahezQuantity.Replace('\r', ' ').Replace(" ", "");
-
-                        var Item = ItemsLists.Find(x => x.Barcode == JahezBarcode);
-                        if (Item != null)
+                        if (s.StartsWith("Comment:"))
                         {
-                            Item.Quantity = Convert.ToInt32(JahezQuantity);
-                            Item.Comment = "";
-                            POSItems New = new POSItems();
-                            New.Name = Item.Name;
-                            New.Quantity = Item.Quantity;
-                            New.Price = Item.Price;
-                            New.PrinterName = Item.PrinterName;
-                            Item.printerlist.ForEach(x => New.printerlist.Add(x));
-                            New.realquan = Item.realquan;
-                            New.Barcode = Item.Barcode;
-                            New.ID = Item.ID;
-                            New.Parent = Item.Parent;
-                            New.Available = Item.Available;
+                            CommentTB.Text = s.Split(':')[1];
+                        }
+                        if (s.StartsWith("Grand Total:\t"))
+                        {
+                            jahezPrice.Text = s.Split('\t')[1];
+                        }
+                        if (s.Contains("\""))
+                        {
+                            var start = s.IndexOf("\"") + 1;//add one to not include quote
+                            var end = s.LastIndexOf("\"") - start;
+                            var result = s.Substring(start, end);
+                            MatParser += Environment.NewLine + "*" + result;
+                        }
+                        if (s.Contains('\u0009'))
+                        {
 
-                            POS.Add(New);
+                            MatParser += Environment.NewLine + s.Split('\u0009')[0];
+                        }
+                        MatParser = MatParser.Replace("Total", "");
+                        MatParser = MatParser.Replace("Grand ", "");
+                        MatParser = MatParser.Replace("Discount", "");
+                        MatParser = MatParser.Replace("Product", "");
+                        MatParser = MatParser.Replace(":", "");
+                        MatParser = Regex.Replace(MatParser, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+                    }
+
+                    try
+                    {
+
+                        for (int i = 1; i < MatParser.Split('*').Count() + 1; i++)
+                        {
+                            string JahezBarcode = MatParser.Split('*')[i].Split('\u000a')[0];
+                            string JahezQuantity = MatParser.Split('*')[i].Split('\u000a')[1];
+                            JahezBarcode = JahezBarcode.Replace('\r', ' ').Replace(" ", "");
+                            JahezQuantity = JahezQuantity.Replace('\r', ' ').Replace(" ", "");
+
+                            var Item = ItemsLists.Find(x => x.Barcode == JahezBarcode);
+                            if (Item != null)
+                            {
+                                Item.Quantity = Convert.ToInt32(JahezQuantity);
+                                Item.Comment = "";
+                                POSItems New = new POSItems();
+                                New.Name = Item.Name;
+                                New.Quantity = Item.Quantity;
+                                New.Price = Item.Price;
+                                New.PrinterName = Item.PrinterName;
+                                Item.printerlist.ForEach(x => New.printerlist.Add(x));
+                                New.realquan = Item.realquan;
+                                New.Barcode = Item.Barcode;
+                                New.ID = Item.ID;
+                                New.Parent = Item.Parent;
+                                New.Available = Item.Available;
+
+                                POS.Add(New);
+
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        //JahezBarcode = JahezBarcode.Remove(JahezBarcode.Length - 2, JahezBarcode.Length);
+                        //JahezQuantity = JahezQuantity.Remove(JahezQuantity.Length - 2, JahezQuantity.Length);
+                    }
+                    OrderStatus.Text = "تطبيقات";
+                }
+            }
+            else if (JahezParser.Contains("(estimated)") || JahezParser.Contains("ر.س"))
+            {
+                string whatsappParser = "";
+                whatsappParser = e.Data.GetData(DataFormats.UnicodeText).ToString();
+
+
+                POS.Clear();
+                String MatParser = "";
+                {
+
+                    foreach (string s in whatsappParser.Split('\u000a'))
+                    {
+
+                        if (s.Contains("\""))
+                        {
+                            var start = s.IndexOf("\"") + 1;//add one to not include quote
+                            var end = s.LastIndexOf("\"") - start;
+                            var result = s.Substring(start, end);
+                            MatParser += Environment.NewLine + "*" + result;
+                        }
+                        if (s.Contains('•'))
+                        {
+
+                            MatParser += Environment.NewLine + s.Split('•')[1].Replace("Quantity ", "").Replace("الكمية ", "");
+                        }
+
+                    }
+
+                    try
+                    {
+
+                        for (int i = 1; i < MatParser.Split('*').Count() + 1; i++)
+                        {
+                            string WhatsBarcode = MatParser.Split('*')[i].Split('\u000a')[0];
+                            string WhatsQuantity = MatParser.Split('*')[i].Split('\u000a')[1];
+                            WhatsBarcode = WhatsBarcode.Replace('\r', ' ').Replace(" ", "");
+                            WhatsQuantity = WhatsQuantity.Replace('\r', ' ').Replace(" ", "");
+
+                            var Item = ItemsLists.Find(x => x.Barcode == WhatsBarcode);
+                            if (Item != null)
+                            {
+                                Item.Quantity = Convert.ToInt32(WhatsQuantity);
+                                Item.Comment = "";
+                                POSItems New = new POSItems();
+                                New.Name = Item.Name;
+                                New.Quantity = Item.Quantity;
+                                New.Price = Item.Price;
+                                New.PrinterName = Item.PrinterName;
+                                Item.printerlist.ForEach(x => New.printerlist.Add(x));
+                                New.realquan = Item.realquan;
+                                New.Barcode = Item.Barcode;
+                                New.ID = Item.ID;
+                                New.Parent = Item.Parent;
+                                New.Available = Item.Available;
+                                POS.Add(New);
+                            }
 
                         }
                     }
+
+
+                    catch (Exception)
+                    {
+                        //JahezBarcode = JahezBarcode.Remove(JahezBarcode.Length - 2, JahezBarcode.Length);
+                        //JahezQuantity = JahezQuantity.Remove(JahezQuantity.Length - 2, JahezQuantity.Length);
+                    }
+
+                    string price = whatsappParser.Split('\u000a')[2].
+                        Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
+                    string price1 = whatsappParser.Split('\u000a')[1].
+                        Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
+                    string price0 = whatsappParser.Split('\u000a')[0].
+                        Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
+                    if (ModifierKeys.HasFlag(Keys.Control))
+                    {
+                        MessageBox.Show(price + " " + price0 + " " + price1);
+                    }
+
+                    decimal due = Convert.ToDecimal(AmountLBL.Text);
+                    try
+                    {
+                        if (due != decimal.Parse(price))
+                        {
+                            MessageBox.Show("لم يتطابق سعر الفاتورة مع الواتسآب الرجاء التأكد من نسخ كامل الفاتورة");
+                        }
+                    }
+                    catch (System.FormatException)
+                    {
+                        try
+                        {
+                            if (due != decimal.Parse(price1))
+                            {
+                                MessageBox.Show("لم يتطابق سعر الفاتورة مع الواتسآب الرجاء التأكد من نسخ كامل الفاتورة");
+                            }
+
+                        }
+                        catch (System.FormatException)
+                        {
+                            try
+                            {
+                                if (due != decimal.Parse(price0))
+                                {
+                                    MessageBox.Show("لم يتطابق سعر الفاتورة مع الواتسآب الرجاء التأكد من نسخ كامل الفاتورة");
+                                }
+                            }
+                            catch (System.FormatException)
+                            {
+
+                                MessageBox.Show("قم بنسخ الفاتورة بدأ من سطر سعر الفاتورة ليتم مقارنة السعر بالمدخلات");
+
+                            }
+                        }
+
+                    }
+
+
+
+
                 }
-                catch (Exception)
-                {
-                    //JahezBarcode = JahezBarcode.Remove(JahezBarcode.Length - 2, JahezBarcode.Length);
-                    //JahezQuantity = JahezQuantity.Remove(JahezQuantity.Length - 2, JahezQuantity.Length);
-                }
-                OrderStatus.Text = "تطبيقات";
             }
+
         }
 
         private void Search_Click(object sender, EventArgs e)
@@ -2957,130 +3120,42 @@ namespace OrderForm
 
         }
 
-        private void WhatAppBTN_DragOver(object sender, DragEventArgs e)
+
+        private void WhatAppBTN_MouseUp(object sender, MouseEventArgs e)
         {
-            e.Effect = DragDropEffects.Copy;
-
-        }
-
-        private void WhatAppBTN_DragDrop(object sender, DragEventArgs e)
-        {
-            string whatsappParser = "";
-            whatsappParser = e.Data.GetData(DataFormats.UnicodeText).ToString();
-
-
-            POS.Clear();
-            String MatParser = "";
+            if (e.Button == MouseButtons.Right && ModifierKeys.HasFlag(Keys.Control))
             {
+                var note = new WhatsNotesForm();
 
-                foreach (string s in whatsappParser.Split('\u000a'))
+                note.Show();
+
+            }
+            else
+            {
+                var WhatsAppList = dbQ.GetAllShortcuts();
+                if (WhatsAppList.Count > 0)
                 {
+                    WhatsSend.Items.Clear();
 
-                    if (s.Contains("\""))
-                    {
-                        var start = s.IndexOf("\"") + 1;//add one to not include quote
-                        var end = s.LastIndexOf("\"") - start;
-                        var result = s.Substring(start, end);
-                        MatParser += Environment.NewLine + "*" + result;
-                    }
-                    if (s.Contains('•'))
-                    {
-
-                        MatParser += Environment.NewLine + s.Split('•')[1].Replace("Quantity ", "").Replace("الكمية ", "");
-                    }
-
+                    WhatsAppList.ForEach(x => WhatsSend.Items.Add(x.Shortcut));
+                    WhatsSend.Show(Cursor.Position);
                 }
-
-                try
-                {
-
-                    for (int i = 1; i < MatParser.Split('*').Count() + 1; i++)
-                    {
-                        string WhatsBarcode = MatParser.Split('*')[i].Split('\u000a')[0];
-                        string WhatsQuantity = MatParser.Split('*')[i].Split('\u000a')[1];
-                        WhatsBarcode = WhatsBarcode.Replace('\r', ' ').Replace(" ", "");
-                        WhatsQuantity = WhatsQuantity.Replace('\r', ' ').Replace(" ", "");
-
-                        var Item = ItemsLists.Find(x => x.Barcode == WhatsBarcode);
-                        if (Item != null)
-                        {
-                            Item.Quantity = Convert.ToInt32(WhatsQuantity);
-                            Item.Comment = "";
-                            POSItems New = new POSItems();
-                            New.Name = Item.Name;
-                            New.Quantity = Item.Quantity;
-                            New.Price = Item.Price;
-                            New.PrinterName = Item.PrinterName;
-                            Item.printerlist.ForEach(x => New.printerlist.Add(x));
-                            New.realquan = Item.realquan;
-                            New.Barcode = Item.Barcode;
-                            New.ID = Item.ID;
-                            New.Parent = Item.Parent;
-                            New.Available = Item.Available;
-                            POS.Add(New);
-                        }
-
-                    }
-                }
-
-
-                catch (Exception)
-                {
-                    //JahezBarcode = JahezBarcode.Remove(JahezBarcode.Length - 2, JahezBarcode.Length);
-                    //JahezQuantity = JahezQuantity.Remove(JahezQuantity.Length - 2, JahezQuantity.Length);
-                }
-
-                string price = whatsappParser.Split('\u000a')[2].
-                    Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
-                string price1 = whatsappParser.Split('\u000a')[1].
-                    Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
-                string price0 = whatsappParser.Split('\u000a')[0].
-                    Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
-
-                decimal due = Convert.ToDecimal(AmountLBL.Text);
-                try
-                {
-                    if (due != decimal.Parse(price))
-                    {
-                        MessageBox.Show("لم يتطابق سعر الفاتورة مع الواتسآب الرجاء التأكد من نسخ كامل الفاتورة");
-                    }
-                }
-                catch (System.FormatException)
-                {
-                    try
-                    {
-                        if (due != decimal.Parse(price1))
-                        {
-                            MessageBox.Show("لم يتطابق سعر الفاتورة مع الواتسآب الرجاء التأكد من نسخ كامل الفاتورة");
-                        }
-
-                    }
-                    catch (System.FormatException)
-                    {
-                        try
-                        {
-                            if (due != decimal.Parse(price0))
-                            {
-                                MessageBox.Show("لم يتطابق سعر الفاتورة مع الواتسآب الرجاء التأكد من نسخ كامل الفاتورة");
-                            }
-                        }
-                        catch (System.FormatException)
-                        {
-
-                            MessageBox.Show("قم بنسخ الفاتورة بدأ من سطر سعر الفاتورة ليتم مقارنة السعر بالمدخلات");
-
-                        }
-                    }
-
-                }
-
-
 
 
             }
+        }
+        private void WhatsSend_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            string details = dbQ.GetAllShortcuts().Where(x => x.Shortcut == e.ClickedItem.Text).First().Details;
+            string newdetails = details.Replace(" ", "%20").Replace("\n", "%0a");
+            string url = "whatsapp://send/?phone=" + "966" + this.MobileTB.Text + "&text=" + newdetails;
+            Process.Start(url);
 
-            //            
-            //١٨٩٫٥٠ ر.س.‏ (المبلغ المُقدَّر)
+
+        }
+
+        private void HeldPanel_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

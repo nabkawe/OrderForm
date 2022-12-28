@@ -107,6 +107,7 @@
             this.FastComment = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MenuTimeOut = new System.Windows.Forms.Timer(this.components);
             this.printComment = new System.Windows.Forms.PrintDialog();
+            this.WhatsSend = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MainMenu = new OrderForm.UnfocusableButton();
             this.OrdersPage = new OrderForm.UnfocusableButton();
             this.unfocusableButton4 = new OrderForm.UnfocusableButton();
@@ -856,6 +857,7 @@
             this.HeldPanel.Name = "HeldPanel";
             this.HeldPanel.Size = new System.Drawing.Size(875, 143);
             this.HeldPanel.TabIndex = 40;
+            this.HeldPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.HeldPanel_Paint);
             // 
             // jahezPrice
             // 
@@ -1228,6 +1230,7 @@
             // 
             // FastComment
             // 
+            this.FastComment.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FastComment.Name = "FastComment";
             this.FastComment.ShowImageMargin = false;
             this.FastComment.ShowItemToolTips = false;
@@ -1243,6 +1246,16 @@
             // printComment
             // 
             this.printComment.UseEXDialog = true;
+            // 
+            // WhatsSend
+            // 
+            this.WhatsSend.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WhatsSend.Name = "FastComment";
+            this.WhatsSend.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.WhatsSend.ShowImageMargin = false;
+            this.WhatsSend.ShowItemToolTips = false;
+            this.WhatsSend.Size = new System.Drawing.Size(36, 4);
+            this.WhatsSend.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.WhatsSend_ItemClicked);
             // 
             // MainMenu
             // 
@@ -2067,8 +2080,7 @@
             this.WhatAppBTN.Text = "WhatsApp";
             this.WhatAppBTN.UseVisualStyleBackColor = false;
             this.WhatAppBTN.Click += new System.EventHandler(this.WhatsAppBTN_Click);
-            this.WhatAppBTN.DragDrop += new System.Windows.Forms.DragEventHandler(this.WhatAppBTN_DragDrop);
-            this.WhatAppBTN.DragOver += new System.Windows.Forms.DragEventHandler(this.WhatAppBTN_DragOver);
+            this.WhatAppBTN.MouseUp += new System.Windows.Forms.MouseEventHandler(this.WhatAppBTN_MouseUp);
             // 
             // DayMenuBTN
             // 
@@ -2254,5 +2266,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.PrintDialog printComment;
         public UnfocusableButton CopyInvoice;
+        private System.Windows.Forms.ContextMenuStrip WhatsSend;
     }
 }

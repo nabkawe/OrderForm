@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace sharedCode
 {
@@ -185,6 +186,24 @@ namespace sharedCode
                 return true;
 
             return false;
+        }
+    }
+
+    public class WhatsAppShortCut
+    {
+        public Guid guid { get; set; }
+        public string Shortcut { get; set; }
+        public string Details { get; set; }
+        public WhatsAppShortCut(int ID,string Shortcut,string Details)
+        {
+            guid = Guid.NewGuid();
+            
+            Shortcut = this.Shortcut;
+            Details = this.Details;
+        }    
+        public WhatsAppShortCut()
+        {
+           
         }
     }
 }

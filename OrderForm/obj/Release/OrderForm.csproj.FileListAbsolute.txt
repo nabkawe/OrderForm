@@ -188,3 +188,4 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Newtonsoft.J
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Newtonsoft.Json.xml
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Newtonsoft.Json.Bson.pdb
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Newtonsoft.Json.Bson.xml
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.WhatsNotesForm.resources

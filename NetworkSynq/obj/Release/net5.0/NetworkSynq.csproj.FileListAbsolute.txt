@@ -1,0 +1,6 @@
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net5.0\NetworkSynq.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net5.0\NetworkSynq.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net5.0\NetworkSynq.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net5.0\NetworkSynq.AssemblyInfo.cs
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net5.0\NetworkSynq.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net5.0\NetworkSynq.MvcApplicationPartsAssemblyInfo.cache

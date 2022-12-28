@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySharedBaseCode.dll" size="24064">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySharedBaseCode.dll" size="24576">
       <assemblyIdentity name="MySharedBaseCode" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3rslwH5sRpRZz50sPt6KYKn2R0VPH4/HViTZtC8Fc9A=</dsig:DigestValue>
+        <dsig:DigestValue>mQedHUzEumV06z6yoDR5G0ufasPIRxjSxb/4FMIgD2A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
