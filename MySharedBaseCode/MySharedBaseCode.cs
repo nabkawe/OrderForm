@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sharedCode
 {
-    public class POSItems
+    public class POSItems : INotifyPropertyChanged
 
     {
 
@@ -17,14 +18,18 @@ namespace sharedCode
 
         public string Name { get; set; }
 
-        public int Quantity { get; set; }
+        private int quantity { get; set; }
+        public int Quantity
+        {
+            get { return quantity; }
+            set { quantity = value; NotifyPropertyChanged("Quantity"); NotifyPropertyChanged("TotalPrice"); }
 
+        }
 
         public decimal Price { get; set; }
         public decimal TotalPrice
         {
             get { return Price * Quantity; }
-            set {; }
         }
 
         [Browsable(false)]
@@ -44,7 +49,14 @@ namespace sharedCode
         [Browsable(false)]
         public string Barcode { get; set; }
 
-        public string Comment { get; set; }
+        private string comment { get; set; }
+        public string Comment
+        {
+            get { return comment; }
+            set { comment = value; NotifyPropertyChanged("Comment"); }
+
+
+        }
 
         [Browsable(false)]
         public int realquan { get; set; }
@@ -58,6 +70,8 @@ namespace sharedCode
 
         [Browsable(false)]
         public List<string> printerlist = new List<string>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         [Browsable(false)]
         public int RealQuantity
@@ -106,6 +120,13 @@ namespace sharedCode
         [Browsable(false)]
         public int order { get; set; }
 
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
 
         public POSItems(/*int id,string barcode, string nm, decimal prc,int realq,decimal t*/)
@@ -194,16 +215,16 @@ namespace sharedCode
         public Guid guid { get; set; }
         public string Shortcut { get; set; }
         public string Details { get; set; }
-        public WhatsAppShortCut(int ID,string Shortcut,string Details)
+        public WhatsAppShortCut(int ID, string Shortcut, string Details)
         {
             guid = Guid.NewGuid();
-            
+
             Shortcut = this.Shortcut;
             Details = this.Details;
-        }    
+        }
         public WhatsAppShortCut()
         {
-           
+
         }
     }
 }

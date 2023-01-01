@@ -74,6 +74,34 @@ namespace OrderForm
 
             }
         }
+        /// <summary>
+        /// Move Item in a listbox, pass -1 to move up, pass 1 to move down,
+        /// pass ListBox Name to set the target listbox.
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <param name="listBox1"></param>
+        public void MoveItem(int direction, ListBox listBox1)
+        {
+            // Checking selected item
+            if (listBox1.SelectedItem == null || listBox1.SelectedIndex < 0)
+                return; // No selected item - nothing to do
+
+            // Calculate new index using move direction
+            int newIndex = listBox1.SelectedIndex + direction;
+
+            // Checking bounds of the range
+            if (newIndex < 0 || newIndex >= listBox1.Items.Count)
+                return; // Index out of range - nothing to do
+
+            object selected = listBox1.SelectedItem;
+
+            // Removing removable element
+            listBox1.Items.Remove(selected);
+            // Insert it in new position
+            listBox1.Items.Insert(newIndex, selected);
+            // Restore selection
+            listBox1.SetSelected(newIndex, true);
+        }
 
         private void NotesForm_Load(object sender, EventArgs e)
         {
@@ -86,7 +114,7 @@ namespace OrderForm
         {
             if ((noteList.Items.Count > 0) && (noteList.SelectedIndex != -1))
             {
-                if (repeatedBehavior.AreYouSure("Yes لتعديل الإختصار", "هل تريد تعديل الإختصار؟")){
+                if (repeatedBehavior.AreYouSure("سوف يتم حذف الرسالة و إعادة إضافتها بعد أن تقوم بتعديلها.", "هل تريد تعديل الإختصار؟")){
 
                 var edit = (WhatsAppShortCut)noteList.SelectedItem;
                 shortTB.Text = edit.Shortcut ;
@@ -94,6 +122,21 @@ namespace OrderForm
                 noteList.Items.Remove(noteList.SelectedItem);
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MoveItem(-1, noteList);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MoveItem(1, noteList);
+        }
+
+        private void noteList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

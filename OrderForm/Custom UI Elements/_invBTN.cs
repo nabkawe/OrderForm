@@ -2,7 +2,10 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 using sharedCode;
+using static System.Net.Mime.MediaTypeNames;
+
 namespace OrderForm
 {
     public partial class _InvBTN : Button
@@ -25,16 +28,39 @@ namespace OrderForm
             {
                 this.BackColor = Color.LightYellow;
             }
-            
+            //this.MouseEnter += _InvBTN_MouseEnter;
+            //this.MouseLeave += _InvBTN_MouseLeave;
         }
 
+        private void _InvBTN_MouseLeave(object sender, EventArgs e)
+        {
+            this.Controls.RemoveByKey("StatusCheck");
+
+        }
+
+        private void _InvBTN_MouseEnter(object sender, EventArgs e)
+        {
+            Label ShowStatus = new Label();    
+            ShowStatus.Text = order.InvoiceTimeloglist[order.InvoiceTimeloglist.Count - 1].ToString();
+            ShowStatus.Font = new Font("Arial",8, FontStyle.Bold); 
+            ShowStatus.Width = this.Width- 2;
+            ShowStatus.TextAlign = ContentAlignment.MiddleCenter;
+           ShowStatus.UseCompatibleTextRendering= true; 
+            ShowStatus.BackColor = Color.LightBlue;
+            
+            ShowStatus.ForeColor= Color.White;
+            ShowStatus.Location = new Point((this.Width - ShowStatus.Width) / 2, (this.Height  - ShowStatus.Height) );
+            ShowStatus.Name = "StatusCheck";
+            this.Controls.Add(ShowStatus);  
+
+        }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
    
         }
 
-
+        
         protected override void OnPaint(PaintEventArgs e)
         {
 
@@ -155,9 +181,16 @@ namespace OrderForm
                     text = "ملاحظة:  " + order.Comment;
                     e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x-4, y-2, width, height), drawFormatRight);
                     y += e.Graphics.MeasureString(text, fnt).Height;
+                    text = order.InvoiceTimeloglist[order.InvoiceTimeloglist.Count -1].ToString();
+                    e.Graphics.DrawString(text, tfnt, drawBrush, new RectangleF(x - 4, y - 2, width, height), drawFormatRight);
+
                 }
             }
-        
+            else
+            {
+                
+            }
+
             GraphicsPath p = new GraphicsPath();
             Point[] border = {
                          new Point(0            , 0         ),
@@ -168,7 +201,7 @@ namespace OrderForm
 
 
             p.AddPolygon(border);
-            e.Graphics.DrawPath(new Pen(Color.SteelBlue, 3), p);
+            e.Graphics.DrawPath(new Pen(Color.SteelBlue, 2), p);
 
 
         }

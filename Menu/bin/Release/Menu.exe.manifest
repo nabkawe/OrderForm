@@ -61,19 +61,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>irHU5HRA2F+fvyQucxb37YgPkRuBzKtPR9LsSflRo1E=</dsig:DigestValue>
+        <dsig:DigestValue>A6kE5uuf6Z6+oH3cq5ZhhsHzQWAfrX5r1+jV6d9Jh4w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySharedBaseCode.dll" size="24576">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySharedBaseCode.dll" size="25600">
       <assemblyIdentity name="MySharedBaseCode" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mQedHUzEumV06z6yoDR5G0ufasPIRxjSxb/4FMIgD2A=</dsig:DigestValue>
+        <dsig:DigestValue>GyCAGibpUtwiIyrJLH7SX6G+TOzpGuBOfg36NVmenrU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

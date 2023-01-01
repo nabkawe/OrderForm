@@ -317,7 +317,12 @@ namespace OrderForm
 
             }
         }
-
+        /// <summary>
+        /// Move Item in a listbox, pass -1 to move up, pass 1 to move down,
+        /// pass ListBox Name to set the target listbox.
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <param name="listBox1"></param>
         public void MoveItem(int direction, ListBox listBox1)
         {
             // Checking selected item

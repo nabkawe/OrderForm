@@ -140,7 +140,11 @@ namespace OrderForm
                             return i;
                         }
                     }
-                    else return null;
+
+                    else {
+                        List<Invoice> list = new  List<Invoice>();
+                        return list;
+                    }
                 }
                 else return null;
             }
@@ -901,7 +905,7 @@ namespace OrderForm
                 try
                 {
                     var c = GetSavedInvoices();
-                    var result = c.FindLast(x => x.CustomerNumber == number);
+                    var result = c.Find(x => x.CustomerNumber == number);
                     if (result == null) return null; else return result;
                 }
                 catch (Exception)

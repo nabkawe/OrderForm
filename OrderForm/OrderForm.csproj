@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>178</ApplicationRevision>
+    <ApplicationRevision>186</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -327,6 +327,7 @@
     <Content Include="LibraSoft.ico" />
     <None Include="Resources\bill-receipt-icon %281%291.png" />
     <None Include="Resources\recipe-book-icon1.png" />
+    <None Include="Resources\Mada.jpg" />
     <Content Include="to do list.txt" />
   </ItemGroup>
   <ItemGroup>
