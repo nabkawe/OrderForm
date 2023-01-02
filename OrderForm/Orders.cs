@@ -79,9 +79,6 @@ namespace OrderForm
             }
             else this.Text += " Local Network Mode";
             LoadMethods();
-            //Properties.Settings.Default.API_ACCESS = true;
-            //Properties.Settings.Default.Save();
-            //Application.Exit();
         }
         public List<POSItems> ItemsLists = new List<POSItems>();
 
@@ -403,7 +400,6 @@ namespace OrderForm
                 c = 0;
                 POS.ToList().ForEach((x) => { c += x.RealQuantity; });
                 ItemCount.Text = c.ToString();
-                if (MenuShowing) { displayOffer.Price.Text = AmountLBL.Text; }
             }
 
         }
@@ -484,10 +480,12 @@ namespace OrderForm
                 {
                     decimal total = POS.Sum((a) => a.TotalPrice);
                     AmountLBL.Text = total.ToString();
+                    ItemCount.Text =Orders.POS.Sum<POSItems>((x) => x.RealQuantity).ToString();
                 }
                 else
                 {
                     AmountLBL.Text = "0.0";
+                    ItemCount.Text = "0";
                 }
             }
         }
@@ -2187,7 +2185,8 @@ namespace OrderForm
         if (Screen.AllScreens.Count() > 1)
         {
             unfocusableButton4.BackColor = Color.Lime;
-            displayOffer.showme(this.NameTB.Text, this.MobileTB.Text, this.TimeInfo.Text + " | " + this.DayMenuBTN.Text);
+                displayOffer.showme(this.NameTB.Text, this.MobileTB.Text, this.TimeInfo.Text + " | " + this.DayMenuBTN.Text);
+                
             this.Activate();
         }
 
@@ -2522,8 +2521,10 @@ namespace OrderForm
                 {
                     if (!MenuShowing)
                     {
+
                         displayOffer.showme(this.NameTB.Text, this.MobileTB.Text, this.TimeInfo.Text + " | " + this.DayMenuBTN.Text);
-                        this.Activate();
+
+                            this.Activate();
                         unfocusableButton4.BackColor = Color.Lime;
                     }
                     else { displayOffer.CloseNow(); unfocusableButton4.BackColor = Color.AliceBlue; }

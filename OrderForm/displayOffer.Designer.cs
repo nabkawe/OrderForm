@@ -29,23 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dvItems2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.ItemCount = new OrderForm.UnfocusableButton();
             this.unfocusableButton2 = new OrderForm.UnfocusableButton();
             this.Price = new OrderForm.UnfocusableButton();
             this.unfocusableButton3 = new OrderForm.UnfocusableButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.ClientDate = new OrderForm.UnfocusableButton();
-            this.DateTitle = new OrderForm.UnfocusableButton();
-            this.ClientPhone = new OrderForm.UnfocusableButton();
-            this.PhoneTitle = new OrderForm.UnfocusableButton();
             this.ClientName = new OrderForm.UnfocusableButton();
             this.ClientTitle = new OrderForm.UnfocusableButton();
+            this.PhoneTitle = new OrderForm.UnfocusableButton();
+            this.ClientPhone = new OrderForm.UnfocusableButton();
+            this.DateTitle = new OrderForm.UnfocusableButton();
+            this.ClientDate = new OrderForm.UnfocusableButton();
             this.unfocusableButton4 = new OrderForm.UnfocusableButton();
             ((System.ComponentModel.ISupportInitialize)(this.dvItems2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -72,7 +73,7 @@
             this.dvItems2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dvItems2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dvItems2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dvItems2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dvItems2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dvItems2.ColumnHeadersHeight = 30;
             this.dvItems2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dvItems2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -84,13 +85,13 @@
             this.dvItems2.MultiSelect = false;
             this.dvItems2.Name = "dvItems2";
             this.dvItems2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems2.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems2.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dvItems2.RowHeadersVisible = false;
             this.dvItems2.RowHeadersWidth = 10;
             this.dvItems2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle6.NullValue = null;
-            this.dvItems2.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.NullValue = null;
+            this.dvItems2.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dvItems2.RowTemplate.Height = 30;
             this.dvItems2.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dvItems2.ScrollBars = System.Windows.Forms.ScrollBars.None;
@@ -99,21 +100,65 @@
             this.dvItems2.ShowCellToolTips = false;
             this.dvItems2.ShowEditingIcon = false;
             this.dvItems2.ShowRowErrors = false;
-            this.dvItems2.Size = new System.Drawing.Size(1004, 926);
+            this.dvItems2.Size = new System.Drawing.Size(1004, 776);
             this.dvItems2.TabIndex = 31;
             this.dvItems2.TabStop = false;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ItemCount);
             this.panel1.Controls.Add(this.unfocusableButton2);
             this.panel1.Controls.Add(this.Price);
             this.panel1.Controls.Add(this.unfocusableButton3);
-            this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 899);
+            this.panel1.Location = new System.Drawing.Point(0, 621);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1004, 120);
+            this.panel1.Size = new System.Drawing.Size(1004, 177);
             this.panel1.TabIndex = 37;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pictureBox1.Image = global::OrderForm.Properties.Resources.Mada;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 869);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1004, 150);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 41;
+            this.pictureBox1.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.GhostWhite;
+            this.panel2.Controls.Add(this.ClientName);
+            this.panel2.Controls.Add(this.ClientTitle);
+            this.panel2.Controls.Add(this.PhoneTitle);
+            this.panel2.Controls.Add(this.ClientPhone);
+            this.panel2.Controls.Add(this.DateTitle);
+            this.panel2.Controls.Add(this.ClientDate);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 798);
+            this.panel2.Margin = new System.Windows.Forms.Padding(1);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(5);
+            this.panel2.Size = new System.Drawing.Size(1004, 71);
+            this.panel2.TabIndex = 38;
+            // 
+            // ItemCount
+            // 
+            this.ItemCount.BackColor = System.Drawing.Color.White;
+            this.ItemCount.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ItemCount.FlatAppearance.BorderSize = 0;
+            this.ItemCount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ItemCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ItemCount.Location = new System.Drawing.Point(-57, 0);
+            this.ItemCount.Name = "ItemCount";
+            this.ItemCount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ItemCount.Size = new System.Drawing.Size(223, 177);
+            this.ItemCount.TabIndex = 45;
+            this.ItemCount.UseVisualStyleBackColor = false;
             // 
             // unfocusableButton2
             // 
@@ -121,12 +166,12 @@
             this.unfocusableButton2.Dock = System.Windows.Forms.DockStyle.Right;
             this.unfocusableButton2.FlatAppearance.BorderSize = 0;
             this.unfocusableButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unfocusableButton2.Location = new System.Drawing.Point(1, 0);
+            this.unfocusableButton2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
+            this.unfocusableButton2.Location = new System.Drawing.Point(166, 0);
             this.unfocusableButton2.Name = "unfocusableButton2";
-            this.unfocusableButton2.Size = new System.Drawing.Size(84, 120);
+            this.unfocusableButton2.Size = new System.Drawing.Size(142, 177);
             this.unfocusableButton2.TabIndex = 43;
-            this.unfocusableButton2.Text = "ريال\r\nسعودي\r\n\r\nSaudi\r\n Riyal\r\n";
+            this.unfocusableButton2.Text = "ريال سعودي\r\n\r\nSaudi Riyal\r\n";
             this.unfocusableButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.unfocusableButton2.UseVisualStyleBackColor = false;
             // 
@@ -136,14 +181,15 @@
             this.Price.Dock = System.Windows.Forms.DockStyle.Right;
             this.Price.FlatAppearance.BorderSize = 0;
             this.Price.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Price.Font = new System.Drawing.Font("Tahoma", 46F);
+            this.Price.Font = new System.Drawing.Font("Segoe UI", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Price.ForeColor = System.Drawing.Color.Black;
-            this.Price.Location = new System.Drawing.Point(85, 0);
+            this.Price.Location = new System.Drawing.Point(308, 0);
+            this.Price.Margin = new System.Windows.Forms.Padding(0);
             this.Price.Name = "Price";
-            this.Price.Size = new System.Drawing.Size(334, 120);
+            this.Price.Size = new System.Drawing.Size(471, 177);
             this.Price.TabIndex = 42;
             this.Price.Text = "0.00";
-            this.Price.UseVisualStyleBackColor = false;
+            this.Price.UseVisualStyleBackColor = true;
             // 
             // unfocusableButton3
             // 
@@ -151,128 +197,105 @@
             this.unfocusableButton3.Dock = System.Windows.Forms.DockStyle.Right;
             this.unfocusableButton3.FlatAppearance.BorderSize = 0;
             this.unfocusableButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unfocusableButton3.Location = new System.Drawing.Point(419, 0);
+            this.unfocusableButton3.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unfocusableButton3.Location = new System.Drawing.Point(779, 0);
             this.unfocusableButton3.Name = "unfocusableButton3";
-            this.unfocusableButton3.Size = new System.Drawing.Size(134, 120);
+            this.unfocusableButton3.Size = new System.Drawing.Size(225, 177);
             this.unfocusableButton3.TabIndex = 44;
-            this.unfocusableButton3.Text = "المبلغ الإجمالي\r\n\r\n\r\nTotal Amount";
+            this.unfocusableButton3.Text = "المبلغ الإجمالي\r\n\r\nTotal Amount";
             this.unfocusableButton3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.unfocusableButton3.UseVisualStyleBackColor = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Image = global::OrderForm.Properties.Resources.Mada;
-            this.pictureBox1.Location = new System.Drawing.Point(553, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(451, 120);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 41;
-            this.pictureBox1.TabStop = false;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.ClientDate);
-            this.panel2.Controls.Add(this.DateTitle);
-            this.panel2.Controls.Add(this.ClientPhone);
-            this.panel2.Controls.Add(this.PhoneTitle);
-            this.panel2.Controls.Add(this.ClientName);
-            this.panel2.Controls.Add(this.ClientTitle);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 828);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1004, 71);
-            this.panel2.TabIndex = 38;
-            // 
-            // ClientDate
-            // 
-            this.ClientDate.BackColor = System.Drawing.Color.White;
-            this.ClientDate.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ClientDate.FlatAppearance.BorderSize = 0;
-            this.ClientDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ClientDate.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClientDate.Location = new System.Drawing.Point(-51, 0);
-            this.ClientDate.Name = "ClientDate";
-            this.ClientDate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ClientDate.Size = new System.Drawing.Size(333, 71);
-            this.ClientDate.TabIndex = 56;
-            this.ClientDate.UseVisualStyleBackColor = false;
-            // 
-            // DateTitle
-            // 
-            this.DateTitle.BackColor = System.Drawing.Color.White;
-            this.DateTitle.Dock = System.Windows.Forms.DockStyle.Right;
-            this.DateTitle.FlatAppearance.BorderSize = 0;
-            this.DateTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DateTitle.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DateTitle.Location = new System.Drawing.Point(282, 0);
-            this.DateTitle.Name = "DateTitle";
-            this.DateTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.DateTitle.Size = new System.Drawing.Size(134, 71);
-            this.DateTitle.TabIndex = 55;
-            this.DateTitle.Text = "موعد التنفيذ";
-            this.DateTitle.UseVisualStyleBackColor = false;
-            // 
-            // ClientPhone
-            // 
-            this.ClientPhone.BackColor = System.Drawing.Color.White;
-            this.ClientPhone.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ClientPhone.FlatAppearance.BorderSize = 0;
-            this.ClientPhone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ClientPhone.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClientPhone.Location = new System.Drawing.Point(416, 0);
-            this.ClientPhone.Name = "ClientPhone";
-            this.ClientPhone.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ClientPhone.Size = new System.Drawing.Size(134, 71);
-            this.ClientPhone.TabIndex = 54;
-            this.ClientPhone.UseVisualStyleBackColor = false;
-            // 
-            // PhoneTitle
-            // 
-            this.PhoneTitle.BackColor = System.Drawing.Color.White;
-            this.PhoneTitle.Dock = System.Windows.Forms.DockStyle.Right;
-            this.PhoneTitle.FlatAppearance.BorderSize = 0;
-            this.PhoneTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PhoneTitle.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PhoneTitle.Location = new System.Drawing.Point(550, 0);
-            this.PhoneTitle.Name = "PhoneTitle";
-            this.PhoneTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.PhoneTitle.Size = new System.Drawing.Size(134, 71);
-            this.PhoneTitle.TabIndex = 53;
-            this.PhoneTitle.Text = "رقم الهاتف:";
-            this.PhoneTitle.UseVisualStyleBackColor = false;
-            // 
             // ClientName
             // 
+            this.ClientName.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientName.BackColor = System.Drawing.Color.White;
             this.ClientName.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ClientName.FlatAppearance.BorderSize = 0;
             this.ClientName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ClientName.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClientName.Location = new System.Drawing.Point(684, 0);
+            this.ClientName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClientName.Location = new System.Drawing.Point(711, 5);
             this.ClientName.Name = "ClientName";
             this.ClientName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ClientName.Size = new System.Drawing.Size(186, 71);
+            this.ClientName.Size = new System.Drawing.Size(191, 61);
             this.ClientName.TabIndex = 52;
             this.ClientName.UseVisualStyleBackColor = false;
             // 
             // ClientTitle
             // 
-            this.ClientTitle.BackColor = System.Drawing.Color.White;
+            this.ClientTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientTitle.BackColor = System.Drawing.Color.GhostWhite;
             this.ClientTitle.Dock = System.Windows.Forms.DockStyle.Right;
             this.ClientTitle.FlatAppearance.BorderSize = 0;
             this.ClientTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ClientTitle.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClientTitle.Location = new System.Drawing.Point(870, 0);
+            this.ClientTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClientTitle.Location = new System.Drawing.Point(902, 5);
             this.ClientTitle.Name = "ClientTitle";
             this.ClientTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ClientTitle.Size = new System.Drawing.Size(134, 71);
+            this.ClientTitle.Size = new System.Drawing.Size(97, 61);
             this.ClientTitle.TabIndex = 51;
             this.ClientTitle.Text = "إسم العميل:";
             this.ClientTitle.UseVisualStyleBackColor = false;
+            // 
+            // PhoneTitle
+            // 
+            this.PhoneTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.PhoneTitle.BackColor = System.Drawing.Color.GhostWhite;
+            this.PhoneTitle.Dock = System.Windows.Forms.DockStyle.Left;
+            this.PhoneTitle.FlatAppearance.BorderSize = 0;
+            this.PhoneTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PhoneTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PhoneTitle.Location = new System.Drawing.Point(508, 5);
+            this.PhoneTitle.Name = "PhoneTitle";
+            this.PhoneTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.PhoneTitle.Size = new System.Drawing.Size(95, 61);
+            this.PhoneTitle.TabIndex = 53;
+            this.PhoneTitle.Text = "رقم الهاتف:";
+            this.PhoneTitle.UseVisualStyleBackColor = false;
+            // 
+            // ClientPhone
+            // 
+            this.ClientPhone.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientPhone.BackColor = System.Drawing.Color.White;
+            this.ClientPhone.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ClientPhone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ClientPhone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClientPhone.Location = new System.Drawing.Point(317, 5);
+            this.ClientPhone.Name = "ClientPhone";
+            this.ClientPhone.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ClientPhone.Size = new System.Drawing.Size(191, 61);
+            this.ClientPhone.TabIndex = 54;
+            this.ClientPhone.UseVisualStyleBackColor = false;
+            // 
+            // DateTitle
+            // 
+            this.DateTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.DateTitle.BackColor = System.Drawing.Color.GhostWhite;
+            this.DateTitle.Dock = System.Windows.Forms.DockStyle.Left;
+            this.DateTitle.FlatAppearance.BorderSize = 0;
+            this.DateTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DateTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateTitle.Location = new System.Drawing.Point(216, 5);
+            this.DateTitle.Name = "DateTitle";
+            this.DateTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.DateTitle.Size = new System.Drawing.Size(101, 61);
+            this.DateTitle.TabIndex = 55;
+            this.DateTitle.Text = "موعد التنفيذ:";
+            this.DateTitle.UseVisualStyleBackColor = false;
+            // 
+            // ClientDate
+            // 
+            this.ClientDate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientDate.BackColor = System.Drawing.Color.White;
+            this.ClientDate.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ClientDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ClientDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClientDate.Location = new System.Drawing.Point(5, 5);
+            this.ClientDate.Margin = new System.Windows.Forms.Padding(0);
+            this.ClientDate.Name = "ClientDate";
+            this.ClientDate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ClientDate.Size = new System.Drawing.Size(211, 61);
+            this.ClientDate.TabIndex = 56;
+            this.ClientDate.UseVisualStyleBackColor = false;
             // 
             // unfocusableButton4
             // 
@@ -282,7 +305,7 @@
             this.unfocusableButton4.CausesValidation = false;
             this.unfocusableButton4.Dock = System.Windows.Forms.DockStyle.Top;
             this.unfocusableButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton4.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unfocusableButton4.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.unfocusableButton4.ForeColor = System.Drawing.Color.Black;
             this.unfocusableButton4.Location = new System.Drawing.Point(0, 0);
             this.unfocusableButton4.Margin = new System.Windows.Forms.Padding(1);
@@ -298,10 +321,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1004, 1019);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.dvItems2);
             this.Controls.Add(this.unfocusableButton4);
+            this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -337,6 +361,7 @@
         private UnfocusableButton PhoneTitle;
         private UnfocusableButton ClientName;
         private UnfocusableButton ClientTitle;
-        public UnfocusableButton Price;
+        private UnfocusableButton Price;
+        private UnfocusableButton ItemCount;
     }
 }

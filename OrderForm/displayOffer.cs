@@ -1,5 +1,7 @@
-﻿using System;
+﻿using sharedCode;
+using System;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.Adapters;
@@ -9,25 +11,31 @@ namespace OrderForm
 {
     public partial class displayOffer : Form
     {
+   
+        public static event EventHandler<string> TimeUp;
+                       
         public displayOffer()
         {
             InitializeComponent();
             TimeUp += DisplayOffer_TimeUp;
-
         }
-        public static event EventHandler<string> TimeUp;
+
+
+
 
         public static void showme(string ClientName, string ClientPhone, string ClientDate)
         {
+
             Orders.MenuShowing = true;
             var Show = new displayOffer();
             Show.timer1.Start();
-
             Show.timer1.Tick += Show.T_Tick;
-            if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else    { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; } 
-            if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else    { Show.ClientName.Visible = false;  Show.ClientTitle.Visible = false; }
-            if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text ="05XXXX"+ ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false;Show.PhoneTitle.Visible = false; }
+            if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; }
+            if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; }
+            if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; }
             Show.Show();
+            Show.POS_ListChanged(null, null);
+
         }
 
 
@@ -35,8 +43,9 @@ namespace OrderForm
         {
             if (e == "Stop")
             {
+                Orders.MenuShowing = false;
                 this.timer1.Stop();
-                this.Close();
+                this.Close ();
 
             }
 
@@ -49,8 +58,12 @@ namespace OrderForm
             this.Location = Screen.AllScreens[1].WorkingArea.Location;
             this.Height = Screen.AllScreens[1].WorkingArea.Height;
             this.Width = Screen.AllScreens[1].WorkingArea.Width;
+            if (this.Height > this.Width)
+            {
+                this.pictureBox1.Height += 500;
+            } 
             dvItems2.DataSource = Orders.POS;
-
+            Orders.POS.ListChanged += POS_ListChanged;
             var cellstyleMaterial = new DataGridViewCellStyle
             {
                 BackColor = Color.White,
@@ -122,7 +135,22 @@ namespace OrderForm
 
         }
 
- 
+        private void POS_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
+        {
+            if (Orders.POS.Count > 0)
+            {
+                decimal total = Orders.POS.Sum<POSItems>((a) => a.TotalPrice);
+                Price.Text = total.ToString();
+                
+               var c =  Orders.POS.Sum<POSItems>((x) => x.RealQuantity).ToString();
+                ItemCount.Text = $"عدد المواد المطلوبة: \n\n {c}";
+            }
+            else
+            {
+                Price.Text = "0.0";
+            }
+        }
+
         private void T_Tick(object sender, EventArgs e)
         {
             var t = (Timer)sender;
@@ -136,9 +164,16 @@ namespace OrderForm
             TimeUp?.Invoke(null, "Stop");
 
         }
+
+
         private void displayOffer_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Orders.MenuShowing = false;
+            Orders.POS.ListChanged -= POS_ListChanged;
+
         }
+
     }
+
+
+
 }
