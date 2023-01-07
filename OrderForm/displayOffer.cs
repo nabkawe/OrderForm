@@ -1,5 +1,6 @@
 ﻿using sharedCode;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,9 +12,9 @@ namespace OrderForm
 {
     public partial class displayOffer : Form
     {
-   
+
         public static event EventHandler<string> TimeUp;
-                       
+
         public displayOffer()
         {
             InitializeComponent();
@@ -37,6 +38,25 @@ namespace OrderForm
             Show.POS_ListChanged(null, null);
 
         }
+        public static void showme(string ClientName, string ClientPhone, string ClientDate, Invoice inv)
+        {
+
+            Orders.MenuShowing = true;
+            var Show = new displayOffer();
+            Show.timer1.Start();
+            Show.timer1.Tick += Show.T_Tick;
+            if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; }
+            if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; }
+            if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; }
+            Show.Show();
+            Show.POS_ListChanged(null, null);
+            Show.dvItems2.DataSource = inv.InvoiceItems;
+            Show.Price.Text = inv.InvoicePrice.ToString();
+            var c = inv.InvoiceItems.Sum<POSItems>((x) => x.RealQuantity).ToString();
+            Show.ItemCount.Text = $"عدد المواد المطلوبة: \n\n {c}";
+
+
+        }
 
 
         private void DisplayOffer_TimeUp(object sender, string e)
@@ -45,7 +65,7 @@ namespace OrderForm
             {
                 Orders.MenuShowing = false;
                 this.timer1.Stop();
-                this.Close ();
+                this.Close();
 
             }
 
@@ -60,8 +80,9 @@ namespace OrderForm
             this.Width = Screen.AllScreens[1].WorkingArea.Width;
             if (this.Height > this.Width)
             {
-                this.pictureBox1.Height += 500;
-            } 
+                this.pictureBox1.Height += 300;
+                this.dvItems2.Height += 350;
+            }
             dvItems2.DataSource = Orders.POS;
             Orders.POS.ListChanged += POS_ListChanged;
             var cellstyleMaterial = new DataGridViewCellStyle
@@ -70,7 +91,7 @@ namespace OrderForm
                 ForeColor = Color.Black,
                 SelectionBackColor = Color.White,
                 SelectionForeColor = Color.Black,
-                Font = new System.Drawing.Font("Segoe UI", 12, System.Drawing.FontStyle.Bold),
+                Font = new System.Drawing.Font("Segoe UI", 14, System.Drawing.FontStyle.Bold),
                 Alignment = DataGridViewContentAlignment.MiddleCenter
                 ,
                 Padding = new System.Windows.Forms.Padding(5, 5, 5, 5)
@@ -141,8 +162,8 @@ namespace OrderForm
             {
                 decimal total = Orders.POS.Sum<POSItems>((a) => a.TotalPrice);
                 Price.Text = total.ToString();
-                
-               var c =  Orders.POS.Sum<POSItems>((x) => x.RealQuantity).ToString();
+
+                var c = Orders.POS.Sum<POSItems>((x) => x.RealQuantity).ToString();
                 ItemCount.Text = $"عدد المواد المطلوبة: \n\n {c}";
             }
             else
@@ -169,7 +190,7 @@ namespace OrderForm
         private void displayOffer_FormClosed(object sender, FormClosedEventArgs e)
         {
             Orders.POS.ListChanged -= POS_ListChanged;
-
+            Orders.MenuShowing = false;
         }
 
     }

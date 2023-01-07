@@ -30,9 +30,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Orders));
             this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DeleteBTN = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,12 +46,10 @@
             this.SectionsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.AmountLBL = new System.Windows.Forms.Label();
             this.NameTB = new System.Windows.Forms.TextBox();
-            this.CustomerMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MobileTB = new System.Windows.Forms.TextBox();
             this.dvItems = new System.Windows.Forms.DataGridView();
             this.PrintSave = new System.Windows.Forms.Button();
             this.CommentTB = new System.Windows.Forms.TextBox();
-            this.InvoiceCommentsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MobileLBL = new System.Windows.Forms.Label();
             this.NameLBL = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -60,7 +58,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PrintedInvoices = new System.Windows.Forms.FlowLayoutPanel();
-            this.Search = new OrderForm.UnfocusableButton();
             this.sortType = new System.Windows.Forms.GroupBox();
             this.GroupSave = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -76,16 +73,11 @@
             this.Tue = new System.Windows.Forms.RadioButton();
             this.Thu = new System.Windows.Forms.RadioButton();
             this.Wed = new System.Windows.Forms.RadioButton();
-            this.unfocusableButton5 = new OrderForm.UnfocusableButton();
             this.HeldPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.unfocusableButton6 = new OrderForm.UnfocusableButton();
-            this.OrderCut = new OrderForm.UnfocusableButton();
+            this.xLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.jahezPrice = new System.Windows.Forms.Label();
-            this.LastOrder = new OrderForm.UnfocusableButton();
-            this.RepeatOrder = new OrderForm.UnfocusableButton();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.unfocusableButton2 = new OrderForm.UnfocusableButton();
-            this.unfocusableButton1 = new OrderForm.UnfocusableButton();
             this.HoldInvoice = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -93,8 +85,33 @@
             this.ItemCount = new System.Windows.Forms.Label();
             this.DeleteInvoice = new System.Windows.Forms.Button();
             this.SaveInvoice = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.DOWTB = new System.Windows.Forms.TextBox();
+            this.TimeTB = new System.Windows.Forms.TextBox();
+            this.AmountPriceLBL = new System.Windows.Forms.Label();
+            this.InvoiceTypeOptions = new System.Windows.Forms.ToolStrip();
+            this.TelButton = new System.Windows.Forms.ToolStripButton();
+            this.ToGoButton = new System.Windows.Forms.ToolStripButton();
+            this.DineButton = new System.Windows.Forms.ToolStripButton();
+            this.AppsButton = new System.Windows.Forms.ToolStripButton();
             this.OrderStatus = new System.Windows.Forms.Button();
+            this.DayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.HourPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.MinutesPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.TODPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.SalahTimes = new System.Windows.Forms.FlowLayoutPanel();
+            this.MenuSelection = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.FastComment = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.MenuTimeOut = new System.Windows.Forms.Timer(this.components);
+            this.printComment = new System.Windows.Forms.PrintDialog();
+            this.WhatsSend = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Search = new OrderForm.UnfocusableButton();
+            this.unfocusableButton5 = new OrderForm.UnfocusableButton();
+            this.ShowMenuBTN = new OrderForm.UnfocusableButton();
+            this.unfocusableButton6 = new OrderForm.UnfocusableButton();
+            this.OrderCut = new OrderForm.UnfocusableButton();
+            this.LastOrder = new OrderForm.UnfocusableButton();
+            this.RepeatOrder = new OrderForm.UnfocusableButton();
             this.NewBTN = new OrderForm.UnfocusableButton();
             this.DeleteTouchBTN = new OrderForm.UnfocusableButton();
             this.FiveBTN = new OrderForm.UnfocusableButton();
@@ -111,28 +128,12 @@
             this.TwoBTN = new OrderForm.UnfocusableButton();
             this.ThreeBTN = new OrderForm.UnfocusableButton();
             this.FourBTN = new OrderForm.UnfocusableButton();
-            this.DOWTB = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.TimeTB = new System.Windows.Forms.TextBox();
             this.TimeInfo = new OrderForm.UnfocusableButton();
             this.WhatAppBTN = new OrderForm.UnfocusableButton();
             this.DayMenuBTN = new OrderForm.UnfocusableButton();
-            this.AmountPriceLBL = new System.Windows.Forms.Label();
-            this.xLabel = new System.Windows.Forms.Label();
-            this.InvoiceTypeOptions = new System.Windows.Forms.ToolStrip();
-            this.TelButton = new System.Windows.Forms.ToolStripButton();
-            this.ToGoButton = new System.Windows.Forms.ToolStripButton();
-            this.DineButton = new System.Windows.Forms.ToolStripButton();
-            this.AppsButton = new System.Windows.Forms.ToolStripButton();
-            this.DayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.HourPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.MinutesPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.TODPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.SalahTimes = new System.Windows.Forms.FlowLayoutPanel();
-            this.unfocusableButton4 = new OrderForm.UnfocusableButton();
+            this.MainMenu = new OrderForm.UnfocusableButton();
+            this.OrdersPage = new OrderForm.UnfocusableButton();
             this.unfocusableButton3 = new OrderForm.UnfocusableButton();
-            this.MenuSelection = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.TimeLeftLBL = new OrderForm.UnfocusableButton();
             this.TimeTillCountdown = new OrderForm.UnfocusableButton();
             this.DhuhrLBL = new OrderForm.UnfocusableButton();
@@ -147,12 +148,6 @@
             this.DayLBL = new OrderForm.UnfocusableButton();
             this.TimeButton = new OrderForm.UnfocusableButton();
             this.CopyInvoice = new OrderForm.UnfocusableButton();
-            this.FastComment = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.MenuTimeOut = new System.Windows.Forms.Timer(this.components);
-            this.printComment = new System.Windows.Forms.PrintDialog();
-            this.WhatsSend = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.MainMenu = new OrderForm.UnfocusableButton();
-            this.OrdersPage = new OrderForm.UnfocusableButton();
             this.SettingsPage = new OrderForm.UnfocusableButton();
             this.rightClickMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvItems)).BeginInit();
@@ -240,7 +235,7 @@
             // 
             this.InvoiceNumberID.BackColor = System.Drawing.Color.GhostWhite;
             this.InvoiceNumberID.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InvoiceNumberID.Location = new System.Drawing.Point(105, 3);
+            this.InvoiceNumberID.Location = new System.Drawing.Point(139, 2);
             this.InvoiceNumberID.Name = "InvoiceNumberID";
             this.InvoiceNumberID.ReadOnly = true;
             this.InvoiceNumberID.Size = new System.Drawing.Size(77, 33);
@@ -268,9 +263,9 @@
             // 
             this.AmountLBL.BackColor = System.Drawing.Color.GhostWhite;
             this.AmountLBL.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmountLBL.Location = new System.Drawing.Point(225, 567);
+            this.AmountLBL.Location = new System.Drawing.Point(146, 566);
             this.AmountLBL.Name = "AmountLBL";
-            this.AmountLBL.Size = new System.Drawing.Size(106, 39);
+            this.AmountLBL.Size = new System.Drawing.Size(104, 39);
             this.AmountLBL.TabIndex = 28;
             this.AmountLBL.Text = "0";
             this.AmountLBL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -280,10 +275,9 @@
             // 
             this.NameTB.AllowDrop = true;
             this.NameTB.BackColor = System.Drawing.Color.GhostWhite;
-            this.NameTB.CausesValidation = false;
-            this.NameTB.ContextMenuStrip = this.CustomerMenu;
             this.NameTB.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.NameTB.Location = new System.Drawing.Point(557, 705);
+            this.NameTB.HideSelection = false;
+            this.NameTB.Location = new System.Drawing.Point(653, 673);
             this.NameTB.Margin = new System.Windows.Forms.Padding(0);
             this.NameTB.Name = "NameTB";
             this.NameTB.Size = new System.Drawing.Size(289, 43);
@@ -296,25 +290,14 @@
             this.NameTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MobileTB_KeyDown);
             this.NameTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
             // 
-            // CustomerMenu
-            // 
-            this.CustomerMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table;
-            this.CustomerMenu.Name = "rightClickMenu";
-            this.CustomerMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.CustomerMenu.ShowImageMargin = false;
-            this.CustomerMenu.ShowItemToolTips = false;
-            this.CustomerMenu.Size = new System.Drawing.Size(36, 4);
-            this.CustomerMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CustomerMenu_ItemClicked);
-            // 
             // MobileTB
             // 
             this.MobileTB.AllowDrop = true;
             this.MobileTB.BackColor = System.Drawing.Color.GhostWhite;
             this.MobileTB.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.MobileTB.Location = new System.Drawing.Point(648, 657);
+            this.MobileTB.Location = new System.Drawing.Point(744, 624);
             this.MobileTB.Margin = new System.Windows.Forms.Padding(0);
             this.MobileTB.Name = "MobileTB";
-            this.MobileTB.ShortcutsEnabled = false;
             this.MobileTB.Size = new System.Drawing.Size(198, 43);
             this.MobileTB.TabIndex = 23;
             this.MobileTB.WordWrap = false;
@@ -331,36 +314,36 @@
             this.dvItems.AllowUserToOrderColumns = true;
             this.dvItems.AllowUserToResizeColumns = false;
             this.dvItems.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dvItems.BackgroundColor = System.Drawing.Color.GhostWhite;
             this.dvItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dvItems.CausesValidation = false;
             this.dvItems.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dvItems.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 8F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 8F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems.DefaultCellStyle = dataGridViewCellStyle6;
             this.dvItems.Location = new System.Drawing.Point(11, 36);
             this.dvItems.MultiSelect = false;
             this.dvItems.Name = "dvItems";
@@ -392,15 +375,14 @@
             this.PrintSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PrintSave.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PrintSave.ForeColor = System.Drawing.Color.White;
-            this.PrintSave.Location = new System.Drawing.Point(175, 875);
+            this.PrintSave.Location = new System.Drawing.Point(174, 876);
             this.PrintSave.Name = "PrintSave";
-            this.PrintSave.Size = new System.Drawing.Size(157, 47);
+            this.PrintSave.Size = new System.Drawing.Size(164, 47);
             this.PrintSave.TabIndex = 48;
             this.PrintSave.TabStop = false;
             this.PrintSave.Text = "طباعة و تحضير";
             this.PrintSave.UseVisualStyleBackColor = false;
             this.PrintSave.Click += new System.EventHandler(this.PrintSave_Click);
-            this.PrintSave.MouseEnter += new System.EventHandler(this.PrintSave_MouseEnter);
             this.PrintSave.MouseLeave += new System.EventHandler(this.PrintSave_MouseLeave);
             // 
             // CommentTB
@@ -408,35 +390,24 @@
             this.CommentTB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.CommentTB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.CommentTB.BackColor = System.Drawing.Color.GhostWhite;
-            this.CommentTB.ContextMenuStrip = this.InvoiceCommentsMenu;
             this.CommentTB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CommentTB.Location = new System.Drawing.Point(557, 849);
+            this.CommentTB.Location = new System.Drawing.Point(653, 816);
             this.CommentTB.Margin = new System.Windows.Forms.Padding(0);
             this.CommentTB.Name = "CommentTB";
             this.CommentTB.Size = new System.Drawing.Size(289, 33);
             this.CommentTB.TabIndex = 150;
             this.CommentTB.WordWrap = false;
             this.CommentTB.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
-            this.CommentTB.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CommentTB_MouseDown);
             this.CommentTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
-            // 
-            // InvoiceCommentsMenu
-            // 
-            this.InvoiceCommentsMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table;
-            this.InvoiceCommentsMenu.Name = "rightClickMenu";
-            this.InvoiceCommentsMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.InvoiceCommentsMenu.ShowImageMargin = false;
-            this.InvoiceCommentsMenu.ShowItemToolTips = false;
-            this.InvoiceCommentsMenu.Size = new System.Drawing.Size(36, 4);
-            this.InvoiceCommentsMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InvoiceCommentsMenu_ItemClicked);
             // 
             // MobileLBL
             // 
             this.MobileLBL.AutoSize = true;
-            this.MobileLBL.BackColor = System.Drawing.Color.Transparent;
+            this.MobileLBL.BackColor = System.Drawing.Color.GhostWhite;
+            this.MobileLBL.Enabled = false;
             this.MobileLBL.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MobileLBL.ForeColor = System.Drawing.Color.White;
-            this.MobileLBL.Location = new System.Drawing.Point(877, 669);
+            this.MobileLBL.ForeColor = System.Drawing.Color.Silver;
+            this.MobileLBL.Location = new System.Drawing.Point(850, 636);
             this.MobileLBL.Name = "MobileLBL";
             this.MobileLBL.Size = new System.Drawing.Size(67, 17);
             this.MobileLBL.TabIndex = 50;
@@ -445,43 +416,56 @@
             // NameLBL
             // 
             this.NameLBL.AutoSize = true;
-            this.NameLBL.BackColor = System.Drawing.Color.Transparent;
+            this.NameLBL.BackColor = System.Drawing.Color.GhostWhite;
+            this.NameLBL.Enabled = false;
             this.NameLBL.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameLBL.ForeColor = System.Drawing.Color.White;
-            this.NameLBL.Location = new System.Drawing.Point(872, 717);
+            this.NameLBL.ForeColor = System.Drawing.Color.Silver;
+            this.NameLBL.Location = new System.Drawing.Point(847, 685);
             this.NameLBL.Name = "NameLBL";
             this.NameLBL.Size = new System.Drawing.Size(70, 17);
             this.NameLBL.TabIndex = 51;
             this.NameLBL.Text = "إسم العميل";
+            this.NameLBL.Click += new System.EventHandler(this.NameLBL_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.BackColor = System.Drawing.Color.GhostWhite;
+            this.label1.Enabled = false;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(877, 765);
+            this.label1.ForeColor = System.Drawing.Color.Silver;
+            this.label1.Location = new System.Drawing.Point(845, 733);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 17);
             this.label1.TabIndex = 52;
             this.label1.Text = "وقت الطلب";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // CommentLBL
             // 
             this.CommentLBL.AutoSize = true;
-            this.CommentLBL.BackColor = System.Drawing.Color.Transparent;
+            this.CommentLBL.BackColor = System.Drawing.Color.GhostWhite;
+            this.CommentLBL.Enabled = false;
             this.CommentLBL.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CommentLBL.ForeColor = System.Drawing.Color.White;
-            this.CommentLBL.Location = new System.Drawing.Point(853, 856);
+            this.CommentLBL.ForeColor = System.Drawing.Color.Silver;
+            this.CommentLBL.Location = new System.Drawing.Point(826, 822);
             this.CommentLBL.Name = "CommentLBL";
             this.CommentLBL.Size = new System.Drawing.Size(91, 17);
             this.CommentLBL.TabIndex = 53;
             this.CommentLBL.Text = "ملاحظة  الطلب";
+            this.CommentLBL.Click += new System.EventHandler(this.CommentLBL_Click);
             // 
             // OrdersPanel
             // 
             this.OrdersPanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.OrdersPanel.Controls.Add(this.splitContainer1);
+            this.OrdersPanel.Controls.Add(this.xLabel);
+            this.OrdersPanel.Controls.Add(this.label3);
+            this.OrdersPanel.Controls.Add(this.CommentLBL);
+            this.OrdersPanel.Controls.Add(this.label1);
+            this.OrdersPanel.Controls.Add(this.NameLBL);
+            this.OrdersPanel.Controls.Add(this.MobileLBL);
+            this.OrdersPanel.Controls.Add(this.ShowMenuBTN);
             this.OrdersPanel.Controls.Add(this.ItemsPanel1);
             this.OrdersPanel.Controls.Add(this.unfocusableButton6);
             this.OrdersPanel.Controls.Add(this.OrderCut);
@@ -491,8 +475,6 @@
             this.OrdersPanel.Controls.Add(this.LastOrder);
             this.OrdersPanel.Controls.Add(this.RepeatOrder);
             this.OrdersPanel.Controls.Add(this.checkBox1);
-            this.OrdersPanel.Controls.Add(this.unfocusableButton2);
-            this.OrdersPanel.Controls.Add(this.unfocusableButton1);
             this.OrdersPanel.Controls.Add(this.HoldInvoice);
             this.OrdersPanel.Controls.Add(this.label7);
             this.OrdersPanel.Controls.Add(this.label5);
@@ -500,8 +482,6 @@
             this.OrdersPanel.Controls.Add(this.ItemCount);
             this.OrdersPanel.Controls.Add(this.DeleteInvoice);
             this.OrdersPanel.Controls.Add(this.SaveInvoice);
-            this.OrdersPanel.Controls.Add(this.label2);
-            this.OrdersPanel.Controls.Add(this.OrderStatus);
             this.OrdersPanel.Controls.Add(this.NewBTN);
             this.OrdersPanel.Controls.Add(this.InvoiceNumberID);
             this.OrdersPanel.Controls.Add(this.PrintSave);
@@ -522,21 +502,16 @@
             this.OrdersPanel.Controls.Add(this.FourBTN);
             this.OrdersPanel.Controls.Add(this.SectionsPanel);
             this.OrdersPanel.Controls.Add(this.DOWTB);
-            this.OrdersPanel.Controls.Add(this.label3);
             this.OrdersPanel.Controls.Add(this.TimeTB);
             this.OrdersPanel.Controls.Add(this.TimeInfo);
-            this.OrdersPanel.Controls.Add(this.CommentLBL);
-            this.OrdersPanel.Controls.Add(this.label1);
-            this.OrdersPanel.Controls.Add(this.NameLBL);
-            this.OrdersPanel.Controls.Add(this.MobileLBL);
             this.OrdersPanel.Controls.Add(this.CommentTB);
             this.OrdersPanel.Controls.Add(this.WhatAppBTN);
             this.OrdersPanel.Controls.Add(this.MobileTB);
             this.OrdersPanel.Controls.Add(this.NameTB);
             this.OrdersPanel.Controls.Add(this.DayMenuBTN);
             this.OrdersPanel.Controls.Add(this.AmountPriceLBL);
-            this.OrdersPanel.Controls.Add(this.xLabel);
             this.OrdersPanel.Controls.Add(this.InvoiceTypeOptions);
+            this.OrdersPanel.Controls.Add(this.OrderStatus);
             this.OrdersPanel.Location = new System.Drawing.Point(0, 70);
             this.OrdersPanel.Name = "OrdersPanel";
             this.OrdersPanel.Size = new System.Drawing.Size(961, 939);
@@ -559,8 +534,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.LightSlateGray;
-            this.splitContainer1.Panel2.Controls.Add(this.unfocusableButton5);
             this.splitContainer1.Panel2.Controls.Add(this.HeldPanel);
+            this.splitContainer1.Panel2.Controls.Add(this.unfocusableButton5);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainer1.Size = new System.Drawing.Size(958, 934);
             this.splitContainer1.SplitterDistance = 790;
@@ -604,23 +579,6 @@
             this.PrintedInvoices.Name = "PrintedInvoices";
             this.PrintedInvoices.Size = new System.Drawing.Size(963, 718);
             this.PrintedInvoices.TabIndex = 41;
-            // 
-            // Search
-            // 
-            this.Search.BackColor = System.Drawing.Color.White;
-            this.Search.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Search.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.Search.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.Search.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Search.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Search.Location = new System.Drawing.Point(786, 13);
-            this.Search.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.Search.Name = "Search";
-            this.Search.Size = new System.Drawing.Size(39, 37);
-            this.Search.TabIndex = 41;
-            this.Search.Text = "بحث";
-            this.Search.UseVisualStyleBackColor = false;
-            this.Search.Click += new System.EventHandler(this.Search_Click);
             // 
             // sortType
             // 
@@ -861,27 +819,6 @@
             this.Wed.UseVisualStyleBackColor = false;
             this.Wed.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
             // 
-            // unfocusableButton5
-            // 
-            this.unfocusableButton5.BackColor = System.Drawing.Color.GhostWhite;
-            this.unfocusableButton5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.unfocusableButton5.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.unfocusableButton5.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.unfocusableButton5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.unfocusableButton5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.unfocusableButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton5.Font = new System.Drawing.Font("Tahoma", 7F);
-            this.unfocusableButton5.Location = new System.Drawing.Point(0, 0);
-            this.unfocusableButton5.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.unfocusableButton5.Name = "unfocusableButton5";
-            this.unfocusableButton5.Size = new System.Drawing.Size(83, 143);
-            this.unfocusableButton5.TabIndex = 61;
-            this.unfocusableButton5.Text = "فتح الفواتير المعلقة (غير المطبوعة)";
-            this.unfocusableButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.unfocusableButton5.UseCompatibleTextRendering = true;
-            this.unfocusableButton5.UseVisualStyleBackColor = false;
-            this.unfocusableButton5.Click += new System.EventHandler(this.unfocusableButton5_Click_1);
-            // 
             // HeldPanel
             // 
             this.HeldPanel.AutoScroll = true;
@@ -893,51 +830,42 @@
             this.HeldPanel.Name = "HeldPanel";
             this.HeldPanel.Size = new System.Drawing.Size(875, 143);
             this.HeldPanel.TabIndex = 40;
+            this.HeldPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.HeldPanel_Paint);
             // 
-            // unfocusableButton6
+            // xLabel
             // 
-            this.unfocusableButton6.BackColor = System.Drawing.Color.White;
-            this.unfocusableButton6.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.unfocusableButton6.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.unfocusableButton6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.unfocusableButton6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.unfocusableButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unfocusableButton6.Location = new System.Drawing.Point(617, 887);
-            this.unfocusableButton6.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.unfocusableButton6.Name = "unfocusableButton6";
-            this.unfocusableButton6.Size = new System.Drawing.Size(109, 27);
-            this.unfocusableButton6.TabIndex = 170;
-            this.unfocusableButton6.Text = " الطلب منشف ";
-            this.unfocusableButton6.UseCompatibleTextRendering = true;
-            this.unfocusableButton6.UseVisualStyleBackColor = false;
-            this.unfocusableButton6.Click += new System.EventHandler(this.OrderCut_Click);
+            this.xLabel.AutoSize = true;
+            this.xLabel.BackColor = System.Drawing.Color.GhostWhite;
+            this.xLabel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xLabel.Location = new System.Drawing.Point(920, 732);
+            this.xLabel.Name = "xLabel";
+            this.xLabel.Size = new System.Drawing.Size(11, 21);
+            this.xLabel.TabIndex = 0;
+            this.xLabel.Text = "x";
+            this.xLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.xLabel.UseCompatibleTextRendering = true;
+            this.xLabel.Click += new System.EventHandler(this.xLabel_Click);
             // 
-            // OrderCut
+            // label3
             // 
-            this.OrderCut.BackColor = System.Drawing.Color.White;
-            this.OrderCut.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.OrderCut.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.OrderCut.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.OrderCut.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.OrderCut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OrderCut.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OrderCut.Location = new System.Drawing.Point(737, 887);
-            this.OrderCut.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.OrderCut.Name = "OrderCut";
-            this.OrderCut.Size = new System.Drawing.Size(109, 27);
-            this.OrderCut.TabIndex = 169;
-            this.OrderCut.Text = " الطلب مقطع ";
-            this.OrderCut.UseCompatibleTextRendering = true;
-            this.OrderCut.UseVisualStyleBackColor = false;
-            this.OrderCut.Click += new System.EventHandler(this.OrderCut_Click);
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.GhostWhite;
+            this.label3.Enabled = false;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Silver;
+            this.label3.Location = new System.Drawing.Point(852, 781);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 17);
+            this.label3.TabIndex = 103;
+            this.label3.Text = "يوم الطلب";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // jahezPrice
             // 
             this.jahezPrice.BackColor = System.Drawing.Color.Red;
             this.jahezPrice.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.jahezPrice.ForeColor = System.Drawing.Color.White;
-            this.jahezPrice.Location = new System.Drawing.Point(225, 567);
+            this.jahezPrice.Location = new System.Drawing.Point(145, 566);
             this.jahezPrice.Name = "jahezPrice";
             this.jahezPrice.Size = new System.Drawing.Size(106, 39);
             this.jahezPrice.TabIndex = 168;
@@ -946,78 +874,17 @@
             this.jahezPrice.UseCompatibleTextRendering = true;
             this.jahezPrice.Visible = false;
             // 
-            // LastOrder
-            // 
-            this.LastOrder.BackColor = System.Drawing.Color.White;
-            this.LastOrder.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.LastOrder.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.LastOrder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.LastOrder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.LastOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LastOrder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastOrder.Location = new System.Drawing.Point(459, 705);
-            this.LastOrder.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.LastOrder.Name = "LastOrder";
-            this.LastOrder.Size = new System.Drawing.Size(93, 43);
-            this.LastOrder.TabIndex = 167;
-            this.LastOrder.Text = "إدخال آخر طلب";
-            this.LastOrder.UseCompatibleTextRendering = true;
-            this.LastOrder.UseVisualStyleBackColor = false;
-            this.LastOrder.Visible = false;
-            this.LastOrder.Click += new System.EventHandler(this.LastOrder_Click);
-            // 
-            // RepeatOrder
-            // 
-            this.RepeatOrder.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.RepeatOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RepeatOrder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RepeatOrder.ForeColor = System.Drawing.Color.White;
-            this.RepeatOrder.Location = new System.Drawing.Point(450, 887);
-            this.RepeatOrder.Name = "RepeatOrder";
-            this.RepeatOrder.Size = new System.Drawing.Size(125, 35);
-            this.RepeatOrder.TabIndex = 0;
-            this.RepeatOrder.Text = "إعادة تحضير الطلب";
-            this.RepeatOrder.UseVisualStyleBackColor = false;
-            this.RepeatOrder.Visible = false;
-            this.RepeatOrder.Click += new System.EventHandler(this.RepeatOrder_Click);
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(85, 848);
+            this.checkBox1.Location = new System.Drawing.Point(86, 854);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(85, 15);
             this.checkBox1.TabIndex = 166;
             this.checkBox1.Text = "طباعة أمر التسليم";
             this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // unfocusableButton2
-            // 
-            this.unfocusableButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton2.Font = new System.Drawing.Font("Tahoma", 6F);
-            this.unfocusableButton2.Location = new System.Drawing.Point(848, 681);
-            this.unfocusableButton2.Name = "unfocusableButton2";
-            this.unfocusableButton2.Size = new System.Drawing.Size(18, 17);
-            this.unfocusableButton2.TabIndex = 165;
-            this.unfocusableButton2.Text = "V";
-            this.unfocusableButton2.UseCompatibleTextRendering = true;
-            this.unfocusableButton2.UseVisualStyleBackColor = true;
-            this.unfocusableButton2.Click += new System.EventHandler(this.unfocusableButton2_Click);
-            // 
-            // unfocusableButton1
-            // 
-            this.unfocusableButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton1.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unfocusableButton1.Location = new System.Drawing.Point(848, 659);
-            this.unfocusableButton1.Name = "unfocusableButton1";
-            this.unfocusableButton1.Size = new System.Drawing.Size(18, 17);
-            this.unfocusableButton1.TabIndex = 164;
-            this.unfocusableButton1.Text = "C";
-            this.unfocusableButton1.UseCompatibleTextRendering = true;
-            this.unfocusableButton1.UseVisualStyleBackColor = true;
-            this.unfocusableButton1.Click += new System.EventHandler(this.unfocusableButton1_Click);
             // 
             // HoldInvoice
             // 
@@ -1063,9 +930,9 @@
             // 
             this.label6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.GhostWhite;
-            this.label6.Location = new System.Drawing.Point(130, 580);
+            this.label6.Location = new System.Drawing.Point(72, 570);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(89, 26);
+            this.label6.Size = new System.Drawing.Size(81, 26);
             this.label6.TabIndex = 158;
             this.label6.Text = "عدد المواد";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1075,12 +942,12 @@
             this.ItemCount.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ItemCount.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.ItemCount.ForeColor = System.Drawing.Color.GhostWhite;
-            this.ItemCount.Location = new System.Drawing.Point(34, 580);
+            this.ItemCount.Location = new System.Drawing.Point(24, 565);
             this.ItemCount.Name = "ItemCount";
-            this.ItemCount.Size = new System.Drawing.Size(81, 25);
+            this.ItemCount.Size = new System.Drawing.Size(81, 34);
             this.ItemCount.TabIndex = 157;
             this.ItemCount.Text = "0";
-            this.ItemCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ItemCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // DeleteInvoice
             // 
@@ -1088,7 +955,7 @@
             this.DeleteInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteInvoice.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DeleteInvoice.ForeColor = System.Drawing.Color.Red;
-            this.DeleteInvoice.Location = new System.Drawing.Point(31, 875);
+            this.DeleteInvoice.Location = new System.Drawing.Point(14, 875);
             this.DeleteInvoice.Name = "DeleteInvoice";
             this.DeleteInvoice.Size = new System.Drawing.Size(52, 47);
             this.DeleteInvoice.TabIndex = 154;
@@ -1103,9 +970,9 @@
             this.SaveInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveInvoice.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveInvoice.ForeColor = System.Drawing.Color.Blue;
-            this.SaveInvoice.Location = new System.Drawing.Point(89, 875);
+            this.SaveInvoice.Location = new System.Drawing.Point(79, 875);
             this.SaveInvoice.Name = "SaveInvoice";
-            this.SaveInvoice.Size = new System.Drawing.Size(80, 47);
+            this.SaveInvoice.Size = new System.Drawing.Size(91, 48);
             this.SaveInvoice.TabIndex = 153;
             this.SaveInvoice.TabStop = false;
             this.SaveInvoice.Text = "تخزين الطلب";
@@ -1113,356 +980,29 @@
             this.SaveInvoice.Click += new System.EventHandler(this.SaveInvoice_Click);
             this.SaveInvoice.MouseLeave += new System.EventHandler(this.SaveInvoice_MouseLeave);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(346, 847);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 20);
-            this.label2.TabIndex = 152;
-            this.label2.Text = "نوع الطلب";
-            // 
-            // OrderStatus
-            // 
-            this.OrderStatus.BackColor = System.Drawing.Color.White;
-            this.OrderStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OrderStatus.Location = new System.Drawing.Point(336, 875);
-            this.OrderStatus.Name = "OrderStatus";
-            this.OrderStatus.Size = new System.Drawing.Size(97, 47);
-            this.OrderStatus.TabIndex = 151;
-            this.OrderStatus.TabStop = false;
-            this.OrderStatus.UseVisualStyleBackColor = false;
-            this.OrderStatus.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
-            this.OrderStatus.Click += new System.EventHandler(this.OrderStatus_Click);
-            // 
-            // NewBTN
-            // 
-            this.NewBTN.BackColor = System.Drawing.Color.White;
-            this.NewBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.NewBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.NewBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.NewBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.NewBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewBTN.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.NewBTN.Location = new System.Drawing.Point(6, 3);
-            this.NewBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.NewBTN.Name = "NewBTN";
-            this.NewBTN.Size = new System.Drawing.Size(96, 30);
-            this.NewBTN.TabIndex = 41;
-            this.NewBTN.Text = "طلبية جديدة";
-            this.NewBTN.UseVisualStyleBackColor = false;
-            this.NewBTN.Click += new System.EventHandler(this.NewBTN_Click);
-            // 
-            // DeleteTouchBTN
-            // 
-            this.DeleteTouchBTN.BackColor = System.Drawing.Color.Red;
-            this.DeleteTouchBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.DeleteTouchBTN.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeleteTouchBTN.ForeColor = System.Drawing.Color.White;
-            this.DeleteTouchBTN.Location = new System.Drawing.Point(340, 610);
-            this.DeleteTouchBTN.Name = "DeleteTouchBTN";
-            this.DeleteTouchBTN.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.DeleteTouchBTN.Size = new System.Drawing.Size(113, 53);
-            this.DeleteTouchBTN.TabIndex = 0;
-            this.DeleteTouchBTN.Text = "حذف المادة";
-            this.DeleteTouchBTN.UseVisualStyleBackColor = false;
-            this.DeleteTouchBTN.Click += new System.EventHandler(this.DeleteTouchBTN_Click);
-            // 
-            // FiveBTN
-            // 
-            this.FiveBTN.BackColor = System.Drawing.Color.White;
-            this.FiveBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.FiveBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.FiveBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.FiveBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.FiveBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FiveBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FiveBTN.Location = new System.Drawing.Point(132, 664);
-            this.FiveBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.FiveBTN.Name = "FiveBTN";
-            this.FiveBTN.Size = new System.Drawing.Size(97, 50);
-            this.FiveBTN.TabIndex = 47;
-            this.FiveBTN.Text = "5";
-            this.FiveBTN.UseVisualStyleBackColor = false;
-            this.FiveBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // SixBTN
-            // 
-            this.SixBTN.BackColor = System.Drawing.Color.White;
-            this.SixBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.SixBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.SixBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.SixBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.SixBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SixBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SixBTN.Location = new System.Drawing.Point(234, 664);
-            this.SixBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.SixBTN.Name = "SixBTN";
-            this.SixBTN.Size = new System.Drawing.Size(97, 50);
-            this.SixBTN.TabIndex = 46;
-            this.SixBTN.Text = "6";
-            this.SixBTN.UseVisualStyleBackColor = false;
-            this.SixBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // SevenBTN
-            // 
-            this.SevenBTN.BackColor = System.Drawing.Color.White;
-            this.SevenBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.SevenBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.SevenBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.SevenBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.SevenBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SevenBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SevenBTN.Location = new System.Drawing.Point(31, 610);
-            this.SevenBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.SevenBTN.Name = "SevenBTN";
-            this.SevenBTN.Size = new System.Drawing.Size(97, 50);
-            this.SevenBTN.TabIndex = 45;
-            this.SevenBTN.Text = "7";
-            this.SevenBTN.UseVisualStyleBackColor = false;
-            this.SevenBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // EightBTN
-            // 
-            this.EightBTN.BackColor = System.Drawing.Color.White;
-            this.EightBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.EightBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.EightBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.EightBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.EightBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.EightBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EightBTN.Location = new System.Drawing.Point(132, 610);
-            this.EightBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.EightBTN.Name = "EightBTN";
-            this.EightBTN.Size = new System.Drawing.Size(97, 50);
-            this.EightBTN.TabIndex = 44;
-            this.EightBTN.Text = "8";
-            this.EightBTN.UseVisualStyleBackColor = false;
-            this.EightBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // NineBTN
-            // 
-            this.NineBTN.BackColor = System.Drawing.Color.White;
-            this.NineBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.NineBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.NineBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.NineBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.NineBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NineBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NineBTN.Location = new System.Drawing.Point(234, 610);
-            this.NineBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.NineBTN.Name = "NineBTN";
-            this.NineBTN.Size = new System.Drawing.Size(97, 50);
-            this.NineBTN.TabIndex = 43;
-            this.NineBTN.Text = "9";
-            this.NineBTN.UseVisualStyleBackColor = false;
-            this.NineBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // ZeroBTN
-            // 
-            this.ZeroBTN.BackColor = System.Drawing.Color.White;
-            this.ZeroBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ZeroBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.ZeroBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.ZeroBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.ZeroBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ZeroBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ZeroBTN.Location = new System.Drawing.Point(132, 770);
-            this.ZeroBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.ZeroBTN.Name = "ZeroBTN";
-            this.ZeroBTN.Size = new System.Drawing.Size(97, 51);
-            this.ZeroBTN.TabIndex = 42;
-            this.ZeroBTN.Text = "0";
-            this.ZeroBTN.UseVisualStyleBackColor = false;
-            this.ZeroBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // BackSpaceBTN
-            // 
-            this.BackSpaceBTN.BackColor = System.Drawing.Color.FloralWhite;
-            this.BackSpaceBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.BackSpaceBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.BackSpaceBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.BackSpaceBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.BackSpaceBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BackSpaceBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackSpaceBTN.Location = new System.Drawing.Point(31, 770);
-            this.BackSpaceBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.BackSpaceBTN.Name = "BackSpaceBTN";
-            this.BackSpaceBTN.Size = new System.Drawing.Size(97, 51);
-            this.BackSpaceBTN.TabIndex = 41;
-            this.BackSpaceBTN.Text = "مسح ";
-            this.BackSpaceBTN.UseVisualStyleBackColor = false;
-            this.BackSpaceBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // EnterBTN
-            // 
-            this.EnterBTN.BackColor = System.Drawing.Color.LawnGreen;
-            this.EnterBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.EnterBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.EnterBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.EnterBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.EnterBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.EnterBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnterBTN.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.EnterBTN.Location = new System.Drawing.Point(235, 770);
-            this.EnterBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.EnterBTN.Name = "EnterBTN";
-            this.EnterBTN.Size = new System.Drawing.Size(97, 51);
-            this.EnterBTN.TabIndex = 40;
-            this.EnterBTN.Text = "إدخال";
-            this.EnterBTN.UseVisualStyleBackColor = false;
-            this.EnterBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // UpBTN
-            // 
-            this.UpBTN.BackColor = System.Drawing.Color.White;
-            this.UpBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.UpBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.UpBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.UpBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.UpBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UpBTN.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UpBTN.Location = new System.Drawing.Point(340, 690);
-            this.UpBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.UpBTN.Name = "UpBTN";
-            this.UpBTN.Size = new System.Drawing.Size(113, 50);
-            this.UpBTN.TabIndex = 39;
-            this.UpBTN.Text = "+";
-            this.UpBTN.UseCompatibleTextRendering = true;
-            this.UpBTN.UseVisualStyleBackColor = false;
-            this.UpBTN.Click += new System.EventHandler(this.PlusBTN_Click);
-            this.UpBTN.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlusBTN_MouseUp);
-            // 
-            // DownBTN
-            // 
-            this.DownBTN.BackColor = System.Drawing.Color.White;
-            this.DownBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.DownBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.DownBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.DownBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.DownBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DownBTN.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DownBTN.Location = new System.Drawing.Point(340, 747);
-            this.DownBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.DownBTN.Name = "DownBTN";
-            this.DownBTN.Size = new System.Drawing.Size(113, 50);
-            this.DownBTN.TabIndex = 38;
-            this.DownBTN.Text = "-";
-            this.DownBTN.UseCompatibleTextRendering = true;
-            this.DownBTN.UseVisualStyleBackColor = false;
-            this.DownBTN.Click += new System.EventHandler(this.DownBTN_Click);
-            this.DownBTN.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DownBTN_MouseUp);
-            // 
-            // OneBTN
-            // 
-            this.OneBTN.BackColor = System.Drawing.Color.White;
-            this.OneBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.OneBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.OneBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.OneBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.OneBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OneBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OneBTN.Location = new System.Drawing.Point(31, 717);
-            this.OneBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.OneBTN.Name = "OneBTN";
-            this.OneBTN.Size = new System.Drawing.Size(97, 50);
-            this.OneBTN.TabIndex = 34;
-            this.OneBTN.Text = "1";
-            this.OneBTN.UseVisualStyleBackColor = false;
-            this.OneBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // TwoBTN
-            // 
-            this.TwoBTN.BackColor = System.Drawing.Color.White;
-            this.TwoBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.TwoBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.TwoBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.TwoBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.TwoBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TwoBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TwoBTN.Location = new System.Drawing.Point(132, 717);
-            this.TwoBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.TwoBTN.Name = "TwoBTN";
-            this.TwoBTN.Size = new System.Drawing.Size(97, 50);
-            this.TwoBTN.TabIndex = 33;
-            this.TwoBTN.Text = "2";
-            this.TwoBTN.UseVisualStyleBackColor = false;
-            this.TwoBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // ThreeBTN
-            // 
-            this.ThreeBTN.BackColor = System.Drawing.Color.White;
-            this.ThreeBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ThreeBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.ThreeBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.ThreeBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.ThreeBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ThreeBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ThreeBTN.Location = new System.Drawing.Point(234, 717);
-            this.ThreeBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.ThreeBTN.Name = "ThreeBTN";
-            this.ThreeBTN.Size = new System.Drawing.Size(97, 50);
-            this.ThreeBTN.TabIndex = 32;
-            this.ThreeBTN.Text = "3";
-            this.ThreeBTN.UseVisualStyleBackColor = false;
-            this.ThreeBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
-            // FourBTN
-            // 
-            this.FourBTN.BackColor = System.Drawing.Color.White;
-            this.FourBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.FourBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.FourBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.FourBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.FourBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FourBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FourBTN.Location = new System.Drawing.Point(31, 664);
-            this.FourBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.FourBTN.Name = "FourBTN";
-            this.FourBTN.Size = new System.Drawing.Size(97, 50);
-            this.FourBTN.TabIndex = 31;
-            this.FourBTN.Text = "4";
-            this.FourBTN.UseVisualStyleBackColor = false;
-            this.FourBTN.Click += new System.EventHandler(this.NumberBTN_Click);
-            // 
             // DOWTB
             // 
             this.DOWTB.BackColor = System.Drawing.Color.GhostWhite;
             this.DOWTB.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.DOWTB.Location = new System.Drawing.Point(737, 801);
+            this.DOWTB.Location = new System.Drawing.Point(829, 769);
             this.DOWTB.Margin = new System.Windows.Forms.Padding(0);
             this.DOWTB.Name = "DOWTB";
-            this.DOWTB.Size = new System.Drawing.Size(109, 43);
+            this.DOWTB.Size = new System.Drawing.Size(113, 43);
             this.DOWTB.TabIndex = 104;
             this.DOWTB.WordWrap = false;
             this.DOWTB.TextChanged += new System.EventHandler(this.DOWTB_TextChanged);
             this.DOWTB.DoubleClick += new System.EventHandler(this.DOWTB_DoubleClick);
             this.DOWTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(884, 813);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 17);
-            this.label3.TabIndex = 103;
-            this.label3.Text = "يوم الطلب";
-            // 
             // TimeTB
             // 
             this.TimeTB.BackColor = System.Drawing.Color.GhostWhite;
             this.TimeTB.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.TimeTB.Location = new System.Drawing.Point(737, 753);
+            this.TimeTB.Location = new System.Drawing.Point(829, 722);
             this.TimeTB.Margin = new System.Windows.Forms.Padding(0);
             this.TimeTB.Name = "TimeTB";
             this.TimeTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TimeTB.Size = new System.Drawing.Size(109, 43);
+            this.TimeTB.Size = new System.Drawing.Size(113, 43);
             this.TimeTB.TabIndex = 100;
             this.TimeTB.WordWrap = false;
             this.TimeTB.TextChanged += new System.EventHandler(this.TimeTB_TextChanged);
@@ -1471,86 +1011,16 @@
             this.TimeTB.Leave += new System.EventHandler(this.TimeTB_Leave);
             this.TimeTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
             // 
-            // TimeInfo
-            // 
-            this.TimeInfo.BackColor = System.Drawing.Color.White;
-            this.TimeInfo.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.TimeInfo.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.TimeInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.TimeInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.TimeInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TimeInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeInfo.Location = new System.Drawing.Point(557, 753);
-            this.TimeInfo.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.TimeInfo.Name = "TimeInfo";
-            this.TimeInfo.Size = new System.Drawing.Size(168, 40);
-            this.TimeInfo.TabIndex = 54;
-            this.TimeInfo.Text = "الآن";
-            this.TimeInfo.UseVisualStyleBackColor = false;
-            this.TimeInfo.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
-            this.TimeInfo.Click += new System.EventHandler(this.TimeInfo_Click);
-            // 
-            // WhatAppBTN
-            // 
-            this.WhatAppBTN.AllowDrop = true;
-            this.WhatAppBTN.BackColor = System.Drawing.Color.Green;
-            this.WhatAppBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.WhatAppBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WhatAppBTN.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WhatAppBTN.ForeColor = System.Drawing.Color.White;
-            this.WhatAppBTN.Location = new System.Drawing.Point(557, 657);
-            this.WhatAppBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.WhatAppBTN.Name = "WhatAppBTN";
-            this.WhatAppBTN.Size = new System.Drawing.Size(86, 40);
-            this.WhatAppBTN.TabIndex = 29;
-            this.WhatAppBTN.Text = "WhatsApp";
-            this.WhatAppBTN.UseVisualStyleBackColor = false;
-            this.WhatAppBTN.Click += new System.EventHandler(this.WhatsAppBTN_Click);
-            this.WhatAppBTN.MouseUp += new System.Windows.Forms.MouseEventHandler(this.WhatAppBTN_MouseUp);
-            // 
-            // DayMenuBTN
-            // 
-            this.DayMenuBTN.BackColor = System.Drawing.Color.White;
-            this.DayMenuBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.DayMenuBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.DayMenuBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.DayMenuBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.DayMenuBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DayMenuBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DayMenuBTN.Location = new System.Drawing.Point(557, 801);
-            this.DayMenuBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.DayMenuBTN.Name = "DayMenuBTN";
-            this.DayMenuBTN.Size = new System.Drawing.Size(168, 40);
-            this.DayMenuBTN.TabIndex = 55;
-            this.DayMenuBTN.Text = "اليوم";
-            this.DayMenuBTN.UseVisualStyleBackColor = false;
-            this.DayMenuBTN.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
-            this.DayMenuBTN.Click += new System.EventHandler(this.DayBTN_Click);
-            // 
             // AmountPriceLBL
             // 
             this.AmountPriceLBL.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmountPriceLBL.ForeColor = System.Drawing.Color.GhostWhite;
-            this.AmountPriceLBL.Location = new System.Drawing.Point(31, 567);
+            this.AmountPriceLBL.Location = new System.Drawing.Point(22, 564);
             this.AmountPriceLBL.Name = "AmountPriceLBL";
-            this.AmountPriceLBL.Size = new System.Drawing.Size(422, 39);
+            this.AmountPriceLBL.Size = new System.Drawing.Size(300, 39);
             this.AmountPriceLBL.TabIndex = 156;
-            this.AmountPriceLBL.Text = "السعر";
+            this.AmountPriceLBL.Text = "     السعر";
             this.AmountPriceLBL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // xLabel
-            // 
-            this.xLabel.AutoSize = true;
-            this.xLabel.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.xLabel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xLabel.Location = new System.Drawing.Point(853, 765);
-            this.xLabel.Name = "xLabel";
-            this.xLabel.Size = new System.Drawing.Size(11, 21);
-            this.xLabel.TabIndex = 0;
-            this.xLabel.Text = "x";
-            this.xLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.xLabel.UseCompatibleTextRendering = true;
-            this.xLabel.Click += new System.EventHandler(this.xLabel_Click);
             // 
             // InvoiceTypeOptions
             // 
@@ -1559,20 +1029,20 @@
             this.InvoiceTypeOptions.BackColor = System.Drawing.Color.GhostWhite;
             this.InvoiceTypeOptions.CanOverflow = false;
             this.InvoiceTypeOptions.Dock = System.Windows.Forms.DockStyle.None;
+            this.InvoiceTypeOptions.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InvoiceTypeOptions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.InvoiceTypeOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TelButton,
             this.ToGoButton,
             this.DineButton,
             this.AppsButton});
-            this.InvoiceTypeOptions.Location = new System.Drawing.Point(335, 872);
+            this.InvoiceTypeOptions.Location = new System.Drawing.Point(354, 874);
             this.InvoiceTypeOptions.Name = "InvoiceTypeOptions";
             this.InvoiceTypeOptions.Padding = new System.Windows.Forms.Padding(0);
             this.InvoiceTypeOptions.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.InvoiceTypeOptions.ShowItemToolTips = false;
-            this.InvoiceTypeOptions.Size = new System.Drawing.Size(400, 56);
-            this.InvoiceTypeOptions.TabIndex = 155;
-            this.InvoiceTypeOptions.Visible = false;
+            this.InvoiceTypeOptions.Size = new System.Drawing.Size(250, 56);
+            this.InvoiceTypeOptions.TabIndex = 172;
             // 
             // TelButton
             // 
@@ -1581,24 +1051,26 @@
             this.TelButton.CheckOnClick = true;
             this.TelButton.CheckState = System.Windows.Forms.CheckState.Checked;
             this.TelButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.TelButton.ForeColor = System.Drawing.Color.LightSlateGray;
             this.TelButton.Image = ((System.Drawing.Image)(resources.GetObject("TelButton.Image")));
             this.TelButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TelButton.Name = "TelButton";
-            this.TelButton.Size = new System.Drawing.Size(100, 52);
+            this.TelButton.Size = new System.Drawing.Size(60, 52);
             this.TelButton.Text = "هاتف";
             this.TelButton.ToolTipText = "هاتف";
-            this.TelButton.Click += new System.EventHandler(this.TelBTN_Click);
+            this.TelButton.Click += new System.EventHandler(this.TelButton_Click_1);
             // 
             // ToGoButton
             // 
             this.ToGoButton.AutoSize = false;
             this.ToGoButton.CheckOnClick = true;
             this.ToGoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ToGoButton.ForeColor = System.Drawing.Color.LightSlateGray;
             this.ToGoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToGoButton.Name = "ToGoButton";
-            this.ToGoButton.Size = new System.Drawing.Size(100, 52);
+            this.ToGoButton.Size = new System.Drawing.Size(60, 52);
             this.ToGoButton.Text = "سفري";
-            this.ToGoButton.Click += new System.EventHandler(this.TelBTN_Click);
+            this.ToGoButton.Click += new System.EventHandler(this.TelButton_Click_1);
             // 
             // DineButton
             // 
@@ -1606,23 +1078,38 @@
             this.DineButton.AutoToolTip = false;
             this.DineButton.CheckOnClick = true;
             this.DineButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DineButton.ForeColor = System.Drawing.Color.LightSlateGray;
             this.DineButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DineButton.Name = "DineButton";
-            this.DineButton.Size = new System.Drawing.Size(100, 52);
+            this.DineButton.Size = new System.Drawing.Size(60, 52);
             this.DineButton.Text = "محلي";
             this.DineButton.ToolTipText = "محلي";
-            this.DineButton.Click += new System.EventHandler(this.TelBTN_Click);
+            this.DineButton.Click += new System.EventHandler(this.TelButton_Click_1);
             // 
             // AppsButton
             // 
             this.AppsButton.AutoSize = false;
             this.AppsButton.CheckOnClick = true;
             this.AppsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.AppsButton.ForeColor = System.Drawing.Color.LightSlateGray;
             this.AppsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.AppsButton.Name = "AppsButton";
-            this.AppsButton.Size = new System.Drawing.Size(100, 52);
+            this.AppsButton.Size = new System.Drawing.Size(60, 52);
             this.AppsButton.Text = "تطبيقات";
-            this.AppsButton.Click += new System.EventHandler(this.TelBTN_Click);
+            this.AppsButton.Click += new System.EventHandler(this.TelButton_Click_1);
+            // 
+            // OrderStatus
+            // 
+            this.OrderStatus.BackColor = System.Drawing.Color.White;
+            this.OrderStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OrderStatus.Location = new System.Drawing.Point(472, 816);
+            this.OrderStatus.Name = "OrderStatus";
+            this.OrderStatus.Size = new System.Drawing.Size(97, 36);
+            this.OrderStatus.TabIndex = 151;
+            this.OrderStatus.TabStop = false;
+            this.OrderStatus.UseVisualStyleBackColor = false;
+            this.OrderStatus.Visible = false;
+            this.OrderStatus.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
             // 
             // DayMenu
             // 
@@ -1670,7 +1157,6 @@
             // 
             // SalahTimes
             // 
-            this.SalahTimes.Controls.Add(this.unfocusableButton4);
             this.SalahTimes.Controls.Add(this.unfocusableButton3);
             this.SalahTimes.Controls.Add(this.TimeLeftLBL);
             this.SalahTimes.Controls.Add(this.TimeTillCountdown);
@@ -1692,30 +1178,567 @@
             this.SalahTimes.Size = new System.Drawing.Size(710, 64);
             this.SalahTimes.TabIndex = 25;
             // 
-            // unfocusableButton4
+            // MenuSelection
             // 
-            this.unfocusableButton4.BackColor = System.Drawing.Color.White;
-            this.unfocusableButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.unfocusableButton4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.unfocusableButton4.FlatAppearance.BorderSize = 0;
-            this.unfocusableButton4.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.unfocusableButton4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.unfocusableButton4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.unfocusableButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unfocusableButton4.Image = global::OrderForm.Properties.Resources.bill_receipt_icon__1_1;
-            this.unfocusableButton4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.unfocusableButton4.Location = new System.Drawing.Point(560, 0);
-            this.unfocusableButton4.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.unfocusableButton4.Name = "unfocusableButton4";
-            this.unfocusableButton4.Size = new System.Drawing.Size(145, 26);
-            this.unfocusableButton4.TabIndex = 21;
-            this.unfocusableButton4.Text = "عرض الفاتورة";
-            this.unfocusableButton4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.unfocusableButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.unfocusableButton4.UseCompatibleTextRendering = true;
-            this.unfocusableButton4.UseVisualStyleBackColor = false;
-            this.unfocusableButton4.Click += new System.EventHandler(this.unfocusableButton4_Click);
+            this.MenuSelection.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MenuSelection.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.MenuSelection.Name = "MenuSelection";
+            this.MenuSelection.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.MenuSelection.Size = new System.Drawing.Size(252, 34);
+            this.MenuSelection.Opening += new System.ComponentModel.CancelEventHandler(this.MenuSelection_Opening);
+            this.MenuSelection.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MenuSelection_ItemClicked);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(251, 30);
+            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
+            // 
+            // FastComment
+            // 
+            this.FastComment.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FastComment.Name = "FastComment";
+            this.FastComment.ShowImageMargin = false;
+            this.FastComment.ShowItemToolTips = false;
+            this.FastComment.Size = new System.Drawing.Size(36, 4);
+            this.FastComment.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.FastComment_Closed);
+            this.FastComment.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FastComment_ItemClicked);
+            // 
+            // MenuTimeOut
+            // 
+            this.MenuTimeOut.Interval = 60000;
+            this.MenuTimeOut.Tick += new System.EventHandler(this.MenuTimeOut_Tick);
+            // 
+            // printComment
+            // 
+            this.printComment.UseEXDialog = true;
+            // 
+            // WhatsSend
+            // 
+            this.WhatsSend.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WhatsSend.Name = "FastComment";
+            this.WhatsSend.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.WhatsSend.ShowImageMargin = false;
+            this.WhatsSend.ShowItemToolTips = false;
+            this.WhatsSend.Size = new System.Drawing.Size(36, 4);
+            this.WhatsSend.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.WhatsSend_ItemClicked);
+            // 
+            // Search
+            // 
+            this.Search.BackColor = System.Drawing.Color.White;
+            this.Search.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Search.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.Search.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.Search.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Search.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Search.Location = new System.Drawing.Point(786, 13);
+            this.Search.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.Search.Name = "Search";
+            this.Search.Size = new System.Drawing.Size(39, 37);
+            this.Search.TabIndex = 41;
+            this.Search.Text = "بحث";
+            this.Search.UseVisualStyleBackColor = false;
+            this.Search.Click += new System.EventHandler(this.Search_Click);
+            // 
+            // unfocusableButton5
+            // 
+            this.unfocusableButton5.BackColor = System.Drawing.Color.GhostWhite;
+            this.unfocusableButton5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.unfocusableButton5.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.unfocusableButton5.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.unfocusableButton5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.unfocusableButton5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.unfocusableButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.unfocusableButton5.Font = new System.Drawing.Font("Tahoma", 7F);
+            this.unfocusableButton5.Location = new System.Drawing.Point(0, 0);
+            this.unfocusableButton5.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.unfocusableButton5.Name = "unfocusableButton5";
+            this.unfocusableButton5.Size = new System.Drawing.Size(83, 143);
+            this.unfocusableButton5.TabIndex = 61;
+            this.unfocusableButton5.Text = "فتح الفواتير المعلقة (غير المطبوعة)";
+            this.unfocusableButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.unfocusableButton5.UseCompatibleTextRendering = true;
+            this.unfocusableButton5.UseVisualStyleBackColor = false;
+            this.unfocusableButton5.Click += new System.EventHandler(this.unfocusableButton5_Click_1);
+            // 
+            // ShowMenuBTN
+            // 
+            this.ShowMenuBTN.BackColor = System.Drawing.Color.White;
+            this.ShowMenuBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ShowMenuBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ShowMenuBTN.FlatAppearance.BorderSize = 0;
+            this.ShowMenuBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.ShowMenuBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.ShowMenuBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ShowMenuBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ShowMenuBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShowMenuBTN.Image = global::OrderForm.Properties.Resources.bill_receipt_icon__1_1;
+            this.ShowMenuBTN.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ShowMenuBTN.Location = new System.Drawing.Point(385, 816);
+            this.ShowMenuBTN.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.ShowMenuBTN.Name = "ShowMenuBTN";
+            this.ShowMenuBTN.Size = new System.Drawing.Size(188, 36);
+            this.ShowMenuBTN.TabIndex = 171;
+            this.ShowMenuBTN.Text = "عرض الفاتورة";
+            this.ShowMenuBTN.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ShowMenuBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.ShowMenuBTN.UseCompatibleTextRendering = true;
+            this.ShowMenuBTN.UseVisualStyleBackColor = false;
+            this.ShowMenuBTN.Click += new System.EventHandler(this.ShowMenuBTN_Click);
+            // 
+            // unfocusableButton6
+            // 
+            this.unfocusableButton6.BackColor = System.Drawing.Color.White;
+            this.unfocusableButton6.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.unfocusableButton6.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.unfocusableButton6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.unfocusableButton6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.unfocusableButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.unfocusableButton6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unfocusableButton6.Location = new System.Drawing.Point(766, 853);
+            this.unfocusableButton6.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.unfocusableButton6.Name = "unfocusableButton6";
+            this.unfocusableButton6.Size = new System.Drawing.Size(83, 27);
+            this.unfocusableButton6.TabIndex = 170;
+            this.unfocusableButton6.Text = " الطلب منشف ";
+            this.unfocusableButton6.UseCompatibleTextRendering = true;
+            this.unfocusableButton6.UseVisualStyleBackColor = false;
+            this.unfocusableButton6.Click += new System.EventHandler(this.OrderCut_Click);
+            // 
+            // OrderCut
+            // 
+            this.OrderCut.BackColor = System.Drawing.Color.White;
+            this.OrderCut.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.OrderCut.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.OrderCut.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.OrderCut.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.OrderCut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OrderCut.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OrderCut.Location = new System.Drawing.Point(852, 853);
+            this.OrderCut.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.OrderCut.Name = "OrderCut";
+            this.OrderCut.Size = new System.Drawing.Size(88, 27);
+            this.OrderCut.TabIndex = 169;
+            this.OrderCut.Text = " الطلب مقطع ";
+            this.OrderCut.UseCompatibleTextRendering = true;
+            this.OrderCut.UseVisualStyleBackColor = false;
+            this.OrderCut.Click += new System.EventHandler(this.OrderCut_Click);
+            // 
+            // LastOrder
+            // 
+            this.LastOrder.BackColor = System.Drawing.Color.White;
+            this.LastOrder.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.LastOrder.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.LastOrder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.LastOrder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.LastOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LastOrder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastOrder.Location = new System.Drawing.Point(572, 673);
+            this.LastOrder.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.LastOrder.Name = "LastOrder";
+            this.LastOrder.Size = new System.Drawing.Size(76, 43);
+            this.LastOrder.TabIndex = 167;
+            this.LastOrder.Text = "إدخال آخر طلب";
+            this.LastOrder.UseCompatibleTextRendering = true;
+            this.LastOrder.UseVisualStyleBackColor = false;
+            this.LastOrder.Visible = false;
+            this.LastOrder.Click += new System.EventHandler(this.LastOrder_Click);
+            // 
+            // RepeatOrder
+            // 
+            this.RepeatOrder.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.RepeatOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RepeatOrder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RepeatOrder.ForeColor = System.Drawing.Color.White;
+            this.RepeatOrder.Location = new System.Drawing.Point(193, 834);
+            this.RepeatOrder.Name = "RepeatOrder";
+            this.RepeatOrder.Size = new System.Drawing.Size(125, 35);
+            this.RepeatOrder.TabIndex = 0;
+            this.RepeatOrder.Text = "إعادة تحضير الطلب";
+            this.RepeatOrder.UseVisualStyleBackColor = false;
+            this.RepeatOrder.Visible = false;
+            this.RepeatOrder.Click += new System.EventHandler(this.RepeatOrder_Click);
+            // 
+            // NewBTN
+            // 
+            this.NewBTN.BackColor = System.Drawing.Color.White;
+            this.NewBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.NewBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.NewBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.NewBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.NewBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewBTN.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.NewBTN.Location = new System.Drawing.Point(38, 3);
+            this.NewBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.NewBTN.Name = "NewBTN";
+            this.NewBTN.Size = new System.Drawing.Size(96, 30);
+            this.NewBTN.TabIndex = 41;
+            this.NewBTN.Text = "طلبية جديدة";
+            this.NewBTN.UseVisualStyleBackColor = false;
+            this.NewBTN.Click += new System.EventHandler(this.NewBTN_Click);
+            // 
+            // DeleteTouchBTN
+            // 
+            this.DeleteTouchBTN.BackColor = System.Drawing.Color.Red;
+            this.DeleteTouchBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.DeleteTouchBTN.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeleteTouchBTN.ForeColor = System.Drawing.Color.White;
+            this.DeleteTouchBTN.Location = new System.Drawing.Point(332, 564);
+            this.DeleteTouchBTN.Name = "DeleteTouchBTN";
+            this.DeleteTouchBTN.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.DeleteTouchBTN.Size = new System.Drawing.Size(113, 50);
+            this.DeleteTouchBTN.TabIndex = 0;
+            this.DeleteTouchBTN.Text = "حذف المادة";
+            this.DeleteTouchBTN.UseVisualStyleBackColor = false;
+            this.DeleteTouchBTN.Click += new System.EventHandler(this.DeleteTouchBTN_Click);
+            // 
+            // FiveBTN
+            // 
+            this.FiveBTN.BackColor = System.Drawing.Color.White;
+            this.FiveBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.FiveBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.FiveBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.FiveBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.FiveBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FiveBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FiveBTN.Location = new System.Drawing.Point(123, 661);
+            this.FiveBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.FiveBTN.Name = "FiveBTN";
+            this.FiveBTN.Size = new System.Drawing.Size(97, 50);
+            this.FiveBTN.TabIndex = 47;
+            this.FiveBTN.Text = "5";
+            this.FiveBTN.UseVisualStyleBackColor = false;
+            this.FiveBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // SixBTN
+            // 
+            this.SixBTN.BackColor = System.Drawing.Color.White;
+            this.SixBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.SixBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.SixBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.SixBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.SixBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SixBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SixBTN.Location = new System.Drawing.Point(225, 665);
+            this.SixBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.SixBTN.Name = "SixBTN";
+            this.SixBTN.Size = new System.Drawing.Size(97, 50);
+            this.SixBTN.TabIndex = 46;
+            this.SixBTN.Text = "6";
+            this.SixBTN.UseVisualStyleBackColor = false;
+            this.SixBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // SevenBTN
+            // 
+            this.SevenBTN.BackColor = System.Drawing.Color.White;
+            this.SevenBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.SevenBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.SevenBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.SevenBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.SevenBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SevenBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SevenBTN.Location = new System.Drawing.Point(22, 611);
+            this.SevenBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.SevenBTN.Name = "SevenBTN";
+            this.SevenBTN.Size = new System.Drawing.Size(97, 50);
+            this.SevenBTN.TabIndex = 45;
+            this.SevenBTN.Text = "7";
+            this.SevenBTN.UseVisualStyleBackColor = false;
+            this.SevenBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // EightBTN
+            // 
+            this.EightBTN.BackColor = System.Drawing.Color.White;
+            this.EightBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.EightBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.EightBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.EightBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.EightBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EightBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EightBTN.Location = new System.Drawing.Point(123, 611);
+            this.EightBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.EightBTN.Name = "EightBTN";
+            this.EightBTN.Size = new System.Drawing.Size(97, 50);
+            this.EightBTN.TabIndex = 44;
+            this.EightBTN.Text = "8";
+            this.EightBTN.UseVisualStyleBackColor = false;
+            this.EightBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // NineBTN
+            // 
+            this.NineBTN.BackColor = System.Drawing.Color.White;
+            this.NineBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.NineBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.NineBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.NineBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.NineBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NineBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NineBTN.Location = new System.Drawing.Point(225, 611);
+            this.NineBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.NineBTN.Name = "NineBTN";
+            this.NineBTN.Size = new System.Drawing.Size(97, 50);
+            this.NineBTN.TabIndex = 43;
+            this.NineBTN.Text = "9";
+            this.NineBTN.UseVisualStyleBackColor = false;
+            this.NineBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // ZeroBTN
+            // 
+            this.ZeroBTN.BackColor = System.Drawing.Color.White;
+            this.ZeroBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ZeroBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.ZeroBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.ZeroBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.ZeroBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ZeroBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ZeroBTN.Location = new System.Drawing.Point(123, 771);
+            this.ZeroBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.ZeroBTN.Name = "ZeroBTN";
+            this.ZeroBTN.Size = new System.Drawing.Size(97, 51);
+            this.ZeroBTN.TabIndex = 42;
+            this.ZeroBTN.Text = "0";
+            this.ZeroBTN.UseVisualStyleBackColor = false;
+            this.ZeroBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // BackSpaceBTN
+            // 
+            this.BackSpaceBTN.BackColor = System.Drawing.Color.FloralWhite;
+            this.BackSpaceBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.BackSpaceBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.BackSpaceBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.BackSpaceBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackSpaceBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BackSpaceBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackSpaceBTN.Location = new System.Drawing.Point(22, 771);
+            this.BackSpaceBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.BackSpaceBTN.Name = "BackSpaceBTN";
+            this.BackSpaceBTN.Size = new System.Drawing.Size(97, 51);
+            this.BackSpaceBTN.TabIndex = 41;
+            this.BackSpaceBTN.Text = "مسح ";
+            this.BackSpaceBTN.UseVisualStyleBackColor = false;
+            this.BackSpaceBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // EnterBTN
+            // 
+            this.EnterBTN.BackColor = System.Drawing.Color.LawnGreen;
+            this.EnterBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.EnterBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.EnterBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.EnterBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.EnterBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EnterBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnterBTN.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.EnterBTN.Location = new System.Drawing.Point(225, 771);
+            this.EnterBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.EnterBTN.Name = "EnterBTN";
+            this.EnterBTN.Size = new System.Drawing.Size(97, 51);
+            this.EnterBTN.TabIndex = 40;
+            this.EnterBTN.Text = "إدخال";
+            this.EnterBTN.UseVisualStyleBackColor = false;
+            this.EnterBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // UpBTN
+            // 
+            this.UpBTN.BackColor = System.Drawing.Color.White;
+            this.UpBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.UpBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.UpBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.UpBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.UpBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UpBTN.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpBTN.Location = new System.Drawing.Point(332, 665);
+            this.UpBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.UpBTN.Name = "UpBTN";
+            this.UpBTN.Size = new System.Drawing.Size(113, 50);
+            this.UpBTN.TabIndex = 39;
+            this.UpBTN.Text = "+";
+            this.UpBTN.UseCompatibleTextRendering = true;
+            this.UpBTN.UseVisualStyleBackColor = false;
+            this.UpBTN.Click += new System.EventHandler(this.PlusBTN_Click);
+            this.UpBTN.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlusBTN_MouseUp);
+            // 
+            // DownBTN
+            // 
+            this.DownBTN.BackColor = System.Drawing.Color.White;
+            this.DownBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.DownBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.DownBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.DownBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.DownBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DownBTN.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DownBTN.Location = new System.Drawing.Point(332, 718);
+            this.DownBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.DownBTN.Name = "DownBTN";
+            this.DownBTN.Size = new System.Drawing.Size(113, 50);
+            this.DownBTN.TabIndex = 38;
+            this.DownBTN.Text = "-";
+            this.DownBTN.UseCompatibleTextRendering = true;
+            this.DownBTN.UseVisualStyleBackColor = false;
+            this.DownBTN.Click += new System.EventHandler(this.DownBTN_Click);
+            this.DownBTN.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DownBTN_MouseUp);
+            // 
+            // OneBTN
+            // 
+            this.OneBTN.BackColor = System.Drawing.Color.White;
+            this.OneBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.OneBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.OneBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.OneBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.OneBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OneBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OneBTN.Location = new System.Drawing.Point(22, 718);
+            this.OneBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.OneBTN.Name = "OneBTN";
+            this.OneBTN.Size = new System.Drawing.Size(97, 50);
+            this.OneBTN.TabIndex = 34;
+            this.OneBTN.Text = "1";
+            this.OneBTN.UseVisualStyleBackColor = false;
+            this.OneBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // TwoBTN
+            // 
+            this.TwoBTN.BackColor = System.Drawing.Color.White;
+            this.TwoBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.TwoBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.TwoBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.TwoBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.TwoBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TwoBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TwoBTN.Location = new System.Drawing.Point(123, 718);
+            this.TwoBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.TwoBTN.Name = "TwoBTN";
+            this.TwoBTN.Size = new System.Drawing.Size(97, 50);
+            this.TwoBTN.TabIndex = 33;
+            this.TwoBTN.Text = "2";
+            this.TwoBTN.UseVisualStyleBackColor = false;
+            this.TwoBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // ThreeBTN
+            // 
+            this.ThreeBTN.BackColor = System.Drawing.Color.White;
+            this.ThreeBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ThreeBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.ThreeBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.ThreeBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.ThreeBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ThreeBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ThreeBTN.Location = new System.Drawing.Point(225, 718);
+            this.ThreeBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.ThreeBTN.Name = "ThreeBTN";
+            this.ThreeBTN.Size = new System.Drawing.Size(97, 50);
+            this.ThreeBTN.TabIndex = 32;
+            this.ThreeBTN.Text = "3";
+            this.ThreeBTN.UseVisualStyleBackColor = false;
+            this.ThreeBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // FourBTN
+            // 
+            this.FourBTN.BackColor = System.Drawing.Color.White;
+            this.FourBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.FourBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.FourBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.FourBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.FourBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FourBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FourBTN.Location = new System.Drawing.Point(22, 661);
+            this.FourBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.FourBTN.Name = "FourBTN";
+            this.FourBTN.Size = new System.Drawing.Size(97, 50);
+            this.FourBTN.TabIndex = 31;
+            this.FourBTN.Text = "4";
+            this.FourBTN.UseVisualStyleBackColor = false;
+            this.FourBTN.Click += new System.EventHandler(this.NumberBTN_Click);
+            // 
+            // TimeInfo
+            // 
+            this.TimeInfo.BackColor = System.Drawing.Color.White;
+            this.TimeInfo.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.TimeInfo.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.TimeInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.TimeInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.TimeInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TimeInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeInfo.Location = new System.Drawing.Point(650, 722);
+            this.TimeInfo.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.TimeInfo.Name = "TimeInfo";
+            this.TimeInfo.Size = new System.Drawing.Size(172, 40);
+            this.TimeInfo.TabIndex = 54;
+            this.TimeInfo.Text = "الآن";
+            this.TimeInfo.UseVisualStyleBackColor = false;
+            this.TimeInfo.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
+            this.TimeInfo.Click += new System.EventHandler(this.TimeInfo_Click);
+            // 
+            // WhatAppBTN
+            // 
+            this.WhatAppBTN.AllowDrop = true;
+            this.WhatAppBTN.BackColor = System.Drawing.Color.Green;
+            this.WhatAppBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.WhatAppBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.WhatAppBTN.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WhatAppBTN.ForeColor = System.Drawing.Color.White;
+            this.WhatAppBTN.Location = new System.Drawing.Point(653, 624);
+            this.WhatAppBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.WhatAppBTN.Name = "WhatAppBTN";
+            this.WhatAppBTN.Size = new System.Drawing.Size(86, 40);
+            this.WhatAppBTN.TabIndex = 29;
+            this.WhatAppBTN.Text = "WhatsApp";
+            this.WhatAppBTN.UseVisualStyleBackColor = false;
+            this.WhatAppBTN.Click += new System.EventHandler(this.WhatsAppBTN_Click);
+            this.WhatAppBTN.MouseUp += new System.Windows.Forms.MouseEventHandler(this.WhatAppBTN_MouseUp);
+            // 
+            // DayMenuBTN
+            // 
+            this.DayMenuBTN.BackColor = System.Drawing.Color.White;
+            this.DayMenuBTN.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.DayMenuBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.DayMenuBTN.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.DayMenuBTN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.DayMenuBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DayMenuBTN.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DayMenuBTN.Location = new System.Drawing.Point(650, 770);
+            this.DayMenuBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.DayMenuBTN.Name = "DayMenuBTN";
+            this.DayMenuBTN.Size = new System.Drawing.Size(172, 40);
+            this.DayMenuBTN.TabIndex = 55;
+            this.DayMenuBTN.Text = "اليوم";
+            this.DayMenuBTN.UseVisualStyleBackColor = false;
+            this.DayMenuBTN.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
+            this.DayMenuBTN.Click += new System.EventHandler(this.DayBTN_Click);
+            // 
+            // MainMenu
+            // 
+            this.MainMenu.BackColor = System.Drawing.Color.White;
+            this.MainMenu.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.MainMenu.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.MainMenu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.MainMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.MainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MainMenu.Location = new System.Drawing.Point(10, 6);
+            this.MainMenu.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.MainMenu.Name = "MainMenu";
+            this.MainMenu.Size = new System.Drawing.Size(96, 62);
+            this.MainMenu.TabIndex = 40;
+            this.MainMenu.Text = "الرئيسية";
+            this.MainMenu.UseVisualStyleBackColor = false;
+            this.MainMenu.Click += new System.EventHandler(this.MainMenu_Click);
+            // 
+            // OrdersPage
+            // 
+            this.OrdersPage.BackColor = System.Drawing.Color.White;
+            this.OrdersPage.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.OrdersPage.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.OrdersPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.OrdersPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.OrdersPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OrdersPage.Location = new System.Drawing.Point(111, 6);
+            this.OrdersPage.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.OrdersPage.Name = "OrdersPage";
+            this.OrdersPage.Size = new System.Drawing.Size(96, 62);
+            this.OrdersPage.TabIndex = 39;
+            this.OrdersPage.Text = "الطلبات";
+            this.OrdersPage.UseVisualStyleBackColor = false;
+            this.OrdersPage.Click += new System.EventHandler(this.OrdersPage_Click);
             // 
             // unfocusableButton3
             // 
@@ -1730,10 +1753,10 @@
             this.unfocusableButton3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.unfocusableButton3.Image = global::OrderForm.Properties.Resources.recipe_book_icon2;
             this.unfocusableButton3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.unfocusableButton3.Location = new System.Drawing.Point(560, 27);
+            this.unfocusableButton3.Location = new System.Drawing.Point(560, 1);
             this.unfocusableButton3.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
             this.unfocusableButton3.Name = "unfocusableButton3";
-            this.unfocusableButton3.Size = new System.Drawing.Size(145, 30);
+            this.unfocusableButton3.Size = new System.Drawing.Size(145, 58);
             this.unfocusableButton3.TabIndex = 20;
             this.unfocusableButton3.Text = "تغيير القائمة";
             this.unfocusableButton3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1741,22 +1764,6 @@
             this.unfocusableButton3.UseCompatibleTextRendering = true;
             this.unfocusableButton3.UseVisualStyleBackColor = false;
             this.unfocusableButton3.Click += new System.EventHandler(this.unfocusableButton3_Click);
-            // 
-            // MenuSelection
-            // 
-            this.MenuSelection.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.MenuSelection.Name = "MenuSelection";
-            this.MenuSelection.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.MenuSelection.Size = new System.Drawing.Size(181, 26);
-            this.MenuSelection.Opening += new System.ComponentModel.CancelEventHandler(this.MenuSelection_Opening);
-            this.MenuSelection.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MenuSelection_ItemClicked);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
             // 
             // TimeLeftLBL
             // 
@@ -1808,7 +1815,6 @@
             this.DhuhrLBL.Text = "الظهر";
             this.DhuhrLBL.UseCompatibleTextRendering = true;
             this.DhuhrLBL.UseVisualStyleBackColor = false;
-            this.DhuhrLBL.Click += new System.EventHandler(this.DhuhrLBL_Click);
             // 
             // DhuhrBTN
             // 
@@ -1969,7 +1975,6 @@
             this.DayLBL.Text = "DayOfTheWeek";
             this.DayLBL.UseCompatibleTextRendering = true;
             this.DayLBL.UseVisualStyleBackColor = false;
-            this.DayLBL.Click += new System.EventHandler(this.DayLBL_Click);
             // 
             // TimeButton
             // 
@@ -2016,69 +2021,6 @@
             this.CopyInvoice.UseVisualStyleBackColor = false;
             this.CopyInvoice.Click += new System.EventHandler(this.TimeButton_Click);
             // 
-            // FastComment
-            // 
-            this.FastComment.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FastComment.Name = "FastComment";
-            this.FastComment.ShowImageMargin = false;
-            this.FastComment.ShowItemToolTips = false;
-            this.FastComment.Size = new System.Drawing.Size(36, 4);
-            this.FastComment.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.FastComment_Closed);
-            this.FastComment.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FastComment_ItemClicked);
-            // 
-            // MenuTimeOut
-            // 
-            this.MenuTimeOut.Interval = 60000;
-            this.MenuTimeOut.Tick += new System.EventHandler(this.MenuTimeOut_Tick);
-            // 
-            // printComment
-            // 
-            this.printComment.UseEXDialog = true;
-            // 
-            // WhatsSend
-            // 
-            this.WhatsSend.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WhatsSend.Name = "FastComment";
-            this.WhatsSend.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.WhatsSend.ShowImageMargin = false;
-            this.WhatsSend.ShowItemToolTips = false;
-            this.WhatsSend.Size = new System.Drawing.Size(36, 4);
-            this.WhatsSend.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.WhatsSend_ItemClicked);
-            // 
-            // MainMenu
-            // 
-            this.MainMenu.BackColor = System.Drawing.Color.White;
-            this.MainMenu.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.MainMenu.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.MainMenu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.MainMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.MainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MainMenu.Location = new System.Drawing.Point(10, 6);
-            this.MainMenu.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(96, 62);
-            this.MainMenu.TabIndex = 40;
-            this.MainMenu.Text = "الرئيسية";
-            this.MainMenu.UseVisualStyleBackColor = false;
-            this.MainMenu.Click += new System.EventHandler(this.MainMenu_Click);
-            // 
-            // OrdersPage
-            // 
-            this.OrdersPage.BackColor = System.Drawing.Color.White;
-            this.OrdersPage.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.OrdersPage.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.OrdersPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.OrdersPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.OrdersPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OrdersPage.Location = new System.Drawing.Point(111, 6);
-            this.OrdersPage.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.OrdersPage.Name = "OrdersPage";
-            this.OrdersPage.Size = new System.Drawing.Size(96, 62);
-            this.OrdersPage.TabIndex = 39;
-            this.OrdersPage.Text = "الطلبات";
-            this.OrdersPage.UseVisualStyleBackColor = false;
-            this.OrdersPage.Click += new System.EventHandler(this.OrdersPage_Click);
-            // 
             // SettingsPage
             // 
             this.SettingsPage.BackColor = System.Drawing.Color.White;
@@ -2105,11 +2047,11 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(961, 1009);
+            this.Controls.Add(this.OrdersPanel);
             this.Controls.Add(this.MainMenu);
             this.Controls.Add(this.OrdersPage);
             this.Controls.Add(this.SalahTimes);
             this.Controls.Add(this.SettingsPage);
-            this.Controls.Add(this.OrdersPanel);
             this.HelpButton = true;
             this.KeyPreview = true;
             this.Location = new System.Drawing.Point(945, 0);
@@ -2205,19 +2147,11 @@
         private UnfocusableButton TimeLeftLBL;
         private System.Windows.Forms.FlowLayoutPanel SalahTimes;
         public System.Windows.Forms.TextBox NameTB;
-        private System.Windows.Forms.ContextMenuStrip CustomerMenu;
         public System.Windows.Forms.TextBox CommentTB;
-        private System.Windows.Forms.ContextMenuStrip InvoiceCommentsMenu;
         private System.Windows.Forms.ContextMenuStrip FastComment;
         private System.Windows.Forms.Button SaveInvoice;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button OrderStatus;
         private System.Windows.Forms.Button DeleteInvoice;
-        private System.Windows.Forms.ToolStripButton DineButton;
-        private System.Windows.Forms.ToolStripButton AppsButton;
-        private System.Windows.Forms.ToolStripButton ToGoButton;
-        private System.Windows.Forms.ToolStripButton TelButton;
-        public System.Windows.Forms.ToolStrip InvoiceTypeOptions;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton AllDays;
@@ -2243,10 +2177,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button HoldInvoice;
-        private UnfocusableButton unfocusableButton2;
-        private UnfocusableButton unfocusableButton1;
         private UnfocusableButton unfocusableButton3;
-        private UnfocusableButton unfocusableButton4;
         private System.Windows.Forms.ContextMenuStrip MenuSelection;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         public System.Windows.Forms.Timer MenuTimeOut;
@@ -2264,5 +2195,11 @@
         public UnfocusableButton CopyInvoice;
         private System.Windows.Forms.ContextMenuStrip WhatsSend;
         public System.Windows.Forms.Label AmountLBL;
+        private UnfocusableButton ShowMenuBTN;
+        public System.Windows.Forms.ToolStrip InvoiceTypeOptions;
+        private System.Windows.Forms.ToolStripButton TelButton;
+        private System.Windows.Forms.ToolStripButton ToGoButton;
+        private System.Windows.Forms.ToolStripButton DineButton;
+        private System.Windows.Forms.ToolStripButton AppsButton;
     }
 }

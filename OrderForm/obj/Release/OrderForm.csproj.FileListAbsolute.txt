@@ -121,7 +121,6 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\OrderForm.ex
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\OrderForm.pdb
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\AutoItX3.Assembly.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\LiteDB.dll
-C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Menu.exe
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\MySharedBaseCode.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\PrayerTimes.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\SixLabors.ImageSharp.dll
@@ -138,8 +137,6 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\System.Threa
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\WpfScreenHelper.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\System.ValueTuple.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Menu.pdb
-C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Menu.exe.config
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\MySharedBaseCode.pdb
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\AutoItX3.Assembly.xml
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\LiteDB.xml
@@ -189,3 +186,6 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Newtonsoft.J
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Newtonsoft.Json.Bson.pdb
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Newtonsoft.Json.Bson.xml
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.WhatsNotesForm.resources
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\DisplayMenu.exe
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\DisplayMenu.pdb
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\DisplayMenu.exe.config

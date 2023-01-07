@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>187</ApplicationRevision>
+    <ApplicationRevision>195</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -346,9 +346,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Menu\Menu.csproj">
+    <ProjectReference Include="..\Menu\DisplayMenu.csproj">
       <Project>{c617e0be-8d11-4428-83f6-81e2fd258b0d}</Project>
-      <Name>Menu</Name>
+      <Name>DisplayMenu</Name>
     </ProjectReference>
     <ProjectReference Include="..\MySharedBaseCode\MySharedBaseCode.csproj">
       <Project>{f2885185-a942-495f-918e-383597592f55}</Project>

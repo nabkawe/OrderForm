@@ -76,11 +76,11 @@
             this.dvItems2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dvItems2.ColumnHeadersHeight = 30;
             this.dvItems2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dvItems2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dvItems2.Dock = System.Windows.Forms.DockStyle.Top;
             this.dvItems2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.dvItems2.EnableHeadersVisualStyles = false;
             this.dvItems2.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dvItems2.Location = new System.Drawing.Point(0, 93);
+            this.dvItems2.Location = new System.Drawing.Point(0, 270);
             this.dvItems2.Margin = new System.Windows.Forms.Padding(0);
             this.dvItems2.MultiSelect = false;
             this.dvItems2.Name = "dvItems2";
@@ -110,8 +110,8 @@
             this.panel1.Controls.Add(this.unfocusableButton2);
             this.panel1.Controls.Add(this.Price);
             this.panel1.Controls.Add(this.unfocusableButton3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 621);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 93);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1004, 177);
             this.panel1.TabIndex = 37;
@@ -172,7 +172,6 @@
             this.unfocusableButton2.Size = new System.Drawing.Size(142, 177);
             this.unfocusableButton2.TabIndex = 43;
             this.unfocusableButton2.Text = "ريال سعودي\r\n\r\nSaudi Riyal\r\n";
-            this.unfocusableButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.unfocusableButton2.UseVisualStyleBackColor = false;
             // 
             // Price
@@ -203,7 +202,6 @@
             this.unfocusableButton3.Size = new System.Drawing.Size(225, 177);
             this.unfocusableButton3.TabIndex = 44;
             this.unfocusableButton3.Text = "المبلغ الإجمالي\r\n\r\nTotal Amount";
-            this.unfocusableButton3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.unfocusableButton3.UseVisualStyleBackColor = false;
             // 
             // ClientName
@@ -304,6 +302,7 @@
             this.unfocusableButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.unfocusableButton4.CausesValidation = false;
             this.unfocusableButton4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.unfocusableButton4.FlatAppearance.BorderSize = 0;
             this.unfocusableButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.unfocusableButton4.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.unfocusableButton4.ForeColor = System.Drawing.Color.Black;
@@ -312,7 +311,8 @@
             this.unfocusableButton4.Name = "unfocusableButton4";
             this.unfocusableButton4.Size = new System.Drawing.Size(1004, 93);
             this.unfocusableButton4.TabIndex = 36;
-            this.unfocusableButton4.Text = "Review your order:                          :مـلـخـص الطـلـب";
+            this.unfocusableButton4.Text = "Review your order:                                       :مـلـخـص الطـلـب";
+            this.unfocusableButton4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.unfocusableButton4.UseVisualStyleBackColor = false;
             // 
             // displayOffer
@@ -321,9 +321,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1004, 1019);
+            this.Controls.Add(this.dvItems2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.dvItems2);
             this.Controls.Add(this.unfocusableButton4);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

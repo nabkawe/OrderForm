@@ -80,7 +80,9 @@ namespace OrderForm
             else this.Text += " Local Network Mode";
             LoadMethods();
         }
-        public List<POSItems> ItemsLists = new List<POSItems>();
+
+
+        public static List<POSItems> ItemsLists = new List<POSItems>();
 
 
         #region Materials related logic
@@ -133,13 +135,6 @@ namespace OrderForm
             FlowPanel.Controls.Add(item);
         }
 
-        //private void Item_MouseHover(object sender, EventArgs e)
-        //{
-        //    var btn = (UnfocusableButton)sender;
-        //    var item = (POSItems)btn.Tag;
-
-        //    if (Properties.Settings.Default.showMenu) { DM.FindByBarcode(item.Barcode); }
-        //}
         #endregion
 
         #region Mouse related logic for materials
@@ -148,7 +143,7 @@ namespace OrderForm
             if (e.Button == MouseButtons.Right)
             {
                 var btn = (UnfocusableButton)sender;
-                if (Properties.Settings.Default.showMenu) { DM.FindByBarcode((string)btn.Tag); }
+                if (Properties.Settings.Default.showMenu) { OrderForm.MainWindow.FindByBarcode((string)btn.Tag); }
 
 
                 rightClickMenu.Show(Cursor.Position);
@@ -159,7 +154,7 @@ namespace OrderForm
             else
             {
                 var btn = (UnfocusableButton)sender;
-                if (Properties.Settings.Default.showMenu) { DM.FindByBarcode((string)btn.Tag); }
+                if (Properties.Settings.Default.showMenu) { OrderForm.MainWindow.FindByBarcode((string)btn.Tag); }
             }
             //item.Name;
         }
@@ -199,7 +194,7 @@ namespace OrderForm
             var itembtn = (Button)sender;
             var item = ItemsLists.Find(x => x.Barcode == (string)itembtn.Tag);
             //var item = (POSItems)itembtn.Tag;
-            if (Properties.Settings.Default.showMenu) { DM.FindByBarcode(item.Barcode); }
+            if (Properties.Settings.Default.showMenu) { OrderForm.MainWindow.FindByBarcode(item.Barcode); }
             AddtoGrid(item);
 
         }
@@ -389,6 +384,7 @@ namespace OrderForm
             POS.ListChanged += POS_ListChanged;
             UIVisuals();
             ShowSalahTimes();
+            
             AmountLBL.TextChanged += AmountLBL_TextChanged1;
             this.UpdatedDraft += UpdateDraft;
         }
@@ -524,6 +520,7 @@ namespace OrderForm
                         // Check for Name Later implementation
                     }
                 }
+                
             }
         }
 
@@ -1230,8 +1227,6 @@ namespace OrderForm
         private void PrintSave_Click(object sender, EventArgs e)
         {
             MobileTB.Focus();
-            InvoiceTypeOptions.Hide();
-            InvoiceTypeOptions.SendToBack();
             if (POS.Count > 0)
             {
                 globalInvoice = null;
@@ -1334,6 +1329,9 @@ namespace OrderForm
             sw.Stop();
             Console.WriteLine("ArrayList:\tMilliseconds = {0},\tTicks = {1}", sw.ElapsedMilliseconds, sw.ElapsedTicks);
             displayOffer.CloseNow();
+            
+            
+
 
         }
 
@@ -1350,7 +1348,6 @@ namespace OrderForm
 
         private void LoadOrders()
         {
-            InvoiceTypeOptions.Hide();
             this.panel1.Visible = true;
             this.splitContainer1.Visible = true;
             this.HeldPanel.Controls.Clear();
@@ -1839,36 +1836,20 @@ namespace OrderForm
             if (MobileTB.Text.Replace(" ", "") != "")
             {
                 var con = dbQ.LoadContacts(MobileTB.Text);
-                CommentTB.AutoCompleteSource = AutoCompleteSource.None;
                 LastOrder.Visible = true;
                 if (con != null)
                 {
                     NameTB.Text = con.Name;
-                    CustomerMenu.Items.Clear();
-                    InvoiceCommentsMenu.Items.Clear();
 
                 }
             }
         }
 
 
-        private void CustomerMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e != null)
-            {
-                NameTB.Text = e.ClickedItem.Text;
-            }
-        }
+   
 
 
 
-        private void InvoiceCommentsMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e != null)
-            {
-                CommentTB.Text = e.ClickedItem.Text;
-            }
-        }
 
         private void TimeTB_DoubleClick(object sender, EventArgs e)
         {
@@ -1955,7 +1936,8 @@ namespace OrderForm
         }
 
 
-        private void TelBTN_Click(object sender, EventArgs e)
+      
+        private void TelButton_Click(object sender, EventArgs e)
         {
             var se = sender as ToolStripButton;
             foreach (ToolStripButton btn in InvoiceTypeOptions.Items)
@@ -1963,17 +1945,10 @@ namespace OrderForm
                 btn.Checked = false;
             }
             se.Checked = true;
-            InvoiceTypeOptions.Visible = false;
             OrderStatus.Text = se.Text;
         }
 
-        private void OrderStatus_Click(object sender, EventArgs e)
-        {
-            InvoiceTypeOptions.Visible = true;
-            InvoiceTypeOptions.BringToFront();
 
-
-        }
 
         private void OrdersPanel_Paint(object sender, PaintEventArgs e)
         {
@@ -1982,6 +1957,32 @@ namespace OrderForm
 
         private void MobileTB_TextChanged(object sender, EventArgs e)
         {
+            if (MobileTB.Text.Replace(" ","") != "")
+            {
+                MobileLBL.Visible = false;
+            }else MobileLBL.Visible = true;
+            if (NameTB.Text.Replace(" ","")!= "")
+            {
+                NameLBL.Visible = false;
+            }else NameLBL.Visible = true;
+            if (TimeTB.Text.Replace(" ","")!= "")
+            {
+                label1.Visible = false;
+            }
+            else
+                label1.Visible = true;
+             if (DOWTB.Text.Replace(" ", "") != "")
+            {
+                label3.Visible = false;
+            }
+            else
+                label3.Visible = true;  
+            if (CommentTB.Text.Replace(" ", "") != "")
+            {
+                CommentLBL.Visible = false;
+            }
+            else
+                CommentLBL.Visible = true;
             if (InvoiceNumberID.Enabled == false)
             {
                 NewBTN_Click(null, null);
@@ -1991,7 +1992,12 @@ namespace OrderForm
                 jahezPrice.Visible = true;
             }
             else { jahezPrice.Visible = false; jahezPrice.Text = "0"; }
+            foreach (ToolStripButton btn in InvoiceTypeOptions.Items)
+            {
+                if (btn.Text == OrderStatus.Text)btn.Checked = true;
+                else btn.Checked = false;   
 
+            }
         }
 
 
@@ -2181,14 +2187,7 @@ namespace OrderForm
 
         private void SaveInvoice_Click(object sender, EventArgs e)
         {
-            if (Screen.AllScreens.Count() > 1)
-            {
-                MenuShowing = true;
-                unfocusableButton4.BackColor = Color.Lime;
-                displayOffer.showme(this.NameTB.Text, this.MobileTB.Text, this.TimeInfo.Text + " | " + this.DayMenuBTN.Text);
-                this.Activate();
-            }
-
+     
             this.Activate();
             var SaveToPOS = PrintNewInvoice();
 
@@ -2286,9 +2285,8 @@ namespace OrderForm
 
             var a = new SavingandPayment.PaymentOptions(SaveToPOS);
             a.PrintOrNot += A_PrintOrNot;
-            a.VisibleChanged += A_VisibleChanged;
 
-            unfocusableButton4.BackColor = Color.AliceBlue;
+            ShowMenuBTN.BackColor = Color.AliceBlue;
             if (a.ShowDialog() == DialogResult.OK)
             {
                 this.Show();
@@ -2306,14 +2304,7 @@ namespace OrderForm
 
         }
 
-        private void A_VisibleChanged(object sender, EventArgs e)
-        {
-            var A = (SavingandPayment.PaymentOptions)sender;
-            if (!A.Visible)
-            {
-                displayOffer.CloseNow();
-            }
-        }
+   
 
         private void A_PrintOrNot(object sender, Invoice e)
         {
@@ -2436,18 +2427,7 @@ namespace OrderForm
 
         }
 
-        private void PrintSave_MouseEnter(object sender, EventArgs e)
-        {
-            //InvoiceTypeOptions.Show();
-            //InvoiceTypeOptions.BringToFront();
-
-        }
-
-        private void DayLBL_Click(object sender, EventArgs e)
-        {
-            //var a = new WpfApp1.MainWindow();
-            //a.sayhi();
-        }
+     
 
 
 
@@ -2464,14 +2444,7 @@ namespace OrderForm
 
         #region Show Offer
         public static bool MenuShowing = false;
-        //displayOffer DisplayOffer = new displayOffer();
 
-
-        public void MenuShowingStatus(object sender, EventArgs e)
-        {
-            MenuShowing = false;
-
-        }
         #endregion
 
         private void unfocusableButton1_Click(object sender, EventArgs e)
@@ -2483,38 +2456,17 @@ namespace OrderForm
         {
             MobileTB.Text = Clipboard.GetText(TextDataFormat.Text);
         }
-        public Menu.MainWindow DM = new Menu.MainWindow();
+        public static MainWindow DM = new MainWindow();
+        
+        
         public bool DMShown = false;
-        private void DhuhrLBL_Click(object sender, EventArgs e)
-        {
-            //if (DMShown)
-            //{
-            //    DM.Hide();
-            //    DMShown = false;
-            //}
-            //else
-            //{
-            //    DMShown = true;
-            //    DM.Show();
 
-            //    List<object> list = new List<object>();
-            //    List<POSItems> po = POS.ToList<POSItems>();
-            //    list.Add(po);
-            //    foreach (sharedCode.POSItems item in POS)
-            //    {
-            //        list.Add(item);
-            //    }
-            //    _ = DM.LaunchMenu(list, "فطاير شامية");
-            //}
-
-        }
-
-        private void unfocusableButton4_Click(object sender, EventArgs e)
+        private void ShowMenuBTN_Click(object sender, EventArgs e)
         {
             if (POS.Count() > 0)
             {
-
-                if (Screen.AllScreens.Count() > 0)
+                
+                if (Screen.AllScreens.Count() > 1)
                 {
                     try
                     {
@@ -2524,9 +2476,9 @@ namespace OrderForm
                             displayOffer.showme(this.NameTB.Text, this.MobileTB.Text, this.TimeInfo.Text + " | " + this.DayMenuBTN.Text);
 
                             this.Activate();
-                            unfocusableButton4.BackColor = Color.Lime;
+                            ShowMenuBTN.BackColor = Color.Lime;
                         }
-                        else { displayOffer.CloseNow(); unfocusableButton4.BackColor = Color.AliceBlue; }
+                        else { displayOffer.CloseNow(); ShowMenuBTN.BackColor = Color.AliceBlue; }
                     }
                     catch (Exception)
                     {
@@ -2549,6 +2501,7 @@ namespace OrderForm
             {
                 e.Cancel = true;
             }
+
         }
 
         private void MenuSelection_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -2578,7 +2531,7 @@ namespace OrderForm
                     _ = DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First());
 
                 }
-                else MenuSelection.Show(unfocusableButton3, 0, 0);
+                else MenuSelection.Show(Cursor.Position);
 
             }
 
@@ -2661,10 +2614,6 @@ namespace OrderForm
 
         }
 
-        private void CommentTB_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (InvoiceCommentsMenu.Items.Count > 0 && e.Button == MouseButtons.Right) InvoiceCommentsMenu.Show();
-        }
         private void dvItems_DragOver(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Copy;
@@ -3055,7 +3004,7 @@ namespace OrderForm
                         if (this.MobileTB.Text.StartsWith("00") == true | this.MobileTB.Text.StartsWith("+") == true) Process.Start("whatsapp://send/?phone=" + this.MobileTB.Text);
                         else
                         {
-                            Process.Start("whatsapp://send/?phone=" + "966" + this.MobileTB.Text + "&text=" + " ");
+                            Process.Start("whatsapp://send/?phone=" + "966" + this.MobileTB.Text);
                         }
 
                     }
@@ -3073,7 +3022,7 @@ namespace OrderForm
                         if (this.MobileTB.Text.StartsWith("00") == true | this.MobileTB.Text.StartsWith("+") == true) Process.Start("https://wa.me/" + this.MobileTB.Text + "?text=" + "/");
                         else
                         {
-                            Process.Start("https://wa.me/" + "966" + this.MobileTB.Text + "?text=" + "/");
+                            Process.Start("https://wa.me/" + "966" + this.MobileTB.Text );
                         }
 
                     }
@@ -3122,7 +3071,42 @@ namespace OrderForm
 
         }
 
+        private void HeldPanel_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
+
+        private void TelButton_Click_1(object sender, EventArgs e)
+        {
+                var se = sender as ToolStripButton;
+                foreach (ToolStripButton btn in InvoiceTypeOptions.Items)
+                {
+                    btn.Checked = false;
+                }
+                se.Checked = true;
+                OrderStatus.Text = se.Text;
+            
+        }
+
+        private void CommentLBL_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NameLBL_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

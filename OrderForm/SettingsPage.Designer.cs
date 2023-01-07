@@ -2002,6 +2002,7 @@
             this.SettingTabs.SelectedIndex = 0;
             this.SettingTabs.Size = new System.Drawing.Size(987, 538);
             this.SettingTabs.TabIndex = 0;
+            this.SettingTabs.TabStop = false;
             this.SettingTabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // MaterialsEdit
@@ -2368,6 +2369,7 @@
             this.QuickAdd.Name = "QuickAdd";
             this.QuickAdd.Size = new System.Drawing.Size(75, 23);
             this.QuickAdd.TabIndex = 51;
+            this.QuickAdd.TabStop = false;
             this.QuickAdd.Text = "إضافة سريعة";
             this.QuickAdd.UseVisualStyleBackColor = true;
             this.QuickAdd.Click += new System.EventHandler(this.FastAdd_Click);
@@ -2543,6 +2545,7 @@
             // 
             // MultiLB
             // 
+            this.MultiLB.DisplayMember = "NameToShow";
             this.MultiLB.FormattingEnabled = true;
             this.MultiLB.Location = new System.Drawing.Point(404, 28);
             this.MultiLB.Name = "MultiLB";
@@ -2553,6 +2556,7 @@
             // 
             // MenuLB
             // 
+            this.MenuLB.DisplayMember = "NameToShow";
             this.MenuLB.FormattingEnabled = true;
             this.MenuLB.Location = new System.Drawing.Point(22, 28);
             this.MenuLB.Name = "MenuLB";
@@ -2593,6 +2597,7 @@
             this.Availables.Name = "Availables";
             this.Availables.Size = new System.Drawing.Size(51, 17);
             this.Availables.TabIndex = 47;
+            this.Availables.TabStop = false;
             this.Availables.Text = "متوفر";
             this.Availables.UseVisualStyleBackColor = true;
             // 
@@ -2605,6 +2610,7 @@
             this.ChoosePicPath.Name = "ChoosePicPath";
             this.ChoosePicPath.Size = new System.Drawing.Size(51, 33);
             this.ChoosePicPath.TabIndex = 7;
+            this.ChoosePicPath.TabStop = false;
             this.ChoosePicPath.Text = "إختيار الصورة";
             this.ChoosePicPath.UseCompatibleTextRendering = true;
             this.ChoosePicPath.UseVisualStyleBackColor = false;
@@ -2621,6 +2627,7 @@
             this.AddToMultiItem.Text = "إضافة للمادة المتعددة";
             this.AddToMultiItem.UseVisualStyleBackColor = false;
             this.AddToMultiItem.Click += new System.EventHandler(this.AddToMultiItem_Click);
+            this.AddToMultiItem.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // AddSingleItem
             // 
@@ -2633,6 +2640,7 @@
             this.AddSingleItem.Text = "إضافة المادة للقائمة";
             this.AddSingleItem.UseVisualStyleBackColor = false;
             this.AddSingleItem.Click += new System.EventHandler(this.AddSingleItem_Click);
+            this.AddSingleItem.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // Mpath
             // 
@@ -2642,6 +2650,7 @@
             this.Mpath.Size = new System.Drawing.Size(285, 33);
             this.Mpath.TabIndex = 6;
             this.Mpath.TabStop = false;
+            this.Mpath.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // Mcal
             // 
@@ -2650,6 +2659,7 @@
             this.Mcal.Name = "Mcal";
             this.Mcal.Size = new System.Drawing.Size(400, 33);
             this.Mcal.TabIndex = 5;
+            this.Mcal.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // Mdetails
             // 
@@ -2658,6 +2668,7 @@
             this.Mdetails.Name = "Mdetails";
             this.Mdetails.Size = new System.Drawing.Size(400, 33);
             this.Mdetails.TabIndex = 4;
+            this.Mdetails.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // MPrice
             // 
@@ -2666,6 +2677,7 @@
             this.MPrice.Name = "MPrice";
             this.MPrice.Size = new System.Drawing.Size(400, 33);
             this.MPrice.TabIndex = 3;
+            this.MPrice.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // MBarcode
             // 
@@ -2674,6 +2686,7 @@
             this.MBarcode.Name = "MBarcode";
             this.MBarcode.Size = new System.Drawing.Size(400, 33);
             this.MBarcode.TabIndex = 2;
+            this.MBarcode.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // MnameTB
             // 
@@ -2682,6 +2695,7 @@
             this.MnameTB.Name = "MnameTB";
             this.MnameTB.Size = new System.Drawing.Size(400, 33);
             this.MnameTB.TabIndex = 1;
+            this.MnameTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // label54
             // 
@@ -2829,6 +2843,7 @@
             this.mlistTB.Name = "mlistTB";
             this.mlistTB.Size = new System.Drawing.Size(100, 20);
             this.mlistTB.TabIndex = 8;
+            this.mlistTB.TabStop = false;
             this.mlistTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mlistTB_KeyPress);
             // 
             // MListLB

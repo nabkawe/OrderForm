@@ -34,24 +34,24 @@ namespace OrderForm
 
         private void _InvBTN_MouseLeave(object sender, EventArgs e)
         {
-            this.Controls.RemoveByKey("StatusCheck");
+            //this.Controls.RemoveByKey("StatusCheck");
 
         }
 
         private void _InvBTN_MouseEnter(object sender, EventArgs e)
         {
-            Label ShowStatus = new Label();    
-            ShowStatus.Text = order.InvoiceTimeloglist[order.InvoiceTimeloglist.Count - 1].ToString();
-            ShowStatus.Font = new Font("Arial",8, FontStyle.Bold); 
-            ShowStatus.Width = this.Width- 2;
-            ShowStatus.TextAlign = ContentAlignment.MiddleCenter;
-           ShowStatus.UseCompatibleTextRendering= true; 
-            ShowStatus.BackColor = Color.LightBlue;
+           // Label ShowStatus = new Label();    
+           // ShowStatus.Text = order.InvoiceTimeloglist[order.InvoiceTimeloglist.Count - 1].ToString();
+           // ShowStatus.Font = new Font("Arial",8, FontStyle.Bold); 
+           // ShowStatus.Width = this.Width- 2;
+           // ShowStatus.TextAlign = ContentAlignment.MiddleCenter;
+           //ShowStatus.UseCompatibleTextRendering= true; 
+           // ShowStatus.BackColor = Color.LightBlue;
             
-            ShowStatus.ForeColor= Color.White;
-            ShowStatus.Location = new Point((this.Width - ShowStatus.Width) / 2, (this.Height  - ShowStatus.Height) );
-            ShowStatus.Name = "StatusCheck";
-            this.Controls.Add(ShowStatus);  
+           // ShowStatus.ForeColor= Color.White;
+           // ShowStatus.Location = new Point((this.Width - ShowStatus.Width) / 2, (this.Height  - ShowStatus.Height) );
+           // ShowStatus.Name = "StatusCheck";
+           // this.Controls.Add(ShowStatus);  
 
         }
 
@@ -181,7 +181,7 @@ namespace OrderForm
                     text = "ملاحظة:  " + order.Comment;
                     e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x-4, y-2, width, height), drawFormatRight);
                     y += e.Graphics.MeasureString(text, fnt).Height;
-                    text = order.InvoiceTimeloglist[order.InvoiceTimeloglist.Count -1].ToString();
+                    //text = order.InvoiceTimeloglist[order.InvoiceTimeloglist.Count -1].ToString();
                     e.Graphics.DrawString(text, tfnt, drawBrush, new RectangleF(x - 4, y - 2, width, height), drawFormatRight);
 
                 }

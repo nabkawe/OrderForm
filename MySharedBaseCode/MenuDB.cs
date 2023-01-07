@@ -16,7 +16,7 @@ namespace sharedCode
             var db = new LiteDatabase(@"Filename=C:\\db\\MenuDB.db;Connection=shared"); return db;
         }
 
-        public static List<object> GetMenuItems(string MenuName)
+        public static List<MenuItemZ> GetMenuItems(string MenuName)
         {
             using( var db = Connect())
             {
@@ -26,7 +26,7 @@ namespace sharedCode
             }
         }
 
-        public static void  UpdateSectionItems(List<object> SavedItems,string MenuName)
+        public static void  UpdateSectionItems(List<MenuItemZ> SavedItems,string MenuName)
         {
             using (var db = Connect())
             {

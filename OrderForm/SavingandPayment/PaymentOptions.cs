@@ -2,6 +2,7 @@
 using sharedCode;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -79,6 +80,7 @@ namespace OrderForm.SavingandPayment
             var invbtn = new _InvBTN(inv);
             invbtn.Enabled = false;
             INVBTN.Controls.Add(invbtn);
+
             //InvoiceLabel.Text = $"{inv.ID} {Environment.NewLine} {inv.CustomerName}   {inv.CustomerNumber}   {inv.Comment} ";
             foreach (Control TB in Controls)
                 if (TB is TextBox)
@@ -88,6 +90,18 @@ namespace OrderForm.SavingandPayment
                 }
             singleOrMultipleInvoice = true;
             this.invoice = inv;
+           ShowMenu();
+        }
+
+        private void ShowMenu()
+        {
+            if (Screen.AllScreens.Count() > 1)
+            {
+                Orders.MenuShowing = true;
+
+                displayOffer.showme(this.invoice.CustomerName, this.invoice.CustomerNumber, this.invoice.TimeinArabic + " | " + Orders.GetDayName((int)this.invoice.InvoiceDay),this.invoice);
+                this.Activate();
+            }
         }
 
         public PaymentOptions(List<Invoice> invList) // SingleInvoice Constructor
@@ -110,6 +124,8 @@ namespace OrderForm.SavingandPayment
             singleOrMultipleInvoice = false; ;
             this.MultipleInvoices = invList;
             this.invoice = invList[0];
+            ShowMenu();
+
         }
 
 
@@ -136,7 +152,7 @@ namespace OrderForm.SavingandPayment
                     CashBTN_Click(null, null);
                     return;
                 }
-
+                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
                 AddItemsToPOS(singleOrMultipleInvoice);
                 if (Convert.ToInt32(AutoItX.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
                 {
@@ -195,6 +211,8 @@ namespace OrderForm.SavingandPayment
                     return;
 
                 }
+                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
+
                 AddItemsToPOS(singleOrMultipleInvoice);
 
                 if (Convert.ToInt32(AutoItX.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
@@ -262,7 +280,10 @@ namespace OrderForm.SavingandPayment
                 }
 
 
+
+                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
                 AddItemsToPOS(singleOrMultipleInvoice);
+
                 AutoItX.ControlClick(pos, "", SwitchBTN, "left");
                 AutoItX.Sleep(500);
                 if (PartCash_.Text != "")
@@ -308,7 +329,7 @@ namespace OrderForm.SavingandPayment
         private void SaveInvoiceNumber(bool single)
         {
             string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
-            if (!Properties.Settings.Default.TestingMode) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
+            if (!Properties.Settings.Default.TestingMode||!ModifierKeys.HasFlag(Keys.RShiftKey)) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
 
             if (single)
             {
@@ -339,11 +360,13 @@ namespace OrderForm.SavingandPayment
         /// <summary>
         ///  AddItemsMethods 
         /// </summary>
+        /// 
+
         private void AddItemsToPOS(bool single)
         {
             if (textBox1.Text != null || textBox1.Text != "0" || textBox1.Text != "") { DoDiscount(); }
 
-            if (single)
+            if (singleOrMultipleInvoice)
             {
                 AutoItX.ControlClick(pos, "", POSClearNumber, "left", 1);
                 foreach (var item in invoice.InvoiceItems)
@@ -362,8 +385,8 @@ namespace OrderForm.SavingandPayment
                     if (this.invoice.CustomerName.Replace(" ", "") != "")
                     {
 
-                        AutoItX.ControlSetText(pos, "", POSClientName , this.invoice.CustomerName  );
-                        AutoItX.ControlSetText(pos, "", POSPhoneNumber , this.invoice.CustomerNumber  );
+                        AutoItX.ControlSetText(pos, "", POSClientName, this.invoice.CustomerName);
+                        AutoItX.ControlSetText(pos, "", POSPhoneNumber, this.invoice.CustomerNumber);
                         AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
 
 
@@ -371,15 +394,18 @@ namespace OrderForm.SavingandPayment
                     else AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
 
                 }
-                else  AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
+                else AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
 
             }
             else
             {
+
                 var InvoiceItems = CreateNewListOfItems();
                 AutoItX.ControlClick(pos, "", POSClearNumber, "left", 1);
+
                 foreach (var item in InvoiceItems)
                 {
+
                     AutoItX.ControlClick(pos, "", barcodetb, "left", 1);
                     AutoItX.ControlSend(pos, "", barcodetb, item.Barcode, 0);
                     AutoItX.ControlSend(pos, "", barcodetb, "{ENTER}", 0);
@@ -389,18 +415,23 @@ namespace OrderForm.SavingandPayment
                 }
                 List<string> invoiceIDS = new List<string>();
                 MultipleInvoices.ForEach(x => invoiceIDS.Add(x.ID.ToString()));
+
                 var joinedNames = invoiceIDS.Aggregate((a, b) => a + "-" + b);
                 string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
+
 
                 AutoItX.ControlSetText(pos, "", POSClientName, this.MultipleInvoices[0].CustomerName);
                 AutoItX.ControlSetText(pos, "", POSPhoneNumber, this.MultipleInvoices[0].CustomerNumber);
 
-
                 AutoItX.ControlSetText(pos, "", invoicenotes, "أوراق تحضير:" + joinedNames);
                 AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.MultipleInvoices[0].ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.MultipleInvoices[0].Comment);
 
+
+
+
             }
         }
+
 
         private void DoDiscount()
         {
@@ -699,9 +730,11 @@ namespace OrderForm.SavingandPayment
             else PartCash_.Text = PartCash_.Text.Replace("-", "");
 
         }
-
+    
         private void PaymentOptions_Load(object sender, EventArgs e)
         {
+     
+
             if (Properties.Settings.Default.CloseWindow)
             {
                 while (AutoItX.WinExists(pos, "") == 1)
@@ -715,6 +748,7 @@ namespace OrderForm.SavingandPayment
             
         }
         string invoice_price;
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -733,6 +767,11 @@ namespace OrderForm.SavingandPayment
                     AutoItX.WinClose(pos, "");
                 }
             }
+            displayOffer.CloseNow();
+
+
+
+
 
         }
 
@@ -740,6 +779,8 @@ namespace OrderForm.SavingandPayment
         {
             textBox1.Text = "0.5";
         }
+
+    
 
         private void Btn50_Click(object sender, EventArgs e)
         {

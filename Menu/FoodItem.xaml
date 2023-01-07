@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="Menu.FoodItem"
+﻿<UserControl x:Class="OrderForm.FoodItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Menu"
+             xmlns:local="clr-namespace:OrderForm"
              mc:Ignorable="d" 
  d:DesignHeight="250" d:DesignWidth="200" Height="222" Width="200" Padding="6" x:Name="FI">
     <UserControl.Resources>
@@ -19,7 +19,7 @@
     </UserControl.Resources>
 
 
-    <Border BorderBrush="#a96b28" Background="White" BorderThickness="1" CornerRadius="25,25,25,25" x:Name="MyBorder" UseLayoutRounding="False">
+    <Border BorderBrush="#a96b28" Background="White" BorderThickness="1" CornerRadius="25,25,25,25" x:Name="MyBorder" UseLayoutRounding="False" ClipToBounds="False">
         <Border.Effect >
             <DropShadowEffect x:Name="dropEffect" ShadowDepth="1"
                           Color="#a96b28"
@@ -39,7 +39,7 @@
             <!--Price And Image-->
             <Canvas Grid.Row="0" Grid.RowSpan="1">
 
-                <Image UseLayoutRounding="True"  x:Name="Picture"
+                <Image x:Name="Picture"
                         Panel.ZIndex ="0"   Canvas.Right="0" 
                         Source="{Binding Content, Mode=OneWay, Source={StaticResource kPicture}}"
                         Stretch="Uniform" MaxWidth="125" MaxHeight="125" MinHeight="120" MinWidth ="120 "  />

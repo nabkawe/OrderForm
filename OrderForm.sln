@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderForm", "OrderForm\Orde
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySharedBaseCode", "MySharedBaseCode\MySharedBaseCode.csproj", "{F2885185-A942-495F-918E-383597592F55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu", "Menu\Menu.csproj", "{C617E0BE-8D11-4428-83F6-81E2FD258B0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisplayMenu", "Menu\DisplayMenu.csproj", "{C617E0BE-8D11-4428-83F6-81E2FD258B0D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkSynq", "NetworkSynq\NetworkSynq.csproj", "{38196F00-D647-4F8A-82CD-B53103C1CFE4}"
 EndProject

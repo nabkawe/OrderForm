@@ -39,13 +39,14 @@
             // 
             this.lb.BackColor = System.Drawing.Color.White;
             this.lb.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lb.DisplayMember = "SearchResult";
             this.lb.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb.ForeColor = System.Drawing.Color.LightSlateGray;
             this.lb.FormattingEnabled = true;
-            this.lb.ItemHeight = 14;
+            this.lb.ItemHeight = 15;
             this.lb.Location = new System.Drawing.Point(3, 26);
             this.lb.Name = "lb";
-            this.lb.Size = new System.Drawing.Size(223, 98);
+            this.lb.Size = new System.Drawing.Size(223, 90);
             this.lb.TabIndex = 0;
             this.lb.TabStop = false;
             this.lb.UseTabStops = false;
@@ -105,7 +106,7 @@
             this.label1.ForeColor = System.Drawing.Color.GhostWhite;
             this.label1.Location = new System.Drawing.Point(94, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 16);
+            this.label1.Size = new System.Drawing.Size(123, 17);
             this.label1.TabIndex = 5;
             this.label1.Text = "وضع التخزين المتعدد";
             // 

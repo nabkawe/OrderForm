@@ -10,11 +10,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Converters;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using sharedCode;
-namespace Menu
+namespace OrderForm
 {
 
     /// <summary>
@@ -74,19 +75,6 @@ namespace Menu
                 var Price = this.Reg("kPrice");
                 Price.Content = poss.Price.ToString();
             }else if (poss.Price == null){ this.KCur.Text = " "; PricePlate.Text = " "; }
-            //else if (poss.Price == "")
-            //{
-            //    //var Price = this.Reg("kPrice");
-            //    //this.PricePlate.Text = string.Empty;
-            //    //Price.Content = string.Empty;
-            //    //this.KCur.Text = "-";
-            //    MessageBox.Show("");
-            //}
-            //else if (poss.Price.ToString() != "")
-            //{
-            //   // var Price = this.Reg("kPrice");
-            //   // Price.Content = poss.Price.ToString();
-            //}
 
 
 
@@ -111,7 +99,6 @@ namespace Menu
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-
             if (Count > totalcount || Count == totalcount)
             {
                 Count = 0;
@@ -153,40 +140,40 @@ namespace Menu
 
         private void Story_Completed(object sender, EventArgs e)
         {
+            var brush = new SolidColorBrush(Color.FromRgb(169, 107, 40));
+            MyBorder.BorderBrush = brush; 
             this.dispatcherTimer.Start();
-            this.dropEffect.Color = Color.FromRgb(169, 107, 40);
         }
 
         public void PickedYou()
         {
             this.dispatcherTimer.Stop();
+            this.RegisterName("BlurEffect", dropEffect);
+            dropEffect.Color = Color.FromRgb(0, 255, 00);
+            MyBorder.BorderBrush = Brushes.LightGreen;
 
-
-            this.RegisterName("BlurEffect", this.dropEffect);
             Storyboard s = new Storyboard();
             TimeSpan duration = TimeSpan.FromMilliseconds(500); //
             DoubleAnimation fadeInAnimation = new DoubleAnimation()
             { From = 0, To = 100, AccelerationRatio = 0.3, RepeatBehavior = new RepeatBehavior(2), AutoReverse = true, Duration = new Duration(duration) };
             Storyboard.SetTargetName(fadeInAnimation, "BlurEffect");
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("BlurRadius", 50));
-            s.Completed += Story_Completed;
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("BlurRadius", 15));
 
-            duration = TimeSpan.FromMilliseconds(1000);
-            DoubleAnimation fadeInAnimation2 = new DoubleAnimation()
-            {  By = 360, RepeatBehavior = new RepeatBehavior(2), AutoReverse = true, Duration = new Duration(duration) };
-            Storyboard.SetTargetName(fadeInAnimation2, "BlurEffect");
-            Storyboard.SetTargetProperty(fadeInAnimation2, new PropertyPath("Direction", 5));
 
-            duration = TimeSpan.FromMilliseconds(1000);
+            duration = TimeSpan.FromMilliseconds(100);
             ColorAnimation fadeInAnimation3 = new ColorAnimation()
-            { From = Color.FromRgb(0, 255, 0), To = Color.FromRgb(169, 107, 40), SpeedRatio = 0.2, AccelerationRatio = 1, Duration = new Duration(duration) };
+            { From = Color.FromRgb(169, 107, 40), To = Color.FromRgb(0, 255, 0), SpeedRatio =0.5, RepeatBehavior = new RepeatBehavior(2), AutoReverse=true, Duration = new Duration(duration)};
             Storyboard.SetTargetName(fadeInAnimation3, "BlurEffect");
-            Storyboard.SetTargetProperty(fadeInAnimation3, new PropertyPath("Color", 5));
+            Storyboard.SetTargetProperty(fadeInAnimation3, new PropertyPath("Color", 1));
+            ThicknessAnimation thick = new ThicknessAnimation() { From = new Thickness(1, 1,1,1), To = new Thickness(1, 100, 1, 100), AutoReverse = true,Duration = new Duration(duration) };
+            Storyboard.SetTargetName(thick, nameof(this.MyBorder));
+            Storyboard.SetTargetProperty(thick, new PropertyPath("BorderThickness",1));
 
 
+            s.Completed += Story_Completed;
             s.Children.Add(fadeInAnimation3);
-            s.Children.Add(fadeInAnimation2);
             s.Children.Add(fadeInAnimation);
+            s.Children.Add(thick);
             s.Begin(this);
         }
 
@@ -195,6 +182,13 @@ namespace Menu
             var contentControl = (ContentControl)this.FindResource(r);
             return contentControl;
         }
+        //Color.FromRgb(169, 107, 40)
+        //duration = TimeSpan.FromMilliseconds(1000);
+        //DoubleAnimation fadeInAnimation2 = new DoubleAnimation()
+        //{  By = 360, RepeatBehavior = new RepeatBehavior(2), AutoReverse = true, Duration = new Duration(duration) };
+        //Storyboard.SetTargetName(fadeInAnimation2, "BlurEffect");
+        //Storyboard.SetTargetProperty(fadeInAnimation2, new PropertyPath("Direction", 5));
+        //s.Children.Add(fadeInAnimation2);
 
 
     }

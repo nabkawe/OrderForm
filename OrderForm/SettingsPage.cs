@@ -905,32 +905,6 @@ namespace OrderForm
         {
             if (SectionsName.Text != "NoMenu")
             {
-                if (ModifierKeys.HasFlag(Keys.Control) && TestingMode.Checked)
-                {
-
-                    string path = @"C:\db\worod menu\dbs\sware.txt";
-
-
-                    string[] readText = File.ReadAllLines(path);
-                    foreach (string s in readText)
-                    {
-                        var mat = s.Split('|');
-                        MenuItemsX fast = new MenuItemsX()
-                        {
-                            Name = mat[1],
-                            Barcode = "000000",
-                            ImagePath = mat[3],
-                            Price = mat[0],
-                            Details = mat[4],
-                            Cal = mat[2],
-                            Available = true
-                        };
-                        MenuLB.Items.Add(fast);
-                    }
-                }
-                else
-                {
-
                     MenuItemsX m = new MenuItemsX()
                     {
                         Name = MnameTB.Text,
@@ -941,8 +915,17 @@ namespace OrderForm
                         Cal = Mcal.Text,
                         Available = Availables.Checked
                     };
-                    MenuLB.Items.Add(m);
-                }
+                MenuItemZ M = new MenuItemZ();
+                M.Name = m.Name;
+                M.items.Add(m);
+                MenuLB.Items.Add(M);
+                MnameTB.Focus();
+                MnameTB.Clear();
+                MBarcode.Clear();
+                Mdetails.Clear();
+                Mcal.Clear();
+                Mpath.Clear();
+                
             }
         }
 
@@ -961,6 +944,13 @@ namespace OrderForm
                     Available = Availables.Checked
                 };
                 MultiLB.Items.Add(m);
+                MnameTB.Focus();
+                MnameTB.Clear();
+                MBarcode.Clear();
+                Mdetails.Clear();
+                Mcal.Clear();
+                Mpath.Clear();
+
             }
         }
 
@@ -968,9 +958,11 @@ namespace OrderForm
         {
             if (SectionsName.Text != "NoMenu")
             {
-                List<MenuItemsX> lll = new List<MenuItemsX>();
-                MultiLB.Items.Cast<MenuItemsX>().ToList().ForEach(x => { lll.Add(x); });
-                MenuLB.Items.Add(lll);
+                var M = new MenuItemZ();
+                MultiLB.Items.Cast<MenuItemsX>().ToList().ForEach(x => { M.items.Add(x); });
+                              
+                
+                MenuLB.Items.Add(M);
             }
         }
 
@@ -986,7 +978,7 @@ namespace OrderForm
         {
             if (SectionsName.Text != "NoMenu")
             {
-                var s = MenuLB.Items.Cast<object>().ToList();
+                var s = MenuLB.Items.Cast<MenuItemZ>().ToList();
                 MenuDB.UpdateSectionItems(s, SectionsName.Text);
                 SectionsName.Text = "NoMenu";
                 MenuLB.Items.Clear();
@@ -998,12 +990,14 @@ namespace OrderForm
             if (MListLB.SelectedIndex != -1)
             {
                 SectionsName.Text = MListLB.SelectedItem.ToString();
+                LoadMenuSectionToEdit(SectionsName.Text);
             }
             else
             {
                 SectionsName.Text = "NoMenu";
             }
-            LoadMenuSectionToEdit(SectionsName.Text);
+            
+
         }
 
         private void LoadMenuSectionToEdit(string text)
@@ -1014,26 +1008,10 @@ namespace OrderForm
             {
                 if (a.Count > 0)
                 {
-                    foreach (object item in a)
+                    foreach (MenuItemZ item in a)
                     {
-                        if (item.GetType() == typeof(MenuItemsX))
-                        {
-                            MenuItemsX x = (MenuItemsX)item;
-                            MenuLB.Items.Add(x);
-                        }
-                        else if (item.GetType() == typeof(object[]))
-                        {
-                            List<object> L = (item as IEnumerable<object>).Cast<object>().ToList();
-                            var LS = L.Cast<MenuItemsX>().ToList();
 
-                            MenuLB.Items.Add(LS);
-                        }
-                        else if (item.GetType() == typeof(string))
-                        {
-                            MenuLB.Items.Add((string)item);
-                        }
-
-
+                        MenuLB.Items.Add(item);
                     }
                 }
 
@@ -1045,42 +1023,38 @@ namespace OrderForm
         {
             if (MenuLB.SelectedIndex != -1)
             {
-                if (MenuLB.SelectedItem.GetType() == typeof(MenuItemsX))
+                var M = (MenuItemZ)MenuLB.SelectedItem;
+
+                if (M.SingleX)
                 {
                     if (!Control.ModifierKeys.HasFlag(Keys.Control))
                     {
                         MultiLB.Items.Clear();
                         SaveMulti.Enabled = false;
                         AddMultiItem.Enabled = true;
-
                         using (var form = new EditMenuItemX())
                         {
-                            form.EditItems((MenuItemsX)MenuLB.SelectedItem);
+                            form.EditItems(M.items[0]);
                             var result = form.ShowDialog();
                             if (result == DialogResult.OK)
                             {
                                 MenuItemsX val = form.MIX;            //values preserved after close
-                                                                      //Do something here with these values
-
-                                var a = (MenuItemsX)MenuLB.SelectedItem;
-                                //MenuLB.Items.RemoveAt(MenuLB.SelectedIndex);
-                                MenuLB.Items[MenuLB.SelectedIndex] = val;
-
-
+                                M.items[0] = val;
+                                MenuLB.Items[MenuLB.SelectedIndex] = M;
                             }
                         }
                     }
                     else
                     {
-                        MultiLB.Items.Add(MenuLB.Items[MenuLB.SelectedIndex]);
+                        MultiLB.Items.Add(M.items[0]);
                         MenuLB.Items.Remove(MenuLB.Items[MenuLB.SelectedIndex]);
                     }
                 }
-                else if (MenuLB.SelectedItem.GetType() == typeof(List<MenuItemsX>))
+                else 
                 {
-                    var multis = (List<MenuItemsX>)MenuLB.SelectedItem;
+                    
                     MultiLB.Items.Clear();
-                    multis.ForEach(x => MultiLB.Items.Add(x));
+                    M.items.ForEach(x => MultiLB.Items.Add(x));
                     SaveMulti.Enabled = true;
                     AddMultiItem.Enabled = false;
                 }
@@ -1131,7 +1105,11 @@ namespace OrderForm
                 else
                 {
                     {
-                        MenuLB.Items.Add(MultiLB.Items[MultiLB.SelectedIndex]);
+                        var M = new MenuItemZ();
+                        var Sel = (MenuItemsX)MultiLB.Items[MultiLB.SelectedIndex];
+                        M.Name = Sel.Name;
+                        M.items.Add(Sel);
+                        MenuLB.Items.Add(M);
                         MultiLB.Items.Remove(MultiLB.Items[MultiLB.SelectedIndex]);
 
                     }
@@ -1265,13 +1243,16 @@ namespace OrderForm
 
         private void SaveMulti_Click(object sender, EventArgs e)
         {
+            if (MenuLB.SelectedItems.Count > 0) { 
             SaveMulti.Enabled = false;
             AddMultiItem.Enabled = true;
-
-            List<MenuItemsX> lll = new List<MenuItemsX>();
-            MultiLB.Items.Cast<MenuItemsX>().ToList().ForEach(x => { lll.Add(x); });
-            MenuLB.Items[MenuLB.SelectedIndex] = lll;
+            var M = new MenuItemZ();
+            MultiLB.Items.Cast<MenuItemsX>().ToList().ForEach(x => { M.items.Add(x); });
+            M.Name = M.NameToShow;
+            MenuLB.Items[MenuLB.SelectedIndex] = M;
             MultiLB.Items.Clear();
+            }
+            else { MessageBox.Show("قم بإختيار المجموعة التي تريد تحديثها قبل محاولة الحفظ "); }
         }
 
         private void sectionsML_Opening(object sender, CancelEventArgs e)
@@ -1450,6 +1431,29 @@ namespace OrderForm
             }
             return output;
         }
+        Control ctrl;
 
+        private void MnameTB_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ctrl = (Control)sender;
+            if (ctrl is TextBox)
+            {
+                if (e.KeyCode == Keys.Down)
+                {
+                    this.SelectNextControl(ctrl, true, true, true, true);
+                }
+                else if (e.KeyCode == Keys.Up) this.SelectNextControl(ctrl, false, true, true, true);
+
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    this.SelectNextControl(ctrl, true, true, true, true);
+                }
+
+            }
+            else if (ctrl is Button)
+            {
+                this.SelectNextControl(ctrl, true, true, false, true);
+            }
+        }
     }
 }

@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Menu
+namespace OrderForm
 {
     /// <summary>
     /// Interaction logic for InformationPanel.xaml

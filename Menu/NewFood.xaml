@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="OrderForm.NewFood"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OrderForm"
+             mc:Ignorable="d" 
+ d:DesignHeight="250" d:DesignWidth="200" Height="222" Width="200" Padding="6" x:Name="FI">
+    <UserControl.Resources>
+        <ContentControl x:Name="FoodName" x:Key="kName" Content="إسم الفطيرة"/>
+        <ContentControl x:Name="FoodDetails" x:Key="kDetails" Content="تفاصيل الفطيرة"/>
+        <ContentControl x:Name="FoodPrice" x:Key="kPrice" Content="0.0"/>
+        <ContentControl x:Name="FoodPicture" x:Key="kPicture" Content="C:\items\water9.png"   />
+        <ContentControl x:Name="FoodCalories" x:Key="kCalories" Content="معلومات الحساسية والسعرات"/>
+        <ContentControl x:Name="FoodCurrency" x:Key="kCurrency" Content="ر.س"/>
+        <ContentControl x:Name="FoodBarCode" x:Key="kBarCode" Content=""/>
+
+
+    </UserControl.Resources>
+
+
+    <Border BorderBrush="#a96b28" Background="White" BorderThickness="1" CornerRadius="25,25,25,25" x:Name="MyBorder" UseLayoutRounding="False" ClipToBounds="False">
+        <Border.Effect >
+            <DropShadowEffect x:Name="dropEffect" ShadowDepth="1"
+                          Color="#a96b28"
+                          Opacity="1"
+                          BlurRadius="1" Direction="90" />
+
+        </Border.Effect>
+
+        <Grid x:Name="BackGroundGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="8*"/>
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--Price And Image-->
+            <Canvas Grid.Row="0" Grid.RowSpan="1">
+
+                <Image x:Name="Picture"
+                        Panel.ZIndex ="0"   Canvas.Right="0" 
+                        Source="{Binding Content, Mode=OneWay, Source={StaticResource kPicture}}"
+                        Stretch="Uniform" MaxWidth="125" MaxHeight="125" MinHeight="120" MinWidth ="120 "  />
+                <TextBlock  Foreground="#FF513519" Canvas.Left="10" Canvas.Top="5">
+                    <TextBlock.Background>
+                        <LinearGradientBrush StartPoint="0,2" SpreadMethod="Pad">
+                            <GradientStop Color="Transparent" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Background><Run x:Name="PricePlate" FlowDirection="RightToLeft" FontSize="30"  FontFamily="Bahnschrift"  Text="{Binding Content, Mode=OneWay, Source={StaticResource kPrice}}"/>
+                </TextBlock>
+                <Label Canvas.Top="40" Canvas.Left="9">
+                    <Run x:Name="KCur" FontSize="13"   Foreground="#FF513519" FontWeight="ExtraBold" 
+                     FlowDirection="RightToLeft" Text="{Binding Content, Mode=OneWay, Source={StaticResource kCurrency}}"/>
+                </Label>
+                <Label x:Name="AvailableLabel" Visibility="Visible" BorderThickness="3" Content="غير متوفر حاليا"  Foreground="Red" FontWeight="Bold" FontSize="18" Canvas.Top="80" Canvas.Left="38">
+                    <Label.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="Red" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Label.BorderBrush> 
+                </Label>
+
+            </Canvas>
+            <!--Name and Details-->
+            <Border    Grid.Row="1" Grid.RowSpan="2" CornerRadius="0,0,0,0" Margin="5" 
+                VerticalAlignment="Stretch">
+                <TextBlock  Margin="0,0,0,0"  FlowDirection="RightToLeft" 
+                 TextWrapping="Wrap" FontFamily="GE Snd Book" FontSize="25"    Foreground="#a96b28" >
+                <Run x:Name="NamePlate" Text="{Binding Content, Mode=OneWay, Source={StaticResource kName}}"   ></Run>   
+                <LineBreak/>                        
+                <Run Foreground="#FF513519"  FontSize="18"  Text="{Binding Content, Mode=OneWay, Source={StaticResource kDetails}}" ></Run>
+                </TextBlock>
+
+            </Border>
+
+
+            <!--Calories-->
+            <TextBlock Grid.Row="3" FontSize="9" FlowDirection="RightToLeft" Margin="0,0,10,0" Foreground="#FF513519"> "
+            <Run Text="{Binding Content, Mode=OneWay, Source={StaticResource kCalories}}"></Run>
+            </TextBlock>
+        </Grid>
+    </Border>
+</UserControl>
+
