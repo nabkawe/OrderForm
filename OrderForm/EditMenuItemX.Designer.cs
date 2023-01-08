@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.EnMdetails = new System.Windows.Forms.TextBox();
+            this.EnMnameTB = new System.Windows.Forms.TextBox();
             this.Availables = new System.Windows.Forms.CheckBox();
             this.ChoosePicPath = new System.Windows.Forms.Button();
             this.AddSingleItem = new System.Windows.Forms.Button();
@@ -49,6 +53,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.EnMdetails);
+            this.panel1.Controls.Add(this.EnMnameTB);
             this.panel1.Controls.Add(this.Availables);
             this.panel1.Controls.Add(this.ChoosePicPath);
             this.panel1.Controls.Add(this.AddSingleItem);
@@ -68,6 +76,42 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(423, 358);
             this.panel1.TabIndex = 40;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Gray;
+            this.label1.Location = new System.Drawing.Point(178, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.TabIndex = 52;
+            this.label1.Text = "إنجليزي";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Gray;
+            this.label2.Location = new System.Drawing.Point(178, 152);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.TabIndex = 51;
+            this.label2.Text = "إنجليزي";
+            // 
+            // EnMdetails
+            // 
+            this.EnMdetails.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnMdetails.Location = new System.Drawing.Point(16, 168);
+            this.EnMdetails.Name = "EnMdetails";
+            this.EnMdetails.Size = new System.Drawing.Size(206, 33);
+            this.EnMdetails.TabIndex = 49;
+            // 
+            // EnMnameTB
+            // 
+            this.EnMnameTB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnMnameTB.Location = new System.Drawing.Point(16, 27);
+            this.EnMnameTB.Name = "EnMnameTB";
+            this.EnMnameTB.Size = new System.Drawing.Size(206, 33);
+            this.EnMnameTB.TabIndex = 48;
             // 
             // Availables
             // 
@@ -110,12 +154,16 @@
             // 
             // Mpath
             // 
+            this.Mpath.AllowDrop = true;
             this.Mpath.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Mpath.Location = new System.Drawing.Point(73, 258);
             this.Mpath.Name = "Mpath";
             this.Mpath.Size = new System.Drawing.Size(285, 33);
             this.Mpath.TabIndex = 6;
             this.Mpath.TabStop = false;
+            this.Mpath.DragDrop += new System.Windows.Forms.DragEventHandler(this.Mpath_DragDrop);
+            this.Mpath.DragEnter += new System.Windows.Forms.DragEventHandler(this.Mpath_DragOver);
+            this.Mpath.DragOver += new System.Windows.Forms.DragEventHandler(this.Mpath_DragOver);
             // 
             // Mcal
             // 
@@ -128,9 +176,9 @@
             // Mdetails
             // 
             this.Mdetails.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Mdetails.Location = new System.Drawing.Point(16, 164);
+            this.Mdetails.Location = new System.Drawing.Point(228, 164);
             this.Mdetails.Name = "Mdetails";
-            this.Mdetails.Size = new System.Drawing.Size(400, 33);
+            this.Mdetails.Size = new System.Drawing.Size(188, 33);
             this.Mdetails.TabIndex = 4;
             // 
             // MPrice
@@ -152,9 +200,9 @@
             // MnameTB
             // 
             this.MnameTB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MnameTB.Location = new System.Drawing.Point(16, 23);
+            this.MnameTB.Location = new System.Drawing.Point(228, 23);
             this.MnameTB.Name = "MnameTB";
-            this.MnameTB.Size = new System.Drawing.Size(400, 33);
+            this.MnameTB.Size = new System.Drawing.Size(188, 33);
             this.MnameTB.TabIndex = 1;
             // 
             // label54
@@ -250,5 +298,9 @@
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.TextBox EnMdetails;
+        private System.Windows.Forms.TextBox EnMnameTB;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -261,6 +261,10 @@
             this.MListLB = new System.Windows.Forms.ListBox();
             this.sectionsML = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.LoadFile = new System.Windows.Forms.OpenFileDialog();
+            this.EnMnameTB = new System.Windows.Forms.TextBox();
+            this.EnMdetails = new System.Windows.Forms.TextBox();
+            this.label71 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
             this.About.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.Pos.SuspendLayout();
@@ -2567,6 +2571,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label73);
+            this.panel1.Controls.Add(this.label71);
+            this.panel1.Controls.Add(this.EnMdetails);
+            this.panel1.Controls.Add(this.EnMnameTB);
             this.panel1.Controls.Add(this.Availables);
             this.panel1.Controls.Add(this.ChoosePicPath);
             this.panel1.Controls.Add(this.AddToMultiItem);
@@ -2583,9 +2591,9 @@
             this.panel1.Controls.Add(this.label57);
             this.panel1.Controls.Add(this.label58);
             this.panel1.Controls.Add(this.label59);
-            this.panel1.Location = new System.Drawing.Point(550, 128);
+            this.panel1.Location = new System.Drawing.Point(550, 116);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(423, 358);
+            this.panel1.Size = new System.Drawing.Size(423, 370);
             this.panel1.TabIndex = 39;
             // 
             // Availables
@@ -2593,7 +2601,7 @@
             this.Availables.AutoSize = true;
             this.Availables.Checked = true;
             this.Availables.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Availables.Location = new System.Drawing.Point(16, 266);
+            this.Availables.Location = new System.Drawing.Point(16, 286);
             this.Availables.Name = "Availables";
             this.Availables.Size = new System.Drawing.Size(51, 17);
             this.Availables.TabIndex = 47;
@@ -2606,7 +2614,7 @@
             this.ChoosePicPath.BackColor = System.Drawing.Color.White;
             this.ChoosePicPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ChoosePicPath.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChoosePicPath.Location = new System.Drawing.Point(365, 258);
+            this.ChoosePicPath.Location = new System.Drawing.Point(365, 278);
             this.ChoosePicPath.Name = "ChoosePicPath";
             this.ChoosePicPath.Size = new System.Drawing.Size(51, 33);
             this.ChoosePicPath.TabIndex = 7;
@@ -2620,7 +2628,7 @@
             // 
             this.AddToMultiItem.BackColor = System.Drawing.Color.White;
             this.AddToMultiItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddToMultiItem.Location = new System.Drawing.Point(16, 310);
+            this.AddToMultiItem.Location = new System.Drawing.Point(16, 320);
             this.AddToMultiItem.Name = "AddToMultiItem";
             this.AddToMultiItem.Size = new System.Drawing.Size(187, 41);
             this.AddToMultiItem.TabIndex = 9;
@@ -2633,7 +2641,7 @@
             // 
             this.AddSingleItem.BackColor = System.Drawing.Color.White;
             this.AddSingleItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddSingleItem.Location = new System.Drawing.Point(228, 310);
+            this.AddSingleItem.Location = new System.Drawing.Point(228, 320);
             this.AddSingleItem.Name = "AddSingleItem";
             this.AddSingleItem.Size = new System.Drawing.Size(187, 41);
             this.AddSingleItem.TabIndex = 8;
@@ -2644,18 +2652,22 @@
             // 
             // Mpath
             // 
+            this.Mpath.AllowDrop = true;
             this.Mpath.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Mpath.Location = new System.Drawing.Point(73, 258);
+            this.Mpath.Location = new System.Drawing.Point(73, 278);
             this.Mpath.Name = "Mpath";
             this.Mpath.Size = new System.Drawing.Size(285, 33);
             this.Mpath.TabIndex = 6;
             this.Mpath.TabStop = false;
+            this.Mpath.DragDrop += new System.Windows.Forms.DragEventHandler(this.Mpath_DragDrop);
+            this.Mpath.DragEnter += new System.Windows.Forms.DragEventHandler(this.Mpath_DragOver);
+            this.Mpath.DragOver += new System.Windows.Forms.DragEventHandler(this.Mpath_DragOver);
             this.Mpath.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // Mcal
             // 
             this.Mcal.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Mcal.Location = new System.Drawing.Point(16, 211);
+            this.Mcal.Location = new System.Drawing.Point(16, 227);
             this.Mcal.Name = "Mcal";
             this.Mcal.Size = new System.Drawing.Size(400, 33);
             this.Mcal.TabIndex = 5;
@@ -2664,16 +2676,16 @@
             // Mdetails
             // 
             this.Mdetails.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Mdetails.Location = new System.Drawing.Point(16, 164);
+            this.Mdetails.Location = new System.Drawing.Point(228, 180);
             this.Mdetails.Name = "Mdetails";
-            this.Mdetails.Size = new System.Drawing.Size(400, 33);
+            this.Mdetails.Size = new System.Drawing.Size(188, 33);
             this.Mdetails.TabIndex = 4;
             this.Mdetails.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
             // MPrice
             // 
             this.MPrice.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MPrice.Location = new System.Drawing.Point(16, 117);
+            this.MPrice.Location = new System.Drawing.Point(16, 134);
             this.MPrice.Name = "MPrice";
             this.MPrice.Size = new System.Drawing.Size(400, 33);
             this.MPrice.TabIndex = 3;
@@ -2682,7 +2694,7 @@
             // MBarcode
             // 
             this.MBarcode.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MBarcode.Location = new System.Drawing.Point(16, 70);
+            this.MBarcode.Location = new System.Drawing.Point(16, 88);
             this.MBarcode.Name = "MBarcode";
             this.MBarcode.Size = new System.Drawing.Size(400, 33);
             this.MBarcode.TabIndex = 2;
@@ -2691,9 +2703,9 @@
             // MnameTB
             // 
             this.MnameTB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MnameTB.Location = new System.Drawing.Point(16, 23);
+            this.MnameTB.Location = new System.Drawing.Point(228, 15);
             this.MnameTB.Name = "MnameTB";
-            this.MnameTB.Size = new System.Drawing.Size(400, 33);
+            this.MnameTB.Size = new System.Drawing.Size(188, 33);
             this.MnameTB.TabIndex = 1;
             this.MnameTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
             // 
@@ -2701,7 +2713,7 @@
             // 
             this.label54.AutoSize = true;
             this.label54.ForeColor = System.Drawing.Color.Gray;
-            this.label54.Location = new System.Drawing.Point(358, 102);
+            this.label54.Location = new System.Drawing.Point(358, 119);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(58, 13);
             this.label54.TabIndex = 30;
@@ -2711,7 +2723,7 @@
             // 
             this.label55.AutoSize = true;
             this.label55.ForeColor = System.Drawing.Color.Gray;
-            this.label55.Location = new System.Drawing.Point(336, 242);
+            this.label55.Location = new System.Drawing.Point(336, 260);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(80, 13);
             this.label55.TabIndex = 33;
@@ -2721,7 +2733,7 @@
             // 
             this.label56.AutoSize = true;
             this.label56.ForeColor = System.Drawing.Color.Gray;
-            this.label56.Location = new System.Drawing.Point(266, 196);
+            this.label56.Location = new System.Drawing.Point(266, 212);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(150, 13);
             this.label56.TabIndex = 32;
@@ -2731,7 +2743,7 @@
             // 
             this.label57.AutoSize = true;
             this.label57.ForeColor = System.Drawing.Color.Gray;
-            this.label57.Location = new System.Drawing.Point(357, 149);
+            this.label57.Location = new System.Drawing.Point(357, 165);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(59, 13);
             this.label57.TabIndex = 31;
@@ -2741,17 +2753,18 @@
             // 
             this.label58.AutoSize = true;
             this.label58.ForeColor = System.Drawing.Color.Gray;
-            this.label58.Location = new System.Drawing.Point(355, 55);
+            this.label58.Location = new System.Drawing.Point(105, 55);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(61, 13);
+            this.label58.Size = new System.Drawing.Size(310, 26);
             this.label58.TabIndex = 29;
-            this.label58.Text = "باركود المادة";
+            this.label58.Text = "باركود المادة * إذا كانت المادة فيها أكثر من باركود لكن ليست متعددة\r\n (كالبيتزا) " +
+    "قم بإضافة \" - \" بينهم";
             // 
             // label59
             // 
             this.label59.AutoSize = true;
             this.label59.ForeColor = System.Drawing.Color.Gray;
-            this.label59.Location = new System.Drawing.Point(358, 8);
+            this.label59.Location = new System.Drawing.Point(358, 1);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(58, 13);
             this.label59.TabIndex = 28;
@@ -2768,7 +2781,7 @@
             this.groupBox12.Controls.Add(this.MListLB);
             this.groupBox12.Location = new System.Drawing.Point(550, 7);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(421, 115);
+            this.groupBox12.Size = new System.Drawing.Size(421, 103);
             this.groupBox12.TabIndex = 40;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "قائمة جديدة";
@@ -2778,7 +2791,7 @@
             this.MSDown.BackColor = System.Drawing.Color.White;
             this.MSDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MSDown.Font = new System.Drawing.Font("Wingdings 3", 8.25F);
-            this.MSDown.Location = new System.Drawing.Point(182, 88);
+            this.MSDown.Location = new System.Drawing.Point(182, 73);
             this.MSDown.Name = "MSDown";
             this.MSDown.Size = new System.Drawing.Size(51, 19);
             this.MSDown.TabIndex = 43;
@@ -2807,7 +2820,7 @@
             this.MSUp.BackColor = System.Drawing.Color.White;
             this.MSUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MSUp.Font = new System.Drawing.Font("Wingdings 3", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.MSUp.Location = new System.Drawing.Point(181, 63);
+            this.MSUp.Location = new System.Drawing.Point(181, 48);
             this.MSUp.Name = "MSUp";
             this.MSUp.Size = new System.Drawing.Size(52, 19);
             this.MSUp.TabIndex = 42;
@@ -2819,7 +2832,7 @@
             // 
             // AddMlist
             // 
-            this.AddMlist.Location = new System.Drawing.Point(260, 71);
+            this.AddMlist.Location = new System.Drawing.Point(260, 52);
             this.AddMlist.Name = "AddMlist";
             this.AddMlist.Size = new System.Drawing.Size(48, 23);
             this.AddMlist.TabIndex = 11;
@@ -2831,7 +2844,7 @@
             // label62
             // 
             this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(352, 51);
+            this.label62.Location = new System.Drawing.Point(352, 32);
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(63, 13);
             this.label62.TabIndex = 10;
@@ -2839,7 +2852,7 @@
             // 
             // mlistTB
             // 
-            this.mlistTB.Location = new System.Drawing.Point(313, 73);
+            this.mlistTB.Location = new System.Drawing.Point(313, 54);
             this.mlistTB.Name = "mlistTB";
             this.mlistTB.Size = new System.Drawing.Size(100, 20);
             this.mlistTB.TabIndex = 8;
@@ -2851,7 +2864,7 @@
             this.MListLB.FormattingEnabled = true;
             this.MListLB.Location = new System.Drawing.Point(11, 12);
             this.MListLB.Name = "MListLB";
-            this.MListLB.Size = new System.Drawing.Size(165, 95);
+            this.MListLB.Size = new System.Drawing.Size(165, 82);
             this.MListLB.TabIndex = 41;
             this.MListLB.TabStop = false;
             this.MListLB.Click += new System.EventHandler(this.MListLB_Click);
@@ -2866,6 +2879,44 @@
             // LoadFile
             // 
             this.LoadFile.FileName = "NetworkSynq.exe";
+            // 
+            // EnMnameTB
+            // 
+            this.EnMnameTB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnMnameTB.Location = new System.Drawing.Point(25, 15);
+            this.EnMnameTB.Name = "EnMnameTB";
+            this.EnMnameTB.Size = new System.Drawing.Size(188, 33);
+            this.EnMnameTB.TabIndex = 48;
+            this.EnMnameTB.TabStop = false;
+            // 
+            // EnMdetails
+            // 
+            this.EnMdetails.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnMdetails.Location = new System.Drawing.Point(15, 180);
+            this.EnMdetails.Name = "EnMdetails";
+            this.EnMdetails.Size = new System.Drawing.Size(198, 33);
+            this.EnMdetails.TabIndex = 49;
+            this.EnMdetails.TabStop = false;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.ForeColor = System.Drawing.Color.Gray;
+            this.label71.Location = new System.Drawing.Point(174, 1);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(43, 13);
+            this.label71.TabIndex = 51;
+            this.label71.Text = "إنجليزي";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.ForeColor = System.Drawing.Color.Gray;
+            this.label73.Location = new System.Drawing.Point(170, 167);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(43, 13);
+            this.label73.TabIndex = 53;
+            this.label73.Text = "إنجليزي";
             // 
             // SettingsPage
             // 
@@ -3159,5 +3210,9 @@
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.TextBox ipTB;
         private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.TextBox EnMdetails;
+        private System.Windows.Forms.TextBox EnMnameTB;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.Label label71;
     }
 }

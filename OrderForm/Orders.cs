@@ -375,7 +375,7 @@ namespace OrderForm
                         if (MenuDB.GetMenus().Count > 0)
                         {
                             DM.Show();
-                            _ = DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First());
+                            _ = DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First(), langCheck.Checked);
                         }
                     }
                 }
@@ -2515,7 +2515,7 @@ namespace OrderForm
         {
             if (a != null)
             {
-                await DM.LaunchMenu(MenuDB.GetMenuItems(a), a);
+                await DM.LaunchMenu(MenuDB.GetMenuItems(a), a, langCheck.Checked);
             }
         }
 
@@ -2528,7 +2528,7 @@ namespace OrderForm
                 if (DM.Visibility != System.Windows.Visibility.Visible)
                 {
                     DM.Show();
-                    _ = DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First());
+                    _ = DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First(), langCheck.Checked);
 
                 }
                 else MenuSelection.Show(Cursor.Position);
@@ -2539,7 +2539,7 @@ namespace OrderForm
 
         private void MenuTimeOut_Tick(object sender, EventArgs e)
         {
-            _ = DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First());
+            _ = DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First(), langCheck.Checked);
             MenuTimeOut.Stop();
 
         }

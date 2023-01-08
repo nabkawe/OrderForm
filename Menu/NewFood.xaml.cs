@@ -25,7 +25,7 @@ namespace OrderForm
     {
         public System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         public bool Single { get; set; }
-
+        public static bool lang;
         
         int totalcount = 0;
         public NewFood(MenuItemZ pos)
@@ -60,11 +60,21 @@ namespace OrderForm
             {
                 this.AvailableLabel.Visibility = Visibility.Hidden;
             }
-
-            var Name = this.Reg("kName");
-            Name.Content = poss.Name;
-            var Details = this.Reg("kDetails");
-            Details.Content = poss.Details;
+            if (!lang)
+            {
+                var Name = this.Reg("kName");
+                Name.Content = poss.EnName;
+                var Details = this.Reg("kDetails");
+                Details.Content = poss.EnDetails;
+            }
+            else
+            {
+                var Name = this.Reg("kName");
+                Name.Content = poss.Name;
+                var Details = this.Reg("kDetails");
+                Details.Content = poss.Details;
+            }
+            
             var PictureName = this.Reg("kPicture");
             PictureName.Content = poss.ImagePath;
             var Cal = this.Reg("kCalories");

@@ -14,9 +14,11 @@ namespace OrderForm
         public void EditItems(MenuItemsX x)
         {
             MnameTB.Text = x.Name;
+            EnMnameTB.Text = x.EnName;
             MBarcode.Text = x.Barcode;
             MPrice.Text = x.Price;
             Mdetails.Text = x.Details;
+            EnMdetails.Text = x.EnDetails;
             Mcal.Text = x.Cal;
             Mpath.Text = x.ImagePath;
             Availables.Checked = x.Available;
@@ -26,17 +28,20 @@ namespace OrderForm
 
         private void AddSingleItem_Click(object sender, EventArgs e)
         {
+            MIX = null;
+
             MenuItemsX m = new MenuItemsX()
             {
                 Name = MnameTB.Text,
+                EnName = EnMnameTB.Text,
                 Barcode = MBarcode.Text,
                 ImagePath = Mpath.Text,
                 Price = MPrice.Text,
                 Details = Mdetails.Text,
+                EnDetails = EnMdetails.Text,
                 Cal = Mcal.Text,
                 Available = Availables.Checked
             };
-            MIX = null;
             MIX = m;
         }
 
@@ -58,5 +63,23 @@ namespace OrderForm
             }
 
         }
+        private void Mpath_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void Mpath_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            Mpath.Text = filePaths[0];
+        }
+     
     }
 }

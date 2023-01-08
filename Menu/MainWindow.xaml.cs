@@ -23,28 +23,26 @@ namespace OrderForm
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public  partial class MainWindow : Window
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
             ShowOnSecondScreen();
-            foodItems = new BindingList<FoodItem>();
-            foodItemZ = new BindingList<NewFood>();
+            FoodItemZ = new BindingList<NewFood>();
         }
 
 
-        public static BindingList<FoodItem> foodItems { get; set; }
-        public static BindingList<NewFood> foodItemZ { get; set; }
+        public static BindingList<NewFood> FoodItemZ { get; set; }
         public string CurrentMenu;
 
-        
-        public async Task LaunchMenu(List<MenuItemZ> list, string CurrentMenuIn)
+
+        public async Task LaunchMenu(List<MenuItemZ> list, string CurrentMenuIn,bool langs)
         {
 
             try
             {
-                foodItemZ.Clear();
+                FoodItemZ.Clear();
                 Storyboard storyboard = new Storyboard();
                 TimeSpan duration = TimeSpan.FromMilliseconds(400); //
                 DoubleAnimation fadeInAnimation = new DoubleAnimation()
@@ -54,12 +52,16 @@ namespace OrderForm
                 storyboard.Children.Add(fadeInAnimation);
                 storyboard.Begin(this);
                 CurrentMenu = CurrentMenuIn;
+                NewFood.lang = langs;
+
                 foreach (MenuItemZ item in list)
                 {
-                    NewFood foodItem = new NewFood(item);
-                        foodItemZ.Add(foodItem);
+                    
+                    NewFood foodItem = new NewFood(item) ;
+
+                    FoodItemZ.Add(foodItem);
                 }
-                this.FoodList.ItemsSource = foodItemZ;
+                this.FoodList.ItemsSource = FoodItemZ;
                 await Task.CompletedTask;
             }
             catch (Exception ex)
@@ -71,12 +73,27 @@ namespace OrderForm
         }
 
 
-        public static  void FindByBarcode(string barcode)
+        public static void FindByBarcode(string barcode)
         {
-            foreach (NewFood item in foodItemZ)
+            foreach (NewFood item in FoodItemZ)
             {
                 if (item.Single)
                 {
+                    var bar = (string)item.Tag;
+                    if (bar.Contains('-'))
+                    {
+                        for (int i = 0; i < bar.Split('-').Count(); i++)
+                        {
+                            if (bar.Split('-')[i] != null)
+                            {
+                                if (bar.Split('-')[i] == barcode)
+                                {
+                                    item.PickedYou();
+                                }
+                            }
+                        }
+                    }
+                    else
                     if ((string)item.Tag == barcode)
                     {
                         item.PickedYou();
@@ -86,11 +103,30 @@ namespace OrderForm
                 {
                     foreach (var items in item.posLoop)
                     {
-                        if (items.Barcode == barcode)
+                        if (items.Barcode.Contains("-"))
                         {
-                            item.FillInfo(items);
-                            item.PickedYou();
+                            for (int i = 0; i < items.Barcode.Split('-').Count(); i++)
+                            {
+                                if (items.Barcode.Split('-')[i] != null)
+                                {
+                                    if (items.Barcode.Split('-')[i] == barcode)
+                                    {
+                                        item.FillInfo(items);
+                                        item.PickedYou();
+                                    }
+                                }
+                            }
+
                         }
+                        else
+                        {
+                            if (items.Barcode == barcode)
+                            {
+                                item.FillInfo(items);
+                                item.PickedYou();
+                            }
+                        }
+
                     }
                 }
             }
@@ -105,10 +141,10 @@ namespace OrderForm
             Width = screen.Bounds.Width;
             Height = screen.Bounds.Height;
             // portrait mode
-            if (Width> Height)
+            if (Width > Height)
             {
-                this.Top_Row.Height = new GridLength(0,GridUnitType.Star);
-                this.Bot_Row.Height = new GridLength(1,GridUnitType.Star);
+                this.Top_Row.Height = new GridLength(0, GridUnitType.Star);
+                this.Bot_Row.Height = new GridLength(1, GridUnitType.Star);
             }
             else
             {
@@ -120,7 +156,7 @@ namespace OrderForm
             WindowState = WindowState.Maximized;
         }
 
-    
+
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {

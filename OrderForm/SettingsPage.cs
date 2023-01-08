@@ -908,6 +908,8 @@ namespace OrderForm
                     MenuItemsX m = new MenuItemsX()
                     {
                         Name = MnameTB.Text,
+                        EnName = EnMnameTB.Text,
+                        EnDetails = EnMdetails.Text,
                         Barcode = MBarcode.Text,
                         ImagePath = Mpath.Text,
                         Price = MPrice.Text,
@@ -921,8 +923,10 @@ namespace OrderForm
                 MenuLB.Items.Add(M);
                 MnameTB.Focus();
                 MnameTB.Clear();
+                EnMnameTB.Clear();
                 MBarcode.Clear();
                 Mdetails.Clear();
+                EnMdetails.Clear();
                 Mcal.Clear();
                 Mpath.Clear();
                 
@@ -941,6 +945,8 @@ namespace OrderForm
                     Price = MPrice.Text,
                     Details = Mdetails.Text,
                     Cal = Mcal.Text,
+                    EnName = EnMnameTB.Text,
+                    EnDetails = EnMdetails.Text,
                     Available = Availables.Checked
                 };
                 MultiLB.Items.Add(m);
@@ -1258,7 +1264,7 @@ namespace OrderForm
         private void sectionsML_Opening(object sender, CancelEventArgs e)
         {
             sectionsML.Items.Clear();
-            List<POSsections> lists = dbQ.PopulateSections();
+            List<POSsections> lists = dbQ.GetSections();
 
             lists.ForEach(x => sectionsML.Items.Add(x.Name));
             if (sectionsML.Items.Count == 0)
@@ -1274,7 +1280,7 @@ namespace OrderForm
 
             {
                 MenuItemsX X = new MenuItemsX() { Available = true, Barcode = item.Barcode, Price = item.Price.ToString(), Name = item.Name };
-                MenuLB.Items.Add(X);
+                MultiLB.Items.Add(X);
             }
 
 
@@ -1454,6 +1460,24 @@ namespace OrderForm
             {
                 this.SelectNextControl(ctrl, true, true, false, true);
             }
+        }
+
+        private void Mpath_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void Mpath_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            Mpath.Text = filePaths[0];
         }
     }
 }

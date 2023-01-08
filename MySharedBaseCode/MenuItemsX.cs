@@ -41,6 +41,9 @@ namespace sharedCode
         public string Name { get; set; }
         public string Details { get; set; }
 
+        public string EnName { get; set; }
+        public string EnDetails { get; set; }
+
         public string Cal { get; set; }
 
 
