@@ -1005,7 +1005,6 @@ namespace OrderForm
             
 
         }
-
         private void LoadMenuSectionToEdit(string text)
         {
             MenuLB.Items.Clear();
