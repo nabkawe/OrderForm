@@ -55,7 +55,7 @@ namespace OrderForm.SavingandPayment
         public List<Invoice> MultipleInvoices = new List<Invoice>();
         public List<POSItems> MultipleItems = new List<POSItems>();
 
-        public Invoice invoice;
+        public static Invoice invoice;
 
 
         public PaymentOptions(string posID)
@@ -89,17 +89,20 @@ namespace OrderForm.SavingandPayment
 
                 }
             singleOrMultipleInvoice = true;
-            this.invoice = inv;
-           ShowMenu();
+            invoice = inv;
+            ShowInvoice();
+            this.Activate();
+            this.Update();
+
         }
 
-        private void ShowMenu()
+        private void ShowInvoice()
         {
             if (Screen.AllScreens.Count() > 1)
             {
                 Orders.MenuShowing = true;
 
-                displayOffer.showme(this.invoice.CustomerName, this.invoice.CustomerNumber, this.invoice.TimeinArabic + " | " + Orders.GetDayName((int)this.invoice.InvoiceDay),this.invoice);
+                displayOffer.showme(invoice.CustomerName, invoice.CustomerNumber, invoice.TimeinArabic + " | " + Orders.GetDayName((int)invoice.InvoiceDay),invoice);
                 this.Activate();
             }
         }
@@ -123,8 +126,10 @@ namespace OrderForm.SavingandPayment
                 }
             singleOrMultipleInvoice = false; ;
             this.MultipleInvoices = invList;
-            this.invoice = invList[0];
-            ShowMenu();
+            invoice = invList[0];
+            ShowInvoice();
+            this.Activate();
+            this.Update();
 
         }
 
@@ -177,6 +182,9 @@ namespace OrderForm.SavingandPayment
                     AutoItX.Sleep(500);
 
                 }
+                var payment = new Payment() { Name = "Cash", Amount = (decimal)invoice.InvoicePrice };
+                invoice.Payments.Clear();
+                invoice.Payments.Add(payment);
                 SaveInvoiceNumber(singleOrMultipleInvoice);
             }
             else if (!CheckIfReadyToSave())
@@ -219,6 +227,9 @@ namespace OrderForm.SavingandPayment
                 {
                     AutoItX.ControlClick(pos, "", SwitchBTN, "left", 1);
                     AutoItX.Sleep(500);
+                    var payment = new Payment() { Name = "Mada", Amount = invoice.InvoicePrice };
+                    invoice.Payments.Clear();
+                    invoice.Payments.Add(payment);
                     SaveInvoiceNumber(singleOrMultipleInvoice);
                     //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
                 }
@@ -228,6 +239,9 @@ namespace OrderForm.SavingandPayment
                     AutoItX.Sleep(1000);
                     AutoItX.ControlClick(pos, "", SwitchBTN, "left", 1);
                     AutoItX.Sleep(1000);
+                    var payment = new Payment() { Name = "Mada", Amount = invoice.InvoicePrice };
+                    invoice.Payments.Clear();
+                    invoice.Payments.Add(payment);
                     SaveInvoiceNumber(singleOrMultipleInvoice);
                     //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
                 }
@@ -310,6 +324,22 @@ namespace OrderForm.SavingandPayment
                     AutoItX.ControlSend(pos, "", Mada3CB, "{DOWN}{ENTER}", 0);
 
                 }
+                invoice.Payments.Clear();
+                
+                if (c != 0){
+                    var payment = new Payment() { Name = "Cash", Amount = invoice.InvoicePrice };
+                    invoice.Payments.Add(payment);
+                } if (m1 != 0){
+                    var payment = new Payment() { Name = "Mada", Amount = invoice.InvoicePrice };
+                    invoice.Payments.Add(payment);
+                }                if (m2 != 0){
+                    var payment = new Payment() { Name = "Mada", Amount = invoice.InvoicePrice };
+                    invoice.Payments.Add(payment);
+                }               if (m3 != 0){
+                    var payment = new Payment() { Name = "Mada", Amount = invoice.InvoicePrice };
+                    invoice.Payments.Add(payment);
+                }
+
                 SaveInvoiceNumber(singleOrMultipleInvoice);
                 //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
             }
@@ -333,23 +363,45 @@ namespace OrderForm.SavingandPayment
 
             if (single)
             {
-                DbInv.UpdateInvoice(this.invoice.ID, invoiceNTB);
+                invoice.POSInvoiceNumber = invoiceNTB;
+                DateTime DT = DateTime.Now;
+                invoice.Status = InvStat.SavedToPOS;
+                invoice.TimeOfSaving = DT;
+                DbInv.UpdateInvoice(invoice);
                 DbInv.LogAction("Saved", invoice.ID, InvStat.SavedToPOS);
-                PrintOrNot?.Invoke(null, this.invoice);
+                PrintOrNot?.Invoke(null, invoice);
+
+
             }
             else
             {
-                if (MultipleInvoices.Count > 0)
+                if (MultipleInvoices.Count > 1)
                 {
 
-                    foreach (Invoice inv in MultipleInvoices)
-                    {
-                        DbInv.UpdateInvoice(inv.ID, invoiceNTB);
-                        DbInv.LogAction("Multiple Saved", invoice.ID, InvStat.SavedToPOS);
+                    var SavedMultiInvoice = CreateNewListOfItems();
+                    invoice.InvoiceItems.Clear();
+                    invoice.InvoiceItems = SavedMultiInvoice;
+                    invoice.POSInvoiceNumber = invoiceNTB;
+                    invoice.Status = InvStat.SavedToPOS;
+                    invoice.InvoicePrice = SavedMultiInvoice.Sum(x => x.TotalPrice);
+                    DbInv.UpdateInvoice(invoice);
+                    DbInv.LogAction("Multiple Saved Main", invoice.ID, InvStat.SavedToPOS);
 
+
+                    for (int i = 1; i < MultipleInvoices.Count; i++)
+                    {
+                        MultipleInvoices[i].InvoiceItems.Clear();
+                        MultipleInvoices[i].Comment = "فاتورة مجمعة تابعة لرقم: " + invoice.ID;
+                        MultipleInvoices[i].Status = InvStat.Deleted;
+                        MultipleInvoices[i].InvoicePrice = 0;
+                        
+                        DbInv.UpdateInvoice(MultipleInvoices[i]);
+                        DbInv.LogAction($"Multiple Saved in {invoice.ID}", MultipleInvoices[i].ID, InvStat.Deleted);
                     }
                     PrintOrNot?.Invoke(null, MultipleInvoices[0]);
-
+                }else
+                {
+                    SaveInvoiceNumber(true);
                 }
             }
             this.Close();
@@ -380,21 +432,21 @@ namespace OrderForm.SavingandPayment
                 }
                 string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
 
-                if (this.invoice.CustomerName != null)
+                if (invoice.CustomerName != null)
                 {
-                    if (this.invoice.CustomerName.Replace(" ", "") != "")
+                    if (invoice.CustomerName.Replace(" ", "") != "")
                     {
 
-                        AutoItX.ControlSetText(pos, "", POSClientName, this.invoice.CustomerName);
-                        AutoItX.ControlSetText(pos, "", POSPhoneNumber, this.invoice.CustomerNumber);
-                        AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
+                        AutoItX.ControlSetText(pos, "", POSClientName, invoice.CustomerName);
+                        AutoItX.ControlSetText(pos, "", POSPhoneNumber, invoice.CustomerNumber);
+                        AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
 
 
                     }
-                    else AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
+                    else AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
 
                 }
-                else AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.invoice.Comment);
+                else AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
 
             }
             else

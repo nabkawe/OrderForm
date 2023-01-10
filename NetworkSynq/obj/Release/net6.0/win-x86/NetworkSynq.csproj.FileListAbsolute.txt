@@ -31,3 +31,10 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\NetworkSynq.pdb
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\NetworkSynq.genruntimeconfig.cache
 C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\ref\NetworkSynq.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\staticwebassets\msbuild.NetworkSynq.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\staticwebassets\msbuild.build.NetworkSynq.props
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\staticwebassets\msbuild.buildMultiTargeting.NetworkSynq.props
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\staticwebassets\msbuild.buildTransitive.NetworkSynq.props
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\staticwebassets.pack.json
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\staticwebassets.build.json
+C:\Users\Admin\source\repos\nabkawe\OrderForm\NetworkSynq\obj\Release\net6.0\win-x86\staticwebassets.development.json

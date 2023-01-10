@@ -595,6 +595,14 @@ namespace OrderForm
 
         }
 
-
+        internal static void CreatePayment()
+        {
+            using (var db = new LiteDatabase("Filename=\\\\DESKTOP-RRGCFGK\\db\\db.db;Connection=Shared"))
+            {
+                var a =  db.GetCollection<Payment>("PaymentTest");
+                Invoice inv = new Invoice();
+                a.Upsert(new Payment { Name = "Casho", Amount = (decimal)5.05 });
+            }
+        }
     }
 }

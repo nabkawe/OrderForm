@@ -16,17 +16,20 @@ namespace sharedCode
         [Browsable(false)]
         public int ID { get; set; }
 
+        [DisplayName("اسم المادة")]
         public string Name { get; set; }
 
         private int quantity { get; set; }
+        [DisplayName("العدد")]
         public int Quantity
         {
             get { return quantity; }
             set { quantity = value; NotifyPropertyChanged("Quantity"); NotifyPropertyChanged("TotalPrice"); }
 
         }
-
+        [DisplayName("السعر")]
         public decimal Price { get; set; }
+        [DisplayName("الإجمالي")]
         public decimal TotalPrice
         {
             get { return Price * Quantity; }
@@ -48,39 +51,28 @@ namespace sharedCode
 
         [Browsable(false)]
         public string Barcode { get; set; }
-
+        [DisplayName("ملاحظة المادة")]
         private string comment { get; set; }
         public string Comment
         {
             get { return comment; }
             set { comment = value; NotifyPropertyChanged("Comment"); }
-
-
         }
-
         [Browsable(false)]
         public int realquan { get; set; }
-
-
         [Browsable(false)]
         public decimal Tax { get; set; }
-
         [Browsable(false)]
         public string PicturePath { get; set; }
-
         [Browsable(false)]
         public List<string> printerlist = new List<string>();
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         [Browsable(false)]
         public int RealQuantity
         {
             get { return realquan * Quantity; }
             set {; }
         }
-
-
         [Browsable(false)]
         public string PrinterName
         {
@@ -224,7 +216,7 @@ namespace sharedCode
         }
         public WhatsAppShortCut()
         {
-
+            guid = Guid.NewGuid();
         }
     }
 }

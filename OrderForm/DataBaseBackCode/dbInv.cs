@@ -141,8 +141,9 @@ namespace OrderForm
                         }
                     }
 
-                    else {
-                        List<Invoice> list = new  List<Invoice>();
+                    else
+                    {
+                        List<Invoice> list = new List<Invoice>();
                         return list;
                     }
                 }
@@ -205,6 +206,12 @@ namespace OrderForm
                     return d;
                 }
             }
+        }
+        internal static List<Invoice> SearchSavedInvoices(string text)
+        {
+            var Saved = GetAllSavedInvoices();
+            var d = Saved.Where(x => x.Status == InvStat.Printed && x.SearchResult.Contains(text)).OrderBy(i => i.TimeOfInv).ToList();
+            return d;
         }
         public static List<Invoice> GetPrintedInvoices()
         {
@@ -278,6 +285,35 @@ namespace OrderForm
             }
         }
 
+        internal static void UpdateInvoice(Invoice inv)
+        {
+            if (Properties.Settings.Default.API_ACCESS)
+            {
+
+                CultureInfo[] cultures = { new CultureInfo("ar-SA") };
+                DateTime DT = DateTime.Now;
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceSaved");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(inv, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
+
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                {
+                    var updatedInvoices = db.GetCollection<Invoice>("Invoices");
+
+                    updatedInvoices.Update(inv);
+                }
+            }
+        }
         internal static void UpdateDraftInvoice(int iD, bool edit)
         {
 
@@ -592,7 +628,7 @@ namespace OrderForm
                 request.AddParameter("application/json", i, ParameterType.RequestBody);
                 request.AddQueryParameter("status", inv.Status);
                 var response = client.Post(request);
-                return response.IsSuccessStatusCode; 
+                return response.IsSuccessStatusCode;
             }
             else
             {
@@ -898,35 +934,35 @@ namespace OrderForm
             }
         }
 
-        internal static Invoice GetInvoiceByPhoneNumber(string number)
-        {
-            if (Properties.Settings.Default.API_ACCESS)
-            {
-                try
-                {
-                    var c = GetSavedInvoices();
-                    var result = c.Find(x => x.CustomerNumber == number);
-                    if (result == null) return null; else return result;
-                }
-                catch (Exception)
-                {
-                    return null;
+        //internal static GetInvoiceByPhoneNumber(string number)
+        //{
+        //    if (Properties.Settings.Default.API_ACCESS)
+        //    {
+        //        try
+        //        {
+        //            var c = GetSavedInvoices();
+        //            var result = c.Find(x => x.CustomerNumber == number);
+        //            if (result == null) return null; else return result;
+        //        }
+        //        catch (Exception)
+        //        {
+        //            return null;
 
-                }
+        //        }
 
-            }
-            else
-            {
-                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-                {
-                    var Invoices = db.GetCollection<Invoice>("Invoices");
-                    var c = Invoices.Find(x => x.CustomerNumber.Contains(number));
-                    var b = c.ToList();
-                    if (b[0] == null) return null; else return b[0];
-                }
+        //    }
+        //    else
+        //    {
+        //        using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+        //        {
+        //            var Invoices = db.GetCollection<Invoice>("Invoices");
+        //            var c = Invoices.Find(x => x.CustomerNumber.Contains(number));
+        //            var b = c.ToList();
+        //            if (b[0] == null) return null; else return b[0];
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
         internal static void DeleteAllEmptyDrafts()
         {

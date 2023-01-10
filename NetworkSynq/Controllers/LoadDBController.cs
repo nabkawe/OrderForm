@@ -23,7 +23,7 @@ namespace NetworkSynq.Controllers
         static readonly LiteDatabase db = new(DBConnection);
         static readonly string LogFile = @"C:\db";
 
-        private void LogMyAPI (string text)
+        private static void LogMyAPI (string text)
         {
             try
             {
@@ -80,14 +80,22 @@ namespace NetworkSynq.Controllers
                 var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted);
                 var d = draftInv.OrderByDescending(i => Convert.ToInt32(i.IDstring)).ToList();
                 return Ok(d);
-
             }
             else if (inv == "draft")
             {
                 var d = draft.Query().Where(x => x.Status == InvStat.Draft && x.InvoiceItems.Count > 0).Limit(100).ToList();
                 return Ok(d);
             }
-            else return NoContent();
+            else
+            {
+                 
+                {
+                    var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x=>x.SearchResult.Contains(inv));
+                    var d = draftInv.OrderByDescending(i => Convert.ToInt32(i.IDstring)).ToList();
+                    return Ok(d);
+                }
+            }
+            
         }
 
         [HttpGet]

@@ -189,3 +189,4 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.Wh
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\DisplayMenu.exe
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\DisplayMenu.pdb
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\DisplayMenu.exe.config
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.MyReport.resources
