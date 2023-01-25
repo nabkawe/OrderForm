@@ -4,11 +4,7 @@ using sharedCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Media3D;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace OrderForm
@@ -599,7 +595,7 @@ namespace OrderForm
         {
             using (var db = new LiteDatabase("Filename=\\\\DESKTOP-RRGCFGK\\db\\db.db;Connection=Shared"))
             {
-                var a =  db.GetCollection<Payment>("PaymentTest");
+                var a = db.GetCollection<Payment>("PaymentTest");
                 Invoice inv = new Invoice();
                 a.Upsert(new Payment { Name = "Casho", Amount = (decimal)5.05 });
             }

@@ -158,5 +158,14 @@
     <Setting Name="API_Connection" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="ItemSize" Type="System.Windows.Size" Scope="User">
+      <Value Profile="(Default)">200,222</Value>
+    </Setting>
+    <Setting Name="RestaurantName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Logo" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

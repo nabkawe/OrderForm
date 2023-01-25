@@ -1,7 +1,6 @@
 ﻿using sharedCode;
 using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
 using System.Windows.Forms;
 namespace OrderForm
 {
@@ -28,7 +27,7 @@ namespace OrderForm
 
         private void AddNoteBTN_Click_1(object sender, EventArgs e)
         {
-            if (noteRB.Text.Replace(" ", "") != "" && shortTB.Text.Replace(" ","") != "")
+            if (noteRB.Text.Replace(" ", "") != "" && shortTB.Text.Replace(" ", "") != "")
             {
                 WhatsAppShortCut whatsAppShortCut = new WhatsAppShortCut();
                 whatsAppShortCut.Shortcut = shortTB.Text;
@@ -49,7 +48,7 @@ namespace OrderForm
             if (noteList.Items.Count > 0 && noteList.SelectedIndex != -1)
             {
                 noteList.Items.Remove(noteList.SelectedItem);
-                                            }
+            }
             this.shortTB.Select();
 
         }
@@ -114,12 +113,13 @@ namespace OrderForm
         {
             if ((noteList.Items.Count > 0) && (noteList.SelectedIndex != -1))
             {
-                if (repeatedBehavior.AreYouSure("سوف يتم حذف الرسالة و إعادة إضافتها بعد أن تقوم بتعديلها.", "هل تريد تعديل الإختصار؟")){
+                if (repeatedBehavior.AreYouSure("سوف يتم حذف الرسالة و إعادة إضافتها بعد أن تقوم بتعديلها.", "هل تريد تعديل الإختصار؟"))
+                {
 
-                var edit = (WhatsAppShortCut)noteList.SelectedItem;
-                shortTB.Text = edit.Shortcut ;
-                noteRB.Text = edit.Details;
-                noteList.Items.Remove(noteList.SelectedItem);
+                    var edit = (WhatsAppShortCut)noteList.SelectedItem;
+                    shortTB.Text = edit.Shortcut;
+                    noteRB.Text = edit.Details;
+                    noteList.Items.Remove(noteList.SelectedItem);
                 }
             }
         }

@@ -2,15 +2,11 @@
 using RestSharp;
 using sharedCode;
 using System;
-using System.Net;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Windows.Forms;
-using System.Windows.Media.Media3D;
-using System.Security.Cryptography.X509Certificates;
-using System.Reflection;
 using System.Net.Http;
+using System.Windows.Forms;
 
 namespace OrderForm
 {
@@ -563,7 +559,7 @@ namespace OrderForm
             }
         }
 
-        public static bool CreatePreparingInvoice(Invoice inv)
+        public static string CreatePreparingInvoice(Invoice inv)
         {
 
             if (Properties.Settings.Default.API_ACCESS)
@@ -571,24 +567,18 @@ namespace OrderForm
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new RestClient(Orders.APIConnection + "/LoadDB/CreateNewInvoice");
                 var request = new RestRequest();
+
                 request.AddHeader("Content-Type", "application/json");
                 request.AddHeader("Accept", "application/json");
                 request.RequestFormat = DataFormat.Json;
                 string i = Newtonsoft.Json.JsonConvert.SerializeObject(inv, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
                 request.AddParameter("application/json", i, ParameterType.RequestBody);
-                var response = client.Post(request);
+                var response = client.PostAsync(request);
 
 
                 if (response != null)
                 {
-                    if (response.Content.ToString() == "true")
-                    {
-                        Console.WriteLine(response.Content.ToString());
-                        {
-                            return true;
-                        }
-                    }
-                    else return false;
+                    return response.Result.Content.ToString();
                 }
                 else throw new HttpRequestException();
 
@@ -600,13 +590,15 @@ namespace OrderForm
                     var invoiceTable = db.GetCollection<Invoice>("Invoices");
                     try
                     {
+                        inv.ID = invoiceTable.Count() + 1;
                         invoiceTable.Insert(inv);
-                        return true;
+                        return inv.IDstring;
                     }
                     catch (Exception)
                     {
-                        // invoiceTable.Update(inv);
-                        return false;
+                        inv.ID = invoiceTable.Count() + 1;
+                        invoiceTable.Insert(inv);
+                        return inv.IDstring;
                     }
                 }
             }

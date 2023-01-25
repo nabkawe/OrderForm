@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dvItems2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.ItemCount = new OrderForm.UnfocusableButton();
             this.unfocusableButton2 = new OrderForm.UnfocusableButton();
             this.Price = new OrderForm.UnfocusableButton();
             this.unfocusableButton3 = new OrderForm.UnfocusableButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.ClientName = new OrderForm.UnfocusableButton();
             this.ClientTitle = new OrderForm.UnfocusableButton();
             this.PhoneTitle = new OrderForm.UnfocusableButton();
@@ -73,7 +73,7 @@
             this.dvItems2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dvItems2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dvItems2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dvItems2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dvItems2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dvItems2.ColumnHeadersHeight = 30;
             this.dvItems2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dvItems2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -85,13 +85,13 @@
             this.dvItems2.MultiSelect = false;
             this.dvItems2.Name = "dvItems2";
             this.dvItems2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems2.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems2.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dvItems2.RowHeadersVisible = false;
             this.dvItems2.RowHeadersWidth = 10;
             this.dvItems2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle12.NullValue = null;
-            this.dvItems2.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.NullValue = null;
+            this.dvItems2.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dvItems2.RowTemplate.Height = 30;
             this.dvItems2.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dvItems2.ScrollBars = System.Windows.Forms.ScrollBars.None;
@@ -115,36 +115,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1004, 177);
             this.panel1.TabIndex = 37;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox1.Image = global::OrderForm.Properties.Resources.Mada;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 869);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1004, 150);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 41;
-            this.pictureBox1.TabStop = false;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.GhostWhite;
-            this.panel2.Controls.Add(this.ClientName);
-            this.panel2.Controls.Add(this.ClientTitle);
-            this.panel2.Controls.Add(this.PhoneTitle);
-            this.panel2.Controls.Add(this.ClientPhone);
-            this.panel2.Controls.Add(this.DateTitle);
-            this.panel2.Controls.Add(this.ClientDate);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 798);
-            this.panel2.Margin = new System.Windows.Forms.Padding(1);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(5);
-            this.panel2.Size = new System.Drawing.Size(1004, 71);
-            this.panel2.TabIndex = 38;
             // 
             // ItemCount
             // 
@@ -203,6 +173,36 @@
             this.unfocusableButton3.TabIndex = 44;
             this.unfocusableButton3.Text = "المبلغ الإجمالي\r\n\r\nTotal Amount";
             this.unfocusableButton3.UseVisualStyleBackColor = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pictureBox1.Image = global::OrderForm.Properties.Resources.Mada;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 869);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1004, 150);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 41;
+            this.pictureBox1.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.GhostWhite;
+            this.panel2.Controls.Add(this.ClientName);
+            this.panel2.Controls.Add(this.ClientTitle);
+            this.panel2.Controls.Add(this.PhoneTitle);
+            this.panel2.Controls.Add(this.ClientPhone);
+            this.panel2.Controls.Add(this.DateTitle);
+            this.panel2.Controls.Add(this.ClientDate);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 798);
+            this.panel2.Margin = new System.Windows.Forms.Padding(1);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(5);
+            this.panel2.Size = new System.Drawing.Size(1004, 71);
+            this.panel2.TabIndex = 38;
             // 
             // ClientName
             // 
@@ -311,8 +311,8 @@
             this.unfocusableButton4.Name = "unfocusableButton4";
             this.unfocusableButton4.Size = new System.Drawing.Size(1004, 93);
             this.unfocusableButton4.TabIndex = 36;
-            this.unfocusableButton4.Text = "Review your order:                                       :مـلـخـص الطـلـب";
-            this.unfocusableButton4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.unfocusableButton4.Text = " :مـلـخـص الطـلـب";
+            this.unfocusableButton4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.unfocusableButton4.UseVisualStyleBackColor = false;
             // 
             // displayOffer
@@ -348,7 +348,6 @@
 
         #endregion
         public System.Windows.Forms.DataGridView dvItems2;
-        private UnfocusableButton unfocusableButton4;
         private System.Windows.Forms.Panel panel1;
         private UnfocusableButton unfocusableButton2;
         private UnfocusableButton unfocusableButton3;
@@ -363,5 +362,6 @@
         private UnfocusableButton ClientTitle;
         private UnfocusableButton Price;
         private UnfocusableButton ItemCount;
+        private UnfocusableButton unfocusableButton4;
     }
 }

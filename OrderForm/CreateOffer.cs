@@ -1,10 +1,10 @@
-﻿using System;
+﻿using sharedCode;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
-using sharedCode;
 
 namespace OrderForm.Custom_Classes
 {
@@ -12,7 +12,7 @@ namespace OrderForm.Custom_Classes
     {
         private static bool clip;
         private static Invoice order;
-        public static Image CreateOfferNow(Invoice inv,bool clipboard)
+        public static Image CreateOfferNow(Invoice inv, bool clipboard)
         {
             order = inv;
             clip = clipboard;
@@ -107,14 +107,25 @@ namespace OrderForm.Custom_Classes
             /// Picture Logic ///
             /// 
 
+            try
+            {
+                var logo = Bitmap.FromFile(Properties.Settings.Default.Logo);
+                e.DrawImage(logo, (offer.Width - (logo.Width / 4)) / 2, y, logo.Width / 4, logo.Height / 4);
+                e.DrawImage(logo, (offer.Width - (logo.Width / 4)) / 2, y, logo.Width / 4, logo.Height / 4);
+                e.DrawString(DateTime.Now.ToString("hh:mmtt- dd/MM/yy") + Environment.NewLine + "السعر صالح لغاية استلام الطلب", tfnt, drawBrush, new RectangleF(x, y, width + 40, height), drawFormatRight);
+                e.DrawString("عرض سعر", fnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
 
-            var logo = Properties.Resources.logo;
-            e.DrawImage(logo, (offer.Width - (logo.Width / 4)) / 2, y, logo.Width / 4, logo.Height / 4);
-            e.DrawString(DateTime.Now.ToString("hh:mmtt- dd/MM/yy") + Environment.NewLine + "السعر صالح لغاية استلام الطلب", tfnt, drawBrush, new RectangleF(x, y, width + 40, height), drawFormatRight);
-            e.DrawString("عرض سعر", fnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
+                y += logo.Height / 4 + 50;
+                e.DrawString(Properties.Settings.Default.BranchName, lfnt, drawBrush, new RectangleF(x, y - 100, width, height), drawFormatLeft); ;
 
-            y += logo.Height / 4 + 50;
-            e.DrawString(Properties.Settings.Default.BranchName, lfnt, drawBrush, new RectangleF(x, y - 100, width, height), drawFormatLeft); ;
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
 
 
 
@@ -229,7 +240,7 @@ namespace OrderForm.Custom_Classes
                         e.DrawLine(pen, new Point(500, Convert.ToInt32(y)), new Point(750, Convert.ToInt32(y)));
                         y += 1;
                         rectangleF = new RectangleF(x, y, width, height);
-                        string comment = item.Comment;
+                        string comment = RtlMark + item.Comment;
                         e.DrawString(comment, cfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
                         y += e.MeasureString(comment, cfnt).Height;
                     }
@@ -272,7 +283,7 @@ namespace OrderForm.Custom_Classes
             var p = new PictureBox();
             p.Image = a;
             if (clip) { System.Windows.Forms.Clipboard.SetImage(p.Image); }
-            
+
             //Console.Beep(1000, 100);
             return a;
         }

@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using RestSharp;
 using sharedCode;
 using System;
@@ -12,8 +12,6 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Runtime.Remoting.Messaging;
-using System.Text.Json;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -87,12 +85,13 @@ namespace OrderForm
         {
             if (sList.SelectedIndex >= 0)
             {
-                if (repeatedBehavior.AreYouSure("لن تتمكن من التراجع عن الحذف، هل أنت متأكد من رغبتك في حذف القسم؟", "هل تريد حذف قسم المواد؟")){
-                List<POSItems> a = dbQ.LoadMaterialItems().FindAll(x => x.SectionName == sList.SelectedItem.ToString());
-                a.ForEach(x => x.SectionName = "بدون قسم");
-                dbQ.DeleteItemSections(a);
-                sList.Items.RemoveAt(sList.SelectedIndex);
-                listGB.Text = $"المجموعة:";
+                if (repeatedBehavior.AreYouSure("لن تتمكن من التراجع عن الحذف، هل أنت متأكد من رغبتك في حذف القسم؟", "هل تريد حذف قسم المواد؟"))
+                {
+                    List<POSItems> a = dbQ.LoadMaterialItems().FindAll(x => x.SectionName == sList.SelectedItem.ToString());
+                    a.ForEach(x => x.SectionName = "بدون قسم");
+                    dbQ.DeleteItemSections(a);
+                    sList.Items.RemoveAt(sList.SelectedIndex);
+                    listGB.Text = $"المجموعة:";
                 }
             }
         }
@@ -219,8 +218,11 @@ namespace OrderForm
             WheelCheck.Checked = Properties.Settings.Default.WheelEnabled;
             WheelGridCheck.Checked = Properties.Settings.Default.WheelGridEnabled;
             LoadFile.FileName = Properties.Settings.Default.API_Server_Path;
-            ipTB.Text = Properties.Settings.Default.API_Connection; 
-
+            ipTB.Text = Properties.Settings.Default.API_Connection;
+            ItemW.Text = Properties.Settings.Default.ItemSize.Width.ToString();
+            ItemH.Text = Properties.Settings.Default.ItemSize.Height.ToString();
+            RestTB.Text = Properties.Settings.Default.RestaurantName;
+            logoTB.Text = Properties.Settings.Default.Logo;
             GetFonts();
             comboBox1.Text = Properties.Settings.Default.FontCombo;
             APICheck.Checked = Properties.Settings.Default.API_ACCESS;
@@ -636,6 +638,22 @@ namespace OrderForm
             Properties.Settings.Default.API_ACCESS = APICheck.Checked;
             Properties.Settings.Default.API_Server_Path = LoadFile.FileName;
             Properties.Settings.Default.API_Connection = ipTB.Text;
+            Properties.Settings.Default.RestaurantName = RestTB.Text;
+            Properties.Settings.Default.Logo = logoTB.Text;
+
+            if (ItemW.Text != null && ItemH.Text != null)
+            {
+                ItemW.Text = new String(ItemW.Text.Where(Char.IsDigit).ToArray());
+                ItemH.Text = new String(ItemH.Text.Where(Char.IsDigit).ToArray());
+                if (Convert.ToInt32(ItemW.Text) > 0 && Convert.ToInt32(ItemH.Text) > 0)
+                {
+                    Properties.Settings.Default.ItemSize = new System.Windows.Size() { Width = Convert.ToInt32(ItemW.Text), Height = Convert.ToInt32(ItemH.Text) };
+                }
+
+            }
+
+
+
             Orders.APIConnection = ipTB.Text;
             Properties.Settings.Default.Save();
         }
@@ -831,7 +849,7 @@ namespace OrderForm
 
         private void SaveAndUpdateMat_Click(object sender, EventArgs e)
         {
-         
+
             dbQ.SaveOrUpdateItems(MAT.ToList());
 
         }
@@ -905,18 +923,18 @@ namespace OrderForm
         {
             if (SectionsName.Text != "NoMenu")
             {
-                    MenuItemsX m = new MenuItemsX()
-                    {
-                        Name = MnameTB.Text,
-                        EnName = EnMnameTB.Text,
-                        EnDetails = EnMdetails.Text,
-                        Barcode = MBarcode.Text,
-                        ImagePath = Mpath.Text,
-                        Price = MPrice.Text,
-                        Details = Mdetails.Text,
-                        Cal = Mcal.Text,
-                        Available = Availables.Checked
-                    };
+                MenuItemsX m = new MenuItemsX()
+                {
+                    Name = MnameTB.Text,
+                    EnName = EnMnameTB.Text,
+                    EnDetails = EnMdetails.Text,
+                    Barcode = MBarcode.Text,
+                    ImagePath = Mpath.Text,
+                    Price = MPrice.Text,
+                    Details = Mdetails.Text,
+                    Cal = Mcal.Text,
+                    Available = Availables.Checked
+                };
                 MenuItemZ M = new MenuItemZ();
                 M.Name = m.Name;
                 M.items.Add(m);
@@ -929,7 +947,7 @@ namespace OrderForm
                 EnMdetails.Clear();
                 Mcal.Clear();
                 Mpath.Clear();
-                
+
             }
         }
 
@@ -966,8 +984,8 @@ namespace OrderForm
             {
                 var M = new MenuItemZ();
                 MultiLB.Items.Cast<MenuItemsX>().ToList().ForEach(x => { M.items.Add(x); });
-                              
-                
+
+
                 MenuLB.Items.Add(M);
             }
         }
@@ -1002,7 +1020,7 @@ namespace OrderForm
             {
                 SectionsName.Text = "NoMenu";
             }
-            
+
 
         }
         private void LoadMenuSectionToEdit(string text)
@@ -1055,9 +1073,9 @@ namespace OrderForm
                         MenuLB.Items.Remove(MenuLB.Items[MenuLB.SelectedIndex]);
                     }
                 }
-                else 
+                else
                 {
-                    
+
                     MultiLB.Items.Clear();
                     M.items.ForEach(x => MultiLB.Items.Add(x));
                     SaveMulti.Enabled = true;
@@ -1248,14 +1266,15 @@ namespace OrderForm
 
         private void SaveMulti_Click(object sender, EventArgs e)
         {
-            if (MenuLB.SelectedItems.Count > 0) { 
-            SaveMulti.Enabled = false;
-            AddMultiItem.Enabled = true;
-            var M = new MenuItemZ();
-            MultiLB.Items.Cast<MenuItemsX>().ToList().ForEach(x => { M.items.Add(x); });
-            M.Name = M.NameToShow;
-            MenuLB.Items[MenuLB.SelectedIndex] = M;
-            MultiLB.Items.Clear();
+            if (MenuLB.SelectedItems.Count > 0)
+            {
+                SaveMulti.Enabled = false;
+                AddMultiItem.Enabled = true;
+                var M = new MenuItemZ();
+                MultiLB.Items.Cast<MenuItemsX>().ToList().ForEach(x => { M.items.Add(x); });
+                M.Name = M.NameToShow;
+                MenuLB.Items[MenuLB.SelectedIndex] = M;
+                MultiLB.Items.Clear();
             }
             else { MessageBox.Show("قم بإختيار المجموعة التي تريد تحديثها قبل محاولة الحفظ "); }
         }
@@ -1302,7 +1321,7 @@ namespace OrderForm
             {
                 ipTB.Text = "http://" + GetLocalIPAddress() + ":5000";
 
-                var appSettingsPath = Path.Combine(LoadFile.FileName.Replace("NetworkSynq.exe",""), "appsettings.json");
+                var appSettingsPath = Path.Combine(LoadFile.FileName.Replace("NetworkSynq.exe", ""), "appsettings.json");
                 var json = File.ReadAllText(appSettingsPath);
                 var jsonSettings = new JsonSerializerSettings();
                 jsonSettings.Converters.Add(new ExpandoObjectConverter());
@@ -1315,7 +1334,7 @@ namespace OrderForm
                 File.WriteAllText(appSettingsPath, newJson);
 
             }
-            if (repeatedBehavior.AreYouSure("يجب إعادة تشغيل البرنامج للانتقال لوضع السيرفر","متأكد؟"))
+            if (repeatedBehavior.AreYouSure("يجب إعادة تشغيل البرنامج للانتقال لوضع السيرفر", "متأكد؟"))
             {
                 Properties.Settings.Default.API_ACCESS = true;
                 Properties.Settings.Default.Save();
@@ -1327,12 +1346,12 @@ namespace OrderForm
         {
             string host = Dns.GetHostName();
             IPHostEntry ip = Dns.GetHostEntry(host);
-               {
+            {
 
                 BackgroundWorker bw = new BackgroundWorker();
                 bw.DoWork += Bw_DoWork;
                 bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
-                
+
                 bw.WorkerReportsProgress = true;
                 bw.RunWorkerAsync();
                 ipTB.ForeColor = Color.Red;
@@ -1353,7 +1372,7 @@ namespace OrderForm
                 if (scanForAPI(NetworkIP + i.ToString()))
                 {
                     Console.WriteLine(i);
-                    e.Result =  NetworkIP + i.ToString();
+                    e.Result = NetworkIP + i.ToString();
                     return;
                 }
             }
@@ -1362,15 +1381,15 @@ namespace OrderForm
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-         
+
             ipTB.Text = "http://" + e.Result + ":5000";
             ipTB.ForeColor = Color.Green;
-            
+
         }
 
         private bool scanForAPI(string ip)
         {
-            
+
             try
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -1378,7 +1397,7 @@ namespace OrderForm
                 var request = new RestRequest();
                 request.Timeout = 2000;
                 var response = client.Get(request);
-                if (response != null) { return true; }else{ return false; }
+                if (response != null) { return true; } else { return false; }
             }
             catch (Exception)
             {
@@ -1386,7 +1405,7 @@ namespace OrderForm
 
                 return false;
             }
-            
+
 
         }
 
@@ -1400,16 +1419,18 @@ namespace OrderForm
             if (EthernetNetwork != "")
             {
                 return EthernetNetwork;
-            }else if (WifiNetwork != "")
+            }
+            else if (WifiNetwork != "")
             {
                 return WifiNetwork;
-            }else
+            }
+            else
             {
                 throw new Exception("لم يتم العثور على أي شبكة محلية الرجاء الإتصال بنفس الشبكة المحلية التي يتصل عليها السيرفر");
             }
-            
-                
-                
+
+
+
         }
 
         private void SettingsPage_Load(object sender, EventArgs e)
@@ -1477,6 +1498,11 @@ namespace OrderForm
         {
             string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             Mpath.Text = filePaths[0];
+        }
+
+        private void groupBox11_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -2,7 +2,6 @@
 using sharedCode;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -102,7 +101,7 @@ namespace OrderForm.SavingandPayment
             {
                 Orders.MenuShowing = true;
 
-                displayOffer.showme(invoice.CustomerName, invoice.CustomerNumber, invoice.TimeinArabic + " | " + Orders.GetDayName((int)invoice.InvoiceDay),invoice);
+                displayOffer.showme(invoice.CustomerName, invoice.CustomerNumber, invoice.TimeinArabic + " | " + Orders.GetDayName((int)invoice.InvoiceDay), invoice);
                 this.Activate();
             }
         }
@@ -325,17 +324,24 @@ namespace OrderForm.SavingandPayment
 
                 }
                 invoice.Payments.Clear();
-                
-                if (c != 0){
+
+                if (c != 0)
+                {
                     var payment = new Payment() { Name = "Cash", Amount = invoice.InvoicePrice };
                     invoice.Payments.Add(payment);
-                } if (m1 != 0){
+                }
+                if (m1 != 0)
+                {
                     var payment = new Payment() { Name = "Mada", Amount = invoice.InvoicePrice };
                     invoice.Payments.Add(payment);
-                }                if (m2 != 0){
+                }
+                if (m2 != 0)
+                {
                     var payment = new Payment() { Name = "Mada", Amount = invoice.InvoicePrice };
                     invoice.Payments.Add(payment);
-                }               if (m3 != 0){
+                }
+                if (m3 != 0)
+                {
                     var payment = new Payment() { Name = "Mada", Amount = invoice.InvoicePrice };
                     invoice.Payments.Add(payment);
                 }
@@ -359,7 +365,7 @@ namespace OrderForm.SavingandPayment
         private void SaveInvoiceNumber(bool single)
         {
             string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
-            if (!Properties.Settings.Default.TestingMode||!ModifierKeys.HasFlag(Keys.RShiftKey)) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
+            if (!Properties.Settings.Default.TestingMode || !ModifierKeys.HasFlag(Keys.RShiftKey)) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
 
             if (single)
             {
@@ -378,12 +384,12 @@ namespace OrderForm.SavingandPayment
                 if (MultipleInvoices.Count > 1)
                 {
 
-                    var SavedMultiInvoice = CreateNewListOfItems();
+
                     invoice.InvoiceItems.Clear();
-                    invoice.InvoiceItems = SavedMultiInvoice;
+                    CreateNewListOfItems().ForEach(x => invoice.InvoiceItems.Add(x));
                     invoice.POSInvoiceNumber = invoiceNTB;
                     invoice.Status = InvStat.SavedToPOS;
-                    invoice.InvoicePrice = SavedMultiInvoice.Sum(x => x.TotalPrice);
+                    invoice.InvoicePrice = invoice.InvoiceItems.Sum(x => x.TotalPrice);
                     DbInv.UpdateInvoice(invoice);
                     DbInv.LogAction("Multiple Saved Main", invoice.ID, InvStat.SavedToPOS);
 
@@ -394,12 +400,13 @@ namespace OrderForm.SavingandPayment
                         MultipleInvoices[i].Comment = "فاتورة مجمعة تابعة لرقم: " + invoice.ID;
                         MultipleInvoices[i].Status = InvStat.Deleted;
                         MultipleInvoices[i].InvoicePrice = 0;
-                        
+
                         DbInv.UpdateInvoice(MultipleInvoices[i]);
                         DbInv.LogAction($"Multiple Saved in {invoice.ID}", MultipleInvoices[i].ID, InvStat.Deleted);
                     }
                     PrintOrNot?.Invoke(null, MultipleInvoices[0]);
-                }else
+                }
+                else
                 {
                     SaveInvoiceNumber(true);
                 }
@@ -782,10 +789,10 @@ namespace OrderForm.SavingandPayment
             else PartCash_.Text = PartCash_.Text.Replace("-", "");
 
         }
-    
+
         private void PaymentOptions_Load(object sender, EventArgs e)
         {
-     
+
 
             if (Properties.Settings.Default.CloseWindow)
             {
@@ -793,11 +800,11 @@ namespace OrderForm.SavingandPayment
                 {
                     AutoItX.WinClose(pos, "");
                 }
-                
-                
-                
+
+
+
             }
-            
+
         }
         string invoice_price;
 
@@ -832,7 +839,7 @@ namespace OrderForm.SavingandPayment
             textBox1.Text = "0.5";
         }
 
-    
+
 
         private void Btn50_Click(object sender, EventArgs e)
         {

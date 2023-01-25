@@ -9,25 +9,71 @@ using System.Linq.Expressions;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace NetworkSynq.Controllers
 {
 
     [ApiController]
     [Route("[controller]")]
-
     public class LoadDBController : ControllerBase
     {
         static readonly IConfiguration conf = (new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
         private readonly static string DBConnection = conf["ConnectionString"].ToString();
-        static readonly LiteDatabase db = new(DBConnection);
+        public static readonly LiteDatabase db = new(DBConnection);
         static readonly string LogFile = @"C:\db";
 
-        private static void LogMyAPI (string text)
+
+
+        [HttpGet]
+        [Route("AreYouAlive")]
+        public ActionResult Alive()
+        {
+            Console.Write("Yes,I'm Alive");
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("InvoiceCount")]
+        public ActionResult<int> InvoiceCount()
+        {
+            LogMyAPI("Getting Invoice Count");
+            try
+            {
+                var s = db.GetCollection<Invoice>("Invoices");
+                int S = s.Max(x => x.ID);
+                if (S == 0)
+                {
+                    return Ok(1);
+                }
+                else return Ok(S);
+
+            }
+            catch (Exception ex)
+            {
+                LogMyAPI(ex.Message);
+
+                var s = db.GetCollection<Invoice>("Invoices");
+                if (s.Count() != 0)
+                {
+                    int S = s.Max(x => x.ID);
+                    return Ok(S);
+                }
+                else return Ok(1);
+
+            }
+
+
+        }
+
+
+        private static void LogMyAPI(string text)
         {
             try
             {
-                using (System.IO.StreamWriter w = new System.IO.StreamWriter(LogFile + @"\log.text",true))
+                using (System.IO.StreamWriter w = new System.IO.StreamWriter(LogFile + @"\log.text", true))
                 {
                     w.WriteLine(text);
                 }
@@ -88,14 +134,14 @@ namespace NetworkSynq.Controllers
             }
             else
             {
-                 
+
                 {
-                    var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x=>x.SearchResult.Contains(inv));
+                    var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x => x.SearchResult.Contains(inv));
                     var d = draftInv.OrderByDescending(i => Convert.ToInt32(i.IDstring)).ToList();
                     return Ok(d);
                 }
             }
-            
+
         }
 
         [HttpGet]
@@ -140,19 +186,6 @@ namespace NetworkSynq.Controllers
 
         }
 
-        [HttpPost]
-        [Route("SaveWhatsappShortcut")]
-        public ActionResult SaveWhatsappShortcut([FromBody] List<WhatsAppShortCut> list)
-        {
-            LogMyAPI("Saving Whatsapp Shortcuts");
-            var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
-            cuts.DeleteAll();
-
-            list.ForEach(x => cuts.Upsert(x));
-
-            return Ok();
-        }
-
 
         [HttpGet]
         [Route("GetDepartments")]
@@ -187,6 +220,32 @@ namespace NetworkSynq.Controllers
             return items;
 
         }
+
+        [HttpGet]
+        [Route("LoadContacts")]
+        public ActionResult<Contacts> LoadContacts(string number)
+        {
+            LogMyAPI("loading Contact");
+            var con = db.GetCollection<Contacts>("Customers");
+            Contacts Contact = con.FindOne(x => x.Number == number);
+            return Contact;
+        }
+
+
+
+        [HttpPost]
+        [Route("SaveWhatsappShortcut")]
+        public ActionResult SaveWhatsappShortcut([FromBody] List<WhatsAppShortCut> list)
+        {
+            LogMyAPI("Saving Whatsapp Shortcuts");
+            var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
+            cuts.DeleteAll();
+
+            list.ForEach(x => cuts.Upsert(x));
+
+            return Ok();
+        }
+
 
 
         [HttpPost]
@@ -238,7 +297,7 @@ namespace NetworkSynq.Controllers
 
         [HttpPost]
         [Route("UpdateInvoiceDraft")] // to Saved.
-        public ActionResult<string> CreateDraftInvoice([FromBody] Invoice inv,string status)
+        public ActionResult<string> CreateDraftInvoice([FromBody] Invoice inv, string status)
         {
 
 
@@ -301,33 +360,25 @@ namespace NetworkSynq.Controllers
             return Ok(true);
         }
 
-        [HttpGet]
-        [Route("LoadContacts")]
-        public ActionResult<Contacts> LoadContacts(string number)
-        {
-            LogMyAPI("loading Contact");
-            var con = db.GetCollection<Contacts>("Customers");
-            Contacts Contact = con.FindOne(x => x.Number == number);
-            return Contact;
-        }
-
         [HttpPost]
         [Route("CreateNewInvoice")]
-        public ActionResult<bool> CreateNewInvoice([FromBody] Invoice inv)
+        public ActionResult<string> CreateNewInvoice([FromBody] Invoice inv)
         {
             {
                 LogMyAPI("Creating New Invoice");
                 var invoiceTable = db.GetCollection<Invoice>("Invoices");
                 try
                 {
-                    invoiceTable.Insert(inv);
-                    return Ok(true);
+                    inv.ID = invoiceTable.Count() + 1;
+                    return Ok(invoiceTable.Insert(inv).ToString());
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // invoiceTable.Update(inv);
-                    return Ok(false);
+                    LogMyAPI(ex.Message + ex.Source + "error at Create New Invoice");
+                    inv.ID = invoiceTable.Count() + 1;
+                    return  Ok(invoiceTable.Insert(inv).ToString());
                 }
+
             }
 
         }
@@ -388,7 +439,7 @@ namespace NetworkSynq.Controllers
         [Route("UpdateSectionMaterials")]
         public ActionResult UpdateSectionMaterials([FromBody] List<POSItems> list, [FromQuery] string section)
         {
-            LogMyAPI("Updating materials in section "+ section);
+            LogMyAPI("Updating materials in section " + section);
             var materials = db.GetCollection<POSItems>("Materials");
             materials.Find(x => x.SectionName == section).ToList().ForEach(x => { x.SectionName = "ÈÏæä ÞÓã"; materials.Update(x); });
             list.ForEach(x => { order += 1; x.order = order; x.SectionName = section; materials.Update(x); });
@@ -433,49 +484,19 @@ namespace NetworkSynq.Controllers
             var mat = db.GetCollection<POSItems>("Materials");
             var deleted = mat.FindAll().Except(list);
             deleted.ToList().ForEach(x => mat.Delete(x.ID));
-            list.ForEach(x => mat.Upsert(x));
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("AreYouAlive")]
-        public ActionResult Alive()
-        {
-            Console.Write("Yes,I'm Alive");
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("InvoiceCount")]
-        public ActionResult<int> InvoiceCount()
-        {
-            LogMyAPI("Getting Invoice Count");
             try
             {
-
-                var s = db.GetCollection<Invoice>("Invoices");
-                int S = s.Max(x => x.ID);
-                if (S == 0)
-                {
-                    return Ok(1);
-                }
-                else return Ok(S);
 
             }
             catch (Exception)
             {
-                var s = db.GetCollection<Invoice>("Invoices");
-                if (s.Count() != 0)
-                {
-                    int S = s.Max(x => x.ID);
-                    return Ok(S);
-                }
-                else return Ok(1);
 
+                throw;
             }
-
-
+            list.ForEach(x => mat.Upsert(x));
+            return Ok();
         }
+
 
 
     }

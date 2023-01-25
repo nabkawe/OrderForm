@@ -1,9 +1,9 @@
-﻿using System;
+﻿using sharedCode;
+using System;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
-using sharedCode;
 namespace OrderForm
 {
     public static class PrintInvoice
@@ -60,11 +60,11 @@ namespace OrderForm
 
             // الخطوط الافتراضية
             string FntName = Properties.Settings.Default.FontCombo;
-             Font fnt = new Font(FntName, Properties.Settings.Default.Fnt, FontStyle.Bold); 
-            if (Orders.CurrentList.Count <= 17) {  fnt = new Font(FntName, Properties.Settings.Default.Fnt, FontStyle.Bold); }
-            else if (Orders.CurrentList.Count <= 25 ) {  fnt = new Font(FntName, Properties.Settings.Default.Fnt -4 , FontStyle.Bold); }
-            else if (Orders.CurrentList.Count <= 35 ) {  fnt = new Font(FntName, Properties.Settings.Default.Fnt -6 , FontStyle.Bold); }
-            else if (Orders.CurrentList.Count <= 60 ) {  fnt = new Font(FntName, Properties.Settings.Default.Fnt -12 , FontStyle.Bold); }
+            Font fnt = new Font(FntName, Properties.Settings.Default.Fnt, FontStyle.Bold);
+            if (Orders.CurrentList.Count <= 17) { fnt = new Font(FntName, Properties.Settings.Default.Fnt, FontStyle.Bold); }
+            else if (Orders.CurrentList.Count <= 25) { fnt = new Font(FntName, Properties.Settings.Default.Fnt - 4, FontStyle.Bold); }
+            else if (Orders.CurrentList.Count <= 35) { fnt = new Font(FntName, Properties.Settings.Default.Fnt - 6, FontStyle.Bold); }
+            else if (Orders.CurrentList.Count <= 60) { fnt = new Font(FntName, Properties.Settings.Default.Fnt - 12, FontStyle.Bold); }
 
 
             Font tfnt = new Font(FntName, 7, FontStyle.Bold);
@@ -239,7 +239,7 @@ namespace OrderForm
                 e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
             }
             y += 70;
-            e.Graphics.DrawString("مطعم سحائب طيبة  " + Properties.Settings.Default.BranchName, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
+            e.Graphics.DrawString(Properties.Settings.Default.RestaurantName + Properties.Settings.Default.BranchName, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
         }
     }
     public static class PrintInvoiceReady

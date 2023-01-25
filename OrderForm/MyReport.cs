@@ -1,13 +1,8 @@
 ﻿using sharedCode;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Configuration;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -123,8 +118,10 @@ namespace OrderForm
 
                     }
                 }
-                else { list.Add(x.PaymentName);
-                    TotalPayments.Add(new Payment() {Name= x.PaymentName, Amount= x.InvoicePrice  });
+                else
+                {
+                    list.Add(x.PaymentName);
+                    TotalPayments.Add(new Payment() { Name = x.PaymentName, Amount = x.InvoicePrice });
                 }
             }
             );
@@ -134,11 +131,11 @@ namespace OrderForm
             dv.ForEach(x => x.Payments.ForEach(y => TotalPayments.Add(y)));
             foreach (var item in PayMethods)
             {
-                var tb = (TextBox)PaymentMethods.Controls.Find(item,false).First(); 
-                    tb.Text = item.Replace("_"," ") + ": " + TotalPayments.Where(x => x.Name == item).Sum(z=> z.Amount).ToString();
-               
+                var tb = (TextBox)PaymentMethods.Controls.Find(item, false).First();
+                tb.Text = item.Replace("_", " ") + ": " + TotalPayments.Where(x => x.Name == item).Sum(z => z.Amount).ToString();
+
             }
-            
+
             totalSales.SendToBack();
 
         }

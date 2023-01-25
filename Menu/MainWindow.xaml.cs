@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,7 +38,7 @@ namespace OrderForm
         public string CurrentMenu;
 
 
-        public async Task LaunchMenu(List<MenuItemZ> list, string CurrentMenuIn,bool langs)
+        public async Task LaunchMenu(List<MenuItemZ> list, string CurrentMenuIn, bool langs, [Optional] System.Windows.Size ItemSize )
         {
 
             try
@@ -58,6 +59,8 @@ namespace OrderForm
                 {
                     
                     NewFood foodItem = new NewFood(item) ;
+                    if (ItemSize.Width > 0) { foodItem.Width = ItemSize.Width; foodItem.Height = ItemSize.Height; }
+                    
 
                     FoodItemZ.Add(foodItem);
                 }

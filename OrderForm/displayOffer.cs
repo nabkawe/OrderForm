@@ -1,11 +1,7 @@
 ﻿using sharedCode;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.Adapters;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -19,6 +15,7 @@ namespace OrderForm
         {
             InitializeComponent();
             TimeUp += DisplayOffer_TimeUp;
+            unfocusableButton4.BackgroundImage = Bitmap.FromFile(Properties.Settings.Default.Logo);
         }
 
 
@@ -31,9 +28,9 @@ namespace OrderForm
             var Show = new displayOffer();
             Show.timer1.Start();
             Show.timer1.Tick += Show.T_Tick;
-            if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; }
-            if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; }
-            if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; }
+            if (ClientDate != null) { if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; } }
+            if (ClientName != null) { if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; } }
+            if (ClientPhone != null) { if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; } }
             Show.Show();
             Show.POS_ListChanged(null, null);
 
@@ -47,7 +44,7 @@ namespace OrderForm
             Show.timer1.Tick += Show.T_Tick;
             if (ClientDate != null) { if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; } }
             if (ClientName != null) { if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; } }
-            if (ClientPhone != null){ if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; } }
+            if (ClientPhone != null) { if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; } }
             Show.Show();
             Show.POS_ListChanged(null, null);
             Show.dvItems2.DataSource = inv.InvoiceItems;
@@ -83,6 +80,7 @@ namespace OrderForm
                 this.pictureBox1.Height += 300;
                 this.dvItems2.Height += 350;
             }
+            else { this.pictureBox1.Height += 300; }
             dvItems2.DataSource = Orders.POS;
             Orders.POS.ListChanged += POS_ListChanged;
             var cellstyleMaterial = new DataGridViewCellStyle
