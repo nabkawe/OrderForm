@@ -77,6 +77,9 @@
             this.button11 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.INVBTN.SuspendLayout();
             this.SuspendLayout();
             // 
             // CashBTN
@@ -573,6 +576,7 @@
             // 
             // INVBTN
             // 
+            this.INVBTN.Controls.Add(this.panel2);
             this.INVBTN.Location = new System.Drawing.Point(13, 12);
             this.INVBTN.Name = "INVBTN";
             this.INVBTN.Size = new System.Drawing.Size(235, 195);
@@ -765,6 +769,24 @@
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(13, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(235, 195);
+            this.panel1.TabIndex = 39;
+            this.panel1.Click += new System.EventHandler(this.panel1_Click);
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(235, 195);
+            this.panel2.TabIndex = 39;
+            this.panel2.Click += new System.EventHandler(this.panel1_Click);
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
             // PaymentOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -783,6 +805,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button6);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.INVBTN);
             this.Controls.Add(this.paidLBL);
             this.Controls.Add(this.lblPay);
@@ -820,6 +843,8 @@
             this.Controls.Add(this.MadaBTN);
             this.Controls.Add(this.ManualBTN);
             this.Controls.Add(this.CashBTN);
+            this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.KeyPreview = true;
             this.Location = new System.Drawing.Point(1254, 3);
             this.MaximizeBox = false;
@@ -832,8 +857,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "كيف تريد تخزين الفاتورة";
             this.TopMost = true;
+            this.TransparencyKey = System.Drawing.Color.Orange;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PaymentOptions_FormClosing);
             this.Load += new System.EventHandler(this.PaymentOptions_Load);
+            this.INVBTN.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -890,5 +917,7 @@
         private System.Windows.Forms.Button button11;
         public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

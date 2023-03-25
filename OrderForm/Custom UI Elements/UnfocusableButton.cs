@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing.Drawing2D;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace OrderForm
 {
@@ -9,12 +11,14 @@ namespace OrderForm
         {
             InitializeComponent();
             SetStyle(ControlStyles.Selectable, false);
-
+            this.DoubleBuffered = true;
         }
 
         protected override void OnPaint(PaintEventArgs pe)
         {
+
             base.OnPaint(pe);
+
         }
     }
 }

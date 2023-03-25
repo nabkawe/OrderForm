@@ -16,14 +16,18 @@ using System.Windows.Forms;
 
 namespace OrderForm
 {
+
     public partial class SettingsPage : Form
     {
 
         public SettingsPage()
         {
             InitializeComponent();
-
         }
+
+        private static BindingList<MenuItemZ> MIZ = new BindingList<MenuItemZ>();
+        private static BindingList<MenuItemsX> MIX = new BindingList<MenuItemsX>();
+
         private void button4_Click(object sender, EventArgs e)
         {
             MoveItem(-1, list);
@@ -127,6 +131,7 @@ namespace OrderForm
                     sectionsListCB.Items.Add(i);
                 }
                 defaultPrinterTB.Text = dbQ.DefaultPrinters();
+                CashierPrinterTB.Text = dbQ.CashierPrinter();
                 sectionList.Items.Clear();
                 PrepareList.Items.Clear();
                 foreach (var item in dbQ.LoadDepartments())
@@ -155,12 +160,22 @@ namespace OrderForm
             }
             else if (e.TabPage.Name == "MenuDisplaySettings")
             {
-                MultiLB.Items.Clear();
-                MenuLB.Items.Clear();
+                MIX.Clear();
+                MIZ.Clear();
+                MenuLB.DataSource = MIZ;
+                AddingGrid.DataSource = MIX;
+                SaveMenu.Enabled = false;
                 MListLB.Items.Clear();
                 SectionsName.Text = "NoMenu";
-                EditItems();
-                MenuDB.GetMenus().ForEach(x => MListLB.Items.Add(x));
+                try
+                {
+                    MenuDB.GetMenus().ForEach(x => MListLB.Items.Add(x));
+
+                }
+                catch (Exception)
+                {
+
+                }
             }
 
 
@@ -226,6 +241,7 @@ namespace OrderForm
             GetFonts();
             comboBox1.Text = Properties.Settings.Default.FontCombo;
             APICheck.Checked = Properties.Settings.Default.API_ACCESS;
+            ServerFile.Text = Properties.Settings.Default.API_Server_Path;
 
         }
 
@@ -349,7 +365,6 @@ namespace OrderForm
         }
 
 
-
         private void button2_Click(object sender, EventArgs e)
         {
 
@@ -365,7 +380,7 @@ namespace OrderForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (PrintersList1.SelectedItems.Count > 0)
+            if (PrintersList1.SelectedItems.Count == 1)
             {
                 defaultPrinterTB.Text = PrintersList1.SelectedItem.ToString();
                 dbQ.DefaultPrinters(defaultPrinterTB.Text);
@@ -640,6 +655,7 @@ namespace OrderForm
             Properties.Settings.Default.API_Connection = ipTB.Text;
             Properties.Settings.Default.RestaurantName = RestTB.Text;
             Properties.Settings.Default.Logo = logoTB.Text;
+            
 
             if (ItemW.Text != null && ItemH.Text != null)
             {
@@ -921,74 +937,17 @@ namespace OrderForm
 
         private void AddSingleItem_Click(object sender, EventArgs e)
         {
-            if (SectionsName.Text != "NoMenu")
+            if (MIX.Count > 0)
             {
-                MenuItemsX m = new MenuItemsX()
-                {
-                    Name = MnameTB.Text,
-                    EnName = EnMnameTB.Text,
-                    EnDetails = EnMdetails.Text,
-                    Barcode = MBarcode.Text,
-                    ImagePath = Mpath.Text,
-                    Price = MPrice.Text,
-                    Details = Mdetails.Text,
-                    Cal = Mcal.Text,
-                    Available = Availables.Checked
-                };
-                MenuItemZ M = new MenuItemZ();
-                M.Name = m.Name;
-                M.items.Add(m);
-                MenuLB.Items.Add(M);
-                MnameTB.Focus();
-                MnameTB.Clear();
-                EnMnameTB.Clear();
-                MBarcode.Clear();
-                Mdetails.Clear();
-                EnMdetails.Clear();
-                Mcal.Clear();
-                Mpath.Clear();
 
+                var NewItem = new MenuItemZ() { };
+                MIX.ToList().ForEach(x => NewItem.items.Add(x));
+                MIZ.Add(NewItem);
+                MIZ.ResetBindings();
             }
         }
 
-        private void AddToMultiItem_Click(object sender, EventArgs e)
-        {
-            if (SectionsName.Text != "NoMenu")
-            {
-                MenuItemsX m = new MenuItemsX()
-                {
-                    Name = MnameTB.Text,
-                    Barcode = MBarcode.Text,
-                    ImagePath = Mpath.Text,
-                    Price = MPrice.Text,
-                    Details = Mdetails.Text,
-                    Cal = Mcal.Text,
-                    EnName = EnMnameTB.Text,
-                    EnDetails = EnMdetails.Text,
-                    Available = Availables.Checked
-                };
-                MultiLB.Items.Add(m);
-                MnameTB.Focus();
-                MnameTB.Clear();
-                MBarcode.Clear();
-                Mdetails.Clear();
-                Mcal.Clear();
-                Mpath.Clear();
 
-            }
-        }
-
-        private void AddMultiItem_Click(object sender, EventArgs e)
-        {
-            if (SectionsName.Text != "NoMenu")
-            {
-                var M = new MenuItemZ();
-                MultiLB.Items.Cast<MenuItemsX>().ToList().ForEach(x => { M.items.Add(x); });
-
-
-                MenuLB.Items.Add(M);
-            }
-        }
 
         private void mlistTB_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -1002,30 +961,55 @@ namespace OrderForm
         {
             if (SectionsName.Text != "NoMenu")
             {
-                var s = MenuLB.Items.Cast<MenuItemZ>().ToList();
-                MenuDB.UpdateSectionItems(s, SectionsName.Text);
+                MenuDB.UpdateSectionItems(MIZ.ToList(), SectionsName.Text);
                 SectionsName.Text = "NoMenu";
-                MenuLB.Items.Clear();
+                MIZ.Clear();
+                SaveMenu.Enabled = false;
             }
         }
-
+        int MListindex = 0;
         private void MListLB_Click(object sender, EventArgs e)
         {
+
+            if (SaveMenu.Enabled)
+            {
+                if (!repeatedBehavior.AreYouSure("سوف تذهب أي تعديلات غير محفوظة", "متأكد؟"))
+                {
+                    MListLB.SelectedIndex = MListindex;
+                    return;
+                }
+            }
+
+
             if (MListLB.SelectedIndex != -1)
             {
                 SectionsName.Text = MListLB.SelectedItem.ToString();
                 LoadMenuSectionToEdit(SectionsName.Text);
+                MIZ.ListChanged += MIZ_ListChanged;
+                SaveMenu.Enabled = false;
+                CopyMenu.Enabled = true;
             }
             else
             {
                 SectionsName.Text = "NoMenu";
+                CopyMenu.Enabled = false;
             }
 
 
         }
+
+        private void MIZ_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            SaveMenu.Enabled = true;
+            MIZ.ListChanged -= MIZ_ListChanged;
+
+        }
+
         private void LoadMenuSectionToEdit(string text)
         {
-            MenuLB.Items.Clear();
+            MListindex = MListLB.SelectedIndex;
+
+            MIZ.Clear();
             var a = MenuDB.GetMenuItems(text);
             if (a != null)
             {
@@ -1034,113 +1018,60 @@ namespace OrderForm
                     foreach (MenuItemZ item in a)
                     {
 
-                        MenuLB.Items.Add(item);
+                        MIZ.Add(item);
                     }
                 }
-
-
             }
         }
-
+        static MenuItemZ selectedMIZ;
         private void MenuLB_DoubleClick(object sender, EventArgs e)
         {
             if (MenuLB.SelectedIndex != -1)
             {
-                var M = (MenuItemZ)MenuLB.SelectedItem;
+                MenuLB.Enabled = false;
+                selectedMIZ = (MenuItemZ)MenuLB.SelectedItem;
+                MIX.Clear();
+                selectedMIZ.items.ForEach(x => MIX.Add(x));
+                AddSingleItem.Enabled = false;
+                SaveMulti.Enabled = true;
 
-                if (M.SingleX)
-                {
-                    if (!Control.ModifierKeys.HasFlag(Keys.Control))
-                    {
-                        MultiLB.Items.Clear();
-                        SaveMulti.Enabled = false;
-                        AddMultiItem.Enabled = true;
-                        using (var form = new EditMenuItemX())
-                        {
-                            form.EditItems(M.items[0]);
-                            var result = form.ShowDialog();
-                            if (result == DialogResult.OK)
-                            {
-                                MenuItemsX val = form.MIX;            //values preserved after close
-                                M.items[0] = val;
-                                MenuLB.Items[MenuLB.SelectedIndex] = M;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        MultiLB.Items.Add(M.items[0]);
-                        MenuLB.Items.Remove(MenuLB.Items[MenuLB.SelectedIndex]);
-                    }
-                }
-                else
-                {
 
-                    MultiLB.Items.Clear();
-                    M.items.ForEach(x => MultiLB.Items.Add(x));
-                    SaveMulti.Enabled = true;
-                    AddMultiItem.Enabled = false;
-                }
+                //if (M.SingleX)
+                //{
+                //    if (!Control.ModifierKeys.HasFlag(Keys.Control))
+                //    {
+                //        MultiLB.Items.Clear();
+                //        SaveMulti.Enabled = false;
+                //        AddMultiItem.Enabled = true;
+                //        using (var form = new EditMenuItemX())
+                //        {
+                //            form.EditItems(M.items[0]);
+                //            var result = form.ShowDialog();
+                //            if (result == DialogResult.OK)
+                //            {
+                //                MenuItemsX val = form.MIX;            //values preserved after close
+                //                M.items[0] = val;
+                //                MenuLB.Items[MenuLB.SelectedIndex] = M;
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        MultiLB.Items.Add(M.items[0]);
+                //        MenuLB.Items.Remove(MenuLB.Items[MenuLB.SelectedIndex]);
+                //    }
+                //}
+                //else
+                //{
+
+                //    MultiLB.Items.Clear();
+                //    M.items.ForEach(x => MultiLB.Items.Add(x));
+                //    SaveMulti.Enabled = true;
+                //    AddMultiItem.Enabled = false;
+                //}
             }
         }
-        private void EditItems()
-        {
-            MnameTB.Text = "";
-            MBarcode.Text = "";
-            MPrice.Text = "";
-            Mdetails.Text = "";
-            Mcal.Text = "";
-            Mpath.Text = "";
-            Availables.Checked = true;
-        }
 
-        private void MultiLB_DoubleClick(object sender, EventArgs e)
-        {
-
-
-
-            if (MultiLB.SelectedIndex != -1)
-            {
-                if (!ModifierKeys.HasFlag(Keys.Control))
-                {
-
-
-                    if (MultiLB.SelectedItem.GetType() == typeof(MenuItemsX))
-                    {
-                        using (var form = new EditMenuItemX())
-                        {
-                            form.EditItems((MenuItemsX)MultiLB.SelectedItem);
-                            var result = form.ShowDialog();
-                            if (result == DialogResult.OK)
-                            {
-                                MenuItemsX val = form.MIX;            //values preserved after close
-                                                                      //Do something here with these values
-
-                                var a = (MenuItemsX)MultiLB.SelectedItem;
-                                //MenuLB.Items.RemoveAt(MenuLB.SelectedIndex);
-                                MultiLB.Items[MultiLB.SelectedIndex] = val;
-
-
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    {
-                        var M = new MenuItemZ();
-                        var Sel = (MenuItemsX)MultiLB.Items[MultiLB.SelectedIndex];
-                        M.Name = Sel.Name;
-                        M.items.Add(Sel);
-                        MenuLB.Items.Add(M);
-                        MultiLB.Items.Remove(MultiLB.Items[MultiLB.SelectedIndex]);
-
-                    }
-
-                }
-                //EditItems((MenuItemsX)MultiLB.SelectedItem);
-            }
-        }
 
 
         private void DeleteM_Click(object sender, EventArgs e)
@@ -1148,7 +1079,7 @@ namespace OrderForm
             if (MenuLB.SelectedIndex != -1)
             {
                 int a = MenuLB.SelectedIndex;
-                MenuLB.Items.Remove(MenuLB.SelectedItem);
+                MIZ.RemoveAt(MenuLB.SelectedIndex);
                 try
                 {
                     MenuLB.SelectedIndex = a - 1;
@@ -1177,13 +1108,29 @@ namespace OrderForm
 
         private void MUp_Click(object sender, EventArgs e)
         {
-            MoveItem(-1, MenuLB);
+            //MoveItem(-1, MenuLB);
+            selectedMIZ = (MenuItemZ)MenuLB.SelectedItem;
+            int index = MIZ.IndexOf(selectedMIZ);
+            if (index > MIZ.IndexOf(MIZ.First()))
+            {
+                MIZ.Move(index, index - 1);
+                MenuLB.SelectedIndex = index - 1;
 
+            }
         }
 
         private void MDown_Click(object sender, EventArgs e)
         {
-            MoveItem(1, MenuLB);
+            {
+                //MoveItem(-1, MenuLB);
+                selectedMIZ = (MenuItemZ)MenuLB.SelectedItem;
+                int index = MIZ.IndexOf(selectedMIZ);
+                if (index < MIZ.IndexOf(MIZ.Last()))
+                {
+                    MIZ.Move(index, index + 1);
+                    MenuLB.SelectedIndex = index + 1;
+                }
+            }
         }
 
         private void ChoosePicPath_click(object sender, EventArgs e)
@@ -1199,7 +1146,6 @@ namespace OrderForm
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     filePath = openFileDialog.FileName;
-                    Mpath.Text = filePath;
                 }
             }
         }
@@ -1238,25 +1184,7 @@ namespace OrderForm
 
         }
 
-        private void button14_Click(object sender, EventArgs e)
-        {
-            MoveItem(-1, MultiLB);
-        }
 
-        private void button13_Click(object sender, EventArgs e)
-        {
-            MoveItem(1, MultiLB);
-        }
-
-        private void button15_Click(object sender, EventArgs e)
-        {
-            if (MultiLB.SelectedIndex != -1)
-            {
-                if (repeatedBehavior.AreYouSure("هل تريد حذف المعلومة", "تنبيه")) MultiLB.Items.Remove(MultiLB.SelectedItem);
-            }
-
-
-        }
 
         private void FastAdd_Click(object sender, EventArgs e)
         {
@@ -1266,15 +1194,16 @@ namespace OrderForm
 
         private void SaveMulti_Click(object sender, EventArgs e)
         {
-            if (MenuLB.SelectedItems.Count > 0)
+            if (MIX.Count > 0)
             {
                 SaveMulti.Enabled = false;
-                AddMultiItem.Enabled = true;
-                var M = new MenuItemZ();
-                MultiLB.Items.Cast<MenuItemsX>().ToList().ForEach(x => { M.items.Add(x); });
-                M.Name = M.NameToShow;
-                MenuLB.Items[MenuLB.SelectedIndex] = M;
-                MultiLB.Items.Clear();
+                AddSingleItem.Enabled = true;
+
+                selectedMIZ.items.Clear();
+                MIX.ToList().ForEach(x => { selectedMIZ.items.Add(x); });
+                MenuLB.Enabled = true;
+                MIZ.ResetBindings();
+                MIX.Clear();
             }
             else { MessageBox.Show("قم بإختيار المجموعة التي تريد تحديثها قبل محاولة الحفظ "); }
         }
@@ -1297,8 +1226,9 @@ namespace OrderForm
             foreach (var item in dbQ.GetItemsForSection(e.ClickedItem.Text))
 
             {
-                MenuItemsX X = new MenuItemsX() { Available = true, Barcode = item.Barcode, Price = item.Price.ToString(), Name = item.Name };
-                MultiLB.Items.Add(X);
+                var X = new MenuItemZ() { };
+                X.items.Add(new MenuItemsX() { Name = item.Name, Barcode = item.Barcode, Price = item.Price.ToString() });
+                MIZ.Add(X);
             }
 
 
@@ -1317,29 +1247,35 @@ namespace OrderForm
         private void button16_Click(object sender, EventArgs e)
         {
             LoadFile.ShowDialog();
+            LoadFile.InitialDirectory = Application.StartupPath;
             if (LoadFile.FileName.Contains("NetworkSynq"))
             {
-                ipTB.Text = "http://" + GetLocalIPAddress() + ":5000";
+                if (repeatedBehavior.AreYouSure("هل تريد ضبط الملف والحاسب المستخدم كسيرفر", "تنبيه"))
+                {
+                    ipTB.Text = "http://" + GetLocalIPAddress() + ":5000";
 
-                var appSettingsPath = Path.Combine(LoadFile.FileName.Replace("NetworkSynq.exe", ""), "appsettings.json");
-                var json = File.ReadAllText(appSettingsPath);
-                var jsonSettings = new JsonSerializerSettings();
-                jsonSettings.Converters.Add(new ExpandoObjectConverter());
-                jsonSettings.Converters.Add(new StringEnumConverter());
-                dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
-                config.Kestrel.Endpoints.Http.Url = ipTB.Text;
-                //config.Kestrel.Endpoints.Https.Url = ipTB.Text.Replace(":5000",":5001").Replace("http://","https://");
-                config.ConnectionString = Properties.Settings.Default.DBConnection;
-                var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
-                File.WriteAllText(appSettingsPath, newJson);
+                    var appSettingsPath = Path.Combine(LoadFile.FileName.Replace("NetworkSynq.exe", ""), "appsettings.json");
+                    var json = File.ReadAllText(appSettingsPath);
+                    var jsonSettings = new JsonSerializerSettings();
+                    jsonSettings.Converters.Add(new ExpandoObjectConverter());
+                    jsonSettings.Converters.Add(new StringEnumConverter());
+                    dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
+                    config.Kestrel.Endpoints.Http.Url = ipTB.Text;
+                    //config.Kestrel.Endpoints.Https.Url = ipTB.Text.Replace(":5000",":5001").Replace("http://","https://");
+                    config.ConnectionString = Properties.Settings.Default.DBConnection;
+                    var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
+                    File.WriteAllText(appSettingsPath, newJson);
+                    if (repeatedBehavior.AreYouSure("الرجاء إغلاق البرنامج لحفظ التعديل", "تنبيه؟"))
+                    {
+                        Properties.Settings.Default.API_Server_Path = LoadFile.FileName;
+                        Properties.Settings.Default.API_ACCESS = true;
+                        ServerFile.Text = LoadFile.FileName;
+                        Properties.Settings.Default.Save();
+                    }
+                }
 
             }
-            if (repeatedBehavior.AreYouSure("يجب إعادة تشغيل البرنامج للانتقال لوضع السيرفر", "متأكد؟"))
-            {
-                Properties.Settings.Default.API_ACCESS = true;
-                Properties.Settings.Default.Save();
-                Application.Restart();
-            }
+
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -1497,12 +1433,93 @@ namespace OrderForm
         private void Mpath_DragDrop(object sender, DragEventArgs e)
         {
             string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            Mpath.Text = filePaths[0];
+            AddingGrid.SelectedRows[0].Cells[9].Value = filePaths[0];
         }
 
         private void groupBox11_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void AssignCashier_Click(object sender, EventArgs e)
+        {
+            if (PrintersList1.SelectedItems.Count == 1)
+            {
+                CashierPrinterTB.Text = PrintersList1.SelectedItem.ToString();
+                dbQ.CashierPrinter(CashierPrinterTB.Text);
+            }
+
+        }
+
+        private void RemoveCashierPrinter_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.CashierPrinter = "";
+            Properties.Settings.Default.Save();
+            CashierPrinterTB.Text = "";
+        }
+
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.API_Server_Path = "";
+            Properties.Settings.Default.Save();
+
+        }
+
+        private void AddingGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void MenuLB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CancelMIX_Click(object sender, EventArgs e)
+        {
+            MenuLB.Enabled = true;
+            SaveMulti.Enabled = false;
+            AddSingleItem.Enabled = true;
+            MIX.Clear();
+            MenuLB.Refresh();
+        }
+
+        private void groupBox12_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveOrder_Click(object sender, EventArgs e)
+        {
+            MenuSection sect = new MenuSection();
+            for (int i = 0; i < MListLB.Items.Count; i++)
+            {
+                MenuDB.UpdateMenuSection(MListLB.Items[i].ToString(), i);
+            }
+
+        }
+        private void CopyMenu_Click(object sender, EventArgs e)
+        {
+            if (mlistTB.Text != "")
+            {
+                MenuSection sect = new MenuSection();
+                sect.Name = mlistTB.Text;
+                MListLB.Items.Add(sect);
+                
+                sect.order = MListLB.FindString(sect.Name);
+                MenuDB.SaveMenuSection(sect);
+                MenuDB.UpdateSectionItems(MIZ.ToList(), sect.Name);
+            }
+        }
+
+        private void SettingsPage_FormClosed_1(object sender, FormClosedEventArgs e)
+        {
+            Orders.SettingsClosed();
         }
     }
 }

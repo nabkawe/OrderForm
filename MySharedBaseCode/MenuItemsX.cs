@@ -23,7 +23,7 @@ namespace sharedCode
         public MenuItemZ() { items = new List<MenuItemsX>();   }
 
         string TotalNames;
-        public string NameToShow { get { if (SingleX) return this.items[0].Name + "-" + this.items[0].Price; else { this.items.ForEach(x => TotalNames += x.Name + "," + x.Price + " "); return "مجموعة" + ":" + TotalNames; } } }
+        public string NameToShow { get { if (SingleX) return this.items[0].Name + "-" + this.items[0].Price; else { TotalNames = "" ; this.items.ForEach(x => TotalNames += x.Name + "," + x.Price + " "); return "مجموعة" + ":" + TotalNames; } } }
         public MenuItemsX FindBarcode(string barcode)
         {
             if (SingleX) { if (barcode == this.items[0].Barcode) { return this.items[0]; } else return null; }
@@ -32,13 +32,14 @@ namespace sharedCode
         }
     }
 
-    public class MenuItemsX
+    public class MenuItemsX : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string Barcode { get; set; }
         public int order { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get {return name; } set { name = value; NotifyPropertyChanged(name); } }
+        private string name;
         public string Details { get; set; }
 
         public string EnName { get; set; }
@@ -52,7 +53,18 @@ namespace sharedCode
         public string ImagePath { get; set; }
 
         public bool Available { get; set; }
+        
+        [Browsable(false)]
+        public bool Lang { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         public override string ToString()
         {

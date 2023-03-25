@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EkCG32XZTFKdDChF4MTXJFHjuQPDCVVrOROe7HhMm7RQta9sOmy/8fZW/oz9a8I/yHVWyOcp9Wz8WVueDWOOFw==",
+  "dgSpecHash": "pDdd8LmWcrxjg2cLVnHDDevGlOB1WWokzVJDz2nnK0EdwiIEXlejtnrq4Xi5gHWkGUEeSPbdf5bQ6MJSjBjQgA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\OrderForm\\OrderForm.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\escpos\\1.2.3\\escpos.1.2.3.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",

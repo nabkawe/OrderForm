@@ -36,7 +36,6 @@ namespace OrderForm
             {
                 Properties.Settings.Default.RestaurantName = FirstRestTB.Text;
                 Properties.Settings.Default.Logo = FirstLogoTB.Text;
-                Properties.Settings.Default.Save();
                 this.Close();
             }
             else

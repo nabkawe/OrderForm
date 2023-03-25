@@ -155,7 +155,7 @@ namespace OrderForm
             {
                 if (order.Comment != "")
                 {
-                    text = order.Comment;
+                    text = RtlMark +order.Comment;
                     e.Graphics.DrawString("ملاحظة الفاتورة", tfnt, drawBrush, new RectangleF(x, y - 3, width, height), drawFormatRight);
                     y += e.Graphics.MeasureString(text, sfnt).Height;
                     e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
@@ -220,7 +220,7 @@ namespace OrderForm
                         e.Graphics.DrawLine(new Pen(Color.Black), new Point(150, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
                         y += 1;
                         rectangleF = new RectangleF(x, y, width, height);
-                        string comment = item.Comment;
+                        string comment = RtlMark +  item.Comment;
                         e.Graphics.DrawString(comment, cfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
                         y += e.Graphics.MeasureString(comment, cfnt).Height;
                     }
@@ -239,9 +239,15 @@ namespace OrderForm
                 e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
             }
             y += 70;
-            e.Graphics.DrawString(Properties.Settings.Default.RestaurantName + Properties.Settings.Default.BranchName, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
+            e.Graphics.DrawString(Properties.Settings.Default.RestaurantName +" "+ Properties.Settings.Default.BranchName, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
         }
     }
+    /// <summary>
+    /// ////////////////////////
+    /// 
+    /// </summary>
+  
+    
     public static class PrintInvoiceReady
     {
         private static PrintDocument PrintDocument;
@@ -252,18 +258,17 @@ namespace OrderForm
             order = Orders;
             PrintDocument = new PrintDocument();
             PrintDocument.PrinterSettings.PrinterName = printername;
-
             PrintDocument.PrintPage += new PrintPageEventHandler(FormatPage);
-
+            
             try
             {
                 PrintDocument.Print();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                MessageBox.Show("لم يتم العثور على إسم الطابعة");
-                MessageBox.Show("قم بإضافة طابعة إفتراضية في الخيارات");
+                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show("قم بإضافة طابعة كاشير في الخيارات");
 
             }
 
@@ -301,40 +306,57 @@ namespace OrderForm
 
 
             string text;
-            text = "صاحب الطلب موجود" + Environment.NewLine + "يرجى تسليم الطلب" + Environment.NewLine + "Paid";
-            e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-            y += e.Graphics.MeasureString(" ", lfnt).Height;
-            y += e.Graphics.MeasureString(" ", lfnt).Height;
+            
             text = order.OrderType;
             e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-            text = Environment.NewLine + order.InvoicePrice + " SAR ";
-            e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
-            y += e.Graphics.MeasureString(text, hfnt).Height;
+            y += e.Graphics.MeasureString(" ", lfnt).Height;
+
+
+            text = "ورقة التحضير#";
+            e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+            y += e.Graphics.MeasureString(" ", lfnt).Height;
+
+            y += 5;
+            e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
+            y += 5;
+
             text = order.ID.ToString();
             e.Graphics.DrawString(text, lfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += e.Graphics.MeasureString(text, lfnt).Height;
+         
+            y += 5;
+            e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
+            y += 5;
+
+            y += e.Graphics.MeasureString(text, mfnt).Height;
+            text =  order.InvoicePrice + " SAR ";
+            e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+            y += e.Graphics.MeasureString(text, mfnt).Height;
+
 
             // Customer Name Check and print
             if (order.CustomerName != "")
             {
                 y += 5;
-                e.Graphics.DrawLine(new Pen(Color.Black), new Point(0, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
+                e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
                 y += 5;
 
                 text = order.CustomerName;
-                e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                // Customer Number Check and print
-
-                if (order.CustomerNumber != "")
-                {
-                    text = order.CustomerNumber;
-                    e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                }
-
+                e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+                
                 y += e.Graphics.MeasureString(text, hfnt).Height;
                 y += 5;
-                e.Graphics.DrawLine(new Pen(Color.Black), new Point(0, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
+                e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
                 y += 5;
+
+                // Customer Number Check and print
+
+                //if (order.CustomerNumber != "")
+                //{
+                //    text = order.CustomerNumber;
+                //    e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
+                //}
+
             }
             // Order Notes Check and print
             if (order.Comment != null)
@@ -342,12 +364,15 @@ namespace OrderForm
                 if (order.Comment != "")
                 {
                     text = order.Comment;
-                    e.Graphics.DrawString("ملاحظة الفاتورة", tfnt, drawBrush, new RectangleF(x, y - 3, width, height), drawFormatRight);
+                    e.Graphics.DrawString("ملاحظة الفاتورة", tfnt, drawBrush, new RectangleF(2, y - 3, width, height), drawFormatRight);
                     y += e.Graphics.MeasureString(text, sfnt).Height;
-                    e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
+                    e.Graphics.DrawString(text, tfnt, drawBrush, new RectangleF(2, y, width, height), drawFormatRight);
                     y += e.Graphics.MeasureString(text, fnt).Height;
                 }
             }
+
+            e.Graphics.DrawRectangle(new Pen(Color.Black), 2, 2, 270, y);
+
 
         }
     }

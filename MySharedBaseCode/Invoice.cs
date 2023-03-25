@@ -232,7 +232,7 @@ namespace sharedCode
         [Browsable(false)]
         public string SearchResult
         {
-            get { return $"{this.ID}-{this.CustomerName}-{this.CustomerNumber}"; }
+            get { return $"{this.ID} : {this.CustomerName} : {this.CustomerNumber}"; }
 
         }
         public override string ToString()

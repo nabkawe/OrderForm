@@ -4,19 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderForm"
+             xmlns:converters="clr-namespace:OrderForm" xmlns:sharedcode="clr-namespace:sharedCode;assembly=MySharedBaseCode" 
              mc:Ignorable="d" 
  d:DesignHeight="250" d:DesignWidth="200" Height="222" Width="200" Padding="6" x:Name="FI">
     <UserControl.Resources>
-        <ContentControl x:Name="FoodName" x:Key="kName" Content="إسم الفطيرة"/>
-        <ContentControl x:Name="FoodDetails" x:Key="kDetails" Content="تفاصيل الفطيرة"/>
-        <ContentControl x:Name="FoodPrice" x:Key="kPrice" Content="0.0"/>
-        <ContentControl x:Name="FoodPicture" x:Key="kPicture" Content="C:\items\water9.png"   />
-        <ContentControl x:Name="FoodCalories" x:Key="kCalories" Content="معلومات الحساسية والسعرات"/>
-        <ContentControl x:Name="FoodCurrency" x:Key="kCurrency" Content="ر.س"/>
-        <ContentControl x:Name="FoodBarCode" x:Key="kBarCode" Content=""/>
-
-
+        <converters:BoolToVisibilityConverter x:Key="FalseToHidden" 
+     TrueValue="Hidden" FalseValue="Visible" />
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <local:MenuItemsXViewModel/>
+    </UserControl.DataContext>
+
+
+
+
 
 
     <Border BorderBrush="#a96b28" Background="White" BorderThickness="1" CornerRadius="25,25,25,25" x:Name="MyBorder" UseLayoutRounding="False" ClipToBounds="False">
@@ -41,38 +42,113 @@
 
                 <Image x:Name="Picture"
                         Panel.ZIndex ="0"   Canvas.Right="0" 
-                        Source="{Binding Content, Mode=OneWay, Source={StaticResource kPicture}}"
+                        Source="{Binding ImagePath}"
                         Stretch="Uniform" MaxWidth="125" MaxHeight="125" MinHeight="120" MinWidth ="120 "  />
-                <TextBlock  Foreground="#FF513519" Canvas.Left="10" Canvas.Top="5">
+
+                <TextBlock   FlowDirection="RightToLeft" FontSize="30"  FontFamily="Bahnschrift"   Canvas.Left="10" Canvas.Top="5">
+
                     <TextBlock.Background>
                         <LinearGradientBrush StartPoint="0,2" SpreadMethod="Pad">
                             <GradientStop Color="Transparent" Offset="0"/>
                             <GradientStop Color="White" Offset="1"/>
                         </LinearGradientBrush>
-                    </TextBlock.Background><Run x:Name="PricePlate" FlowDirection="RightToLeft" FontSize="30"  FontFamily="Bahnschrift"  Text="{Binding Content, Mode=OneWay, Source={StaticResource kPrice}}"/>
+                    </TextBlock.Background>
+                   <Run FontSize="30" Text="{Binding Price}"/>
                 </TextBlock>
                 <Label Canvas.Top="40" Canvas.Left="9">
-                    <Run x:Name="KCur" FontSize="13"   Foreground="#FF513519" FontWeight="ExtraBold" 
-                     FlowDirection="RightToLeft" Text="{Binding Content, Mode=OneWay, Source={StaticResource kCurrency}}"/>
+                    <Run x:Name="KCur"  FontSize="13"   Foreground="#FF513519" FontWeight="ExtraBold" 
+                     FlowDirection="RightToLeft">
+                        <Run.Resources>
+                            <Style TargetType="Run">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Lang}" Value="True">
+                                        <Setter Property="Text" Value="ر.س"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Lang}" Value="False">
+                                        <Setter Property="Text" Value="S.R"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Run.Resources>
+                    </Run>
                 </Label>
-                <Label x:Name="AvailableLabel" Visibility="Visible" BorderThickness="3" Content="غير متوفر حاليا"  Foreground="Red" FontWeight="Bold" FontSize="18" Canvas.Top="80" Canvas.Left="38">
+                <Label x:Name="AvailableLabel"  HorizontalContentAlignment="Center" Visibility="{Binding Available, Converter={StaticResource ResourceKey=FalseToHidden}}" 
+                       BorderThickness="1" Background="White" Foreground="Red" FontWeight="Bold" 
+                       FontSize="18" Canvas.Top="80" Canvas.Left="0" Width="{Binding ElementName=BackGroundGrid, Path=ActualWidth}">
+
+                    <Label.Resources>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Lang}" Value="True">
+                                    <Setter Property="Content" Value="غير متوفرة حاليا"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Lang}" Value="False">
+                                    <Setter Property="Content" Value="Not Available Now"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Resources>
                     <Label.BorderBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="Black"/>
+                            <GradientStop Color="OrangeRed"/>
                             <GradientStop Color="Red" Offset="1"/>
                         </LinearGradientBrush>
-                    </Label.BorderBrush> 
+                    </Label.BorderBrush>
                 </Label>
 
             </Canvas>
             <!--Name and Details-->
             <Border    Grid.Row="1" Grid.RowSpan="2" CornerRadius="0,0,0,0" Margin="5" 
                 VerticalAlignment="Stretch">
-                <TextBlock  Margin="0,0,0,0"  FlowDirection="RightToLeft" 
+                <TextBlock  Margin="0,0,0,0"   
                  TextWrapping="Wrap" FontFamily="GE Snd Book" FontSize="25"    Foreground="#a96b28" >
-                <Run x:Name="NamePlate" Text="{Binding Content, Mode=OneWay, Source={StaticResource kName}}"   ></Run>   
+                <Run x:Name="NamePlate"    >
+                      <Run.Resources>
+                        <Style TargetType="Run">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Lang}" Value="True">
+                                    <Setter Property="Text" Value="{Binding Name}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Lang}" Value="False">
+                                    <Setter Property="Text" Value="{Binding EnName}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Run.Resources>
+                </Run>
+
                 <LineBreak/>                        
-                <Run Foreground="#FF513519"  FontSize="18"  Text="{Binding Content, Mode=OneWay, Source={StaticResource kDetails}}" ></Run>
+                <Run Foreground="#FF513519"  FontSize="18" >
+                      <Run.Resources>
+                        <Style TargetType="Run">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Lang}" Value="True">
+                                    <Setter Property="Text" Value="{Binding Details}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Lang}" Value="False">
+                                    <Setter Property="Text" Value="{Binding EnDetails}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Run.Resources>
+                </Run>
+
+                    <TextBlock.Resources>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Lang}" Value="True">
+                                    <Setter Property="FlowDirection" Value="RightToLeft"/>
+
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Lang}" Value="False">
+                                    <Setter Property="FlowDirection" Value="LeftToRight"/>
+
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+
+                    </TextBlock.Resources>
+
                 </TextBlock>
 
             </Border>
@@ -80,7 +156,7 @@
 
             <!--Calories-->
             <TextBlock Grid.Row="3" FontSize="9" FlowDirection="RightToLeft" Margin="0,0,10,0" Foreground="#FF513519"> "
-            <Run Text="{Binding Content, Mode=OneWay, Source={StaticResource kCalories}}"></Run>
+            <Run Text="{Binding Cal}"></Run>
             </TextBlock>
         </Grid>
     </Border>

@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DisplayMenu.exe" size="32224">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DisplayMenu.exe" size="40928">
       <assemblyIdentity name="DisplayMenu" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ys2vU3XCFSh01WWt/ujLC74dn8uw35dhlppM0yDSc/Y=</dsig:DigestValue>
+        <dsig:DigestValue>Uys9hg/Ficc+rrDRMRvhNHWA1xejF4pC4isrF2W6C1Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySharedBaseCode.dll" size="28672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySharedBaseCode.dll" size="30208">
       <assemblyIdentity name="MySharedBaseCode" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0oJt1t4vhe119QJEx95BrdbvlAp9HaFpIgA+LlY50oU=</dsig:DigestValue>
+        <dsig:DigestValue>pcZBO8F5Btx5kM5Yqj6cJ/GI9AMU9XIu6iROuF5Jwwg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

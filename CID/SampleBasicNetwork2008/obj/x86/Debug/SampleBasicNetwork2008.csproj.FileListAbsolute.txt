@@ -1,0 +1,28 @@
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\bin\x86\Debug\SampleBasicNetwork2008.exe
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\bin\x86\Debug\SampleBasicNetwork2008.pdb
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.Form1.resources
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.Properties.Resources.resources
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.csproj.GenerateResource.Cache
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.exe
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.pdb
+d:\Search\Manshoor Simin\Caller ID\SDK Sample C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.exe
+d:\Search\Manshoor Simin\Caller ID\SDK Sample C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.pdb
+d:\Search\Manshoor Simin\Caller ID\SDK Sample C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\bin\x86\Debug\SampleBasicNetwork2008.exe
+d:\Search\Manshoor Simin\Caller ID\SDK Sample C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\bin\x86\Debug\SampleBasicNetwork2008.pdb
+d:\Search\Manshoor Simin\Caller ID\SDK Sample C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\ResolveAssemblyReference.cache
+d:\Search\Manshoor Simin\Caller ID\SDK Sample C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.Form1.resources
+d:\Search\Manshoor Simin\Caller ID\SDK Sample C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.Properties.Resources.resources
+d:\Search\Manshoor Simin\Caller ID\SDK Sample C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.csproj.GenerateResource.Cache
+d:\Search\Manshoor Simin\Caller ID\OSCAR OCI Caller ID V1.0 SDK Sample C# 2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.exe
+d:\Search\Manshoor Simin\Caller ID\OSCAR OCI Caller ID V1.0 SDK Sample C# 2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.pdb
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\bin\x86\Debug\SampleBasicNetwork2008.exe
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\bin\x86\Debug\SampleBasicNetwork2008.pdb
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.Form1.resources
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.Properties.Resources.resources
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.csproj.GenerateResource.cache
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.csproj.CoreCompileInputs.cache
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.exe
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.pdb
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\obj\x86\Debug\SampleBasicNetwork2008.csprojAssemblyReference.cache
+C:\Users\sahae\Downloads\OSCAR OCI Caller ID V22.3 SDK Sample C# 2008\SampleBasicNetwork2008\bin\x86\Debug\SampleBasicNetwork2008.exe.config

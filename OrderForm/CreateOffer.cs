@@ -125,14 +125,17 @@ namespace OrderForm.Custom_Classes
 
 
             }
-
-
-
-
             text = "رقم التحضير: " + order.ID.ToString();
             e.DrawString(text, lfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += e.MeasureString(text, lfnt).Height;
             y += 5;
+
+            text = "نقبل بطاقات مدى بشكل حصري";
+            e.DrawString(text, fnt, drawBrushAccent, new RectangleF(x, y, width, height), drawFormatCenter);
+            y += e.MeasureString(text, lfnt).Height;
+            y += 10;
+
+      
             //Order Day + Time
             text = "يوم الطلب: " + Orders.GetDayName((int)order.InvoiceDay);
             e.DrawString(text, lfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
@@ -271,9 +274,6 @@ namespace OrderForm.Custom_Classes
             e.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += e.MeasureString(text, fnt).Height;
 
-            text = "وسائل الدفع المتوفرة لدينا: بطاقات مدى ، نقدي";
-            e.DrawString(text, fnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-            y += 10;
 
             Bitmap Trimoffer = new Bitmap(800, Convert.ToInt32(y) + 50);
             Graphics Trimmer = Graphics.FromImage(Trimoffer);

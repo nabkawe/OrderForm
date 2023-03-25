@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Animation;
+
 namespace OrderForm.SavingandPayment
 {
     public partial class PaymentOptions : Form
     {
+
         public string pos = Properties.Settings.Default.pos;
         public string barcodetb = Properties.Settings.Default.barcodetb;
         public string invoiceprc = Properties.Settings.Default.invoiceprc;
@@ -47,7 +51,6 @@ namespace OrderForm.SavingandPayment
         public string POSClearNumber = Properties.Settings.Default.POSClearNumber;
         public string POSPhoneNumber = Properties.Settings.Default.POSPhoneNumber;
         public string POSClientName = Properties.Settings.Default.POSClientName;
-        public event EventHandler<Invoice> PrintOrNot;
         public AutoItX3 AutoItX = new AutoItX3();
 
         public bool singleOrMultipleInvoice;
@@ -92,6 +95,7 @@ namespace OrderForm.SavingandPayment
             ShowInvoice();
             this.Activate();
             this.Update();
+            this.Focus();
 
         }
 
@@ -102,7 +106,6 @@ namespace OrderForm.SavingandPayment
                 Orders.MenuShowing = true;
 
                 displayOffer.showme(invoice.CustomerName, invoice.CustomerNumber, invoice.TimeinArabic + " | " + Orders.GetDayName((int)invoice.InvoiceDay), invoice);
-                this.Activate();
             }
         }
 
@@ -124,9 +127,9 @@ namespace OrderForm.SavingandPayment
 
                 }
             singleOrMultipleInvoice = false; ;
-            this.MultipleInvoices = invList;
-            invoice = invList[0];
-            ShowInvoice();
+            invList.ForEach(x=> this.MultipleInvoices.Add(x) );
+            invoice = MultipleInvoices[0];
+            //ShowInvoice();
             this.Activate();
             this.Update();
 
@@ -145,7 +148,7 @@ namespace OrderForm.SavingandPayment
                 this.Close();
                 return;
             }
-            if (GetPOSWindow() && CheckIfReadyToSave())
+            if (  GetPOSWindow() && CheckIfReadyToSave())
             {
                 AutoItX.WinActivate(pos);
                 if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) != 0)
@@ -364,8 +367,9 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         private void SaveInvoiceNumber(bool single)
         {
+
             string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
-            if (!Properties.Settings.Default.TestingMode || !ModifierKeys.HasFlag(Keys.RShiftKey)) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
+            if (!Properties.Settings.Default.TestingMode) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
 
             if (single)
             {
@@ -374,9 +378,20 @@ namespace OrderForm.SavingandPayment
                 invoice.Status = InvStat.SavedToPOS;
                 invoice.TimeOfSaving = DT;
                 DbInv.UpdateInvoice(invoice);
-                DbInv.LogAction("Saved", invoice.ID, InvStat.SavedToPOS);
-                PrintOrNot?.Invoke(null, invoice);
-
+                if (Orders.MyForm.checkBox1.Checked)
+                {
+                    if (invoice.InvoicePrice >= 25 || invoice.OrderType == "محلي")
+                    {
+                        PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
+                    }
+                }
+                else
+                {
+                    if (invoice.OrderType == "محلي")
+                    {
+                        PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
+                    }
+                }
 
             }
             else
@@ -385,26 +400,63 @@ namespace OrderForm.SavingandPayment
                 {
 
 
-                    invoice.InvoiceItems.Clear();
-                    CreateNewListOfItems().ForEach(x => invoice.InvoiceItems.Add(x));
-                    invoice.POSInvoiceNumber = invoiceNTB;
-                    invoice.Status = InvStat.SavedToPOS;
-                    invoice.InvoicePrice = invoice.InvoiceItems.Sum(x => x.TotalPrice);
-                    DbInv.UpdateInvoice(invoice);
-                    DbInv.LogAction("Multiple Saved Main", invoice.ID, InvStat.SavedToPOS);
+                    DateTime DT = DateTime.Now;
 
+                    var Update = new Invoice();
+                    CreateNewListOfItems().ForEach(x => Update.InvoiceItems.Add(x));
+                    Update.POSInvoiceNumber = invoiceNTB;
+                    Update.Status = InvStat.SavedToPOS;
+                    Update.InvoicePrice = Update.InvoiceItems.Sum(x => x.TotalPrice);
+                    string c = invoice.Comment;
+                    Update.Comment = "فاتورة مجمعة" + " " + c;
+                    Update.ID = invoice.ID; Update.OrderType = invoice.OrderType;
+                    Update.CustomerName = invoice.CustomerName; 
+                    Update.CustomerNumber = invoice.CustomerNumber;
+                    Update.InvoiceDay = invoice.InvoiceDay; invoice.InvoiceTimeloglist.ForEach(z=> Update.InvoiceTimeloglist.Add(z));
+                    Update.Tax = invoice.Tax;
+                    Update.TimeAMPM = invoice.TimeAMPM;
+                    Update.TimeOfPrinting = invoice.TimeOfPrinting;
+                    Update.TimeOfSaving= DT;  
+                    Update.TimeinArabic = invoice.TimeinArabic;
+                    invoice.Payments.ForEach(x => Update.Payments.Add(x));
 
-                    for (int i = 1; i < MultipleInvoices.Count; i++)
+                    CheckBox parentCheckBox = (CheckBox)this.Owner.GetType().GetProperty("ParentCheckBox").GetValue(this.Owner, null);
+                    if (parentCheckBox.Checked)
                     {
-                        MultipleInvoices[i].InvoiceItems.Clear();
-                        MultipleInvoices[i].Comment = "فاتورة مجمعة تابعة لرقم: " + invoice.ID;
-                        MultipleInvoices[i].Status = InvStat.Deleted;
-                        MultipleInvoices[i].InvoicePrice = 0;
-
-                        DbInv.UpdateInvoice(MultipleInvoices[i]);
-                        DbInv.LogAction($"Multiple Saved in {invoice.ID}", MultipleInvoices[i].ID, InvStat.Deleted);
+                        if (invoice.InvoicePrice >= 25 || invoice.OrderType == "محلي")
+                        {
+                            PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
+                        }
                     }
-                    PrintOrNot?.Invoke(null, MultipleInvoices[0]);
+                    else
+                    {
+                        if (invoice.OrderType == "محلي")
+                        {
+                            PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
+                        }
+                    }
+                    
+                    
+                    for (int i = 0; i < MultipleInvoices.Count; i++)
+                    {
+                        if (MultipleInvoices[i].ID != invoice.ID)
+                        {
+                            MultipleInvoices[i].InvoiceItems.Clear();
+                            MultipleInvoices[i].Comment = "فاتورة مجمعة تابعة لرقم: " + invoice.ID;
+                            MultipleInvoices[i].Status = InvStat.Deleted;
+                            MultipleInvoices[i].InvoicePrice = 0;
+
+                            DbInv.UpdateInvoice(MultipleInvoices[i]);
+                            DbInv.LogAction($"Multiple Saved in {invoice.ID}", MultipleInvoices[i].ID, InvStat.Deleted);
+                        }
+                        else
+                        {
+                            DbInv.UpdateInvoice(Update);
+                        }
+
+                    }
+                    
+
                 }
                 else
                 {
@@ -412,7 +464,7 @@ namespace OrderForm.SavingandPayment
                 }
             }
             this.Close();
-
+            
         }
 
 
@@ -443,17 +495,17 @@ namespace OrderForm.SavingandPayment
                 {
                     if (invoice.CustomerName.Replace(" ", "") != "")
                     {
-
+                                                                                               
                         AutoItX.ControlSetText(pos, "", POSClientName, invoice.CustomerName);
                         AutoItX.ControlSetText(pos, "", POSPhoneNumber, invoice.CustomerNumber);
-                        AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
+                        AutoItX.ControlSetText(pos, "", invoicenotes,  "#" + invoice.ID.ToString()+ " "+ Orders.GetDayName((int)invoice.InvoiceDay) + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
 
 
                     }
-                    else AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
+                    else AutoItX.ControlSetText(pos, "", invoicenotes, "#" + invoice.ID.ToString() + " " + Orders.GetDayName((int)invoice.InvoiceDay) + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
 
                 }
-                else AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + invoice.ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
+                else AutoItX.ControlSetText(pos, "", invoicenotes, "#" + invoice.ID.ToString() + " " + Orders.GetDayName((int)invoice.InvoiceDay) + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
 
             }
             else
@@ -501,7 +553,6 @@ namespace OrderForm.SavingandPayment
         {
             MultipleItems.Clear();
             foreach (var item in this.MultipleInvoices)
-
             {
                 foreach (var i in item.InvoiceItems)
                 {
@@ -805,6 +856,7 @@ namespace OrderForm.SavingandPayment
 
             }
 
+
         }
         string invoice_price;
 
@@ -827,7 +879,7 @@ namespace OrderForm.SavingandPayment
                 }
             }
             displayOffer.CloseNow();
-
+            Application.OpenForms[0].Activate();
 
 
 
@@ -839,10 +891,31 @@ namespace OrderForm.SavingandPayment
             textBox1.Text = "0.5";
         }
 
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void Btn50_Click(object sender, EventArgs e)
         {
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+   
+                SaveInvoiceNumber(false);
+            }
+            else
+            {
+
             var s = (Button)sender;
             if (s != null)
             {
@@ -851,6 +924,7 @@ namespace OrderForm.SavingandPayment
                 SendKeys.Send("{End}");
             }
 
+            }
         }
         private void Cash_KeyDown(object sender, KeyEventArgs e)
         {

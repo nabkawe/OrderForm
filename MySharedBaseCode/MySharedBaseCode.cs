@@ -120,10 +120,27 @@ namespace sharedCode
             }
         }
 
+        /// <summary>
+        /// Pass 1 to increase quantity, Pass -1 to decrease quantity.
+        /// </summary>
+        /// <param name="Number"></param>
+        public void ChangeQuantity(int Number)
+        {
+            if(Number == 1)
+            {
+                this.Quantity++;
+            }
+            else { this.Quantity--; if (this.Quantity <= 0) this.Quantity = 1; }
+        }
 
         public POSItems(/*int id,string barcode, string nm, decimal prc,int realq,decimal t*/)
         {
 
+        }
+
+        public POSItems(POSItems items)
+        {
+            ID = items.ID; Barcode = items.Barcode; Available = true; Comment = ""; Name = items.Name; Price = items.Price; order = items.order; Parent = items.Parent; PrinterName = items.PrinterName; Quantity = items.Quantity; realquan = items.realquan; SectionName = items.SectionName; printerlist = items.printerlist; Tax = items.Tax;
         }
         public POSItems(int id, string barcode, string nm,
             decimal prc, int q, int realq, decimal tax, string

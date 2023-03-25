@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using Microsoft.Win32;
 using OrderForm.Custom_UI_Elements;
 using PrayerTimes;
 using RestSharp;
@@ -27,6 +28,13 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using Point = System.Drawing.Point;
 using TextDataFormat = System.Windows.Forms.TextDataFormat;
 
+using System.Reflection;
+using OrderForm.SavingandPayment;
+using static System.Windows.Forms.DataFormats;
+using System.Security.Cryptography;
+using static System.Net.WebRequestMethods;
+using System.Runtime.InteropServices.WindowsRuntime;
+
 namespace OrderForm
 {
 
@@ -46,26 +54,15 @@ namespace OrderForm
         public bool APIAccess = Properties.Settings.Default.API_ACCESS;
         public static Invoice globalInvoice = null;
         public int radioChecked = 0;
+        string Title = "برنامج تسجيل طلبات ليبرا + ";
         #region Form and Loading Region
+        public static Orders MyForm { get; set; }
+
         public Orders()
         {
             //Properties.Settings.Default.DBConnection = @"Filename=C:\db\db.db;connection=Shared";
             //Properties.Settings.Default.Save();
-            if (Properties.Settings.Default.API_ACCESS)
-            {
 
-                if (File.Exists(Properties.Settings.Default.API_Server_Path))
-                {
-                    if (Process.GetProcessesByName("NetworkSynq").Length == 0)
-                    {
-                        ProcessStartInfo processInfo = new ProcessStartInfo(Properties.Settings.Default.API_Server_Path, "");
-                        processInfo.WorkingDirectory = Properties.Settings.Default.API_Server_Path.Replace("NetworkSynq.exe", "");
-                        processInfo.CreateNoWindow = true;
-                        processInfo.UseShellExecute = false;
-                        Process.Start(processInfo);
-                    }
-                }
-            }
             if (Properties.Settings.Default.Logo != null || Properties.Settings.Default.RestaurantName != null)
             {
                 if (Properties.Settings.Default.Logo == "" || Properties.Settings.Default.RestaurantName == "")
@@ -75,14 +72,58 @@ namespace OrderForm
                 }
             }
             InitializeComponent();
+            MyForm = this;
+
             if (APIAccess)
             {
-                this.Text += " API MODE ";
+                this.Text = Title + " API MODE ";
             }
-            else this.Text += " Local Network Mode";
-            LoadMethods();
+            else this.Text = Title + " Local Network Mode";
             //dbQ.CreatePayment();
+            if (APIAccess)
+            {
 
+                if (System.IO.File.Exists(Properties.Settings.Default.API_Server_Path))
+                {
+                    if (Process.GetProcessesByName("NetworkSynq").Length == 0)
+                    {
+                        ProcessStartInfo processInfo = new ProcessStartInfo(Properties.Settings.Default.API_Server_Path, "");
+                        processInfo.WorkingDirectory = Properties.Settings.Default.API_Server_Path.Replace("NetworkSynq.exe", "");
+                        processInfo.CreateNoWindow = true;
+                        processInfo.UseShellExecute = false;
+                        Process.Start(processInfo);
+                        Thread.Sleep(3000);
+                        LoadMethods();
+                    }
+                }
+                else
+                {
+                    if (DbInv.AreYouAlive())
+                    {
+                        LoadMethods();
+                    }
+                    else
+                    {
+                        Thread.Sleep(3000);
+                        if (!DbInv.AreYouAlive())
+                        {
+                            MessageBox.Show("تعذر الإتصال بالخادم، الرجاء التحقق من إعدادات الإتصال بالشبكة", "مشكلة بالإتصال");
+                            SettingsPage_Click(null, null);
+
+
+                        }
+
+                    }
+
+
+                }
+            }
+            else
+            {
+                LoadMethods(); // Local Not Recommended }
+
+
+            }
         }
 
 
@@ -95,48 +136,47 @@ namespace OrderForm
 
         public void CreateSectionBtns(FlowLayoutPanel FlowPanel, POSsections obj)
         {
-            UnfocusableButton item = new UnfocusableButton()
+            UnfocusableButton Section = new UnfocusableButton()
             {
                 Tag = obj,
                 Text = obj.Name,
                 Width = FlowPanel.Width - 5,
-                Height = 40,
-                Margin = new Padding(1),
-                FlatStyle = FlatStyle.Flat,
-                TabStop = false,
-                TabIndex = 1000,
-                BackColor = Color.White,
-                Font = new System.Drawing.Font("Segoe UI", 10, System.Drawing.FontStyle.Bold)
+                Height = 40
             };
 
-            item.FlatAppearance.BorderSize = 1;
-            item.Click += new EventHandler(Section_Clicked);
-            item.MouseDown += new MouseEventHandler(SectionNotes);
-            FlowPanel.Controls.Add(item);
+            Section.Click += new EventHandler(Section_Clicked);
+            Section.MouseDown += new MouseEventHandler(SectionNotes);
+            FlowPanel.Controls.Add(Section);
 
         }
         public void CreateItemBtns(FlowLayoutPanel FlowPanel, POSItems obj)
         {
             UnfocusableButton item = new UnfocusableButton()
             {
-
+                Name = obj.Barcode,
                 Tag = obj.Barcode,
                 Text = obj.Name,
-                BackColor = Color.White,
-                Height = 60,
+                Height = 70,
                 Width = 92,
                 Margin = new Padding(2),
-                FlatStyle = FlatStyle.Flat,
-                TabStop = false,
-                TabIndex = 1000,
-                Font = new System.Drawing.Font("Segoe UI", 10, System.Drawing.FontStyle.Bold)
             };
-            item.FlatAppearance.BorderSize = 1;
+
+
+            if (CheckFile(obj.PicturePath))
+            {
+                item.Image = Image.FromFile(obj.PicturePath).GetThumbnailImage(50, 50, null, IntPtr.Zero);
+            }
             item.Click += new EventHandler(Item_Clicked);
             item.MouseWheel += new MouseEventHandler(Item_MouseWheel);
             item.MouseDown += new MouseEventHandler(Item_MouseDown);
             //item.MouseHover += Item_MouseHover;
             FlowPanel.Controls.Add(item);
+        }
+
+
+        private bool CheckFile(string picturePath)
+        {
+            if (System.IO.File.Exists(picturePath)) return true; else return false;
         }
 
         #endregion
@@ -158,7 +198,7 @@ namespace OrderForm
             else
             {
                 var btn = (UnfocusableButton)sender;
-                if (Properties.Settings.Default.showMenu) { OrderForm.MainWindow.FindByBarcode((string)btn.Tag); }
+                //if (Properties.Settings.Default.showMenu) { OrderForm.MainWindow.FindByBarcode((string)btn.Tag); }
             }
             //item.Name;
         }
@@ -170,13 +210,13 @@ namespace OrderForm
                 if (e.Delta > 0)
                 {
                     var itembtn = (Button)sender;
-                    var item = ItemsLists.Find(x => x.Barcode == (string)itembtn.Tag);
+                    var item = ItemsLists.First(x => x.Barcode == itembtn.Name);
                     AddtoGrid(item);
                 }
                 else
                 {
                     var itembtn = (Button)sender;
-                    var item = ItemsLists.Find(x => x.Barcode == (string)itembtn.Tag);
+                    var item = ItemsLists.First(x => x.Barcode == itembtn.Name);
                     EditItemGrid(item);
                 }
 
@@ -196,7 +236,7 @@ namespace OrderForm
         protected void Item_Clicked(object sender, EventArgs e)
         {
             var itembtn = (Button)sender;
-            var item = ItemsLists.Find(x => x.Barcode == (string)itembtn.Tag);
+            var item = ItemsLists.First(x => x.Barcode == itembtn.Name);
             //var item = (POSItems)itembtn.Tag;
             if (Properties.Settings.Default.showMenu) { OrderForm.MainWindow.FindByBarcode(item.Barcode); }
             AddtoGrid(item);
@@ -209,7 +249,7 @@ namespace OrderForm
         #region material insertion 
         public void AddtoGrid(POSItems items)
         {
-            POSItems item = new POSItems() { ID = items.ID, Barcode = items.Barcode, Available = true, Comment = "", Name = items.Name, Price = items.Price, order = items.order, Parent = items.Parent, PrinterName = items.PrinterName, Quantity = items.Quantity, realquan = items.realquan, SectionName = items.SectionName, printerlist = items.printerlist, Tax = items.Tax };
+            POSItems item = new POSItems(items);
             if (!StopEditing)
             {
                 if (InvoiceNumberID.Enabled == false)
@@ -225,19 +265,7 @@ namespace OrderForm
                         if (row.DataBoundItem.Equals(found)) row.Selected = true;
 
                     }
-                    if (found.Quantity <= 0)
-                    {
-                        found.Quantity = 1;
-                    }
-                    else
-                    {
-                        found.Quantity++;
-                        if (found.Quantity <= 0)
-                        {
-                            found.Quantity = 1;
-                        }
-
-                    }
+                    found.ChangeQuantity(1);
                 }
                 else
                 {
@@ -256,9 +284,8 @@ namespace OrderForm
 
             if (!StopEditing)
             {
-
                 bool alreadyExists = POS.Any(x => x.ID == item.ID);
-                if (alreadyExists == true)
+                if (alreadyExists)
                 {
                     var found = POS.Single(x => x.ID == item.ID);
                     foreach (DataGridViewRow row in dvItems.Rows)
@@ -266,33 +293,8 @@ namespace OrderForm
                         if (row.DataBoundItem.Equals(found)) row.Selected = true;
 
                     }
-                    if (found.Quantity >= 1)
-                    {
-                        found.Quantity--;
-                        if (found.Quantity == 0)
-                        {
-                            found.Quantity = 1;
-                            //var MsgBox = new SureMsg();
-                            //if (MsgBox.ShowDialog(this) == DialogResult.OK)
-                            //{
-                            //    POS.Remove(item);
-                            //}
-                            //else
-                            //{
-                            //    if (found.Quantity == 0) found.Quantity = 1;
-                            //}
-
-                        }
-
-                    }
-
+                    found.ChangeQuantity(-1);
                 }
-                else
-                {
-                    //
-                }
-
-
             }
         }
         #endregion
@@ -315,7 +317,7 @@ namespace OrderForm
                     this.Focus();
                     if (repeatedBehavior.AreYouSure("لم يتم العثور على السيرفر، هل تريد الدخول في وضع الشبكة مؤقتا أم إعادة المحاولة؟ " + Environment.NewLine + "Yes = أعد المحاولة + No = إعتمد على الشبكة المحلية ", "فشلت عملية التزامن"))
                     { retryConnection(); }
-                    else { Properties.Settings.Default.API_ACCESS = false; Properties.Settings.Default.Save(); Application.Restart(); }
+                    else { Properties.Settings.Default.API_ACCESS = false; }
                 }
 
 
@@ -336,7 +338,7 @@ namespace OrderForm
 
         private void retryConnection()
         {
-            if (File.Exists(Properties.Settings.Default.API_Server_Path))
+            if (System.IO.File.Exists(Properties.Settings.Default.API_Server_Path))
             {
                 foreach (var process in Process.GetProcessesByName("NetworkSynq"))
                 {
@@ -356,8 +358,7 @@ namespace OrderForm
                     this.Focus();
                     if (repeatedBehavior.AreYouSure("لم يتم العثور على السيرفر، هل تريد الدخول في وضع الشبكة مؤقتا أم إعادة المحاولة؟ " + Environment.NewLine + "Yes = أعد المحاولة + No = إعتمد على الشبكة المحلية ", "فشلت عملية التزامن"))
                     { retryConnection(); }
-                    else { Properties.Settings.Default.API_ACCESS = false; Properties.Settings.Default.Save(); Application.Restart(); }
-
+                    else { Properties.Settings.Default.API_ACCESS = false; this.Text = "****Local Connection****"; }
                 }
             }
         }
@@ -435,43 +436,35 @@ namespace OrderForm
 
         public static string GetDayName(int dayInt)
         {
-            var culture = new System.Globalization.CultureInfo("ar-SA");
-            if (dayInt == 6) return culture.DateTimeFormat.GetDayName(DayOfWeek.Saturday);
-            else if (dayInt == 0) return culture.DateTimeFormat.GetDayName(DayOfWeek.Sunday);
-            else if (dayInt == 1) return culture.DateTimeFormat.GetDayName(DayOfWeek.Monday);
-            else if (dayInt == 2) return culture.DateTimeFormat.GetDayName(DayOfWeek.Tuesday);
-            else if (dayInt == 3) return culture.DateTimeFormat.GetDayName(DayOfWeek.Wednesday);
-            else if (dayInt == 4) return culture.DateTimeFormat.GetDayName(DayOfWeek.Thursday);
-            else return culture.DateTimeFormat.GetDayName(DayOfWeek.Friday);
 
+            var culture = new System.Globalization.CultureInfo("ar-SA");
+            string[] days = culture.DateTimeFormat.DayNames;
+            return days[dayInt];
         }
         public int GetDayOfWeek()
         {
+            Dictionary<string, int> days = new Dictionary<string, int>()
+    {
+        { "السبت", (int)DayOfWeek.Saturday },
+        { "الأحد", (int)DayOfWeek.Sunday },
+        { "الإثنين", (int)DayOfWeek.Monday },
+        { "الثلاثاء", (int)DayOfWeek.Tuesday },
+        { "الأربعاء", (int)DayOfWeek.Wednesday },
+        { "الخميس", (int)DayOfWeek.Thursday },
+        { "الجمعة", (int)DayOfWeek.Friday }
+    };
 
             if (DayMenuBTN.Text == "اليوم")
             {
-                var days = DateTime.Now.DayOfWeek;
-                if (days == DayOfWeek.Saturday) return Convert.ToInt32(DayOfWeek.Saturday);
-                else if (days == DayOfWeek.Sunday) return Convert.ToInt32(DayOfWeek.Sunday);
-                else if (days == DayOfWeek.Monday) return Convert.ToInt32(DayOfWeek.Monday);
-                else if (days == DayOfWeek.Tuesday) return Convert.ToInt32(DayOfWeek.Tuesday);
-                else if (days == DayOfWeek.Wednesday) return Convert.ToInt32(DayOfWeek.Wednesday);
-                else if (days == DayOfWeek.Thursday) return Convert.ToInt32(DayOfWeek.Thursday);
-                else return Convert.ToInt32(DayOfWeek.Friday);
+                var daysOfWeek = DateTime.Now.DayOfWeek;
+                return Convert.ToInt32(days[daysOfWeek.ToString()]);
             }
             else
             {
-                if (DayMenuBTN.Text == "السبت") return (int)DayOfWeek.Saturday;
-                else if (DayMenuBTN.Text == "الأحد") return (int)DayOfWeek.Sunday;
-                else if (DayMenuBTN.Text == "الإثنين") return (int)DayOfWeek.Monday;
-                else if (DayMenuBTN.Text == "الثلاثاء") return (int)DayOfWeek.Tuesday;
-                else if (DayMenuBTN.Text == "الأربعاء") return (int)DayOfWeek.Wednesday;
-                else if (DayMenuBTN.Text == "الخميس") return (int)DayOfWeek.Thursday;
-                else return (int)DayOfWeek.Friday;
-
-
+                return days[DayMenuBTN.Text];
             }
         }
+
         private void POS_ListChanged(object sender, ListChangedEventArgs e)
         {
             if (!AddingInProgress)
@@ -568,191 +561,42 @@ namespace OrderForm
             SalahTMR.Start();
         }
 
-        private bool after = false;
         public NextPrayer.state state = NextPrayer.state.stateless;
         private void SalahTMR_Tick(object sender, EventArgs e)
         {
+            bool afterPrayers = false;
             var now = DateTime.Now.ToString("hh:mm tt");
-            TimeButton.Text = now;
+            TimeButton.Text = now; // change here
             TimeTillCountdown.Text = NextPrayer.UpdateCounter();
+            if (afterPrayers) return;
             switch (NextPrayer.UpdateCounter(true))
             {
-                case NextPrayer.state.DhuhrPeriod:
-                    if (!TimeTillCountdown.Visible && !TimeLeftLBL.Visible)
-                    {
-                        TimeTillCountdown.Visible = true;
-                        TimeLeftLBL.Visible = true;
-                    }
-                    if (state != NextPrayer.state.DhuhrPeriod)
-                    {
-                        DhuhrLBL.BackColor = Color.LightGreen;
-                        TimeTillCountdown.BackColor = Color.LightGreen;
-                        TimeTillCountdown.BringToFront();
-                        TimeLeftLBL.BringToFront();
-                        ChangeBackground(DhuhrLBL.Name);
-                    }
-                    state = NextPrayer.state.DhuhrPeriod;
-                    after = false;
-
-                    break;
-                case NextPrayer.state.DhuhrSalahPeriod:
-                    if (!TimeTillCountdown.Visible && !TimeLeftLBL.Visible)
-                    {
-                        TimeTillCountdown.Visible = true;
-                        TimeLeftLBL.Visible = true;
-                    }
-                    if (state != NextPrayer.state.DhuhrSalahPeriod)
-                    {
-                        DhuhrBTN.BackColor = Color.LightPink;
-                        TimeTillCountdown.BackColor = Color.LightPink;
-
-                        ChangeBackground(DhuhrBTN.Name);
-                    }
-                    state = NextPrayer.state.DhuhrSalahPeriod;
-                    after = false;
-                    break;
-                case NextPrayer.state.AsrPeriod:
-                    if (!TimeTillCountdown.Visible && !TimeLeftLBL.Visible)
-                    {
-                        TimeTillCountdown.Visible = true;
-                        TimeLeftLBL.Visible = true;
-                    }
-                    if (state != NextPrayer.state.AsrPeriod)
-                    {
-                        AsrLBL.BackColor = Color.LightGreen;
-                        TimeTillCountdown.BackColor = Color.LightGreen;
-                        ChangeBackground(AsrLBL.Name);
-                    }
-                    state = NextPrayer.state.AsrPeriod;
-                    after = false;
-                    break;
-                case NextPrayer.state.AsrSalahPeriod:
-                    if (!TimeTillCountdown.Visible && !TimeLeftLBL.Visible)
-                    {
-                        TimeTillCountdown.Visible = true;
-                        TimeLeftLBL.Visible = true;
-                    }
-                    if (state != NextPrayer.state.AsrSalahPeriod)
-                    {
-                        AsrBTN.BackColor = Color.LightPink;
-                        TimeTillCountdown.BackColor = Color.LightPink;
-                        ChangeBackground(AsrBTN.Name);
-                    }
-                    state = NextPrayer.state.AsrSalahPeriod;
-                    after = false;
-                    break;
-                case NextPrayer.state.MagribPeriod:
-                    if (!TimeTillCountdown.Visible && !TimeLeftLBL.Visible)
-                    {
-                        TimeTillCountdown.Visible = true;
-                        TimeLeftLBL.Visible = true;
-                    }
-                    if (state != NextPrayer.state.MagribPeriod)
-                    {
-                        MaghribLBL.BackColor = Color.LightGreen;
-                        TimeTillCountdown.BackColor = Color.LightGreen;
-                        ChangeBackground(MaghribLBL.Name);
-                    }
-                    state = NextPrayer.state.MagribPeriod;
-                    after = false;
-                    break;
-                case NextPrayer.state.MagribSalahPeriod:
-                    if (!TimeTillCountdown.Visible && !TimeLeftLBL.Visible)
-                    {
-                        TimeTillCountdown.Visible = true;
-                        TimeLeftLBL.Visible = true;
-                    }
-                    if (state != NextPrayer.state.MagribSalahPeriod)
-                    {
-                        MaghribBTN.BackColor = Color.LightPink;
-                        TimeTillCountdown.BackColor = Color.LightPink;
-                        ChangeBackground(MaghribBTN.Name);
-                    }
-                    state = NextPrayer.state.MagribSalahPeriod;
-                    after = false;
-                    break;
-                case NextPrayer.state.IshaPeriod:
-                    if (!TimeTillCountdown.Visible && !TimeLeftLBL.Visible)
-                    {
-                        TimeTillCountdown.Visible = true;
-                        TimeLeftLBL.Visible = true;
-                    }
-                    if (state != NextPrayer.state.IshaPeriod)
-                    {
-                        IshaLBL.BackColor = Color.LightGreen;
-                        TimeTillCountdown.BackColor = Color.LightGreen;
-                        ChangeBackground(IshaLBL.Name);
-                    }
-                    state = NextPrayer.state.IshaPeriod;
-                    after = false;
-                    break;
-                case NextPrayer.state.IshaSalahPeriod:
-                    if (!TimeTillCountdown.Visible && !TimeLeftLBL.Visible)
-                    {
-                        TimeTillCountdown.Visible = true;
-                        TimeLeftLBL.Visible = true;
-                    }
-                    if (state != NextPrayer.state.IshaSalahPeriod)
-                    {
-
-                        IshaBTN.BackColor = Color.LightPink;
-                        TimeTillCountdown.BackColor = Color.LightPink;
-                        ChangeBackground(IshaBTN.Name);
-                    }
-                    state = NextPrayer.state.IshaSalahPeriod;
-
-                    after = false;
-                    break;
                 case NextPrayer.state.AfterIsha:
-
-                    if (!after)
                     {
                         TimeTillCountdown.Visible = false;
                         TimeLeftLBL.Visible = false;
-
-
-                        ChangeBackground("");
                     }
-                    after = true;
                     break;
                 case NextPrayer.state.After12am:
-                    if (!after)
                     {
                         TimeTillCountdown.Visible = false;
                         TimeLeftLBL.Visible = false;
-
-                        ChangeBackground("");
                         DateLBL.Text = DateTime.Now.ToString("dd/MM/yyyy");
                         DayLBL.Text = DayLBL.Text = Orders.GetDayName((int)DateTime.Now.DayOfWeek);
+                        afterPrayers = true;
+                        break;
                     }
-                    after = true;
 
-                    break;
+                default:
+                    {
+                        afterPrayers = false;
+                        return;
 
+                    }
             }
         }
 
 
-        private void ChangeBackground(string btn)
-        {
-
-            foreach (Control button in SalahTimes.Controls)
-            {
-
-                if (button.Name.EndsWith("LBL") == true)
-                {
-                    if (button.Name != btn)
-                        button.BackColor = Color.White;
-
-                }
-                else if (button.Name.EndsWith("BTN") == true)
-                {
-                    if (button.Name != btn)
-                        button.BackColor = Color.White;
-                }
-
-            }
-        }
 
         #endregion
 
@@ -794,8 +638,6 @@ namespace OrderForm
         private void DvItems_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var dv = sender as DataGridView;
-
-
             try
             {
 
@@ -804,22 +646,7 @@ namespace OrderForm
                     if (dv.CurrentCell.ColumnIndex == 1)
                     {
                         POSItems currentItem = (POSItems)dvItems.CurrentRow.DataBoundItem;
-                        if (currentItem.Quantity == 0)
-                        {
-                            var MsgBox = new SureMsg();
-                            if (MsgBox.ShowDialog(this) == DialogResult.OK)
-                            {
-                                POS.Remove(currentItem);
-                            }
-                            else
-                            {
-                                if (currentItem.Quantity == 0) currentItem.Quantity = 1;
-                                dvItems.Update();
-                                dvItems.Refresh();
-                            }
-
-                        }
-
+                        if (currentItem.Quantity == 0) currentItem.Quantity = 1;
                     }
 
                 }
@@ -865,8 +692,7 @@ namespace OrderForm
                                 }
                             }
                             POSItems currentItem = (POSItems)dvItems.CurrentRow.DataBoundItem;
-                            currentItem.Quantity++;
-                            if (currentItem.Quantity == 0) currentItem.Quantity = 1;
+                            currentItem.ChangeQuantity(1);
                             return;
                         }
 
@@ -887,8 +713,7 @@ namespace OrderForm
                                 }
                             }
                             POSItems currentItem = (POSItems)dvItems.CurrentRow.DataBoundItem;
-                            if (currentItem.Quantity > 1) currentItem.Quantity--; else currentItem.Quantity = 1;
-
+                            currentItem.ChangeQuantity(-1);
                         }
                     }
                     catch (Exception)
@@ -1126,12 +951,25 @@ namespace OrderForm
         }
         private void SettingsPage_Click(object sender, EventArgs e)
         {
-            Form SettingsForm = new SettingsPage();
-            SettingsForm.ShowDialog();
-            SectionsPanel.Controls.Clear();
-            ItemsPanel1.Controls.Clear();
-            LoadMaterials();
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                string n = Environment.NewLine;
+                MessageBox.Show(Application.ProductVersion + n + Properties.Settings.Default.API_Server_Path + n + Properties.Settings.Default.API_Connection);
+            }
+            else
+            {
+                Form SettingsForm = new SettingsPage();
+                SettingsForm.Show();
+            }
         }
+        public static void SettingsClosed()
+        {
+            MyForm.SectionsPanel.Controls.Clear();
+            MyForm.ItemsPanel1.Controls.Clear();
+            MyForm.LoadMaterials();
+            if (Properties.Settings.Default.API_ACCESS) MyForm.Text = "API Mode";
+        }
+
         #endregion
 
         #region Printing Invoices
@@ -1144,36 +982,6 @@ namespace OrderForm
 
         public Invoice PrintNewInvoice()
         {
-            //if (TimeInfo.Text == "الآن")
-            //{
-            //    int NowHH = Convert.ToInt32(DateTime.Now.AddMinutes(10).ToString("HH"));
-            //    if (NowHH < 11)
-            //    {
-            //        string timeNow = "hhmm" + "ص";
-            //        TimeTB.Text = DateTime.Now.AddMinutes(10).ToString(timeNow);
-
-            //    }
-            //    else if (NowHH <= 14 && NowHH >= 11)
-            //    {
-            //        string timeNow = "hhmm" + "ظ";
-            //        TimeTB.Text = DateTime.Now.AddMinutes(10).ToString(timeNow);
-            //    }
-            //    else if (NowHH >= 15 && NowHH < 16)
-            //    {
-            //        string timeNow = "hhmm" + "ع";
-            //        TimeTB.Text = DateTime.Now.AddMinutes(10).ToString(timeNow);
-            //    }
-            //    else if (NowHH >= 16 && NowHH <= 19)
-            //    {
-            //        string timeNow = "hhmm" + "م";
-            //        TimeTB.Text = DateTime.Now.AddMinutes(10).ToString(timeNow);
-            //    }
-            //    else if (NowHH > 19)
-            //    {
-            //        string timeNow = "hhmm" + "ل";
-            //        TimeTB.Text = DateTime.Now.AddMinutes(10).ToString(timeNow);
-            //    }
-            //}
 
             Invoice inv = new Invoice()
             {
@@ -1230,54 +1038,63 @@ namespace OrderForm
 
         private void PrintSave_Click(object sender, EventArgs e)
         {
-            MobileTB.Focus();
-            if (POS.Count > 0)
+
+
+            if (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Shift))
             {
-                globalInvoice = null;
-                globalInvoice = PrintNewInvoice();
-                InvID = Convert.ToInt32(InvoiceNumberID.Text);
-                if (!globalInvoice.Equal(DbInv.GetInvoiceByID(InvID)))
-                {
-                    PrintingLogic();
-                    Contacts customer = new Contacts(NameTB.Text, MobileTB.Text, CommentTB.Text);
-                    dbQ.SaveContacts(customer);
-                    Invoice PNI = PrintNewInvoice();
-                    PNI.TimeOfPrinting = DateTime.Now.ToString();
 
-                    if (APIAccess)
-                    {
-                        System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-
-                        var client = new RestClient(APIConnection + "/LoadDB/UpdateInvoice");
-
-                        var request = new RestRequest();
-
-                        request.AddHeader("Content-Type", "application/json");
-                        request.AddHeader("Accept", "application/json");
-                        request.RequestFormat = DataFormat.Json;
-
-                        string i = Newtonsoft.Json.JsonConvert.SerializeObject(PNI, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
-                        request.AddParameter("application/json", i, ParameterType.RequestBody);
-                        var response = client.Post(request);
-                        Console.WriteLine(response.Content.ToString());
-                        DbInv.LogAction("Invoice Printed", PNI.ID, PNI.Status);
-
-
-                    }
-                    else
-                    {
-                        DbInv.UpdatePreparingInvoice(PNI);
-
-                        DbInv.LogAction("Invoice Printed", PNI.ID, PNI.Status);
-                    }
-
-                    Custom_Classes.CreateOffer.CreateOfferNow(PrintNewInvoice(), true);
-
-                    NewBTN_Click(null, null);
-                }
 
             }
+            else
+            {
+                MobileTB.Focus();
+                if (POS.Count > 0)
+                {
+                    globalInvoice = null;
+                    globalInvoice = PrintNewInvoice();
+                    InvID = Convert.ToInt32(InvoiceNumberID.Text);
+                    if (!globalInvoice.Equal(DbInv.GetInvoiceByID(InvID)))
+                    {
+                        PrintingLogic();
+                        Contacts customer = new Contacts(NameTB.Text, MobileTB.Text, CommentTB.Text);
+                        dbQ.SaveContacts(customer);
+                        Invoice PNI = PrintNewInvoice();
+                        PNI.TimeOfPrinting = DateTime.Now.ToString();
 
+                        if (APIAccess)
+                        {
+                            System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+                            var client = new RestClient(APIConnection + "/LoadDB/UpdateInvoice");
+
+                            var request = new RestRequest();
+
+                            request.AddHeader("Content-Type", "application/json");
+                            request.AddHeader("Accept", "application/json");
+                            request.RequestFormat = DataFormat.Json;
+
+                            string i = Newtonsoft.Json.JsonConvert.SerializeObject(PNI, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
+                            request.AddParameter("application/json", i, ParameterType.RequestBody);
+                            var response = client.Post(request);
+                            Console.WriteLine(response.Content.ToString());
+                            DbInv.LogAction("Invoice Printed", PNI.ID, PNI.Status);
+
+
+                        }
+                        else
+                        {
+                            DbInv.UpdatePreparingInvoice(PNI);
+
+                            DbInv.LogAction("Invoice Printed", PNI.ID, PNI.Status);
+                        }
+
+                        Custom_Classes.CreateOffer.CreateOfferNow(PrintNewInvoice(), true);
+
+                        NewBTN_Click(null, null);
+                    }
+
+                }
+            }
         }
         #endregion
 
@@ -1294,9 +1111,10 @@ namespace OrderForm
             };
         }
 
-
         private void NewBTN_Click(object sender, EventArgs e)
         {
+            var se = sender;
+            if (!IsItPrinted && POS.Count > 0 && se != null) { if (repeatedBehavior.AreYouSure("هل تريد حذف الفاتورة وبدء فاتورة جديدة؟", " تحذير الفاتورة غير مطبوعة")) Console.WriteLine("Yah"); else return; };
             try
             {
                 IsItPrinted = false;
@@ -1306,11 +1124,14 @@ namespace OrderForm
                 StopEditing = false;
                 //InvoiceID = DbInv.GetInvoicesCount();
                 var draftInv = new Invoice();
+                ;
                 draftInv.Status = InvStat.Draft;
                 draftInv.InEditMode = true;
                 draftInv.OrderType = InvoiceTypeOptions.Items[Properties.Settings.Default.defaultOrder].Text;
                 draftInv.InvoiceDay = GetWhatDay((int)DateTime.Now.DayOfWeek);
+
                 InvoiceNumberID.Text = DbInv.CreatePreparingInvoice(draftInv).Replace("\"", "");
+
                 OrdersPanel.Enabled = true;
                 AddingInProgress = true;
                 POS.Clear();
@@ -1330,14 +1151,13 @@ namespace OrderForm
                 displayOffer.CloseNow();
                 this.Update();
                 this.Refresh();
-
-
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
             }
+
 
 
         }
@@ -1372,40 +1192,51 @@ namespace OrderForm
             this.PrintedInvoices.Controls.Clear();
 
             var days = DateTime.Now.DayOfWeek;
-            if (days == DayOfWeek.Saturday) { Sat.Checked = true; Fri_CheckedChanged(Sat, null); }
-            else if (days == DayOfWeek.Sunday) { Sun.Checked = true; Fri_CheckedChanged(Sun, null); }
-            else if (days == DayOfWeek.Monday) { Mon.Checked = true; Fri_CheckedChanged(Mon, null); }
-            else if (days == DayOfWeek.Tuesday) { Tue.Checked = true; Fri_CheckedChanged(Tue, null); }
-            else if (days == DayOfWeek.Wednesday) { Wed.Checked = true; Fri_CheckedChanged(Wed, null); }
-            else if (days == DayOfWeek.Thursday) { Thu.Checked = true; Fri_CheckedChanged(Thu, null); }
-            else if (days == DayOfWeek.Friday) { Fri.Checked = true; Fri_CheckedChanged(Fri, null); }
-
+            Dictionary<DayOfWeek, RadioButton> radioButtons = new Dictionary<DayOfWeek, RadioButton>()
+            {
+                { DayOfWeek.Saturday, Sat },
+                { DayOfWeek.Sunday, Sun },
+                { DayOfWeek.Monday, Mon },
+                { DayOfWeek.Tuesday, Tue },
+                { DayOfWeek.Wednesday, Wed },
+                { DayOfWeek.Thursday, Thu },
+                { DayOfWeek.Friday, Fri }
+            };
+            radioButtons[days].Checked = true;
+            Fri_CheckedChanged(radioButtons[days], null);
         }
+
         private void Fri_CheckedChanged(object sender, EventArgs e)
         {
             var se = sender as RadioButton;
             if (se.Checked) switchCase(se.Name);
         }
 
+        enum CustomDaysOfWeek
+        {
+            AllDays = -1,
+            Sun = 0,
+            Mon = 1,
+            Tue = 2,
+            Wed = 3,
+            Thu = 4,
+            Fri = 5,
+            Sat = 6,
+            History = 100
+        }
+
         private void switchCase(string se)
         {
-            switch (se)
+            CustomDaysOfWeek daysOfWeek;
+            if (Enum.TryParse(se, out daysOfWeek))
             {
-                case "AllDays":
-                    {
-
-                        RadioChecked(-1); break;
-                    }
-                case "Fri": { RadioChecked(5); break; }
-                case "Thu": { RadioChecked(4); break; }
-                case "Wed": { RadioChecked(3); break; }
-                case "Tue": { RadioChecked(2); break; }
-                case "Mon": { RadioChecked(1); break; }
-                case "Sun": { RadioChecked(0); break; }
-                case "Sat": { RadioChecked(6); break; }
-                case "History": { RadioChecked(100); break; }
+                RadioChecked((int)daysOfWeek);
             }
         }
+
+
+
+
 
         private void HeldOrder_MouseUp(object sender, MouseEventArgs e)
         {
@@ -1540,7 +1371,48 @@ namespace OrderForm
             var se = sender as _InvBTN;
             int id = Convert.ToInt32(se.Tag);
             Invoice heldInv = DbInv.GetInvoiceByID(id);
+            if (ReadyStatus.Checked)
+            {
+                if (heldInv.Comment != null)
+                {
+                    if (heldInv.Comment.Contains("الطلب جاهز")){
+                        heldInv.Comment = heldInv.Comment.Replace("الطلب جاهز", "");
+                        DbInv.UpdateInvoice(heldInv);
+                        var replacement = new _InvBTN(heldInv);
+                        replacement.Click += HeldOrder_click;
+                        replacement.Tag = id;
 
+                        int index = PrintedInvoices.Controls.IndexOf(se);
+                        this.PrintedInvoices.Controls.Add(replacement);
+                        this.PrintedInvoices.Controls.SetChildIndex(replacement, index);
+
+                        this.PrintedInvoices.Controls.Remove(se);
+                        PrintedInvoices.Refresh();
+
+                    }
+
+                }
+                else
+                {
+                    heldInv.Comment += "الطلب جاهز";
+                
+                    DbInv.UpdateInvoice(heldInv);
+                    var replacement = new _InvBTN(heldInv);
+                    replacement.Tag = id;
+                    replacement.Click += HeldOrder_click;
+                    int index = PrintedInvoices.Controls.IndexOf(se);
+
+                    this.PrintedInvoices.Controls.Add(replacement);
+                    this.PrintedInvoices.Controls.SetChildIndex(replacement, index);
+
+                    this.PrintedInvoices.Controls.Remove(se);
+                    PrintedInvoices.Refresh();
+
+
+                }
+                //OrdersPage_Click(null,null);
+                return;
+            }
             if (heldInv.Status != InvStat.Draft)
             {
                 IsItPrinted = true;
@@ -2050,7 +1922,7 @@ namespace OrderForm
             {
                 Console.Beep(1000, 100);
                 DbInv.DeleteAllEmptyDrafts();
-                DbInv.Rebuild();
+                //DbInv.Rebuild();
                 DbInv.InsureIndexes();
                 Console.Beep(1000, 100);
                 Console.Beep(1000, 100);
@@ -2085,19 +1957,24 @@ namespace OrderForm
 
 
 
+
                 var List = DbInv.GetSavedInvoices();
-                foreach (var item in List)
+                if (List.Count != 0)
                 {
+                    foreach (var item in List)
+                    {
 
-                    _InvBTN PrintedBTN = new _InvBTN(item);
-                    int ID = item.ID;
-                    PrintedBTN.Tag = ID;
-                    PrintedBTN.Click += HeldOrder_click;
-                    PrintedBTN.MouseUp += HeldOrder_MouseUp;
-                    PrintedBTN.Name = item.ID.ToString();
-                    PrintedInvoices.Controls.Add(PrintedBTN);
+                        _InvBTN PrintedBTN = new _InvBTN(item);
+                        int ID = item.ID;
+                        PrintedBTN.Tag = ID;
+                        PrintedBTN.Click += HeldOrder_click;
+                        PrintedBTN.MouseUp += HeldOrder_MouseUp;
+                        PrintedBTN.Name = item.ID.ToString();
+                        PrintedInvoices.Controls.Add(PrintedBTN);
 
+                    }
                 }
+                else return;
 
             }
             else
@@ -2106,31 +1983,34 @@ namespace OrderForm
 
                 {
                     var List = DbInv.GetPrintedInvoices();
-                    foreach (var item in List)
+                    if (List.Count != 0)
                     {
-                        _InvBTN PrintedBTN = new _InvBTN(item);
-                        if ((int)item.InvoiceDay == day)
+                        foreach (var item in List)
                         {
-                            int ID = item.ID;
-                            PrintedBTN.Tag = ID;
-                            PrintedBTN.Click += HeldOrder_click;
-                            PrintedBTN.MouseUp += HeldOrder_MouseUp;
-                            PrintedInvoices.Controls.Add(PrintedBTN);
-                            //  lists.Add(item); //
-                        }
-                        else if (day == -1)
-                        {
-                            int ID = item.ID;
-                            PrintedBTN.Tag = ID;
-                            PrintedBTN.Click += HeldOrder_click;
-                            PrintedBTN.MouseUp += HeldOrder_MouseUp;
-                            PrintedInvoices.Controls.Add(PrintedBTN);
-                        }
+                            _InvBTN PrintedBTN = new _InvBTN(item);
+                            if ((int)item.InvoiceDay == day)
+                            {
+                                int ID = item.ID;
+                                PrintedBTN.Tag = ID;
+                                PrintedBTN.Click += HeldOrder_click;
+                                PrintedBTN.MouseUp += HeldOrder_MouseUp;
+                                PrintedInvoices.Controls.Add(PrintedBTN);
+                                //  lists.Add(item); //
+                            }
+                            else if (day == -1)
+                            {
+                                int ID = item.ID;
+                                PrintedBTN.Tag = ID;
+                                PrintedBTN.Click += HeldOrder_click;
+                                PrintedBTN.MouseUp += HeldOrder_MouseUp;
+                                PrintedInvoices.Controls.Add(PrintedBTN);
+                            }
 
+                        }
                     }
+
                 }
-                //  var a = new SavingandPayment.PaymentOptions(lists); //
-                //  a.ShowDialog(); //
+
 
             }
 
@@ -2142,9 +2022,14 @@ namespace OrderForm
             NewBTN_Click(null, null);
             if (Properties.Settings.Default.showMenu)
             {
-                unfocusableButton3.Enabled = true;
+                changeMenu.Enabled = true;
+                langCheck.Enabled = true;
             }
-            else unfocusableButton3.Enabled = false;
+            else
+            {
+                changeMenu.Enabled = false;
+                langCheck.Enabled = false;
+            }
 
             //ProcessStartInfo processInfo = new ProcessStartInfo("C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\bin\\Debug\\net6.0\\NetworkSynq.exe", "");
             //processInfo.CreateNoWindow = true;
@@ -2155,8 +2040,33 @@ namespace OrderForm
         {
             Custom_Classes.CreateOffer.CreateOfferNow(PrintNewInvoice(), true);
             Console.Beep(1000, 300);
+        }
+        private void CopyInvoice_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                this.DragDropImage();
+        }
+
+        private void DragDropImage()
+        {
+            var filename = "drag.png";
+            var path = Path.Combine(Path.GetTempPath(), filename);
+            Custom_Classes.CreateOffer.CreateOfferNow(PrintNewInvoice(), true).Save(path);
+            var paths = new[] { path };
+            try
+            {
+                this.CopyInvoice.DoDragDrop(new System.Windows.Forms.DataObject(DataFormats.FileDrop, paths), DragDropEffects.Copy);
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+
 
         }
+
+
 
         private void DvItems_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
@@ -2221,6 +2131,7 @@ namespace OrderForm
             {
                 DbInv.UpdatePreparingInvoice(SaveToPOS);
                 Save2POS(SaveToPOS);
+                return;
 
             }
             else
@@ -2234,7 +2145,7 @@ namespace OrderForm
                             if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
                             {
                                 Save2POS(SaveToPOS);
-
+                                return;
                             }
                             else if (IsItPrinted && !SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
                             {
@@ -2244,11 +2155,13 @@ namespace OrderForm
 
                                     PrintSave_Click(sender, null);
                                     Save2POS(SaveToPOS);
+                                    return;
                                 }
                                 else if (dialogResult == DialogResult.No)
                                 {
 
                                     Save2POS(SaveToPOS);
+                                    return;
                                 }
 
                             }
@@ -2256,6 +2169,7 @@ namespace OrderForm
                             {
                                 PrintSave_Click(sender, null);
                                 Save2POS(SaveToPOS);
+                                return;
 
                             }
                         }
@@ -2265,7 +2179,7 @@ namespace OrderForm
                         if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
                         {
                             Save2POS(SaveToPOS);
-
+                            return;
                         }
                         else if (IsItPrinted && !SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
                         {
@@ -2275,11 +2189,13 @@ namespace OrderForm
 
                                 PrintSave_Click(sender, null);
                                 Save2POS(SaveToPOS);
+                                return;
                             }
                             else if (dialogResult == DialogResult.No)
                             {
 
                                 Save2POS(SaveToPOS);
+                                return;
                             }
 
                         }
@@ -2287,7 +2203,7 @@ namespace OrderForm
                         {
                             PrintSave_Click(sender, null);
                             Save2POS(SaveToPOS);
-
+                            return;
                         }
                     }
                 }
@@ -2298,10 +2214,16 @@ namespace OrderForm
                         SaveToPOS.Status = InvStat.SavedToPOS;
                         SaveToPOS.POSInvoiceNumber = "جاهز";
                         DbInv.CreateAppOrder(SaveToPOS);
+                        return;
+
                     }
+                    else return;
+
                 }
             }
         }
+
+
         private void Save2POS(Invoice SaveToPOS)
         {
             this.Hide();
@@ -2310,14 +2232,16 @@ namespace OrderForm
             canceled.Tag = id;
 
             var a = new SavingandPayment.PaymentOptions(SaveToPOS);
-            a.PrintOrNot += A_PrintOrNot;
-
+            a.Owner = this;
             ShowMenuBTN.BackColor = Color.AliceBlue;
             if (a.ShowDialog() == DialogResult.OK)
             {
                 this.Show();
                 this.WindowState = FormWindowState.Normal;
                 NewBTN_Click(null, null);
+                this.Activate();
+                return;
+
             }
             else
             {
@@ -2325,22 +2249,25 @@ namespace OrderForm
                 this.WindowState = FormWindowState.Normal;
 
                 HeldOrder_click(canceled, null);
+                this.Activate();
+                return;
+
+
+
+
+
+
             }
 
 
         }
 
-
-
-        private void A_PrintOrNot(object sender, Invoice e)
+        public CheckBox ParentCheckBox
         {
-
-            if (checkBox1.Checked && e.OrderType == "هاتف")
-            {
-                PrintInvoiceReady.Print(Properties.Settings.Default.DefaultPrinter, e);
-            }
-
+            get { return this.checkBox1; }
         }
+
+
 
         private void FastComment_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
@@ -2464,6 +2391,7 @@ namespace OrderForm
             UpdatedDraft?.Invoke(this, null);
             if (POS.Count() > 0 || NameTB.Text != "" || MobileTB.Text != "")
             {
+                POS.Clear();
                 NewBTN_Click(null, null);
             }
 
@@ -2646,6 +2574,7 @@ namespace OrderForm
         private void DvItems_DragDrop(object sender, DragEventArgs e)
         {
 
+
             string JahezParser = "";
             JahezParser = e.Data.GetData(DataFormats.UnicodeText).ToString().Replace("x", "");
             if (JahezParser.Contains("Order"))
@@ -2706,7 +2635,7 @@ namespace OrderForm
                             JahezBarcode = JahezBarcode.Replace('\r', ' ').Replace(" ", "");
                             JahezQuantity = JahezQuantity.Replace('\r', ' ').Replace(" ", "");
 
-                            var Item = ItemsLists.Find(x => x.Barcode == JahezBarcode);
+                            var Item = ItemsLists.First(x => x.Barcode == JahezBarcode);
                             if (Item != null)
                             {
                                 Item.Quantity = Convert.ToInt32(JahezQuantity);
@@ -2774,7 +2703,7 @@ namespace OrderForm
                             WhatsBarcode = WhatsBarcode.Replace('\r', ' ').Replace(" ", "");
                             WhatsQuantity = WhatsQuantity.Replace('\r', ' ').Replace(" ", "");
 
-                            var Item = ItemsLists.Find(x => x.Barcode == WhatsBarcode);
+                            var Item = ItemsLists.First(x => x.Barcode == WhatsBarcode);
                             if (Item != null)
                             {
                                 Item.Quantity = Convert.ToInt32(WhatsQuantity);
@@ -3082,7 +3011,7 @@ namespace OrderForm
 
                     SendKeys.Send("^{V}");
                     InputLanguage.CurrentInputLanguage =
-    InputLanguage.FromCulture(new System.Globalization.CultureInfo("Ar-SA"));
+        InputLanguage.FromCulture(new System.Globalization.CultureInfo("Ar-SA"));
                 }
             }
 
@@ -3163,11 +3092,57 @@ namespace OrderForm
         {
             if (ModifierKeys.HasFlag(Keys.Control))
             {
-                for (int i = 0; i < 200; i++)
-                {
-                    NewBTN_Click(null, null);
-                }
+                MyMatReport m = new MyMatReport();
+                m.Show();
+            }
+        }
 
+        private void Api_Health_Tick(object sender, EventArgs e)
+        {
+            if (APIAccess)
+            {
+                if (!DbInv.AreYouAlive())
+                {
+                    this.Text = Title + " *** Failed to Connect to API";
+                }
+                else
+                {
+                    this.Text = Title + "API Mode Connected " + DateTime.Now.ToString("HH:mm:ss");
+                }
+            }
+        }
+
+        private void langCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DM.Visibility != System.Windows.Visibility.Visible)
+            {
+                try
+                {
+                    DM.Show();
+                    _ = DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First(), langCheck.Checked, Properties.Settings.Default.ItemSize);
+
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            else
+            {
+                _ = DM.LaunchMenu(MenuDB.GetMenuItems(MenuDB.GetMenus().First()), MenuDB.GetMenus().First(), langCheck.Checked, Properties.Settings.Default.ItemSize);
+            }
+        }
+
+        private void SaveAllJahez_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                
+                var menu = new ContextMenu();
+                
+                DbInv.GetSavedInvoices().Where(x => x.OrderType == "تطبيقات").Take(10).ToList().ForEach(x => menu.MenuItems.Add(x.CustomerName) );
+                
+                menu.Show(SaveAllJahez,new Point(0,0));    
             }
         }
     }

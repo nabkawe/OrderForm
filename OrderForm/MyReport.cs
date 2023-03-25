@@ -52,7 +52,7 @@ namespace OrderForm
             }
             else if (Jahez.Checked)
             {
-                dv = DbInv.GetAllSavedInvoices().FindAll(x => x.Status == sharedCode.InvStat.SavedToPOS && x.OrderType == "تطبيقات");
+                dv = DbInv.GetAllSavedInvoices().FindAll(x => x.Status == sharedCode.InvStat.SavedToPOS && x.OrderType == "تطبيقات" && x.TimeOfPrinting != null && DateTime.Parse(x.TimeOfPrinting) > this.StartDate.Value && DateTime.Parse(x.TimeOfPrinting) < this.EndDate.Value);
                 dvReport.DataSource = dv;
                 this.totalSales.Text = dv.Sum(x => x.InvoicePrice).ToString();
 
@@ -63,6 +63,48 @@ namespace OrderForm
                 dvReport.DataSource = dv;
                 this.totalSales.Text = dv.Sum(x => x.InvoicePrice).ToString();
             }
+            MakePayments();
+        }
+
+        private void MakePayments()
+        {
+            List<string> list = new List<string>();
+            List<Payment> TotalPayments = new List<Payment>();
+            dv.ForEach(x =>
+            {
+                if (x.Payments.Count > 0)
+                {
+                    if (x.Payments.Count == 1)
+                    {
+                        list.Add(x.PaymentName);
+                        TotalPayments.Add(x.Payments.First());
+                    }
+                    else
+                    {
+                        x.Payments.ForEach(z => { list.Add(z.Name); TotalPayments.Add(z); });
+
+                    }
+                }
+                else
+                {
+                    list.Add(x.PaymentName);
+                    TotalPayments.Add(new Payment() { Name = x.PaymentName, Amount = x.InvoicePrice });
+                }
+            }
+            );
+
+            var PayMethods = list.Distinct().ToList();
+            PaymentMethods.Controls.Clear();
+            PayMethods.ForEach(x => PaymentMethods.Controls.Add(CreatePaymentResult(x)));
+            dv.ForEach(x => x.Payments.ForEach(y => TotalPayments.Add(y)));
+            foreach (var item in PayMethods)
+            {
+                var tb = (TextBox)PaymentMethods.Controls.Find(item, false).First();
+                tb.Text = item.Replace("_", " ") + ": " + TotalPayments.Where(x => x.Name == item).Sum(z => z.Amount).ToString();
+
+            }
+
+            totalSales.SendToBack();
         }
 
         private void ByPriceDescending(object sender, EventArgs e)
@@ -101,44 +143,17 @@ namespace OrderForm
 
         private void dvReport_DataSourceChanged(object sender, EventArgs e)
         {
-            List<string> list = new List<string>();
-            List<Payment> TotalPayments = new List<Payment>();
-            dv.ForEach(x =>
-            {
-                if (x.Payments.Count > 0)
-                {
-                    if (x.Payments.Count == 1)
-                    {
-                        list.Add(x.PaymentName);
-                        TotalPayments.Add(x.Payments[0]);
-                    }
-                    else
-                    {
-                        x.Payments.ForEach(z => { list.Add(z.Name); TotalPayments.Add(z); });
+           
+        }
 
-                    }
-                }
-                else
-                {
-                    list.Add(x.PaymentName);
-                    TotalPayments.Add(new Payment() { Name = x.PaymentName, Amount = x.InvoicePrice });
-                }
-            }
-            );
-
-            var PayMethods = list.Distinct().ToList();
-            PayMethods.ForEach(x => PaymentMethods.Controls.Add(CreatePaymentResult(x)));
-            dv.ForEach(x => x.Payments.ForEach(y => TotalPayments.Add(y)));
-            foreach (var item in PayMethods)
-            {
-                var tb = (TextBox)PaymentMethods.Controls.Find(item, false).First();
-                tb.Text = item.Replace("_", " ") + ": " + TotalPayments.Where(x => x.Name == item).Sum(z => z.Amount).ToString();
-
-            }
-
-            totalSales.SendToBack();
+        private void MyReport_Load(object sender, EventArgs e)
+        {
 
         }
 
+        private void PaymentMethods_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

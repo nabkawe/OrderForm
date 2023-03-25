@@ -27,7 +27,7 @@
                         <GradientStop Color="GhostWhite" Offset="1"></GradientStop>
                     </RadialGradientBrush>
                 </Border.Background>
-                <TextBlock x:Name="InfoContent" Foreground="#FF513519"   FlowDirection="RightToLeft" TextWrapping="Wrap" Text="تنبيه الحساسية: تحتوي/قد تحتوي جميع الفطائر والوجبات على الحليب، البيض، الجلوتين  والمكسرات" Width="340"  FontSize="13" FontFamily="AbdoMaster ☞"/>
+                <TextBlock x:Name="InfoContent" Foreground="#FF513519"   FlowDirection="RightToLeft" TextWrapping="Wrap" Text="" Width="340"  FontSize="13" FontFamily="AbdoMaster ☞"/>
             </Border>
         </StackPanel>
         <Image x:Name="logoMid" Grid.Column="1" Source="C:\db\images\HeaderSource\logo.png" Stretch="Uniform"  Margin="24,5,33,22" />

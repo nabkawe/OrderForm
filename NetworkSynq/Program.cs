@@ -4,6 +4,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+try
+{
+    app.Run();
+}
+catch (System.Exception)
+{
 
-app.Run();
+}
+
     

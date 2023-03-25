@@ -33,6 +33,7 @@
             this.Delete = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lb
@@ -44,7 +45,7 @@
             this.lb.ForeColor = System.Drawing.Color.LightSlateGray;
             this.lb.FormattingEnabled = true;
             this.lb.ItemHeight = 15;
-            this.lb.Location = new System.Drawing.Point(3, 26);
+            this.lb.Location = new System.Drawing.Point(3, 29);
             this.lb.Name = "lb";
             this.lb.Size = new System.Drawing.Size(223, 90);
             this.lb.TabIndex = 0;
@@ -68,13 +69,13 @@
             // 
             // Delete
             // 
-            this.Delete.BackColor = System.Drawing.Color.LightSlateGray;
+            this.Delete.BackColor = System.Drawing.Color.MediumVioletRed;
             this.Delete.FlatAppearance.BorderSize = 0;
             this.Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Delete.ForeColor = System.Drawing.Color.GhostWhite;
-            this.Delete.Location = new System.Drawing.Point(7, 127);
+            this.Delete.Location = new System.Drawing.Point(135, 126);
             this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(124, 21);
+            this.Delete.Size = new System.Drawing.Size(91, 21);
             this.Delete.TabIndex = 3;
             this.Delete.TabStop = false;
             this.Delete.Text = "حذف الفاتورة المحددة";
@@ -104,17 +105,33 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.GhostWhite;
-            this.label1.Location = new System.Drawing.Point(94, 2);
+            this.label1.Location = new System.Drawing.Point(147, 1);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 17);
+            this.label1.Size = new System.Drawing.Size(79, 17);
             this.label1.TabIndex = 5;
-            this.label1.Text = "وضع التخزين المتعدد";
+            this.label1.Text = "وضع التجميع";
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.DarkCyan;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.GhostWhite;
+            this.button2.Location = new System.Drawing.Point(3, 126);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(108, 21);
+            this.button2.TabIndex = 6;
+            this.button2.TabStop = false;
+            this.button2.Text = "طباعة ورقة تحضير";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // MulipleSave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSlateGray;
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Delete);
@@ -133,5 +150,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.ListBox lb;
+        private System.Windows.Forms.Button button2;
     }
 }

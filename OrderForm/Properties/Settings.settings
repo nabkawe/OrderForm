@@ -99,7 +99,7 @@
       <Value Profile="(Default)">[NAME:Label30]</Value>
     </Setting>
     <Setting Name="POSMainName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Libra Soft® مطعم سحائب طيبه سليمانية 2022</Value>
+      <Value Profile="(Default)">Libra Soft® مطعم سحائب طيبه سليمانية 2023</Value>
     </Setting>
     <Setting Name="POSNewBTN" Type="System.String" Scope="User">
       <Value Profile="(Default)">[NAME:Label35]</Value>
@@ -149,8 +149,8 @@
     <Setting Name="WheelGridEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="API_ACCESS" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="API_ACCESS" Roaming="true" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="API_Server_Path" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -165,6 +165,9 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Logo" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CashierPrinter" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

@@ -1,10 +1,12 @@
 ﻿using sharedCode;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,42 +38,34 @@ namespace OrderForm
 
         public static BindingList<NewFood> FoodItemZ { get; set; }
         public string CurrentMenu;
-
+        public static System.Windows.Size Currentsize;
 
         public async Task LaunchMenu(List<MenuItemZ> list, string CurrentMenuIn, bool langs, [Optional] System.Windows.Size ItemSize )
         {
-
+            
             try
             {
                 FoodItemZ.Clear();
-                Storyboard storyboard = new Storyboard();
-                TimeSpan duration = TimeSpan.FromMilliseconds(400); //
-                DoubleAnimation fadeInAnimation = new DoubleAnimation()
-                { From = 1, To = 0, AutoReverse = true, Duration = new Duration(duration) };
-                Storyboard.SetTargetName(fadeInAnimation, this.FoodList.Name);
-                Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-                storyboard.Children.Add(fadeInAnimation);
-                storyboard.Begin(this);
+
+                this.FoodList.ItemsSource = FoodItemZ;
+
+   
                 CurrentMenu = CurrentMenuIn;
-                NewFood.lang = langs;
 
                 foreach (MenuItemZ item in list)
                 {
-                    
-                    NewFood foodItem = new NewFood(item) ;
-                    if (ItemSize.Width > 0) { foodItem.Width = ItemSize.Width; foodItem.Height = ItemSize.Height; }
-                    
-
+                    item.items.ForEach(x => x.Lang = langs);
+                    NewFood foodItem = new NewFood(item);
+                    if (ItemSize.Width > 0) { foodItem.Width = ItemSize.Width; foodItem.Height = ItemSize.Height; Currentsize = ItemSize; }
                     FoodItemZ.Add(foodItem);
                 }
-                this.FoodList.ItemsSource = FoodItemZ;
-                await Task.CompletedTask;
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.ToString());
             }
+
 
         }
 
@@ -92,6 +86,7 @@ namespace OrderForm
                                 if (bar.Split('-')[i] == barcode)
                                 {
                                     item.PickedYou();
+                                    return;
                                 }
                             }
                         }
@@ -99,7 +94,10 @@ namespace OrderForm
                     else
                     if ((string)item.Tag == barcode)
                     {
+                        
                         item.PickedYou();
+                        return;
+
                     }
                 }
                 else
@@ -114,8 +112,9 @@ namespace OrderForm
                                 {
                                     if (items.Barcode.Split('-')[i] == barcode)
                                     {
-                                        item.FillInfo(items);
+                                        item.DataContext = items;
                                         item.PickedYou();
+                                        return;
                                     }
                                 }
                             }
@@ -125,8 +124,9 @@ namespace OrderForm
                         {
                             if (items.Barcode == barcode)
                             {
-                                item.FillInfo(items);
+                                item.DataContext = items;
                                 item.PickedYou();
+                                return;
                             }
                         }
 

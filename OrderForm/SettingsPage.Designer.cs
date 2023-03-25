@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsPage));
             this.About = new System.Windows.Forms.TabPage();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.DeleteInfo = new System.Windows.Forms.Button();
@@ -41,20 +40,15 @@
             this.infolist = new System.Windows.Forms.ListBox();
             this.ClearDB = new System.Windows.Forms.Button();
             this.Pos = new System.Windows.Forms.TabPage();
+            this.button18 = new System.Windows.Forms.Button();
+            this.ServerFile = new System.Windows.Forms.Label();
             this.button17 = new System.Windows.Forms.Button();
             this.label70 = new System.Windows.Forms.Label();
             this.ipTB = new System.Windows.Forms.TextBox();
-            this.button16 = new System.Windows.Forms.Button();
-            this.APICheck = new System.Windows.Forms.CheckBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.defaultOrder = new System.Windows.Forms.TextBox();
-            this.label53 = new System.Windows.Forms.Label();
-            this.CurrentTax = new System.Windows.Forms.TextBox();
             this.label52 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
+            this.button16 = new System.Windows.Forms.Button();
             this.DBConnection = new System.Windows.Forms.TextBox();
-            this.label51 = new System.Windows.Forms.Label();
-            this.BranchName = new System.Windows.Forms.TextBox();
+            this.APICheck = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label74 = new System.Windows.Forms.Label();
             this.ItemH = new System.Windows.Forms.TextBox();
@@ -91,7 +85,18 @@
             this.label6 = new System.Windows.Forms.Label();
             this.posInvoiceTB = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label76 = new System.Windows.Forms.Label();
+            this.logoTB = new System.Windows.Forms.TextBox();
+            this.label75 = new System.Windows.Forms.Label();
+            this.RestTB = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.BranchName = new System.Windows.Forms.TextBox();
             this.WheelGridCheck = new System.Windows.Forms.CheckBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.defaultOrder = new System.Windows.Forms.TextBox();
+            this.label53 = new System.Windows.Forms.Label();
+            this.CurrentTax = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
             this.WheelCheck = new System.Windows.Forms.CheckBox();
             this.label69 = new System.Windows.Forms.Label();
             this.POSClientName_ = new System.Windows.Forms.TextBox();
@@ -146,9 +151,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.prntSetting = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
@@ -156,10 +158,17 @@
             this.PrepareADD = new System.Windows.Forms.Button();
             this.PrepareTB = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.defaultPrinterTB = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.RemoveCashierPrinter = new System.Windows.Forms.Button();
+            this.AssignCashier = new System.Windows.Forms.Button();
+            this.CashierPrinterTB = new System.Windows.Forms.TextBox();
+            this.label77 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.defaultPrinterTB = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.AddPrinterToItems = new System.Windows.Forms.Button();
             this.PrintersList1 = new System.Windows.Forms.CheckedListBox();
@@ -221,45 +230,23 @@
             this.EditMat = new System.Windows.Forms.Button();
             this.AddMat = new System.Windows.Forms.Button();
             this.MenuDisplaySettings = new System.Windows.Forms.TabPage();
-            this.SaveMulti = new System.Windows.Forms.Button();
             this.QuickAdd = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
-            this.label64 = new System.Windows.Forms.Label();
-            this.label63 = new System.Windows.Forms.Label();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
             this.SaveMenu = new System.Windows.Forms.Button();
             this.DeleteM = new System.Windows.Forms.Button();
             this.MDown = new System.Windows.Forms.Button();
             this.SectionsName = new System.Windows.Forms.Label();
-            this.AddMultiItem = new System.Windows.Forms.Button();
             this.MUp = new System.Windows.Forms.Button();
             this.label61 = new System.Windows.Forms.Label();
-            this.label60 = new System.Windows.Forms.Label();
-            this.MultiLB = new System.Windows.Forms.ListBox();
             this.MenuLB = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label73 = new System.Windows.Forms.Label();
-            this.label71 = new System.Windows.Forms.Label();
-            this.EnMdetails = new System.Windows.Forms.TextBox();
-            this.EnMnameTB = new System.Windows.Forms.TextBox();
-            this.Availables = new System.Windows.Forms.CheckBox();
-            this.ChoosePicPath = new System.Windows.Forms.Button();
-            this.AddToMultiItem = new System.Windows.Forms.Button();
+            this.CancelMIX = new System.Windows.Forms.Button();
+            this.SaveMulti = new System.Windows.Forms.Button();
+            this.AddingGrid = new System.Windows.Forms.DataGridView();
             this.AddSingleItem = new System.Windows.Forms.Button();
-            this.Mpath = new System.Windows.Forms.TextBox();
-            this.Mcal = new System.Windows.Forms.TextBox();
-            this.Mdetails = new System.Windows.Forms.TextBox();
-            this.MPrice = new System.Windows.Forms.TextBox();
-            this.MBarcode = new System.Windows.Forms.TextBox();
-            this.MnameTB = new System.Windows.Forms.TextBox();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.CopyMenu = new System.Windows.Forms.Button();
+            this.SaveOrder = new System.Windows.Forms.Button();
             this.MSDown = new System.Windows.Forms.Button();
             this.DeleteSM = new System.Windows.Forms.Button();
             this.MSUp = new System.Windows.Forms.Button();
@@ -269,16 +256,13 @@
             this.MListLB = new System.Windows.Forms.ListBox();
             this.sectionsML = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.LoadFile = new System.Windows.Forms.OpenFileDialog();
-            this.label75 = new System.Windows.Forms.Label();
-            this.RestTB = new System.Windows.Forms.TextBox();
-            this.logoTB = new System.Windows.Forms.TextBox();
-            this.label76 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
             this.About.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.Pos.SuspendLayout();
-            this.groupBox11.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FntUpDown)).BeginInit();
             this.groupBox9.SuspendLayout();
             this.prntSetting.SuspendLayout();
@@ -295,16 +279,18 @@
             this.MaterialsEdit.SuspendLayout();
             this.MenuDisplaySettings.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AddingGrid)).BeginInit();
             this.groupBox12.SuspendLayout();
             this.SuspendLayout();
             // 
             // About
             // 
+            this.About.Controls.Add(this.label54);
             this.About.Controls.Add(this.groupBox13);
             this.About.Controls.Add(this.ClearDB);
             this.About.Location = new System.Drawing.Point(4, 22);
             this.About.Name = "About";
-            this.About.Size = new System.Drawing.Size(979, 512);
+            this.About.Size = new System.Drawing.Size(996, 512);
             this.About.TabIndex = 4;
             this.About.Text = "حول المبرمج";
             this.About.UseVisualStyleBackColor = true;
@@ -403,6 +389,8 @@
             // 
             // Pos
             // 
+            this.Pos.Controls.Add(this.button18);
+            this.Pos.Controls.Add(this.ServerFile);
             this.Pos.Controls.Add(this.button17);
             this.Pos.Controls.Add(this.label70);
             this.Pos.Controls.Add(this.ipTB);
@@ -410,7 +398,6 @@
             this.Pos.Controls.Add(this.button16);
             this.Pos.Controls.Add(this.DBConnection);
             this.Pos.Controls.Add(this.APICheck);
-            this.Pos.Controls.Add(this.groupBox11);
             this.Pos.Controls.Add(this.groupBox10);
             this.Pos.Controls.Add(this.groupBox1);
             this.Pos.Controls.Add(this.button11);
@@ -418,16 +405,38 @@
             this.Pos.Location = new System.Drawing.Point(4, 22);
             this.Pos.Name = "Pos";
             this.Pos.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Pos.Size = new System.Drawing.Size(979, 512);
+            this.Pos.Size = new System.Drawing.Size(996, 512);
             this.Pos.TabIndex = 3;
             this.Pos.Text = "إعدادت ليبرا";
             this.Pos.UseVisualStyleBackColor = true;
             this.Pos.Click += new System.EventHandler(this.Pos_Click);
             // 
+            // button18
+            // 
+            this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button18.Location = new System.Drawing.Point(397, 349);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(74, 21);
+            this.button18.TabIndex = 88;
+            this.button18.Text = "إلغاء المسار";
+            this.button18.UseCompatibleTextRendering = true;
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
+            // 
+            // ServerFile
+            // 
+            this.ServerFile.AutoEllipsis = true;
+            this.ServerFile.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerFile.Location = new System.Drawing.Point(397, 380);
+            this.ServerFile.Name = "ServerFile";
+            this.ServerFile.Size = new System.Drawing.Size(222, 20);
+            this.ServerFile.TabIndex = 87;
+            this.ServerFile.Text = "مسار ملف السيرفر";
+            // 
             // button17
             // 
             this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button17.Location = new System.Drawing.Point(424, 483);
+            this.button17.Location = new System.Drawing.Point(397, 481);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(47, 21);
             this.button17.TabIndex = 86;
@@ -447,115 +456,50 @@
             // 
             // ipTB
             // 
-            this.ipTB.Location = new System.Drawing.Point(477, 484);
+            this.ipTB.Location = new System.Drawing.Point(450, 479);
             this.ipTB.Name = "ipTB";
             this.ipTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ipTB.Size = new System.Drawing.Size(132, 20);
             this.ipTB.TabIndex = 73;
             // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(416, 407);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(97, 13);
+            this.label52.TabIndex = 72;
+            this.label52.Text = "عنوان قاعدة البيانات";
+            // 
             // button16
             // 
             this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button16.Location = new System.Drawing.Point(416, 406);
+            this.button16.Location = new System.Drawing.Point(477, 349);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(85, 21);
+            this.button16.Size = new System.Drawing.Size(142, 21);
             this.button16.TabIndex = 85;
             this.button16.Text = " تحديد السيرفر";
             this.button16.UseCompatibleTextRendering = true;
             this.button16.UseVisualStyleBackColor = true;
             this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
-            // APICheck
-            // 
-            this.APICheck.AutoSize = true;
-            this.APICheck.Location = new System.Drawing.Point(467, 438);
-            this.APICheck.Name = "APICheck";
-            this.APICheck.Size = new System.Drawing.Size(141, 17);
-            this.APICheck.TabIndex = 84;
-            this.APICheck.Text = "الإتصال عبر API (تجريبي)";
-            this.APICheck.UseVisualStyleBackColor = true;
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.defaultOrder);
-            this.groupBox11.Controls.Add(this.label53);
-            this.groupBox11.Controls.Add(this.CurrentTax);
-            this.groupBox11.Controls.Add(this.label50);
-            this.groupBox11.Location = new System.Drawing.Point(407, 317);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(212, 66);
-            this.groupBox11.TabIndex = 76;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "معلومات عامة للبرنامج ";
-            this.groupBox11.Enter += new System.EventHandler(this.groupBox11_Enter);
-            // 
-            // defaultOrder
-            // 
-            this.defaultOrder.Location = new System.Drawing.Point(94, 32);
-            this.defaultOrder.Name = "defaultOrder";
-            this.defaultOrder.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.defaultOrder.Size = new System.Drawing.Size(106, 20);
-            this.defaultOrder.TabIndex = 71;
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(92, 16);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(109, 13);
-            this.label53.TabIndex = 72;
-            this.label53.Text = "الطلبات الإفتراضية 0-3";
-            // 
-            // CurrentTax
-            // 
-            this.CurrentTax.Location = new System.Drawing.Point(23, 32);
-            this.CurrentTax.Name = "CurrentTax";
-            this.CurrentTax.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.CurrentTax.Size = new System.Drawing.Size(43, 20);
-            this.CurrentTax.TabIndex = 71;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(516, 391);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(97, 13);
-            this.label52.TabIndex = 72;
-            this.label52.Text = "عنوان قاعدة البيانات";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(7, 16);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(68, 13);
-            this.label50.TabIndex = 72;
-            this.label50.Text = "نسبة الضريبة";
-            // 
             // DBConnection
             // 
-            this.DBConnection.Location = new System.Drawing.Point(507, 407);
+            this.DBConnection.Location = new System.Drawing.Point(407, 423);
             this.DBConnection.Name = "DBConnection";
             this.DBConnection.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.DBConnection.Size = new System.Drawing.Size(106, 20);
             this.DBConnection.TabIndex = 71;
             // 
-            // label51
+            // APICheck
             // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(108, 353);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(56, 13);
-            this.label51.TabIndex = 72;
-            this.label51.Text = "اسم الفرع";
-            // 
-            // BranchName
-            // 
-            this.BranchName.Location = new System.Drawing.Point(7, 350);
-            this.BranchName.Name = "BranchName";
-            this.BranchName.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.BranchName.Size = new System.Drawing.Size(95, 20);
-            this.BranchName.TabIndex = 71;
+            this.APICheck.AutoSize = true;
+            this.APICheck.Location = new System.Drawing.Point(407, 317);
+            this.APICheck.Name = "APICheck";
+            this.APICheck.Size = new System.Drawing.Size(141, 17);
+            this.APICheck.TabIndex = 84;
+            this.APICheck.Text = "الإتصال عبر API (تجريبي)";
+            this.APICheck.UseVisualStyleBackColor = true;
             // 
             // groupBox10
             // 
@@ -899,6 +843,7 @@
             this.groupBox1.Controls.Add(this.label51);
             this.groupBox1.Controls.Add(this.BranchName);
             this.groupBox1.Controls.Add(this.WheelGridCheck);
+            this.groupBox1.Controls.Add(this.groupBox11);
             this.groupBox1.Controls.Add(this.WheelCheck);
             this.groupBox1.Controls.Add(this.label69);
             this.groupBox1.Controls.Add(this.POSClientName_);
@@ -937,6 +882,57 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "أزرار  و نوافذ ليبرا";
             // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(264, 444);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(114, 13);
+            this.label76.TabIndex = 87;
+            this.label76.Text = "شعار المحل (رابط ملف)";
+            // 
+            // logoTB
+            // 
+            this.logoTB.Location = new System.Drawing.Point(243, 462);
+            this.logoTB.Name = "logoTB";
+            this.logoTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.logoTB.Size = new System.Drawing.Size(135, 20);
+            this.logoTB.TabIndex = 86;
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(311, 353);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(67, 13);
+            this.label75.TabIndex = 85;
+            this.label75.Text = "اسم المطعم";
+            // 
+            // RestTB
+            // 
+            this.RestTB.Location = new System.Drawing.Point(172, 350);
+            this.RestTB.Name = "RestTB";
+            this.RestTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.RestTB.Size = new System.Drawing.Size(135, 20);
+            this.RestTB.TabIndex = 84;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(108, 353);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(56, 13);
+            this.label51.TabIndex = 72;
+            this.label51.Text = "اسم الفرع";
+            // 
+            // BranchName
+            // 
+            this.BranchName.Location = new System.Drawing.Point(7, 350);
+            this.BranchName.Name = "BranchName";
+            this.BranchName.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.BranchName.Size = new System.Drawing.Size(95, 20);
+            this.BranchName.TabIndex = 71;
+            // 
             // WheelGridCheck
             // 
             this.WheelGridCheck.AutoSize = true;
@@ -948,6 +944,54 @@
             this.WheelGridCheck.TabIndex = 83;
             this.WheelGridCheck.Text = "تمكين تغيير العدد بالدولاب في الجدول";
             this.WheelGridCheck.UseVisualStyleBackColor = true;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.defaultOrder);
+            this.groupBox11.Controls.Add(this.label53);
+            this.groupBox11.Controls.Add(this.CurrentTax);
+            this.groupBox11.Controls.Add(this.label50);
+            this.groupBox11.Location = new System.Drawing.Point(226, 16);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(152, 185);
+            this.groupBox11.TabIndex = 76;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "معلومات عامة للبرنامج ";
+            this.groupBox11.Enter += new System.EventHandler(this.groupBox11_Enter);
+            // 
+            // defaultOrder
+            // 
+            this.defaultOrder.Location = new System.Drawing.Point(16, 86);
+            this.defaultOrder.Name = "defaultOrder";
+            this.defaultOrder.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.defaultOrder.Size = new System.Drawing.Size(106, 20);
+            this.defaultOrder.TabIndex = 71;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(14, 70);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(109, 13);
+            this.label53.TabIndex = 72;
+            this.label53.Text = "الطلبات الإفتراضية 0-3";
+            // 
+            // CurrentTax
+            // 
+            this.CurrentTax.Location = new System.Drawing.Point(23, 32);
+            this.CurrentTax.Name = "CurrentTax";
+            this.CurrentTax.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CurrentTax.Size = new System.Drawing.Size(43, 20);
+            this.CurrentTax.TabIndex = 71;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(7, 16);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(68, 13);
+            this.label50.TabIndex = 72;
+            this.label50.Text = "نسبة الضريبة";
             // 
             // WheelCheck
             // 
@@ -1447,20 +1491,115 @@
             // 
             // prntSetting
             // 
+            this.prntSetting.Controls.Add(this.groupBox8);
             this.prntSetting.Controls.Add(this.label2);
             this.prntSetting.Controls.Add(this.label5);
             this.prntSetting.Controls.Add(this.label3);
-            this.prntSetting.Controls.Add(this.groupBox8);
             this.prntSetting.Controls.Add(this.groupBox7);
             this.prntSetting.Controls.Add(this.groupBox6);
             this.prntSetting.Controls.Add(this.groupBox5);
             this.prntSetting.Location = new System.Drawing.Point(4, 22);
             this.prntSetting.Name = "prntSetting";
             this.prntSetting.Padding = new System.Windows.Forms.Padding(3);
-            this.prntSetting.Size = new System.Drawing.Size(979, 512);
+            this.prntSetting.Size = new System.Drawing.Size(996, 512);
             this.prntSetting.TabIndex = 1;
             this.prntSetting.Text = "إعدادات الطباعة";
             this.prntSetting.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.button6);
+            this.groupBox8.Controls.Add(this.button8);
+            this.groupBox8.Controls.Add(this.PrepareList);
+            this.groupBox8.Controls.Add(this.PrepareADD);
+            this.groupBox8.Controls.Add(this.PrepareTB);
+            this.groupBox8.Controls.Add(this.button3);
+            this.groupBox8.Location = new System.Drawing.Point(9, 208);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(268, 245);
+            this.groupBox8.TabIndex = 28;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "أسماء أقسام التحضير";
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.SteelBlue;
+            this.button6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.ForeColor = System.Drawing.Color.White;
+            this.button6.Location = new System.Drawing.Point(3, 184);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(262, 28);
+            this.button6.TabIndex = 31;
+            this.button6.Text = "إضافة الطابعة المحددة للقسم";
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.Red;
+            this.button8.FlatAppearance.BorderSize = 0;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.ForeColor = System.Drawing.Color.White;
+            this.button8.Location = new System.Drawing.Point(22, 19);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(34, 23);
+            this.button8.TabIndex = 30;
+            this.button8.Text = "X";
+            this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // PrepareList
+            // 
+            this.PrepareList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PrepareList.FormattingEnabled = true;
+            this.PrepareList.Location = new System.Drawing.Point(6, 51);
+            this.PrepareList.Name = "PrepareList";
+            this.PrepareList.Size = new System.Drawing.Size(257, 117);
+            this.PrepareList.TabIndex = 29;
+            this.PrepareList.SelectedIndexChanged += new System.EventHandler(this.PrepareList_SelectedIndexChanged);
+            // 
+            // PrepareADD
+            // 
+            this.PrepareADD.BackColor = System.Drawing.Color.ForestGreen;
+            this.PrepareADD.FlatAppearance.BorderSize = 0;
+            this.PrepareADD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrepareADD.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PrepareADD.ForeColor = System.Drawing.Color.White;
+            this.PrepareADD.Location = new System.Drawing.Point(59, 19);
+            this.PrepareADD.Name = "PrepareADD";
+            this.PrepareADD.Size = new System.Drawing.Size(43, 23);
+            this.PrepareADD.TabIndex = 28;
+            this.PrepareADD.Text = "جديد";
+            this.PrepareADD.UseVisualStyleBackColor = false;
+            this.PrepareADD.Click += new System.EventHandler(this.PrepareADD_Click);
+            // 
+            // PrepareTB
+            // 
+            this.PrepareTB.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PrepareTB.Location = new System.Drawing.Point(108, 19);
+            this.PrepareTB.Name = "PrepareTB";
+            this.PrepareTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.PrepareTB.Size = new System.Drawing.Size(135, 25);
+            this.PrepareTB.TabIndex = 26;
+            this.PrepareTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PrepareTB_KeyDown);
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.ForestGreen;
+            this.button3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(3, 212);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(262, 30);
+            this.button3.TabIndex = 25;
+            this.button3.Text = "حفظ الأقسام مع تحديد الطابعات";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // label2
             // 
@@ -1489,152 +1628,116 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(367, 54);
             this.label3.TabIndex = 32;
-            this.label3.Text = resources.GetString("label3.Text");
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.button6);
-            this.groupBox8.Controls.Add(this.button8);
-            this.groupBox8.Controls.Add(this.PrepareList);
-            this.groupBox8.Controls.Add(this.PrepareADD);
-            this.groupBox8.Controls.Add(this.PrepareTB);
-            this.groupBox8.Controls.Add(this.button3);
-            this.groupBox8.Location = new System.Drawing.Point(9, 155);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(268, 298);
-            this.groupBox8.TabIndex = 28;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "أسماء أقسام التحضير";
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.SteelBlue;
-            this.button6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(3, 223);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(262, 36);
-            this.button6.TabIndex = 31;
-            this.button6.Text = "إضافة الطابعة المحددة للقسم";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button8
-            // 
-            this.button8.BackColor = System.Drawing.Color.Red;
-            this.button8.FlatAppearance.BorderSize = 0;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(22, 22);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(34, 23);
-            this.button8.TabIndex = 30;
-            this.button8.Text = "X";
-            this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // PrepareList
-            // 
-            this.PrepareList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PrepareList.FormattingEnabled = true;
-            this.PrepareList.Location = new System.Drawing.Point(5, 51);
-            this.PrepareList.Name = "PrepareList";
-            this.PrepareList.Size = new System.Drawing.Size(257, 169);
-            this.PrepareList.TabIndex = 29;
-            this.PrepareList.SelectedIndexChanged += new System.EventHandler(this.PrepareList_SelectedIndexChanged);
-            // 
-            // PrepareADD
-            // 
-            this.PrepareADD.BackColor = System.Drawing.Color.ForestGreen;
-            this.PrepareADD.FlatAppearance.BorderSize = 0;
-            this.PrepareADD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PrepareADD.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PrepareADD.ForeColor = System.Drawing.Color.White;
-            this.PrepareADD.Location = new System.Drawing.Point(59, 22);
-            this.PrepareADD.Name = "PrepareADD";
-            this.PrepareADD.Size = new System.Drawing.Size(43, 23);
-            this.PrepareADD.TabIndex = 28;
-            this.PrepareADD.Text = "جديد";
-            this.PrepareADD.UseVisualStyleBackColor = false;
-            this.PrepareADD.Click += new System.EventHandler(this.PrepareADD_Click);
-            // 
-            // PrepareTB
-            // 
-            this.PrepareTB.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PrepareTB.Location = new System.Drawing.Point(108, 22);
-            this.PrepareTB.Name = "PrepareTB";
-            this.PrepareTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.PrepareTB.Size = new System.Drawing.Size(135, 25);
-            this.PrepareTB.TabIndex = 26;
-            this.PrepareTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PrepareTB_KeyDown);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.ForestGreen;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(3, 259);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(262, 36);
-            this.button3.TabIndex = 25;
-            this.button3.Text = "حفظ الأقسام مع تحديد الطابعات";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.defaultPrinterTB);
-            this.groupBox7.Controls.Add(this.button1);
+            this.groupBox7.Controls.Add(this.RemoveCashierPrinter);
+            this.groupBox7.Controls.Add(this.AssignCashier);
+            this.groupBox7.Controls.Add(this.CashierPrinterTB);
+            this.groupBox7.Controls.Add(this.label77);
             this.groupBox7.Controls.Add(this.button7);
+            this.groupBox7.Controls.Add(this.button1);
+            this.groupBox7.Controls.Add(this.defaultPrinterTB);
+            this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox7.Location = new System.Drawing.Point(9, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(268, 146);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox7.Size = new System.Drawing.Size(268, 196);
             this.groupBox7.TabIndex = 26;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "الطابعة الإفتراضية لورقة التحضير الرئيسية";
             // 
-            // defaultPrinterTB
+            // RemoveCashierPrinter
             // 
-            this.defaultPrinterTB.Location = new System.Drawing.Point(6, 32);
-            this.defaultPrinterTB.Name = "defaultPrinterTB";
-            this.defaultPrinterTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.defaultPrinterTB.Size = new System.Drawing.Size(256, 20);
-            this.defaultPrinterTB.TabIndex = 26;
+            this.RemoveCashierPrinter.BackColor = System.Drawing.Color.DarkOrange;
+            this.RemoveCashierPrinter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RemoveCashierPrinter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RemoveCashierPrinter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RemoveCashierPrinter.ForeColor = System.Drawing.Color.White;
+            this.RemoveCashierPrinter.Location = new System.Drawing.Point(0, 159);
+            this.RemoveCashierPrinter.Name = "RemoveCashierPrinter";
+            this.RemoveCashierPrinter.Size = new System.Drawing.Size(268, 30);
+            this.RemoveCashierPrinter.TabIndex = 35;
+            this.RemoveCashierPrinter.Text = "إلغاء تعيين الطابعة";
+            this.RemoveCashierPrinter.UseVisualStyleBackColor = false;
+            this.RemoveCashierPrinter.Click += new System.EventHandler(this.RemoveCashierPrinter_Click);
+            // 
+            // AssignCashier
+            // 
+            this.AssignCashier.BackColor = System.Drawing.Color.SteelBlue;
+            this.AssignCashier.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AssignCashier.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AssignCashier.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AssignCashier.ForeColor = System.Drawing.Color.White;
+            this.AssignCashier.Location = new System.Drawing.Point(0, 130);
+            this.AssignCashier.Name = "AssignCashier";
+            this.AssignCashier.Size = new System.Drawing.Size(268, 29);
+            this.AssignCashier.TabIndex = 34;
+            this.AssignCashier.Text = "تعيين الطابعة المحددة";
+            this.AssignCashier.UseVisualStyleBackColor = false;
+            this.AssignCashier.Click += new System.EventHandler(this.AssignCashier_Click);
+            // 
+            // CashierPrinterTB
+            // 
+            this.CashierPrinterTB.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CashierPrinterTB.Location = new System.Drawing.Point(0, 110);
+            this.CashierPrinterTB.Name = "CashierPrinterTB";
+            this.CashierPrinterTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CashierPrinterTB.Size = new System.Drawing.Size(268, 20);
+            this.CashierPrinterTB.TabIndex = 28;
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label77.Enabled = false;
+            this.label77.Location = new System.Drawing.Point(0, 92);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(67, 18);
+            this.label77.TabIndex = 33;
+            this.label77.Text = "طابعة الكاشير";
+            this.label77.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label77.UseCompatibleTextRendering = true;
+            this.label77.UseMnemonic = false;
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.DarkOrange;
+            this.button7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.ForeColor = System.Drawing.Color.White;
+            this.button7.Location = new System.Drawing.Point(0, 62);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(268, 30);
+            this.button7.TabIndex = 27;
+            this.button7.Text = "إلغاء تعيين الطابعة";
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.SteelBlue;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(3, 58);
+            this.button1.Location = new System.Drawing.Point(0, 33);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(262, 49);
+            this.button1.Size = new System.Drawing.Size(268, 29);
             this.button1.TabIndex = 25;
             this.button1.Text = "تعيين الطابعة المحددة";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button7
+            // defaultPrinterTB
             // 
-            this.button7.BackColor = System.Drawing.Color.DarkOrange;
-            this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(3, 107);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(262, 36);
-            this.button7.TabIndex = 27;
-            this.button7.Text = "إلغاء تعيين الطابعة";
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.defaultPrinterTB.Dock = System.Windows.Forms.DockStyle.Top;
+            this.defaultPrinterTB.Location = new System.Drawing.Point(0, 13);
+            this.defaultPrinterTB.Name = "defaultPrinterTB";
+            this.defaultPrinterTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.defaultPrinterTB.Size = new System.Drawing.Size(268, 20);
+            this.defaultPrinterTB.TabIndex = 26;
             // 
             // groupBox6
             // 
@@ -1673,7 +1776,7 @@
             this.PrintersList1.Location = new System.Drawing.Point(3, 16);
             this.PrintersList1.Name = "PrintersList1";
             this.PrintersList1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.PrintersList1.Size = new System.Drawing.Size(306, 324);
+            this.PrintersList1.Size = new System.Drawing.Size(306, 342);
             this.PrintersList1.TabIndex = 25;
             // 
             // AddNewDepartment
@@ -1703,6 +1806,7 @@
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "المواد والأقسام";
+            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // label4
             // 
@@ -1762,7 +1866,7 @@
             this.Sections.Location = new System.Drawing.Point(4, 22);
             this.Sections.Name = "Sections";
             this.Sections.Padding = new System.Windows.Forms.Padding(3);
-            this.Sections.Size = new System.Drawing.Size(979, 512);
+            this.Sections.Size = new System.Drawing.Size(996, 512);
             this.Sections.TabIndex = 2;
             this.Sections.Text = "مجموعات المواد";
             this.Sections.UseVisualStyleBackColor = true;
@@ -2053,7 +2157,7 @@
             this.SettingTabs.Name = "SettingTabs";
             this.SettingTabs.RightToLeftLayout = true;
             this.SettingTabs.SelectedIndex = 0;
-            this.SettingTabs.Size = new System.Drawing.Size(987, 538);
+            this.SettingTabs.Size = new System.Drawing.Size(1004, 538);
             this.SettingTabs.TabIndex = 0;
             this.SettingTabs.TabStop = false;
             this.SettingTabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
@@ -2089,7 +2193,7 @@
             this.MaterialsEdit.Location = new System.Drawing.Point(4, 22);
             this.MaterialsEdit.Name = "MaterialsEdit";
             this.MaterialsEdit.Padding = new System.Windows.Forms.Padding(3);
-            this.MaterialsEdit.Size = new System.Drawing.Size(979, 512);
+            this.MaterialsEdit.Size = new System.Drawing.Size(996, 512);
             this.MaterialsEdit.TabIndex = 5;
             this.MaterialsEdit.Text = "المواد";
             this.MaterialsEdit.UseVisualStyleBackColor = true;
@@ -2372,53 +2476,30 @@
             // MenuDisplaySettings
             // 
             this.MenuDisplaySettings.BackColor = System.Drawing.Color.White;
-            this.MenuDisplaySettings.Controls.Add(this.SaveMulti);
             this.MenuDisplaySettings.Controls.Add(this.QuickAdd);
-            this.MenuDisplaySettings.Controls.Add(this.button15);
-            this.MenuDisplaySettings.Controls.Add(this.label64);
-            this.MenuDisplaySettings.Controls.Add(this.label63);
-            this.MenuDisplaySettings.Controls.Add(this.button13);
-            this.MenuDisplaySettings.Controls.Add(this.button14);
             this.MenuDisplaySettings.Controls.Add(this.SaveMenu);
             this.MenuDisplaySettings.Controls.Add(this.DeleteM);
             this.MenuDisplaySettings.Controls.Add(this.MDown);
             this.MenuDisplaySettings.Controls.Add(this.SectionsName);
-            this.MenuDisplaySettings.Controls.Add(this.AddMultiItem);
             this.MenuDisplaySettings.Controls.Add(this.MUp);
             this.MenuDisplaySettings.Controls.Add(this.label61);
-            this.MenuDisplaySettings.Controls.Add(this.label60);
-            this.MenuDisplaySettings.Controls.Add(this.MultiLB);
             this.MenuDisplaySettings.Controls.Add(this.MenuLB);
             this.MenuDisplaySettings.Controls.Add(this.panel1);
             this.MenuDisplaySettings.Controls.Add(this.groupBox12);
             this.MenuDisplaySettings.Location = new System.Drawing.Point(4, 22);
             this.MenuDisplaySettings.Name = "MenuDisplaySettings";
             this.MenuDisplaySettings.Padding = new System.Windows.Forms.Padding(3);
-            this.MenuDisplaySettings.Size = new System.Drawing.Size(979, 512);
+            this.MenuDisplaySettings.Size = new System.Drawing.Size(996, 512);
             this.MenuDisplaySettings.TabIndex = 6;
             this.MenuDisplaySettings.Text = "قائمة العرض";
             this.MenuDisplaySettings.Click += new System.EventHandler(this.MenuDisplaySettings_Click);
             this.MenuDisplaySettings.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuDisplaySettings_Paint);
             // 
-            // SaveMulti
-            // 
-            this.SaveMulti.BackColor = System.Drawing.Color.White;
-            this.SaveMulti.Enabled = false;
-            this.SaveMulti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveMulti.Location = new System.Drawing.Point(404, 451);
-            this.SaveMulti.Name = "SaveMulti";
-            this.SaveMulti.Size = new System.Drawing.Size(133, 28);
-            this.SaveMulti.TabIndex = 52;
-            this.SaveMulti.TabStop = false;
-            this.SaveMulti.Text = "حفظ المادة المتعددة";
-            this.SaveMulti.UseVisualStyleBackColor = false;
-            this.SaveMulti.Click += new System.EventHandler(this.SaveMulti_Click);
-            // 
             // QuickAdd
             // 
             this.QuickAdd.FlatAppearance.BorderSize = 0;
             this.QuickAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.QuickAdd.Location = new System.Drawing.Point(190, 446);
+            this.QuickAdd.Location = new System.Drawing.Point(271, 472);
             this.QuickAdd.Name = "QuickAdd";
             this.QuickAdd.Size = new System.Drawing.Size(75, 23);
             this.QuickAdd.TabIndex = 51;
@@ -2427,79 +2508,12 @@
             this.QuickAdd.UseVisualStyleBackColor = true;
             this.QuickAdd.Click += new System.EventHandler(this.FastAdd_Click);
             // 
-            // button15
-            // 
-            this.button15.BackColor = System.Drawing.Color.White;
-            this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button15.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button15.Location = new System.Drawing.Point(404, 7);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(51, 19);
-            this.button15.TabIndex = 50;
-            this.button15.TabStop = false;
-            this.button15.Text = "حذف";
-            this.button15.UseCompatibleTextRendering = true;
-            this.button15.UseVisualStyleBackColor = false;
-            this.button15.Click += new System.EventHandler(this.button15_Click);
-            // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.ForeColor = System.Drawing.Color.Gray;
-            this.label64.Location = new System.Drawing.Point(20, 489);
-            this.label64.Name = "label64";
-            this.label64.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label64.Size = new System.Drawing.Size(464, 13);
-            this.label64.TabIndex = 49;
-            this.label64.Text = "لتعديل المجموعات إنقر مرتين عليها  ومن ثم عدل القائمة كما تريد وأضفها ثم احذف الم" +
-    "جموعة القديمة";
-            // 
-            // label63
-            // 
-            this.label63.AutoSize = true;
-            this.label63.ForeColor = System.Drawing.Color.Gray;
-            this.label63.Location = new System.Drawing.Point(547, 489);
-            this.label63.Name = "label63";
-            this.label63.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label63.Size = new System.Drawing.Size(428, 13);
-            this.label63.TabIndex = 48;
-            this.label63.Text = "لتعديل المادة قم بالنقر المزدوج ومن ثم أضف المادة إلى القائمة مجددا مع حذف المادة" +
-    " المعدلة";
-            // 
-            // button13
-            // 
-            this.button13.BackColor = System.Drawing.Color.White;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Font = new System.Drawing.Font("Wingdings 3", 8.25F);
-            this.button13.Location = new System.Drawing.Point(404, 392);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(62, 19);
-            this.button13.TabIndex = 48;
-            this.button13.TabStop = false;
-            this.button13.Text = "q";
-            this.button13.UseVisualStyleBackColor = false;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button14
-            // 
-            this.button14.BackColor = System.Drawing.Color.White;
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button14.Font = new System.Drawing.Font("Wingdings 3", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.button14.Location = new System.Drawing.Point(475, 392);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(62, 19);
-            this.button14.TabIndex = 47;
-            this.button14.TabStop = false;
-            this.button14.Tag = "c";
-            this.button14.Text = "p";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
-            // 
             // SaveMenu
             // 
             this.SaveMenu.BackColor = System.Drawing.Color.White;
+            this.SaveMenu.Enabled = false;
             this.SaveMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveMenu.Location = new System.Drawing.Point(22, 438);
+            this.SaveMenu.Location = new System.Drawing.Point(8, 454);
             this.SaveMenu.Name = "SaveMenu";
             this.SaveMenu.Size = new System.Drawing.Size(162, 41);
             this.SaveMenu.TabIndex = 46;
@@ -2513,7 +2527,7 @@
             this.DeleteM.BackColor = System.Drawing.Color.White;
             this.DeleteM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteM.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeleteM.Location = new System.Drawing.Point(23, 7);
+            this.DeleteM.Location = new System.Drawing.Point(23, 11);
             this.DeleteM.Name = "DeleteM";
             this.DeleteM.Size = new System.Drawing.Size(51, 19);
             this.DeleteM.TabIndex = 45;
@@ -2528,7 +2542,7 @@
             this.MDown.BackColor = System.Drawing.Color.White;
             this.MDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MDown.Font = new System.Drawing.Font("Wingdings 3", 8.25F);
-            this.MDown.Location = new System.Drawing.Point(279, 450);
+            this.MDown.Location = new System.Drawing.Point(255, 441);
             this.MDown.Name = "MDown";
             this.MDown.Size = new System.Drawing.Size(51, 19);
             this.MDown.TabIndex = 43;
@@ -2542,31 +2556,18 @@
             this.SectionsName.AutoSize = true;
             this.SectionsName.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SectionsName.ForeColor = System.Drawing.Color.LightCoral;
-            this.SectionsName.Location = new System.Drawing.Point(204, 9);
+            this.SectionsName.Location = new System.Drawing.Point(179, 22);
             this.SectionsName.Name = "SectionsName";
             this.SectionsName.Size = new System.Drawing.Size(52, 13);
             this.SectionsName.TabIndex = 41;
             this.SectionsName.Text = "NoMenu";
-            // 
-            // AddMultiItem
-            // 
-            this.AddMultiItem.BackColor = System.Drawing.Color.White;
-            this.AddMultiItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddMultiItem.Location = new System.Drawing.Point(404, 417);
-            this.AddMultiItem.Name = "AddMultiItem";
-            this.AddMultiItem.Size = new System.Drawing.Size(133, 28);
-            this.AddMultiItem.TabIndex = 38;
-            this.AddMultiItem.TabStop = false;
-            this.AddMultiItem.Text = "إضافة المادة المتعددة";
-            this.AddMultiItem.UseVisualStyleBackColor = false;
-            this.AddMultiItem.Click += new System.EventHandler(this.AddMultiItem_Click);
             // 
             // MUp
             // 
             this.MUp.BackColor = System.Drawing.Color.White;
             this.MUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MUp.Font = new System.Drawing.Font("Wingdings 3", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.MUp.Location = new System.Drawing.Point(336, 450);
+            this.MUp.Location = new System.Drawing.Point(312, 441);
             this.MUp.Name = "MUp";
             this.MUp.Size = new System.Drawing.Size(51, 19);
             this.MUp.TabIndex = 42;
@@ -2580,285 +2581,109 @@
             // 
             this.label61.AutoSize = true;
             this.label61.ForeColor = System.Drawing.Color.Gray;
-            this.label61.Location = new System.Drawing.Point(305, 8);
+            this.label61.Location = new System.Drawing.Point(280, 21);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(81, 13);
             this.label61.TabIndex = 35;
             this.label61.Text = "القائمة المختارة:";
             // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.ForeColor = System.Drawing.Color.Gray;
-            this.label60.Location = new System.Drawing.Point(475, 8);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(61, 13);
-            this.label60.TabIndex = 34;
-            this.label60.Text = "مادة متعددة";
-            // 
-            // MultiLB
-            // 
-            this.MultiLB.DisplayMember = "NameToShow";
-            this.MultiLB.FormattingEnabled = true;
-            this.MultiLB.Location = new System.Drawing.Point(404, 28);
-            this.MultiLB.Name = "MultiLB";
-            this.MultiLB.Size = new System.Drawing.Size(133, 355);
-            this.MultiLB.TabIndex = 1;
-            this.MultiLB.TabStop = false;
-            this.MultiLB.DoubleClick += new System.EventHandler(this.MultiLB_DoubleClick);
-            // 
             // MenuLB
             // 
             this.MenuLB.DisplayMember = "NameToShow";
             this.MenuLB.FormattingEnabled = true;
-            this.MenuLB.Location = new System.Drawing.Point(22, 28);
+            this.MenuLB.Location = new System.Drawing.Point(6, 41);
             this.MenuLB.Name = "MenuLB";
-            this.MenuLB.Size = new System.Drawing.Size(365, 407);
+            this.MenuLB.Size = new System.Drawing.Size(357, 394);
             this.MenuLB.TabIndex = 0;
             this.MenuLB.TabStop = false;
+            this.MenuLB.SelectedIndexChanged += new System.EventHandler(this.MenuLB_SelectedIndexChanged);
             this.MenuLB.DoubleClick += new System.EventHandler(this.MenuLB_DoubleClick);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label73);
-            this.panel1.Controls.Add(this.label71);
-            this.panel1.Controls.Add(this.EnMdetails);
-            this.panel1.Controls.Add(this.EnMnameTB);
-            this.panel1.Controls.Add(this.Availables);
-            this.panel1.Controls.Add(this.ChoosePicPath);
-            this.panel1.Controls.Add(this.AddToMultiItem);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.CancelMIX);
+            this.panel1.Controls.Add(this.SaveMulti);
+            this.panel1.Controls.Add(this.AddingGrid);
             this.panel1.Controls.Add(this.AddSingleItem);
-            this.panel1.Controls.Add(this.Mpath);
-            this.panel1.Controls.Add(this.Mcal);
-            this.panel1.Controls.Add(this.Mdetails);
-            this.panel1.Controls.Add(this.MPrice);
-            this.panel1.Controls.Add(this.MBarcode);
-            this.panel1.Controls.Add(this.MnameTB);
-            this.panel1.Controls.Add(this.label54);
-            this.panel1.Controls.Add(this.label55);
-            this.panel1.Controls.Add(this.label56);
-            this.panel1.Controls.Add(this.label57);
             this.panel1.Controls.Add(this.label58);
-            this.panel1.Controls.Add(this.label59);
-            this.panel1.Location = new System.Drawing.Point(550, 116);
+            this.panel1.Location = new System.Drawing.Point(369, 116);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(423, 370);
+            this.panel1.Size = new System.Drawing.Size(626, 390);
             this.panel1.TabIndex = 39;
             // 
-            // label73
+            // CancelMIX
             // 
-            this.label73.AutoSize = true;
-            this.label73.ForeColor = System.Drawing.Color.Gray;
-            this.label73.Location = new System.Drawing.Point(170, 167);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(43, 13);
-            this.label73.TabIndex = 53;
-            this.label73.Text = "إنجليزي";
+            this.CancelMIX.BackColor = System.Drawing.Color.White;
+            this.CancelMIX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelMIX.Location = new System.Drawing.Point(158, 321);
+            this.CancelMIX.Name = "CancelMIX";
+            this.CancelMIX.Size = new System.Drawing.Size(72, 32);
+            this.CancelMIX.TabIndex = 54;
+            this.CancelMIX.TabStop = false;
+            this.CancelMIX.Text = "إلغاء الأمر";
+            this.CancelMIX.UseVisualStyleBackColor = false;
+            this.CancelMIX.Click += new System.EventHandler(this.CancelMIX_Click);
             // 
-            // label71
+            // SaveMulti
             // 
-            this.label71.AutoSize = true;
-            this.label71.ForeColor = System.Drawing.Color.Gray;
-            this.label71.Location = new System.Drawing.Point(174, 1);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(43, 13);
-            this.label71.TabIndex = 51;
-            this.label71.Text = "إنجليزي";
+            this.SaveMulti.BackColor = System.Drawing.Color.White;
+            this.SaveMulti.Enabled = false;
+            this.SaveMulti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveMulti.Location = new System.Drawing.Point(257, 321);
+            this.SaveMulti.Name = "SaveMulti";
+            this.SaveMulti.Size = new System.Drawing.Size(128, 32);
+            this.SaveMulti.TabIndex = 52;
+            this.SaveMulti.TabStop = false;
+            this.SaveMulti.Text = "حفظ المادة أو  المواد";
+            this.SaveMulti.UseVisualStyleBackColor = false;
+            this.SaveMulti.Click += new System.EventHandler(this.SaveMulti_Click);
             // 
-            // EnMdetails
+            // AddingGrid
             // 
-            this.EnMdetails.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnMdetails.Location = new System.Drawing.Point(15, 180);
-            this.EnMdetails.Name = "EnMdetails";
-            this.EnMdetails.Size = new System.Drawing.Size(198, 33);
-            this.EnMdetails.TabIndex = 49;
-            this.EnMdetails.TabStop = false;
-            // 
-            // EnMnameTB
-            // 
-            this.EnMnameTB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnMnameTB.Location = new System.Drawing.Point(25, 15);
-            this.EnMnameTB.Name = "EnMnameTB";
-            this.EnMnameTB.Size = new System.Drawing.Size(188, 33);
-            this.EnMnameTB.TabIndex = 48;
-            this.EnMnameTB.TabStop = false;
-            // 
-            // Availables
-            // 
-            this.Availables.AutoSize = true;
-            this.Availables.Checked = true;
-            this.Availables.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Availables.Location = new System.Drawing.Point(16, 286);
-            this.Availables.Name = "Availables";
-            this.Availables.Size = new System.Drawing.Size(51, 17);
-            this.Availables.TabIndex = 47;
-            this.Availables.TabStop = false;
-            this.Availables.Text = "متوفر";
-            this.Availables.UseVisualStyleBackColor = true;
-            // 
-            // ChoosePicPath
-            // 
-            this.ChoosePicPath.BackColor = System.Drawing.Color.White;
-            this.ChoosePicPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChoosePicPath.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChoosePicPath.Location = new System.Drawing.Point(365, 278);
-            this.ChoosePicPath.Name = "ChoosePicPath";
-            this.ChoosePicPath.Size = new System.Drawing.Size(51, 33);
-            this.ChoosePicPath.TabIndex = 7;
-            this.ChoosePicPath.TabStop = false;
-            this.ChoosePicPath.Text = "إختيار الصورة";
-            this.ChoosePicPath.UseCompatibleTextRendering = true;
-            this.ChoosePicPath.UseVisualStyleBackColor = false;
-            this.ChoosePicPath.Click += new System.EventHandler(this.ChoosePicPath_click);
-            // 
-            // AddToMultiItem
-            // 
-            this.AddToMultiItem.BackColor = System.Drawing.Color.White;
-            this.AddToMultiItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddToMultiItem.Location = new System.Drawing.Point(16, 320);
-            this.AddToMultiItem.Name = "AddToMultiItem";
-            this.AddToMultiItem.Size = new System.Drawing.Size(187, 41);
-            this.AddToMultiItem.TabIndex = 9;
-            this.AddToMultiItem.Text = "إضافة للمادة المتعددة";
-            this.AddToMultiItem.UseVisualStyleBackColor = false;
-            this.AddToMultiItem.Click += new System.EventHandler(this.AddToMultiItem_Click);
-            this.AddToMultiItem.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
+            this.AddingGrid.AllowDrop = true;
+            this.AddingGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddingGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.AddingGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.AddingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.AddingGrid.Location = new System.Drawing.Point(3, 3);
+            this.AddingGrid.MultiSelect = false;
+            this.AddingGrid.Name = "AddingGrid";
+            this.AddingGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.AddingGrid.Size = new System.Drawing.Size(623, 312);
+            this.AddingGrid.TabIndex = 53;
+            this.AddingGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AddingGrid_CellContentClick);
+            this.AddingGrid.DragDrop += new System.Windows.Forms.DragEventHandler(this.Mpath_DragDrop);
+            this.AddingGrid.DragOver += new System.Windows.Forms.DragEventHandler(this.Mpath_DragOver);
             // 
             // AddSingleItem
             // 
             this.AddSingleItem.BackColor = System.Drawing.Color.White;
             this.AddSingleItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddSingleItem.Location = new System.Drawing.Point(228, 320);
+            this.AddSingleItem.Location = new System.Drawing.Point(391, 321);
             this.AddSingleItem.Name = "AddSingleItem";
-            this.AddSingleItem.Size = new System.Drawing.Size(187, 41);
+            this.AddSingleItem.Size = new System.Drawing.Size(181, 32);
             this.AddSingleItem.TabIndex = 8;
-            this.AddSingleItem.Text = "إضافة المادة للقائمة";
+            this.AddSingleItem.Text = "إضافة المادة المواد للقائمة";
             this.AddSingleItem.UseVisualStyleBackColor = false;
             this.AddSingleItem.Click += new System.EventHandler(this.AddSingleItem_Click);
             this.AddSingleItem.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
-            // 
-            // Mpath
-            // 
-            this.Mpath.AllowDrop = true;
-            this.Mpath.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Mpath.Location = new System.Drawing.Point(73, 278);
-            this.Mpath.Name = "Mpath";
-            this.Mpath.Size = new System.Drawing.Size(285, 33);
-            this.Mpath.TabIndex = 6;
-            this.Mpath.TabStop = false;
-            this.Mpath.DragDrop += new System.Windows.Forms.DragEventHandler(this.Mpath_DragDrop);
-            this.Mpath.DragEnter += new System.Windows.Forms.DragEventHandler(this.Mpath_DragOver);
-            this.Mpath.DragOver += new System.Windows.Forms.DragEventHandler(this.Mpath_DragOver);
-            this.Mpath.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
-            // 
-            // Mcal
-            // 
-            this.Mcal.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Mcal.Location = new System.Drawing.Point(16, 227);
-            this.Mcal.Name = "Mcal";
-            this.Mcal.Size = new System.Drawing.Size(400, 33);
-            this.Mcal.TabIndex = 5;
-            this.Mcal.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
-            // 
-            // Mdetails
-            // 
-            this.Mdetails.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Mdetails.Location = new System.Drawing.Point(228, 180);
-            this.Mdetails.Name = "Mdetails";
-            this.Mdetails.Size = new System.Drawing.Size(188, 33);
-            this.Mdetails.TabIndex = 4;
-            this.Mdetails.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
-            // 
-            // MPrice
-            // 
-            this.MPrice.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MPrice.Location = new System.Drawing.Point(16, 134);
-            this.MPrice.Name = "MPrice";
-            this.MPrice.Size = new System.Drawing.Size(400, 33);
-            this.MPrice.TabIndex = 3;
-            this.MPrice.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
-            // 
-            // MBarcode
-            // 
-            this.MBarcode.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MBarcode.Location = new System.Drawing.Point(16, 88);
-            this.MBarcode.Name = "MBarcode";
-            this.MBarcode.Size = new System.Drawing.Size(400, 33);
-            this.MBarcode.TabIndex = 2;
-            this.MBarcode.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
-            // 
-            // MnameTB
-            // 
-            this.MnameTB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MnameTB.Location = new System.Drawing.Point(228, 15);
-            this.MnameTB.Name = "MnameTB";
-            this.MnameTB.Size = new System.Drawing.Size(188, 33);
-            this.MnameTB.TabIndex = 1;
-            this.MnameTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MnameTB_PreviewKeyDown);
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.ForeColor = System.Drawing.Color.Gray;
-            this.label54.Location = new System.Drawing.Point(358, 119);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(58, 13);
-            this.label54.TabIndex = 30;
-            this.label54.Text = "سعر المادة";
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.ForeColor = System.Drawing.Color.Gray;
-            this.label55.Location = new System.Drawing.Point(336, 260);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(80, 13);
-            this.label55.TabIndex = 33;
-            this.label55.Text = "رابط صورة المادة";
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.ForeColor = System.Drawing.Color.Gray;
-            this.label56.Location = new System.Drawing.Point(266, 212);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(150, 13);
-            this.label56.TabIndex = 32;
-            this.label56.Text = "معلومات السعرات و الحساسية";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.ForeColor = System.Drawing.Color.Gray;
-            this.label57.Location = new System.Drawing.Point(357, 165);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(59, 13);
-            this.label57.TabIndex = 31;
-            this.label57.Text = "شرح المادة";
             // 
             // label58
             // 
             this.label58.AutoSize = true;
             this.label58.ForeColor = System.Drawing.Color.Gray;
-            this.label58.Location = new System.Drawing.Point(105, 55);
+            this.label58.Location = new System.Drawing.Point(257, 356);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(310, 26);
             this.label58.TabIndex = 29;
             this.label58.Text = "باركود المادة * إذا كانت المادة فيها أكثر من باركود لكن ليست متعددة\r\n (كالبيتزا) " +
     "قم بإضافة \" - \" بينهم";
             // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.ForeColor = System.Drawing.Color.Gray;
-            this.label59.Location = new System.Drawing.Point(358, 1);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(58, 13);
-            this.label59.TabIndex = 28;
-            this.label59.Text = "اسم المادة";
-            // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.CopyMenu);
+            this.groupBox12.Controls.Add(this.SaveOrder);
             this.groupBox12.Controls.Add(this.MSDown);
             this.groupBox12.Controls.Add(this.DeleteSM);
             this.groupBox12.Controls.Add(this.MSUp);
@@ -2866,19 +2691,47 @@
             this.groupBox12.Controls.Add(this.label62);
             this.groupBox12.Controls.Add(this.mlistTB);
             this.groupBox12.Controls.Add(this.MListLB);
-            this.groupBox12.Location = new System.Drawing.Point(550, 7);
+            this.groupBox12.Location = new System.Drawing.Point(369, 7);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(421, 103);
+            this.groupBox12.Size = new System.Drawing.Size(624, 103);
             this.groupBox12.TabIndex = 40;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "قائمة جديدة";
+            this.groupBox12.Enter += new System.EventHandler(this.groupBox12_Enter);
+            // 
+            // CopyMenu
+            // 
+            this.CopyMenu.Enabled = false;
+            this.CopyMenu.Location = new System.Drawing.Point(454, 70);
+            this.CopyMenu.Name = "CopyMenu";
+            this.CopyMenu.Size = new System.Drawing.Size(153, 23);
+            this.CopyMenu.TabIndex = 46;
+            this.CopyMenu.TabStop = false;
+            this.CopyMenu.Text = "نسخ المينيو المحددة";
+            this.CopyMenu.UseVisualStyleBackColor = true;
+            this.CopyMenu.Click += new System.EventHandler(this.CopyMenu_Click);
+            // 
+            // SaveOrder
+            // 
+            this.SaveOrder.BackColor = System.Drawing.Color.White;
+            this.SaveOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveOrder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveOrder.Location = new System.Drawing.Point(6, 11);
+            this.SaveOrder.Name = "SaveOrder";
+            this.SaveOrder.Size = new System.Drawing.Size(91, 28);
+            this.SaveOrder.TabIndex = 45;
+            this.SaveOrder.TabStop = false;
+            this.SaveOrder.Text = "حفظ الترتيب";
+            this.SaveOrder.UseCompatibleTextRendering = true;
+            this.SaveOrder.UseVisualStyleBackColor = false;
+            this.SaveOrder.Click += new System.EventHandler(this.SaveOrder_Click);
             // 
             // MSDown
             // 
             this.MSDown.BackColor = System.Drawing.Color.White;
             this.MSDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MSDown.Font = new System.Drawing.Font("Wingdings 3", 8.25F);
-            this.MSDown.Location = new System.Drawing.Point(182, 73);
+            this.MSDown.Location = new System.Drawing.Point(212, 77);
             this.MSDown.Name = "MSDown";
             this.MSDown.Size = new System.Drawing.Size(51, 19);
             this.MSDown.TabIndex = 43;
@@ -2892,7 +2745,7 @@
             this.DeleteSM.BackColor = System.Drawing.Color.White;
             this.DeleteSM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteSM.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeleteSM.Location = new System.Drawing.Point(182, 12);
+            this.DeleteSM.Location = new System.Drawing.Point(212, 16);
             this.DeleteSM.Name = "DeleteSM";
             this.DeleteSM.Size = new System.Drawing.Size(51, 19);
             this.DeleteSM.TabIndex = 44;
@@ -2907,7 +2760,7 @@
             this.MSUp.BackColor = System.Drawing.Color.White;
             this.MSUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MSUp.Font = new System.Drawing.Font("Wingdings 3", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.MSUp.Location = new System.Drawing.Point(181, 48);
+            this.MSUp.Location = new System.Drawing.Point(211, 52);
             this.MSUp.Name = "MSUp";
             this.MSUp.Size = new System.Drawing.Size(52, 19);
             this.MSUp.TabIndex = 42;
@@ -2919,7 +2772,7 @@
             // 
             // AddMlist
             // 
-            this.AddMlist.Location = new System.Drawing.Point(260, 52);
+            this.AddMlist.Location = new System.Drawing.Point(454, 36);
             this.AddMlist.Name = "AddMlist";
             this.AddMlist.Size = new System.Drawing.Size(48, 23);
             this.AddMlist.TabIndex = 11;
@@ -2931,7 +2784,7 @@
             // label62
             // 
             this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(352, 32);
+            this.label62.Location = new System.Drawing.Point(546, 16);
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(63, 13);
             this.label62.TabIndex = 10;
@@ -2939,7 +2792,7 @@
             // 
             // mlistTB
             // 
-            this.mlistTB.Location = new System.Drawing.Point(313, 54);
+            this.mlistTB.Location = new System.Drawing.Point(507, 38);
             this.mlistTB.Name = "mlistTB";
             this.mlistTB.Size = new System.Drawing.Size(100, 20);
             this.mlistTB.TabIndex = 8;
@@ -2949,7 +2802,7 @@
             // MListLB
             // 
             this.MListLB.FormattingEnabled = true;
-            this.MListLB.Location = new System.Drawing.Point(11, 12);
+            this.MListLB.Location = new System.Drawing.Point(269, 16);
             this.MListLB.Name = "MListLB";
             this.MListLB.Size = new System.Drawing.Size(165, 82);
             this.MListLB.TabIndex = 41;
@@ -2967,47 +2820,21 @@
             // 
             this.LoadFile.FileName = "NetworkSynq.exe";
             // 
-            // label75
+            // label54
             // 
-            this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(311, 353);
-            this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(67, 13);
-            this.label75.TabIndex = 85;
-            this.label75.Text = "اسم المطعم";
-            // 
-            // RestTB
-            // 
-            this.RestTB.Location = new System.Drawing.Point(172, 350);
-            this.RestTB.Name = "RestTB";
-            this.RestTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.RestTB.Size = new System.Drawing.Size(135, 20);
-            this.RestTB.TabIndex = 84;
-            // 
-            // logoTB
-            // 
-            this.logoTB.Location = new System.Drawing.Point(243, 462);
-            this.logoTB.Name = "logoTB";
-            this.logoTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.logoTB.Size = new System.Drawing.Size(135, 20);
-            this.logoTB.TabIndex = 86;
-            // 
-            // label76
-            // 
-            this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(264, 444);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(114, 13);
-            this.label76.TabIndex = 87;
-            this.label76.Text = "شعار المحل (رابط ملف)";
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(802, 494);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(191, 13);
+            this.label54.TabIndex = 36;
+            this.label54.Text = "Programmed By: undcover@gmail.com";
             // 
             // SettingsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(987, 538);
+            this.ClientSize = new System.Drawing.Size(1004, 538);
             this.Controls.Add(this.SettingTabs);
-            this.MinimizeBox = false;
             this.Name = "SettingsPage";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
@@ -3017,18 +2844,20 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "الإعدادات";
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsPage_FormClosed_1);
             this.Load += new System.EventHandler(this.SettingsPage_Load);
             this.About.ResumeLayout(false);
+            this.About.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.Pos.ResumeLayout(false);
             this.Pos.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FntUpDown)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
@@ -3054,6 +2883,7 @@
             this.MenuDisplaySettings.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AddingGrid)).EndInit();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             this.ResumeLayout(false);
@@ -3223,24 +3053,9 @@
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.TextBox DBConnection;
         private System.Windows.Forms.TabPage MenuDisplaySettings;
-        private System.Windows.Forms.Button AddMultiItem;
-        private System.Windows.Forms.Button AddToMultiItem;
         private System.Windows.Forms.Button AddSingleItem;
         private System.Windows.Forms.Label label61;
-        private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.TextBox Mpath;
-        private System.Windows.Forms.TextBox Mcal;
-        private System.Windows.Forms.TextBox Mdetails;
-        private System.Windows.Forms.TextBox MPrice;
-        private System.Windows.Forms.TextBox MBarcode;
-        private System.Windows.Forms.TextBox MnameTB;
-        private System.Windows.Forms.Label label54;
-        private System.Windows.Forms.Label label55;
-        private System.Windows.Forms.Label label56;
-        private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.ListBox MultiLB;
         private System.Windows.Forms.ListBox MenuLB;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox12;
@@ -3256,12 +3071,6 @@
         private System.Windows.Forms.Button MDown;
         private System.Windows.Forms.Label SectionsName;
         private System.Windows.Forms.Button MUp;
-        private System.Windows.Forms.Button ChoosePicPath;
-        private System.Windows.Forms.CheckBox Availables;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.Label label63;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.Button DeleteInfo;
         private System.Windows.Forms.Label label66;
@@ -3270,7 +3079,6 @@
         private System.Windows.Forms.Button AddInfo;
         private System.Windows.Forms.TextBox infopanel;
         private System.Windows.Forms.ListBox infolist;
-        private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Button QuickAdd;
         private System.Windows.Forms.Button SaveMulti;
         private System.Windows.Forms.ContextMenuStrip sectionsML;
@@ -3293,10 +3101,6 @@
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.TextBox ipTB;
         private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.TextBox EnMdetails;
-        private System.Windows.Forms.TextBox EnMnameTB;
-        private System.Windows.Forms.Label label73;
-        private System.Windows.Forms.Label label71;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label74;
         private System.Windows.Forms.TextBox ItemH;
@@ -3305,5 +3109,16 @@
         private System.Windows.Forms.TextBox RestTB;
         private System.Windows.Forms.Label label76;
         private System.Windows.Forms.TextBox logoTB;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.TextBox CashierPrinterTB;
+        private System.Windows.Forms.Button RemoveCashierPrinter;
+        private System.Windows.Forms.Button AssignCashier;
+        private System.Windows.Forms.Label ServerFile;
+        private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.DataGridView AddingGrid;
+        private System.Windows.Forms.Button CancelMIX;
+        private System.Windows.Forms.Button SaveOrder;
+        private System.Windows.Forms.Button CopyMenu;
+        private System.Windows.Forms.Label label54;
     }
 }

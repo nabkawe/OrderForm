@@ -47,7 +47,6 @@
             this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dvReport)).BeginInit();
             this.panel1.SuspendLayout();
-            this.PaymentMethods.SuspendLayout();
             this.SuspendLayout();
             // 
             // StartDate
@@ -95,12 +94,12 @@
             // 
             // totalSales
             // 
-            this.totalSales.Dock = System.Windows.Forms.DockStyle.Left;
+            this.totalSales.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.totalSales.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalSales.Location = new System.Drawing.Point(0, 0);
+            this.totalSales.Location = new System.Drawing.Point(0, 545);
             this.totalSales.Name = "totalSales";
             this.totalSales.ReadOnly = true;
-            this.totalSales.Size = new System.Drawing.Size(131, 30);
+            this.totalSales.Size = new System.Drawing.Size(800, 30);
             this.totalSales.TabIndex = 3;
             this.totalSales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -226,22 +225,22 @@
             // 
             // PaymentMethods
             // 
-            this.PaymentMethods.Controls.Add(this.label3);
-            this.PaymentMethods.Controls.Add(this.totalSales);
             this.PaymentMethods.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PaymentMethods.Location = new System.Drawing.Point(0, 521);
+            this.PaymentMethods.Location = new System.Drawing.Point(0, 478);
             this.PaymentMethods.Name = "PaymentMethods";
             this.PaymentMethods.Size = new System.Drawing.Size(800, 54);
             this.PaymentMethods.TabIndex = 8;
+            this.PaymentMethods.Paint += new System.Windows.Forms.PaintEventHandler(this.PaymentMethods_Paint);
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(25, 32);
+            this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label3.Location = new System.Drawing.Point(0, 532);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 13);
+            this.label3.Size = new System.Drawing.Size(800, 13);
             this.label3.TabIndex = 19;
             this.label3.Text = "المبيعات الكاملة";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MyReport
             // 
@@ -251,14 +250,16 @@
             this.Controls.Add(this.PaymentMethods);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dvReport);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.totalSales);
             this.Name = "MyReport";
             this.Text = "MyReport";
+            this.Load += new System.EventHandler(this.MyReport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dvReport)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.PaymentMethods.ResumeLayout(false);
-            this.PaymentMethods.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

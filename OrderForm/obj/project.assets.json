@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.8": {
+      "ESCPOS/1.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/ESCPOS.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ESCPOS.dll": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
         "type": "package",
         "dependencies": {
@@ -405,6 +414,15 @@
       }
     },
     ".NETFramework,Version=v4.8/win": {
+      "ESCPOS/1.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/ESCPOS.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ESCPOS.dll": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
         "type": "package",
         "dependencies": {
@@ -764,6 +782,15 @@
       }
     },
     ".NETFramework,Version=v4.8/win-x64": {
+      "ESCPOS/1.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/ESCPOS.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ESCPOS.dll": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
         "type": "package",
         "dependencies": {
@@ -1123,6 +1150,15 @@
       }
     },
     ".NETFramework,Version=v4.8/win-x86": {
+      "ESCPOS/1.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/ESCPOS.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ESCPOS.dll": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
         "type": "package",
         "dependencies": {
@@ -1483,6 +1519,20 @@
     }
   },
   "libraries": {
+    "ESCPOS/1.2.3": {
+      "sha512": "HRTIkJXZic99v9hOYzJxeOtAzB2/sRBYQTm2fiZi7b24qtLrUUgestLQybbfatqISvpLtxd8gzd0cvhVjWQGJw==",
+      "type": "package",
+      "path": "escpos/1.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ESC_POS.png",
+        "LICENSE",
+        "escpos.1.2.3.nupkg.sha512",
+        "escpos.nuspec",
+        "lib/netstandard2.0/ESCPOS.dll"
+      ]
+    },
     "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
       "sha512": "W8DPQjkMScOMTtJbPwmPyj9c3zYSFGawDW3jwlBOOsnY+EzZFLgNQ/UMkK35JmkNOVPdCyPr2Tw7Vv9N+KA3ZQ==",
       "type": "package",
@@ -2254,6 +2304,7 @@
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
       "DisplayMenu >= 1.0.0",
+      "ESCPOS >= 1.2.3",
       "Microsoft.Bcl.AsyncInterfaces >= 5.0.0",
       "MySharedBaseCode >= 1.0.0",
       "Newtonsoft.Json >= 13.0.2",
@@ -2322,6 +2373,10 @@
     "frameworks": {
       "net48": {
         "dependencies": {
+          "ESCPOS": {
+            "target": "Package",
+            "version": "[1.2.3, )"
+          },
           "Microsoft.Bcl.AsyncInterfaces": {
             "target": "Package",
             "version": "[5.0.0, )"

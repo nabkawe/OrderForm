@@ -1,0 +1,62 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "WebOrderForm/1.0.0": {
+        "dependencies": {
+          "MySharedBaseCode": "1.0.0"
+        },
+        "runtime": {
+          "WebOrderForm.dll": {}
+        }
+      },
+      "MySharedBaseCode/1.0.0": {
+        "runtime": {
+          "MySharedBaseCode.dll": {}
+        }
+      },
+      "PrayerTimes/1.0.0.0": {
+        "runtime": {
+          "PrayerTimes.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.1.0"
+          }
+        }
+      },
+      "LiteDB/5.0.12.0": {
+        "runtime": {
+          "LiteDB.dll": {
+            "assemblyVersion": "5.0.12.0",
+            "fileVersion": "5.0.12.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WebOrderForm/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MySharedBaseCode/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PrayerTimes/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LiteDB/5.0.12.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

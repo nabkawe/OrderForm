@@ -1,4 +1,6 @@
-﻿namespace OrderForm
+﻿using System.Windows.Forms;
+
+namespace OrderForm
 {
     partial class UnfocusableButton
     {
@@ -33,8 +35,19 @@
             // UnfocusableButton
             // 
             this.Name = "UnfocusableButton";
-            this.ResumeLayout(false);
+            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Margin = new Padding(1);
+            this.TabStop = false;
+            this.TabIndex = 1000;
+            this.BackColor = System.Drawing.Color.LightSlateGray;
+            this.Font = new System.Drawing.Font("Segoe UI", 12, System.Drawing.FontStyle.Bold);
+            this.ForeColor = System.Drawing.Color.White;
+            this.FlatAppearance.BorderSize = 1;
+            this.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.TextImageRelation = TextImageRelation.Overlay;
 
+            this.ResumeLayout(false);
+            
         }
 
         #endregion

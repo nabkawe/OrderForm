@@ -45,6 +45,16 @@ namespace sharedCode
                 var sect = db.GetCollection<MenuSection>("Menus");
                 sect.Upsert(s);
             }
+        }  
+        public static void UpdateMenuSection(string MenuName,int order)
+        {
+            using (var db = Connect())
+            {
+                var sect = db.GetCollection<MenuSection>("Menus");
+                var s = sect.FindOne(x => x.Name == MenuName);
+                s.order = order;    
+                sect.Update(s);
+            }
         }
         public static void DeleteMenuSection(string MenuName)
         {
@@ -62,7 +72,7 @@ namespace sharedCode
             using (var db = Connect())
             {
                 var sect = db.GetCollection<MenuSection>("Menus");
-                var s = sect.FindAll();
+                var s = sect.FindAll().OrderBy(x => x.order);
                 List<string> list = new List<string>();
                 s.ToList().ForEach(x => list.Add(x.Name));
                 return list;

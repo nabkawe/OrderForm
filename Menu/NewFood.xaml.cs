@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,18 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Converters;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Xml;
 using sharedCode;
+using WpfScreenHelper;
+
 namespace OrderForm
 {
 
@@ -24,143 +30,137 @@ namespace OrderForm
     public partial class NewFood : UserControl, IAllMenuItems
     {
         public System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-        public bool Single { get; set; }
-        public static bool lang;
-        
-        int totalcount = 0;
+        public bool Single;
+        public NewFood()
+        {
+
+        }
+        public List<MenuItemsX> posLoop = new List<MenuItemsX>();
+
+        private  MenuItemsX MenuX;
         public NewFood(MenuItemZ pos)
         {
             this.InitializeComponent();
             this.RegisterName("BackGroundGrid", scopedElement: this.BackGroundGrid);
+            this.Name = "Foodi";
+            
 
             if (pos.SingleX)
             {
-                this.FillInfo(pos.items.Last());
-                this.Fadein();
-                Single= true;   
+                Single = true;
+                Task.Run(() =>
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.DataContext = MenuItemsXViewModel.me(pos.items[0]);
+                    });
+                });
+                this.Tag = pos.items[0].Barcode;
             }
             else
             {
+                DataContext = MenuItemsXViewModel.me(pos.items[1]);
+                var result = new StringBuilder();
+                pos.items.ForEach(x => result.Append(x.Barcode + "-"));
+                this.Tag = result.Length--; // remove last '-'
+
                 pos.items.ForEach(x => posLoop.Add(x));
-                this.FillInfo(pos.items.Last());
-                totalcount = pos.items.Count();
-                this.StartTimer();
-                this.Fadein();
-                Single = false;
+
+                var timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(6);
+                timer.Tick += (sender, args) =>
+                {
+                    if (posLoop.Count > 0)
+                    {
+                        // Get the first item
+                         MenuX = posLoop[0];
+
+                        // Remove it from the list
+                        posLoop.RemoveAt(0);
+
+                        // Add it to the end of the list
+                        posLoop.Add(MenuX);
+
+
+                        // Update your UI with the new item using DataContext
+
+                        // Animate your UI element
+
+                        var opacityAnimation = new DoubleAnimation(1.0, 0.0, TimeSpan.FromMilliseconds(1000));
+                        opacityAnimation.Completed += ScaleAnimation_Completed;
+
+                        BackGroundGrid.BeginAnimation(Grid.OpacityProperty, opacityAnimation);
+                    }
+                };
+                timer.Start();
             }
+        
+        }
+
+        private  void ScaleAnimation_Completed(object sender, EventArgs e)
+        {
+            changeDC();
             
+
+
+            var opacityAnimation = new DoubleAnimation(0.0, 1.0, TimeSpan.FromMilliseconds(1000));
+
+            BackGroundGrid.BeginAnimation(OpacityProperty, opacityAnimation);
+
         }
-        public List<MenuItemsX> posLoop = new List<MenuItemsX>();
 
-
-        public void FillInfo(MenuItemsX poss)
+        private  void changeDC()
         {
-
-            if (poss.Available)
+            Task.Run(() =>
             {
-                this.AvailableLabel.Visibility = Visibility.Hidden;
-            }
-            if (!lang)
-            {
-                var Name = this.Reg("kName");
-                Name.Content = poss.EnName;
-                var Details = this.Reg("kDetails");
-                Details.Content = poss.EnDetails;
-            }
-            else
-            {
-                var Name = this.Reg("kName");
-                Name.Content = poss.Name;
-                var Details = this.Reg("kDetails");
-                Details.Content = poss.Details;
-            }
-            
-            var PictureName = this.Reg("kPicture");
-            PictureName.Content = poss.ImagePath;
-            var Cal = this.Reg("kCalories");
-            Cal.Content = poss.Cal;
-            var bar = this.Reg("kBarCode");
-            bar.Content = poss.Barcode;
-            this.Tag = poss.Barcode;
-
-
-            if (poss.Price != null)
-            {
-                var Price = this.Reg("kPrice");
-                Price.Content = poss.Price.ToString();
-            }else if (poss.Price == null){ this.KCur.Text = " "; PricePlate.Text = " "; }
-
-
-
-
-
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.DataContext = MenuItemsXViewModel.me(MenuX); ;
+                });
+            });
 
         }
-        int Count = 0;
-        private void Storyboard_Completed(object sender, EventArgs e)
-        {
-            FillInfo(posLoop[Count]);
-            this.Count += 1;
-            Fadein();
-        }
-
-        private void StartTimer()
-        {
-            this.dispatcherTimer.Tick += DispatcherTimer_Tick;
-            this.dispatcherTimer.Interval = new TimeSpan(0, 0, 18);
-            this.dispatcherTimer.Start();
-        }
-
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            if (Count > totalcount || Count == totalcount)
-            {
-                Count = 0;
-            }
-            else if (Count < totalcount)
-            {
-
-                Storyboard storyboard = new Storyboard();
-                TimeSpan duration = TimeSpan.FromMilliseconds(1500); //
-                DoubleAnimation fadeInAnimation = new DoubleAnimation()
-                { From = 1, To = 0, AutoReverse = false, Duration = new Duration(duration) };
-                Storyboard.SetTargetName(fadeInAnimation, "BackGroundGrid");
-                Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-                storyboard.Children.Add(fadeInAnimation);
-                storyboard.Completed += Storyboard_Completed;
-                storyboard.Begin(this);
-
-
-            }
-
-
-        }
-
-
-
 
         public void Fadein()
         {
             this.RegisterName("foodi", this.FI);
             Storyboard storyboard = new Storyboard();
             TimeSpan duration = TimeSpan.FromMilliseconds(1500); //
-            DoubleAnimation fadeInAnimation = new DoubleAnimation()
+            DoubleAnimation scaleAnimation = new DoubleAnimation()
             { From = 0.0, To = 1.0, Duration = new Duration(duration) };
-            Storyboard.SetTargetName(fadeInAnimation, "BackGroundGrid");
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
-            storyboard.Children.Add(fadeInAnimation);
+            Storyboard.SetTargetName(scaleAnimation, "BackGroundGrid");
+            storyboard.Children.Add(scaleAnimation);
             storyboard.Begin(this);
         }
 
-        private void Story_Completed(object sender, EventArgs e)
-        {
-            var brush = new SolidColorBrush(Color.FromRgb(169, 107, 40));
-            MyBorder.BorderBrush = brush; 
-            this.dispatcherTimer.Start();
-        }
 
+   
         public void PickedYou()
         {
+          //  Window1 window = new Window1();
+          //  Type type = this.GetType();
+          //  string xaml = XamlWriter.Save(this);
+          //  StringReader stringReader = new StringReader(xaml);
+          //  XmlReader xmlReader = XmlReader.Create(stringReader);
+          //  NewFood newFood = (NewFood)XamlReader.Load(xmlReader);
+          //  newFood.Name = "foodi";
+          //  newFood.Height = window.Height;
+          //  newFood.Width = window.Width;   
+          //window.Grid.Children.Add(newFood);
+            
+
+
+          //  //window.Content = XamlReader.Parse(XamlWriter.Save(this));
+          //  Window parentWindow = Window.GetWindow(this);
+          //  window.Owner = parentWindow;
+          //  Point rl = this.TranslatePoint(new Point(0, 0), parentWindow) ;
+          //  //Screen screen = Screen.FromPoint(rl) ;
+          //  window.Topmost = true;
+          //  window.Left = this.PointToScreen(new Point(MainWindow.Currentsize.Width * 1.5 / this.Width ,0)).X;
+          //  window.Top = this.PointToScreen(new Point(0, 0)).Y;
+
+          //  window.Show();
+
             this.dispatcherTimer.Stop();
             this.RegisterName("BlurEffect", dropEffect);
             dropEffect.Color = Color.FromRgb(0, 255, 00);
@@ -190,20 +190,18 @@ namespace OrderForm
             s.Children.Add(thick);
             s.Begin(this);
         }
+        private void Story_Completed(object sender, EventArgs e)
+        {
+            var brush = new SolidColorBrush(Color.FromRgb(169, 107, 40));
+            MyBorder.BorderBrush = brush;
+            this.dispatcherTimer.Start();
+        }
 
         private ContentControl Reg(string r)
         {
             var contentControl = (ContentControl)this.FindResource(r);
             return contentControl;
         }
-        //Color.FromRgb(169, 107, 40)
-        //duration = TimeSpan.FromMilliseconds(1000);
-        //DoubleAnimation fadeInAnimation2 = new DoubleAnimation()
-        //{  By = 360, RepeatBehavior = new RepeatBehavior(2), AutoReverse = true, Duration = new Duration(duration) };
-        //Storyboard.SetTargetName(fadeInAnimation2, "BlurEffect");
-        //Storyboard.SetTargetProperty(fadeInAnimation2, new PropertyPath("Direction", 5));
-        //s.Children.Add(fadeInAnimation2);
-
 
     }
 }

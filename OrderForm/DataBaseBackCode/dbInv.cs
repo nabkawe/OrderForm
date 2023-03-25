@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -15,36 +16,36 @@ namespace OrderForm
         //log backcode
         public static void LogAction(string action, int id, InvStat status)
         {
-            if (Properties.Settings.Default.API_ACCESS)
-            {
-                var Logged = GetInvoiceByID(id);
-                Logged.LogThis(action);
-                CreateDraftInvoice(Logged);
+            //if (Properties.Settings.Default.API_ACCESS)
+            //{
+            //    var Logged = GetInvoiceByID(id);
+            //    Logged.LogThis(action);
+            //    CreateDraftInvoice(Logged);
 
 
 
-            }
-            else
-            {
-                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-                {
-                    if (status == InvStat.Draft)
-                    {
-                        var Invoices = db.GetCollection<Invoice>("Invoices");
-                        var Logged = Invoices.FindById(id);
-                        Logged.LogThis(action);
-                        Invoices.Update(Logged);
+            //}
+            //else
+            //{
+            //    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+            //    {
+            //        if (status == InvStat.Draft)
+            //        {
+            //            var Invoices = db.GetCollection<Invoice>("Invoices");
+            //            var Logged = Invoices.FindById(id);
+            //            Logged.LogThis(action);
+            //            Invoices.Update(Logged);
 
-                    }
-                    else
-                    {
-                        var Invoices = db.GetCollection<Invoice>("Invoices");
-                        var Logged = Invoices.FindById(id);
-                        Logged.LogThis(action);
-                        Invoices.Update(Logged);
-                    }
-                }
-            }
+            //        }
+            //        else
+            //        {
+            //            var Invoices = db.GetCollection<Invoice>("Invoices");
+            //            var Logged = Invoices.FindById(id);
+            //            Logged.LogThis(action);
+            //            Invoices.Update(Logged);
+            //        }
+            //    }
+            //}
         }
 
         public static bool AreYouAlive()
@@ -143,7 +144,7 @@ namespace OrderForm
                         return list;
                     }
                 }
-                else return null;
+                else return new List<Invoice>();
             }
             else
             {
@@ -226,19 +227,29 @@ namespace OrderForm
                         var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Invoice>>(response.Content.ToString());// <Invoice>(item);
                         return i;
                     }
-                    else return null;
+                    else return new List<Invoice>();
 
                 }
-                else return null;
+                else return new List<Invoice>();
             }
             else
             {
-                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+                try
                 {
-                    var draft = db.GetCollection<Invoice>("Invoices");
-                    var draftinv = draft.Find(x => x.Status == InvStat.Printed).Take(100).ToList().OrderByDescending(x => x.TimeinArabic == "الآن").ThenBy(x => x.TimeOfInv);
-                    return draftinv.ToList();
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+                    {
+                        var draft = db.GetCollection<Invoice>("Invoices");
+                        var draftinv = draft.Find(x => x.Status == InvStat.Printed).Take(100).ToList().OrderByDescending(x => x.TimeinArabic == "الآن").ThenBy(x => x.TimeOfInv);
+                        return draftinv.ToList();
+                    }
+
                 }
+                catch (Exception)
+                {
+                    return new List<Invoice>();
+
+                }
+
             }
         }
 
@@ -401,9 +412,9 @@ namespace OrderForm
 
                         }
                     }
-                    return null;
+                    return new List<Invoice>(); ;
                 }
-                else { return null; }
+                else { return new List<Invoice>(); ; }
             }
             else
             {
@@ -440,7 +451,7 @@ namespace OrderForm
                         }
                     }
                 }
-                return null;
+                return new List<Invoice>(); ;
             }
             else
             {
@@ -448,7 +459,7 @@ namespace OrderForm
                 {
                     var draft = db.GetCollection<Invoice>("Invoices");
                     var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted);
-                    var d = draftInv.OrderByDescending(i => Convert.ToInt32(i.IDstring)).ToList(); //.ThenBy(o => o.InvoiceDay)
+                    var d = draftInv.OrderByDescending(i => i.ID).ToList(); //.ThenBy(o => o.InvoiceDay)
                     return d;
                 }
             }
@@ -573,12 +584,19 @@ namespace OrderForm
                 request.RequestFormat = DataFormat.Json;
                 string i = Newtonsoft.Json.JsonConvert.SerializeObject(inv, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
                 request.AddParameter("application/json", i, ParameterType.RequestBody);
-                var response = client.PostAsync(request);
-
+                RestResponse response = client.Execute(request, Method.Post);
 
                 if (response != null)
                 {
-                    return response.Result.Content.ToString();
+                    var x = Newtonsoft.Json.JsonConvert.DeserializeObject<string>(response.Content);
+                    if (response.Content == "true")
+                    {
+                        Application.OpenForms[0].Focus();
+                        MessageBox.Show(response.Content.ToString());
+                    }
+
+
+                    return x;
                 }
                 else throw new HttpRequestException();
 
@@ -590,15 +608,13 @@ namespace OrderForm
                     var invoiceTable = db.GetCollection<Invoice>("Invoices");
                     try
                     {
-                        inv.ID = invoiceTable.Count() + 1;
-                        invoiceTable.Insert(inv);
-                        return inv.IDstring;
+                        Console.WriteLine(inv.ID.ToString());
+                        return invoiceTable.Insert(inv).ToString();
                     }
                     catch (Exception)
                     {
-                        inv.ID = invoiceTable.Count() + 1;
                         invoiceTable.Insert(inv);
-                        return inv.IDstring;
+                        return invoiceTable.Insert(inv).ToString();
                     }
                 }
             }
@@ -962,7 +978,7 @@ namespace OrderForm
             using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
-                draft.DeleteMany(x => x.Status == InvStat.Draft && x.InvoiceItems.Count == 0);
+                //draft.DeleteMany(x => x.Status == InvStat.Draft && x.InvoiceItems.Count == 0);
             }
 
         }
@@ -973,6 +989,9 @@ namespace OrderForm
             {
                 var draft = db.GetCollection<Invoice>("Invoices");
                 draft.DropIndex("Status");
+                draft.DropIndex("SearchResult");
+                draft.DropIndex("CustomerNumber");
+                draft.DropIndex("ID");
                 draft.EnsureIndex(x => x.Status);
                 draft.EnsureIndex(x => x.SearchResult);
                 draft.EnsureIndex(x => x.CustomerNumber);

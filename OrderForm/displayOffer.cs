@@ -15,7 +15,7 @@ namespace OrderForm
         {
             InitializeComponent();
             TimeUp += DisplayOffer_TimeUp;
-            unfocusableButton4.BackgroundImage = Bitmap.FromFile(Properties.Settings.Default.Logo);
+            LogoPic.BackgroundImage = Bitmap.FromFile(Properties.Settings.Default.Logo);
         }
 
 
@@ -61,8 +61,8 @@ namespace OrderForm
             if (e == "Stop")
             {
                 Orders.MenuShowing = false;
-                this.timer1.Stop();
-                this.Close();
+                timer1.Stop();
+                Close();
 
             }
 
@@ -77,11 +77,13 @@ namespace OrderForm
             this.Width = Screen.AllScreens[1].WorkingArea.Width;
             if (this.Height > this.Width)
             {
-                this.pictureBox1.Height += 300;
-                this.dvItems2.Height += 350;
+                //this.Payment.Height += 300;
+                //this.dvItems2.Height += 350;
             }
-            else { this.pictureBox1.Height += 300; }
-            dvItems2.DataSource = Orders.POS;
+            else { this.Payment.Visible = false; this.LogoPic.Visible = false; this.panel1.Dock = DockStyle.Top; this.panel1.SendToBack(); }
+                
+
+                dvItems2.DataSource = Orders.POS;
             Orders.POS.ListChanged += POS_ListChanged;
             var cellstyleMaterial = new DataGridViewCellStyle
             {
@@ -163,6 +165,7 @@ namespace OrderForm
 
                 var c = Orders.POS.Sum<POSItems>((x) => x.RealQuantity).ToString();
                 ItemCount.Text = $"عدد المواد المطلوبة: \n\n {c}";
+                dvItems2.Height = dvItems2.Rows[0].Height * (dvItems2.Rows.Count +1);
             }
             else
             {
@@ -191,6 +194,15 @@ namespace OrderForm
             Orders.MenuShowing = false;
         }
 
+        private void dvItems2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Payment_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

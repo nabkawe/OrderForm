@@ -25,6 +25,7 @@ Title="MainWindow" Height="1920" Width="1080"   WindowStartupLocation="Manual" L
                     <WrapPanel Name="MyList"  Margin="35,0,0,0" Opacity="1"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+            
         </ItemsControl>
 
     </Grid>

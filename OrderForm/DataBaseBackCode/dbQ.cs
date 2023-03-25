@@ -41,9 +41,9 @@ namespace OrderForm
                             return i;
                         }
                     }
-                    else return null;
+                    else return new Contacts() { Name = "", Number = "" };
                 }
-                else return null;
+                else return new Contacts() {Name="",Number=""};
 
 
             }
@@ -196,32 +196,53 @@ namespace OrderForm
                         var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSDepartments>>(response.Content.ToString());
                         return i;
                     }
-                    else return null;
+                    else return new List<POSDepartments>();
+
 
                 }
-                else return null;
+                else return new List<POSDepartments>();
+
 
             }
             else
             {
-                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
+                try
                 {
-                    var Deps = db.GetCollection<POSDepartments>("POSDepartment");
-                    List<POSDepartments> a = Deps.FindAll().ToList();
-                    return a;
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                    {
+                        var Deps = db.GetCollection<POSDepartments>("POSDepartment");
+                        List<POSDepartments> a = Deps.FindAll().ToList();
+                        return a;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return new List<POSDepartments>();      
                 }
             }
         }
 
         public static void DefaultPrinters(string printer)
         {
+
             Properties.Settings.Default.DefaultPrinter = printer;
             Properties.Settings.Default.Save();
+        }
+        public static void CashierPrinter(string printer)
+        {
+            Properties.Settings.Default.CashierPrinter = printer;
+            Properties.Settings.Default.Save();
+            
         }
         public static string DefaultPrinters()
         {
             return Properties.Settings.Default.DefaultPrinter;
+        }
+        public static string CashierPrinter()
+        {
+            return Properties.Settings.Default.CashierPrinter;
         }
         internal static void DeleteItemSections(List<POSItems> list)
         {
@@ -312,10 +333,10 @@ namespace OrderForm
                         var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSItems>>(response.Content.ToString());
                         return i;
                     }
-                    else return null;
+                    else return new List<POSItems>();
 
                 }
-                else return null;
+                else return new List<POSItems>();
 
             }
             using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
@@ -341,7 +362,7 @@ namespace OrderForm
                     }
                 }
             }
-            return null;
+            return new POSsections();
 
         }
         public static List<POSsections> GetSections()
@@ -449,20 +470,28 @@ namespace OrderForm
                         var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSsections>>(response.Content.ToString());
                         return i;
                     }
-                    else return null;
+                    else return  new List<POSsections>();
 
                 }
-                else return null;
+                else return new List<POSsections>(); ;
 
             }
             else
             {
-                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
+                try
                 {
-                    var s = db.GetCollection<POSsections>("Sections");
-                    var S = s.FindAll();
-                    return S.ToList();
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                    {
+                        var s = db.GetCollection<POSsections>("Sections");
+                        var S = s.FindAll();
+                        return S.ToList();
+                    }
+                }
+                catch (Exception)
+                {
+
+                   return new List<POSsections>();
                 }
             }
 
@@ -513,20 +542,29 @@ namespace OrderForm
                         var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSItems>>(response.Content.ToString());
                         return i;
                     }
-                    else return null;
+                    else return new List<POSItems>();
 
                 }
-                else return null;
+                else return new List<POSItems>();
 
             }
             else
             {
-                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
+                try
                 {
-                    var mat = db.GetCollection<POSItems>("Materials");
-                    return mat.FindAll().ToList();
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                    {
+                        var mat = db.GetCollection<POSItems>("Materials");
+                        return mat.FindAll().ToList();
+                    }
                 }
+                catch (Exception)
+                {
+                    return new List<POSItems>();
+                    ////
+                }
+     
             }
         }
 
@@ -545,10 +583,10 @@ namespace OrderForm
                         var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WhatsAppShortCut>>(response.Content.ToString());
                         return i;
                     }
-                    else return null;
+                    else return new List<WhatsAppShortCut>();
 
                 }
-                else return null;
+                else return new List<WhatsAppShortCut>();
 
 
             }

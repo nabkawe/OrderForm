@@ -1,0 +1,8 @@
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\bin\Debug\SampleBasicNetwork2008.exe
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\bin\Debug\SampleBasicNetwork2008.pdb
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\Debug\ResolveAssemblyReference.cache
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\Debug\SampleBasicNetwork2008.Form1.resources
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\Debug\SampleBasicNetwork2008.Properties.Resources.resources
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\Debug\SampleBasicNetwork2008.csproj.GenerateResource.Cache
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\Debug\SampleBasicNetwork2008.exe
+D:\System Windows\Desktop\Sample CallerID C# 2008\SampleBasicNetwork2008\SampleBasicNetwork2008\obj\Debug\SampleBasicNetwork2008.pdb

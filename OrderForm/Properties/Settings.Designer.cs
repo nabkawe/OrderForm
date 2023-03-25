@@ -12,7 +12,7 @@ namespace OrderForm.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.5.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -409,7 +409,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Libra Soft® مطعم سحائب طيبه سليمانية 2022")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Libra Soft® مطعم سحائب طيبه سليمانية 2023")]
         public string POSMainName {
             get {
                 return ((string)(this["POSMainName"]));
@@ -613,7 +613,8 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public bool API_ACCESS {
             get {
                 return ((bool)(this["API_ACCESS"]));
@@ -680,6 +681,18 @@ namespace OrderForm.Properties {
             }
             set {
                 this["Logo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CashierPrinter {
+            get {
+                return ((string)(this["CashierPrinter"]));
+            }
+            set {
+                this["CashierPrinter"] = value;
             }
         }
     }

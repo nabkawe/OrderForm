@@ -15,6 +15,7 @@ namespace OrderForm
         {
             order = item;
             InitializeComponent();
+            this.DoubleBuffered = true; 
             if (order.Status == InvStat.SavedToPOS)
             {
                 this.BackColor = Color.LightGreen;
@@ -181,7 +182,7 @@ namespace OrderForm
                     e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x - 4, y - 2, width, height), drawFormatRight);
                     y += e.Graphics.MeasureString(text, fnt).Height;
                     //text = order.InvoiceTimeloglist[order.InvoiceTimeloglist.Count -1].ToString();
-                    e.Graphics.DrawString(text, tfnt, drawBrush, new RectangleF(x - 4, y - 2, width, height), drawFormatRight);
+                    //e.Graphics.DrawString(text, tfnt, drawBrush, new RectangleF(x - 4, y - 2, width, height), drawFormatRight);
 
                 }
             }

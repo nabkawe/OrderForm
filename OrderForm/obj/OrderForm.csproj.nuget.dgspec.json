@@ -79,6 +79,10 @@
       "frameworks": {
         "net48": {
           "dependencies": {
+            "ESCPOS": {
+              "target": "Package",
+              "version": "[1.2.3, )"
+            },
             "Microsoft.Bcl.AsyncInterfaces": {
               "target": "Package",
               "version": "[5.0.0, )"

@@ -39,7 +39,7 @@
             this.unfocusableButton2 = new OrderForm.UnfocusableButton();
             this.Price = new OrderForm.UnfocusableButton();
             this.unfocusableButton3 = new OrderForm.UnfocusableButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Payment = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ClientName = new OrderForm.UnfocusableButton();
             this.ClientTitle = new OrderForm.UnfocusableButton();
@@ -47,10 +47,10 @@
             this.ClientPhone = new OrderForm.UnfocusableButton();
             this.DateTitle = new OrderForm.UnfocusableButton();
             this.ClientDate = new OrderForm.UnfocusableButton();
-            this.unfocusableButton4 = new OrderForm.UnfocusableButton();
+            this.LogoPic = new OrderForm.UnfocusableButton();
             ((System.ComponentModel.ISupportInitialize)(this.dvItems2)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Payment)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,7 +68,7 @@
             this.dvItems2.AllowUserToResizeRows = false;
             this.dvItems2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dvItems2.BackgroundColor = System.Drawing.Color.White;
-            this.dvItems2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dvItems2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dvItems2.CausesValidation = false;
             this.dvItems2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dvItems2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
@@ -80,8 +80,8 @@
             this.dvItems2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.dvItems2.EnableHeadersVisualStyles = false;
             this.dvItems2.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dvItems2.Location = new System.Drawing.Point(0, 270);
-            this.dvItems2.Margin = new System.Windows.Forms.Padding(0);
+            this.dvItems2.Location = new System.Drawing.Point(0, 299);
+            this.dvItems2.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.dvItems2.MultiSelect = false;
             this.dvItems2.Name = "dvItems2";
             this.dvItems2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -100,9 +100,10 @@
             this.dvItems2.ShowCellToolTips = false;
             this.dvItems2.ShowEditingIcon = false;
             this.dvItems2.ShowRowErrors = false;
-            this.dvItems2.Size = new System.Drawing.Size(1004, 776);
+            this.dvItems2.Size = new System.Drawing.Size(1004, 559);
             this.dvItems2.TabIndex = 31;
             this.dvItems2.TabStop = false;
+            this.dvItems2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvItems2_CellContentClick);
             // 
             // panel1
             // 
@@ -111,7 +112,7 @@
             this.panel1.Controls.Add(this.Price);
             this.panel1.Controls.Add(this.unfocusableButton3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 93);
+            this.panel1.Location = new System.Drawing.Point(0, 858);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1004, 177);
             this.panel1.TabIndex = 37;
@@ -150,8 +151,8 @@
             this.Price.Dock = System.Windows.Forms.DockStyle.Right;
             this.Price.FlatAppearance.BorderSize = 0;
             this.Price.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Price.Font = new System.Drawing.Font("Segoe UI", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Price.ForeColor = System.Drawing.Color.Black;
+            this.Price.Font = new System.Drawing.Font("Segoe UI", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Price.ForeColor = System.Drawing.Color.Red;
             this.Price.Location = new System.Drawing.Point(308, 0);
             this.Price.Margin = new System.Windows.Forms.Padding(0);
             this.Price.Name = "Price";
@@ -174,18 +175,19 @@
             this.unfocusableButton3.Text = "المبلغ الإجمالي\r\n\r\nTotal Amount";
             this.unfocusableButton3.UseVisualStyleBackColor = false;
             // 
-            // pictureBox1
+            // Payment
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox1.Image = global::OrderForm.Properties.Resources.Mada;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 869);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1004, 150);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 41;
-            this.pictureBox1.TabStop = false;
+            this.Payment.BackColor = System.Drawing.Color.White;
+            this.Payment.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Payment.Image = global::OrderForm.Properties.Resources.Mada;
+            this.Payment.Location = new System.Drawing.Point(0, 125);
+            this.Payment.Margin = new System.Windows.Forms.Padding(0, 0, 0, 30);
+            this.Payment.Name = "Payment";
+            this.Payment.Size = new System.Drawing.Size(1004, 174);
+            this.Payment.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Payment.TabIndex = 41;
+            this.Payment.TabStop = false;
+            this.Payment.Click += new System.EventHandler(this.Payment_Click);
             // 
             // panel2
             // 
@@ -196,8 +198,8 @@
             this.panel2.Controls.Add(this.ClientPhone);
             this.panel2.Controls.Add(this.DateTitle);
             this.panel2.Controls.Add(this.ClientDate);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 798);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 1035);
             this.panel2.Margin = new System.Windows.Forms.Padding(1);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(5);
@@ -295,25 +297,24 @@
             this.ClientDate.TabIndex = 56;
             this.ClientDate.UseVisualStyleBackColor = false;
             // 
-            // unfocusableButton4
+            // LogoPic
             // 
-            this.unfocusableButton4.BackColor = System.Drawing.Color.White;
-            this.unfocusableButton4.BackgroundImage = global::OrderForm.Properties.Resources.logo;
-            this.unfocusableButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.unfocusableButton4.CausesValidation = false;
-            this.unfocusableButton4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.unfocusableButton4.FlatAppearance.BorderSize = 0;
-            this.unfocusableButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton4.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unfocusableButton4.ForeColor = System.Drawing.Color.Black;
-            this.unfocusableButton4.Location = new System.Drawing.Point(0, 0);
-            this.unfocusableButton4.Margin = new System.Windows.Forms.Padding(1);
-            this.unfocusableButton4.Name = "unfocusableButton4";
-            this.unfocusableButton4.Size = new System.Drawing.Size(1004, 93);
-            this.unfocusableButton4.TabIndex = 36;
-            this.unfocusableButton4.Text = " :مـلـخـص الطـلـب";
-            this.unfocusableButton4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.unfocusableButton4.UseVisualStyleBackColor = false;
+            this.LogoPic.BackColor = System.Drawing.Color.White;
+            this.LogoPic.BackgroundImage = global::OrderForm.Properties.Resources.logo;
+            this.LogoPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.LogoPic.CausesValidation = false;
+            this.LogoPic.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LogoPic.FlatAppearance.BorderSize = 0;
+            this.LogoPic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LogoPic.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogoPic.ForeColor = System.Drawing.Color.Black;
+            this.LogoPic.Location = new System.Drawing.Point(0, 0);
+            this.LogoPic.Margin = new System.Windows.Forms.Padding(1);
+            this.LogoPic.Name = "LogoPic";
+            this.LogoPic.Size = new System.Drawing.Size(1004, 125);
+            this.LogoPic.TabIndex = 36;
+            this.LogoPic.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LogoPic.UseVisualStyleBackColor = false;
             // 
             // displayOffer
             // 
@@ -321,11 +322,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1004, 1019);
-            this.Controls.Add(this.dvItems2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.unfocusableButton4);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dvItems2);
+            this.Controls.Add(this.Payment);
+            this.Controls.Add(this.LogoPic);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -340,7 +342,7 @@
             this.Load += new System.EventHandler(this.displayOffer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dvItems2)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Payment)).EndInit();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -351,7 +353,7 @@
         private System.Windows.Forms.Panel panel1;
         private UnfocusableButton unfocusableButton2;
         private UnfocusableButton unfocusableButton3;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox Payment;
         public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel2;
         private UnfocusableButton ClientDate;
@@ -362,6 +364,6 @@
         private UnfocusableButton ClientTitle;
         private UnfocusableButton Price;
         private UnfocusableButton ItemCount;
-        private UnfocusableButton unfocusableButton4;
+        private UnfocusableButton LogoPic;
     }
 }

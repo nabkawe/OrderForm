@@ -1,7 +1,9 @@
 ﻿using sharedCode;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Documents;
 using System.Windows.Forms;
 namespace OrderForm.Custom_UI_Elements
 {
@@ -22,7 +24,7 @@ namespace OrderForm.Custom_UI_Elements
                 var a = new SavingandPayment.PaymentOptions(list.ToList());
 
                 a.ShowDialog();
-                this.Show();
+                this.Dispose();
 
             }
 
@@ -47,5 +49,35 @@ namespace OrderForm.Custom_UI_Elements
             }
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List<Invoice> Invoice_list = new List<Invoice>();
+
+            var CombinedInvoice = new Invoice() { ID = 999999999, CustomerName = "ورقة مجمعة لعدة فواتير", Comment = " " };
+            list.ToList().ForEach(x => CombinedInvoice.Comment += x.ID.ToString() + " " ) ;
+            CombinedInvoice.Comment += Environment.NewLine;
+            CombinedInvoice.Comment += Environment.NewLine;
+
+            var poslist = new List<POSItems>();
+            poslist.Clear();
+            foreach (var Invoice in list)
+            {
+                foreach (POSItems Material in Invoice.InvoiceItems)
+                {
+                    {
+                        poslist.Add(Material);
+                    }
+                }
+            }
+            Orders.CurrentList.Clear();
+            poslist.ForEach(x => Orders.CurrentList.Add(x));
+            Orders.globalInvoice = CombinedInvoice;
+            
+            PrintInvoice.Print(dbQ.DefaultPrinters());
+        }
+
+
+
     }
 }
