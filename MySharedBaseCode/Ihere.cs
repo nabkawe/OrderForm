@@ -9,6 +9,7 @@ namespace sharedCode
     public interface IAllMenuItems
     {
         void PickedYou(); // interface method (does not have a body)
+        
     }
-
+        
 }

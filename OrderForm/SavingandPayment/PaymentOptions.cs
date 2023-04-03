@@ -79,9 +79,6 @@ namespace OrderForm.SavingandPayment
             dueLBL.Text = inv.InvoicePrice.ToString();
             invoice_price = dueLBL.Text;
             targetTextBox = Cash.Name;
-            var invbtn = new _InvBTN(inv);
-            invbtn.Enabled = false;
-            INVBTN.Controls.Add(invbtn);
 
             //InvoiceLabel.Text = $"{inv.ID} {Environment.NewLine} {inv.CustomerName}   {inv.CustomerNumber}   {inv.Comment} ";
             foreach (Control TB in Controls)
@@ -92,7 +89,9 @@ namespace OrderForm.SavingandPayment
                 }
             singleOrMultipleInvoice = true;
             invoice = inv;
+            invoiceBindingSource.DataSource = inv;
             ShowInvoice();
+            this.BringToFront();
             this.Activate();
             this.Update();
             this.Focus();
@@ -116,10 +115,6 @@ namespace OrderForm.SavingandPayment
             dueLBL.Text = invList.Sum(x => x.InvoicePrice).ToString();
             invoice_price = dueLBL.Text;
             targetTextBox = Cash.Name;
-            var invbtn = new _InvBTN(invList[0]);
-            invbtn.Enabled = false;
-            invbtn.Controls.Add(new Label() { Left = 0, Top = 170, Text = "فواتير متعددة" });
-            INVBTN.Controls.Add(invbtn);
             foreach (Control TB in Controls)
                 if (TB is TextBox)
                 {
@@ -412,7 +407,7 @@ namespace OrderForm.SavingandPayment
                     Update.ID = invoice.ID; Update.OrderType = invoice.OrderType;
                     Update.CustomerName = invoice.CustomerName; 
                     Update.CustomerNumber = invoice.CustomerNumber;
-                    Update.InvoiceDay = invoice.InvoiceDay; invoice.InvoiceTimeloglist.ForEach(z=> Update.InvoiceTimeloglist.Add(z));
+                    Update.InvoiceDay = invoice.InvoiceDay;
                     Update.Tax = invoice.Tax;
                     Update.TimeAMPM = invoice.TimeAMPM;
                     Update.TimeOfPrinting = invoice.TimeOfPrinting;
@@ -421,18 +416,18 @@ namespace OrderForm.SavingandPayment
                     invoice.Payments.ForEach(x => Update.Payments.Add(x));
 
                     CheckBox parentCheckBox = (CheckBox)this.Owner.GetType().GetProperty("ParentCheckBox").GetValue(this.Owner, null);
-                    if (parentCheckBox.Checked)
+                    if (Application.OpenForms.OfType<Orders>().First().checkBox1.Checked)
                     {
                         if (invoice.InvoicePrice >= 25 || invoice.OrderType == "محلي")
                         {
-                            PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
+                            PrintInvoiceReady.Print(dbQ.CashierPrinter(), Update);
                         }
                     }
                     else
                     {
                         if (invoice.OrderType == "محلي")
                         {
-                            PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
+                            PrintInvoiceReady.Print(dbQ.CashierPrinter(), Update);
                         }
                     }
                     
@@ -843,7 +838,7 @@ namespace OrderForm.SavingandPayment
 
         private void PaymentOptions_Load(object sender, EventArgs e)
         {
-
+        
 
             if (Properties.Settings.Default.CloseWindow)
             {

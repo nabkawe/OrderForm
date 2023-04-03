@@ -40,6 +40,7 @@ namespace sharedCode
         }
         public static Payment NewPayment()
         {
+
             return new Payment();
         }
 
@@ -92,7 +93,7 @@ namespace sharedCode
         public string CustomerName { get; set; }
         [DisplayName("رقم العميل")]
         public string CustomerNumber { get; set; }
-        [DisplayName("ملاحظات الفاتورة")]
+        [DisplayName("ملاحظات الطلب")]
         public string Comment { get; set; }
         [DisplayName("رقم التخزين في ليبرا")]
         public string POSInvoiceNumber { get; set; }
@@ -103,13 +104,15 @@ namespace sharedCode
         [DisplayName("وقت التخزين")]
         public DateTime TimeOfSaving { get; set; }
 
-        
-        
+
+        [DisplayName("جاهز للتسليم")]
+
         [Browsable(false)]
         public bool InEditMode { get; set; }
 
-
         // Price related code
+        [DisplayName("سعر الطلب")]
+
         public decimal InvoicePrice { get; set; }
         [Browsable(false)]
         public decimal Tax { get; set; }
@@ -137,7 +140,7 @@ namespace sharedCode
         //time related code
 
         [DisplayName("يوم تنفيذ الطلب")]
-        public InvDay InvoiceDay { get; set; }
+        public InvDay InvoiceDay { get ; set; }
         [DisplayName("وقت تنفيذ الطلب")]
         public string TimeinArabic { get; set; } // مكتوب بالعربي
         [Browsable(false)]
@@ -170,7 +173,16 @@ namespace sharedCode
                 target += 7;
             return from.AddDays(target - start);
         }
-        [Browsable(false)] 
+        public static string GetDayName(int dayInt)
+        {
+
+            var culture = new System.Globalization.CultureInfo("ar-SA");
+            string[] days = culture.DateTimeFormat.DayNames;
+            return days[dayInt];
+        }
+
+        [Browsable(true)]
+        [DisplayName("وقت الطباعة")]
         public string TimeOfPrinting { get; set; }
 
         //logging related code
@@ -211,6 +223,8 @@ namespace sharedCode
                 else return false;
             }
         }
+        
+        
         // Constructor defaults
         public Invoice()
         {

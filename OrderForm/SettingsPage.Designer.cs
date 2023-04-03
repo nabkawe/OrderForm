@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.About = new System.Windows.Forms.TabPage();
+            this.label54 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.DeleteInfo = new System.Windows.Forms.Button();
             this.label66 = new System.Windows.Forms.Label();
@@ -40,13 +41,16 @@
             this.infolist = new System.Windows.Forms.ListBox();
             this.ClearDB = new System.Windows.Forms.Button();
             this.Pos = new System.Windows.Forms.TabPage();
-            this.button18 = new System.Windows.Forms.Button();
-            this.ServerFile = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.ClientRB = new System.Windows.Forms.RadioButton();
+            this.label55 = new System.Windows.Forms.Label();
+            this.OpenDB = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
+            this.ServerRB = new System.Windows.Forms.RadioButton();
             this.label70 = new System.Windows.Forms.Label();
             this.ipTB = new System.Windows.Forms.TextBox();
+            this.APISETTINGS = new System.Windows.Forms.Button();
             this.label52 = new System.Windows.Forms.Label();
-            this.button16 = new System.Windows.Forms.Button();
             this.DBConnection = new System.Windows.Forms.TextBox();
             this.APICheck = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -256,7 +260,6 @@
             this.MListLB = new System.Windows.Forms.ListBox();
             this.sectionsML = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.LoadFile = new System.Windows.Forms.OpenFileDialog();
-            this.label54 = new System.Windows.Forms.Label();
             this.About.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.Pos.SuspendLayout();
@@ -294,6 +297,15 @@
             this.About.TabIndex = 4;
             this.About.Text = "حول المبرمج";
             this.About.UseVisualStyleBackColor = true;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(802, 494);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(191, 13);
+            this.label54.TabIndex = 36;
+            this.label54.Text = "Programmed By: undcover@gmail.com";
             // 
             // groupBox13
             // 
@@ -389,13 +401,16 @@
             // 
             // Pos
             // 
-            this.Pos.Controls.Add(this.button18);
-            this.Pos.Controls.Add(this.ServerFile);
+            this.Pos.Controls.Add(this.label56);
+            this.Pos.Controls.Add(this.ClientRB);
+            this.Pos.Controls.Add(this.label55);
+            this.Pos.Controls.Add(this.OpenDB);
             this.Pos.Controls.Add(this.button17);
+            this.Pos.Controls.Add(this.ServerRB);
             this.Pos.Controls.Add(this.label70);
             this.Pos.Controls.Add(this.ipTB);
+            this.Pos.Controls.Add(this.APISETTINGS);
             this.Pos.Controls.Add(this.label52);
-            this.Pos.Controls.Add(this.button16);
             this.Pos.Controls.Add(this.DBConnection);
             this.Pos.Controls.Add(this.APICheck);
             this.Pos.Controls.Add(this.groupBox10);
@@ -411,44 +426,80 @@
             this.Pos.UseVisualStyleBackColor = true;
             this.Pos.Click += new System.EventHandler(this.Pos_Click);
             // 
-            // button18
+            // label56
             // 
-            this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button18.Location = new System.Drawing.Point(397, 349);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(74, 21);
-            this.button18.TabIndex = 88;
-            this.button18.Text = "إلغاء المسار";
-            this.button18.UseCompatibleTextRendering = true;
-            this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.button18_Click);
+            this.label56.AutoSize = true;
+            this.label56.Enabled = false;
+            this.label56.Location = new System.Drawing.Point(430, 429);
+            this.label56.Name = "label56";
+            this.label56.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label56.Size = new System.Drawing.Size(184, 13);
+            this.label56.TabIndex = 91;
+            this.label56.Text = "حدد الآي بي الخاص بالسيرفر الرئيسي";
             // 
-            // ServerFile
+            // ClientRB
             // 
-            this.ServerFile.AutoEllipsis = true;
-            this.ServerFile.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ServerFile.Location = new System.Drawing.Point(397, 380);
-            this.ServerFile.Name = "ServerFile";
-            this.ServerFile.Size = new System.Drawing.Size(222, 20);
-            this.ServerFile.TabIndex = 87;
-            this.ServerFile.Text = "مسار ملف السيرفر";
+            this.ClientRB.AutoSize = true;
+            this.ClientRB.Location = new System.Drawing.Point(473, 483);
+            this.ClientRB.Name = "ClientRB";
+            this.ClientRB.Size = new System.Drawing.Size(119, 17);
+            this.ClientRB.TabIndex = 89;
+            this.ClientRB.Text = "كمبيوتر فرعي Client";
+            this.ClientRB.UseVisualStyleBackColor = true;
+            this.ClientRB.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Enabled = false;
+            this.label55.Location = new System.Drawing.Point(423, 365);
+            this.label55.Name = "label55";
+            this.label55.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label55.Size = new System.Drawing.Size(191, 13);
+            this.label55.TabIndex = 90;
+            this.label55.Text = "*اترك العنوان فارغا في الكمبيوتر الفرعي";
+            // 
+            // OpenDB
+            // 
+            this.OpenDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OpenDB.Location = new System.Drawing.Point(438, 341);
+            this.OpenDB.Name = "OpenDB";
+            this.OpenDB.Size = new System.Drawing.Size(54, 21);
+            this.OpenDB.TabIndex = 88;
+            this.OpenDB.Text = "فتح";
+            this.OpenDB.UseCompatibleTextRendering = true;
+            this.OpenDB.UseVisualStyleBackColor = true;
+            this.OpenDB.Click += new System.EventHandler(this.OpenDB_Click);
             // 
             // button17
             // 
             this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button17.Location = new System.Drawing.Point(397, 481);
+            this.button17.Location = new System.Drawing.Point(381, 481);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(47, 21);
+            this.button17.Size = new System.Drawing.Size(86, 21);
             this.button17.TabIndex = 86;
-            this.button17.Text = "تلقائي";
+            this.button17.Text = "IP تلقائي";
             this.button17.UseCompatibleTextRendering = true;
             this.button17.UseVisualStyleBackColor = true;
             this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
+            // ServerRB
+            // 
+            this.ServerRB.AutoSize = true;
+            this.ServerRB.Checked = true;
+            this.ServerRB.Location = new System.Drawing.Point(473, 461);
+            this.ServerRB.Name = "ServerRB";
+            this.ServerRB.Size = new System.Drawing.Size(130, 17);
+            this.ServerRB.TabIndex = 88;
+            this.ServerRB.TabStop = true;
+            this.ServerRB.Text = "كمبيوتر رئيسي Server";
+            this.ServerRB.UseVisualStyleBackColor = true;
+            this.ServerRB.CheckedChanged += new System.EventHandler(this.ServerRB_CheckedChanged);
+            // 
             // label70
             // 
             this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(474, 461);
+            this.label70.Location = new System.Drawing.Point(474, 387);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(139, 13);
             this.label70.TabIndex = 73;
@@ -456,39 +507,41 @@
             // 
             // ipTB
             // 
-            this.ipTB.Location = new System.Drawing.Point(450, 479);
+            this.ipTB.Location = new System.Drawing.Point(470, 407);
             this.ipTB.Name = "ipTB";
             this.ipTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ipTB.Size = new System.Drawing.Size(132, 20);
+            this.ipTB.Size = new System.Drawing.Size(143, 20);
             this.ipTB.TabIndex = 73;
+            // 
+            // APISETTINGS
+            // 
+            this.APISETTINGS.Enabled = false;
+            this.APISETTINGS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.APISETTINGS.Location = new System.Drawing.Point(381, 457);
+            this.APISETTINGS.Name = "APISETTINGS";
+            this.APISETTINGS.Size = new System.Drawing.Size(86, 21);
+            this.APISETTINGS.TabIndex = 85;
+            this.APISETTINGS.Text = " تحديد السيرفر";
+            this.APISETTINGS.UseCompatibleTextRendering = true;
+            this.APISETTINGS.UseVisualStyleBackColor = true;
+            this.APISETTINGS.Click += new System.EventHandler(this.button16_Click);
             // 
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(416, 407);
+            this.label52.Location = new System.Drawing.Point(513, 317);
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(97, 13);
+            this.label52.Size = new System.Drawing.Size(100, 13);
             this.label52.TabIndex = 72;
-            this.label52.Text = "عنوان قاعدة البيانات";
-            // 
-            // button16
-            // 
-            this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button16.Location = new System.Drawing.Point(477, 349);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(142, 21);
-            this.button16.TabIndex = 85;
-            this.button16.Text = " تحديد السيرفر";
-            this.button16.UseCompatibleTextRendering = true;
-            this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.button16_Click);
+            this.label52.Text = "عنوان قاعدة البيانات ";
             // 
             // DBConnection
             // 
-            this.DBConnection.Location = new System.Drawing.Point(407, 423);
+            this.DBConnection.Location = new System.Drawing.Point(496, 341);
             this.DBConnection.Name = "DBConnection";
+            this.DBConnection.ReadOnly = true;
             this.DBConnection.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.DBConnection.Size = new System.Drawing.Size(106, 20);
+            this.DBConnection.Size = new System.Drawing.Size(117, 20);
             this.DBConnection.TabIndex = 71;
             // 
             // APICheck
@@ -496,9 +549,10 @@
             this.APICheck.AutoSize = true;
             this.APICheck.Location = new System.Drawing.Point(407, 317);
             this.APICheck.Name = "APICheck";
-            this.APICheck.Size = new System.Drawing.Size(141, 17);
+            this.APICheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.APICheck.Size = new System.Drawing.Size(100, 17);
             this.APICheck.TabIndex = 84;
-            this.APICheck.Text = "الإتصال عبر API (تجريبي)";
+            this.APICheck.Text = "الإتصال عبر API ";
             this.APICheck.UseVisualStyleBackColor = true;
             // 
             // groupBox10
@@ -877,7 +931,7 @@
             this.groupBox1.Controls.Add(this.label36);
             this.groupBox1.Location = new System.Drawing.Point(6, 17);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(385, 487);
+            this.groupBox1.Size = new System.Drawing.Size(369, 487);
             this.groupBox1.TabIndex = 73;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "أزرار  و نوافذ ليبرا";
@@ -885,7 +939,7 @@
             // label76
             // 
             this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(264, 444);
+            this.label76.Location = new System.Drawing.Point(240, 444);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(114, 13);
             this.label76.TabIndex = 87;
@@ -893,7 +947,7 @@
             // 
             // logoTB
             // 
-            this.logoTB.Location = new System.Drawing.Point(243, 462);
+            this.logoTB.Location = new System.Drawing.Point(219, 462);
             this.logoTB.Name = "logoTB";
             this.logoTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.logoTB.Size = new System.Drawing.Size(135, 20);
@@ -902,7 +956,7 @@
             // label75
             // 
             this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(311, 353);
+            this.label75.Location = new System.Drawing.Point(302, 353);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(67, 13);
             this.label75.TabIndex = 85;
@@ -910,7 +964,7 @@
             // 
             // RestTB
             // 
-            this.RestTB.Location = new System.Drawing.Point(172, 350);
+            this.RestTB.Location = new System.Drawing.Point(163, 350);
             this.RestTB.Name = "RestTB";
             this.RestTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.RestTB.Size = new System.Drawing.Size(135, 20);
@@ -953,7 +1007,7 @@
             this.groupBox11.Controls.Add(this.label50);
             this.groupBox11.Location = new System.Drawing.Point(226, 16);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(152, 185);
+            this.groupBox11.Size = new System.Drawing.Size(128, 185);
             this.groupBox11.TabIndex = 76;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "معلومات عامة للبرنامج ";
@@ -961,7 +1015,7 @@
             // 
             // defaultOrder
             // 
-            this.defaultOrder.Location = new System.Drawing.Point(16, 86);
+            this.defaultOrder.Location = new System.Drawing.Point(10, 80);
             this.defaultOrder.Name = "defaultOrder";
             this.defaultOrder.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.defaultOrder.Size = new System.Drawing.Size(106, 20);
@@ -970,7 +1024,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(14, 70);
+            this.label53.Location = new System.Drawing.Point(8, 64);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(109, 13);
             this.label53.TabIndex = 72;
@@ -978,7 +1032,7 @@
             // 
             // CurrentTax
             // 
-            this.CurrentTax.Location = new System.Drawing.Point(23, 32);
+            this.CurrentTax.Location = new System.Drawing.Point(71, 35);
             this.CurrentTax.Name = "CurrentTax";
             this.CurrentTax.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CurrentTax.Size = new System.Drawing.Size(43, 20);
@@ -987,7 +1041,7 @@
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(7, 16);
+            this.label50.Location = new System.Drawing.Point(55, 19);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(68, 13);
             this.label50.TabIndex = 72;
@@ -2238,6 +2292,7 @@
             this.PicTB.Name = "PicTB";
             this.PicTB.Size = new System.Drawing.Size(400, 33);
             this.PicTB.TabIndex = 6;
+            this.PicTB.DoubleClick += new System.EventHandler(this.PicTB_DoubleClick);
             this.PicTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.NameTB_PreviewKeyDown);
             // 
             // TaxTB
@@ -2820,15 +2875,6 @@
             // 
             this.LoadFile.FileName = "NetworkSynq.exe";
             // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(802, 494);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(191, 13);
-            this.label54.TabIndex = 36;
-            this.label54.Text = "Programmed By: undcover@gmail.com";
-            // 
             // SettingsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2843,7 +2889,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "الإعدادات";
-            this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsPage_FormClosed_1);
             this.Load += new System.EventHandler(this.SettingsPage_Load);
             this.About.ResumeLayout(false);
@@ -3095,9 +3140,8 @@
         private System.Windows.Forms.TextBox POSPhoneNumber_;
         private System.Windows.Forms.CheckBox WheelGridCheck;
         private System.Windows.Forms.CheckBox WheelCheck;
-        private System.Windows.Forms.CheckBox APICheck;
         private System.Windows.Forms.OpenFileDialog LoadFile;
-        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button APISETTINGS;
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.TextBox ipTB;
         private System.Windows.Forms.Button button17;
@@ -3113,12 +3157,16 @@
         private System.Windows.Forms.TextBox CashierPrinterTB;
         private System.Windows.Forms.Button RemoveCashierPrinter;
         private System.Windows.Forms.Button AssignCashier;
-        private System.Windows.Forms.Label ServerFile;
-        private System.Windows.Forms.Button button18;
         private System.Windows.Forms.DataGridView AddingGrid;
         private System.Windows.Forms.Button CancelMIX;
         private System.Windows.Forms.Button SaveOrder;
         private System.Windows.Forms.Button CopyMenu;
         private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.RadioButton ClientRB;
+        private System.Windows.Forms.RadioButton ServerRB;
+        private System.Windows.Forms.Button OpenDB;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Label label56;
+        public System.Windows.Forms.CheckBox APICheck;
     }
 }

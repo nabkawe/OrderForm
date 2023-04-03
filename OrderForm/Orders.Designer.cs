@@ -30,10 +30,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Orders));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Orders));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DeleteBTN = new System.Windows.Forms.ToolStripMenuItem();
             this.sep = new System.Windows.Forms.ToolStripSeparator();
@@ -41,27 +42,21 @@
             this.CustomComment = new System.Windows.Forms.ToolStripMenuItem();
             this.ItemNameTag = new System.Windows.Forms.ToolStripMenuItem();
             this.SalahTMR = new System.Windows.Forms.Timer(this.components);
-            this.InvoiceNumberID = new System.Windows.Forms.TextBox();
-            this.ItemsPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.SectionsPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.AmountLBL = new System.Windows.Forms.Label();
-            this.NameTB = new System.Windows.Forms.TextBox();
-            this.MobileTB = new System.Windows.Forms.TextBox();
-            this.dvItems = new System.Windows.Forms.DataGridView();
-            this.PrintSave = new System.Windows.Forms.Button();
-            this.CommentTB = new System.Windows.Forms.TextBox();
-            this.MobileLBL = new System.Windows.Forms.Label();
-            this.NameLBL = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.CommentLBL = new System.Windows.Forms.Label();
             this.OrdersPanel = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.sortType = new System.Windows.Forms.GroupBox();
-            this.GroupSave = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.Draft = new System.Windows.Forms.RadioButton();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.PrintMultiTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.SaveJahezAll = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.MultiSave_ = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.OrdersReady = new System.Windows.Forms.ToolStripButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.PrintedInvoices = new System.Windows.Forms.FlowLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.InvoicesDG = new System.Windows.Forms.DataGridView();
+            this.GroupSave = new System.Windows.Forms.CheckBox();
             this.Wed = new System.Windows.Forms.RadioButton();
             this.AllDays = new System.Windows.Forms.RadioButton();
             this.Thu = new System.Windows.Forms.RadioButton();
@@ -73,10 +68,15 @@
             this.Mon = new System.Windows.Forms.RadioButton();
             this.SearchTB = new System.Windows.Forms.TextBox();
             this.Sun = new System.Windows.Forms.RadioButton();
-            this.HeldPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.xLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.jahezPrice = new System.Windows.Forms.Label();
+            this.CommentLBL = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.NameLBL = new System.Windows.Forms.Label();
+            this.MobileLBL = new System.Windows.Forms.Label();
+            this.ItemsPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.AmountLBL = new System.Windows.Forms.Label();
+            this.dvItems = new System.Windows.Forms.DataGridView();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.HoldInvoice = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -85,8 +85,14 @@
             this.ItemCount = new System.Windows.Forms.Label();
             this.DeleteInvoice = new System.Windows.Forms.Button();
             this.SaveInvoice = new System.Windows.Forms.Button();
+            this.InvoiceNumberID = new System.Windows.Forms.TextBox();
+            this.PrintSave = new System.Windows.Forms.Button();
+            this.SectionsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.DOWTB = new System.Windows.Forms.TextBox();
             this.TimeTB = new System.Windows.Forms.TextBox();
+            this.CommentTB = new System.Windows.Forms.TextBox();
+            this.MobileTB = new System.Windows.Forms.TextBox();
+            this.NameTB = new System.Windows.Forms.TextBox();
             this.AmountPriceLBL = new System.Windows.Forms.Label();
             this.InvoiceTypeOptions = new System.Windows.Forms.ToolStrip();
             this.TelButton = new System.Windows.Forms.ToolStripButton();
@@ -108,62 +114,60 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.SalahTimes = new System.Windows.Forms.FlowLayoutPanel();
             this.langCheck = new System.Windows.Forms.CheckBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.ReadyStatus = new System.Windows.Forms.CheckBox();
-            this.OrdersPage = new OrderForm.UnfocusableButton();
-            this.MainMenu = new OrderForm.UnfocusableButton();
-            this.changeMenu = new OrderForm.UnfocusableButton();
-            this.TimeLeftLBL = new OrderForm.UnfocusableButton();
-            this.TimeTillCountdown = new OrderForm.UnfocusableButton();
-            this.DhuhrLBL = new OrderForm.UnfocusableButton();
-            this.DhuhrBTN = new OrderForm.UnfocusableButton();
-            this.AsrLBL = new OrderForm.UnfocusableButton();
-            this.AsrBTN = new OrderForm.UnfocusableButton();
-            this.MaghribLBL = new OrderForm.UnfocusableButton();
-            this.MaghribBTN = new OrderForm.UnfocusableButton();
-            this.IshaLBL = new OrderForm.UnfocusableButton();
-            this.IshaBTN = new OrderForm.UnfocusableButton();
-            this.DateLBL = new OrderForm.UnfocusableButton();
-            this.DayLBL = new OrderForm.UnfocusableButton();
-            this.TimeButton = new OrderForm.UnfocusableButton();
-            this.CopyInvoice = new OrderForm.UnfocusableButton();
-            this.SettingsPage = new OrderForm.UnfocusableButton();
-            this.SaveAllJahez = new OrderForm.UnfocusableButton();
-            this.Search = new OrderForm.UnfocusableButton();
-            this.unfocusableButton5 = new OrderForm.UnfocusableButton();
-            this.ShowMenuBTN = new OrderForm.UnfocusableButton();
-            this.unfocusableButton6 = new OrderForm.UnfocusableButton();
-            this.OrderCut = new OrderForm.UnfocusableButton();
-            this.LastOrder = new OrderForm.UnfocusableButton();
-            this.RepeatOrder = new OrderForm.UnfocusableButton();
-            this.NewBTN = new OrderForm.UnfocusableButton();
-            this.DeleteTouchBTN = new OrderForm.UnfocusableButton();
-            this.FiveBTN = new OrderForm.UnfocusableButton();
-            this.SixBTN = new OrderForm.UnfocusableButton();
-            this.SevenBTN = new OrderForm.UnfocusableButton();
-            this.EightBTN = new OrderForm.UnfocusableButton();
-            this.NineBTN = new OrderForm.UnfocusableButton();
-            this.ZeroBTN = new OrderForm.UnfocusableButton();
-            this.BackSpaceBTN = new OrderForm.UnfocusableButton();
-            this.EnterBTN = new OrderForm.UnfocusableButton();
-            this.UpBTN = new OrderForm.UnfocusableButton();
-            this.DownBTN = new OrderForm.UnfocusableButton();
-            this.OneBTN = new OrderForm.UnfocusableButton();
-            this.TwoBTN = new OrderForm.UnfocusableButton();
-            this.ThreeBTN = new OrderForm.UnfocusableButton();
-            this.FourBTN = new OrderForm.UnfocusableButton();
-            this.TimeInfo = new OrderForm.UnfocusableButton();
-            this.WhatAppBTN = new OrderForm.UnfocusableButton();
-            this.DayMenuBTN = new OrderForm.UnfocusableButton();
+            this.CIDWorker = new System.ComponentModel.BackgroundWorker();
+            this.OrdersPage = new OrderForm.UButton();
+            this.MainMenu = new OrderForm.UButton();
+            this.changeMenu = new OrderForm.UButton();
+            this.TimeLeftLBL = new OrderForm.UButton();
+            this.TimeTillCountdown = new OrderForm.UButton();
+            this.DhuhrLBL = new OrderForm.UButton();
+            this.DhuhrBTN = new OrderForm.UButton();
+            this.AsrLBL = new OrderForm.UButton();
+            this.AsrBTN = new OrderForm.UButton();
+            this.MaghribLBL = new OrderForm.UButton();
+            this.MaghribBTN = new OrderForm.UButton();
+            this.IshaLBL = new OrderForm.UButton();
+            this.IshaBTN = new OrderForm.UButton();
+            this.DateLBL = new OrderForm.UButton();
+            this.DayLBL = new OrderForm.UButton();
+            this.TimeButton = new OrderForm.UButton();
+            this.CopyInvoice = new OrderForm.UButton();
+            this.SettingsPage = new OrderForm.UButton();
+            this.Search = new OrderForm.UButton();
+            this.CallerIDBTN = new OrderForm.UButton();
+            this.ShowMenuBTN = new OrderForm.UButton();
+            this.unfocusableButton6 = new OrderForm.UButton();
+            this.OrderCut = new OrderForm.UButton();
+            this.LastOrder = new OrderForm.UButton();
+            this.RepeatOrder = new OrderForm.UButton();
+            this.NewBTN = new OrderForm.UButton();
+            this.DeleteTouchBTN = new OrderForm.UButton();
+            this.FiveBTN = new OrderForm.UButton();
+            this.SixBTN = new OrderForm.UButton();
+            this.SevenBTN = new OrderForm.UButton();
+            this.EightBTN = new OrderForm.UButton();
+            this.NineBTN = new OrderForm.UButton();
+            this.ZeroBTN = new OrderForm.UButton();
+            this.BackSpaceBTN = new OrderForm.UButton();
+            this.EnterBTN = new OrderForm.UButton();
+            this.UpBTN = new OrderForm.UButton();
+            this.DownBTN = new OrderForm.UButton();
+            this.OneBTN = new OrderForm.UButton();
+            this.TwoBTN = new OrderForm.UButton();
+            this.ThreeBTN = new OrderForm.UButton();
+            this.FourBTN = new OrderForm.UButton();
+            this.TimeInfo = new OrderForm.UButton();
+            this.WhatAppBTN = new OrderForm.UButton();
+            this.DayMenuBTN = new OrderForm.UButton();
             this.rightClickMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dvItems)).BeginInit();
             this.OrdersPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.sortType.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InvoicesDG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvItems)).BeginInit();
             this.InvoiceTypeOptions.SuspendLayout();
             this.MenuSelection.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -238,231 +242,11 @@
             this.SalahTMR.Interval = 1000;
             this.SalahTMR.Tick += new System.EventHandler(this.SalahTMR_Tick);
             // 
-            // InvoiceNumberID
-            // 
-            this.InvoiceNumberID.BackColor = System.Drawing.Color.GhostWhite;
-            this.InvoiceNumberID.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InvoiceNumberID.Location = new System.Drawing.Point(139, 2);
-            this.InvoiceNumberID.Name = "InvoiceNumberID";
-            this.InvoiceNumberID.ReadOnly = true;
-            this.InvoiceNumberID.Size = new System.Drawing.Size(77, 33);
-            this.InvoiceNumberID.TabIndex = 42;
-            this.InvoiceNumberID.TabStop = false;
-            this.InvoiceNumberID.Text = "0";
-            // 
-            // ItemsPanel1
-            // 
-            this.ItemsPanel1.BackColor = System.Drawing.Color.GhostWhite;
-            this.ItemsPanel1.Location = new System.Drawing.Point(563, 3);
-            this.ItemsPanel1.Name = "ItemsPanel1";
-            this.ItemsPanel1.Size = new System.Drawing.Size(387, 611);
-            this.ItemsPanel1.TabIndex = 22;
-            // 
-            // SectionsPanel
-            // 
-            this.SectionsPanel.BackColor = System.Drawing.Color.GhostWhite;
-            this.SectionsPanel.Location = new System.Drawing.Point(459, 3);
-            this.SectionsPanel.Name = "SectionsPanel";
-            this.SectionsPanel.Size = new System.Drawing.Size(98, 562);
-            this.SectionsPanel.TabIndex = 24;
-            // 
-            // AmountLBL
-            // 
-            this.AmountLBL.BackColor = System.Drawing.Color.GhostWhite;
-            this.AmountLBL.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmountLBL.Location = new System.Drawing.Point(146, 566);
-            this.AmountLBL.Name = "AmountLBL";
-            this.AmountLBL.Size = new System.Drawing.Size(104, 39);
-            this.AmountLBL.TabIndex = 28;
-            this.AmountLBL.Text = "0";
-            this.AmountLBL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AmountLBL.UseCompatibleTextRendering = true;
-            // 
-            // NameTB
-            // 
-            this.NameTB.AllowDrop = true;
-            this.NameTB.BackColor = System.Drawing.Color.GhostWhite;
-            this.NameTB.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.NameTB.HideSelection = false;
-            this.NameTB.Location = new System.Drawing.Point(623, 673);
-            this.NameTB.Margin = new System.Windows.Forms.Padding(0);
-            this.NameTB.Name = "NameTB";
-            this.NameTB.Size = new System.Drawing.Size(319, 43);
-            this.NameTB.TabIndex = 26;
-            this.NameTB.WordWrap = false;
-            this.NameTB.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
-            this.NameTB.DragDrop += new System.Windows.Forms.DragEventHandler(this.NameTB_DragDrop);
-            this.NameTB.DragEnter += new System.Windows.Forms.DragEventHandler(this.NameTB_DragEnter);
-            this.NameTB.Enter += new System.EventHandler(this.NameTB_Enter);
-            this.NameTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MobileTB_KeyDown);
-            this.NameTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
-            // 
-            // MobileTB
-            // 
-            this.MobileTB.AllowDrop = true;
-            this.MobileTB.BackColor = System.Drawing.Color.GhostWhite;
-            this.MobileTB.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.MobileTB.Location = new System.Drawing.Point(726, 624);
-            this.MobileTB.Margin = new System.Windows.Forms.Padding(0);
-            this.MobileTB.Name = "MobileTB";
-            this.MobileTB.Size = new System.Drawing.Size(216, 43);
-            this.MobileTB.TabIndex = 23;
-            this.MobileTB.WordWrap = false;
-            this.MobileTB.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
-            this.MobileTB.DragDrop += new System.Windows.Forms.DragEventHandler(this.NameTB_DragDrop);
-            this.MobileTB.DragEnter += new System.Windows.Forms.DragEventHandler(this.NameTB_DragEnter);
-            this.MobileTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MobileTB_KeyDown);
-            this.MobileTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
-            // 
-            // dvItems
-            // 
-            this.dvItems.AllowDrop = true;
-            this.dvItems.AllowUserToAddRows = false;
-            this.dvItems.AllowUserToOrderColumns = true;
-            this.dvItems.AllowUserToResizeColumns = false;
-            this.dvItems.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dvItems.BackgroundColor = System.Drawing.Color.GhostWhite;
-            this.dvItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dvItems.CausesValidation = false;
-            this.dvItems.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            this.dvItems.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 8F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dvItems.Location = new System.Drawing.Point(11, 36);
-            this.dvItems.MultiSelect = false;
-            this.dvItems.Name = "dvItems";
-            this.dvItems.RowHeadersVisible = false;
-            this.dvItems.RowHeadersWidth = 10;
-            this.dvItems.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dvItems.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.dvItems.RowTemplate.Height = 30;
-            this.dvItems.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dvItems.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dvItems.Size = new System.Drawing.Size(442, 529);
-            this.dvItems.TabIndex = 30;
-            this.dvItems.TabStop = false;
-            this.dvItems.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DvItems_CellEndEdit);
-            this.dvItems.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DvItems_CellEnter);
-            this.dvItems.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DvItems_CellMouseClick);
-            this.dvItems.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DvItems_DataError);
-            this.dvItems.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataGridView1_EditingControlShowing);
-            this.dvItems.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DvItems_RowsRemoved);
-            this.dvItems.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DvItems_UserDeletingRow);
-            this.dvItems.DragDrop += new System.Windows.Forms.DragEventHandler(this.DvItems_DragDrop);
-            this.dvItems.DragOver += new System.Windows.Forms.DragEventHandler(this.dvItems_DragOver);
-            this.dvItems.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DvItems_MouseDown);
-            // 
-            // PrintSave
-            // 
-            this.PrintSave.BackColor = System.Drawing.Color.SteelBlue;
-            this.PrintSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PrintSave.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PrintSave.ForeColor = System.Drawing.Color.White;
-            this.PrintSave.Location = new System.Drawing.Point(174, 876);
-            this.PrintSave.Name = "PrintSave";
-            this.PrintSave.Size = new System.Drawing.Size(164, 47);
-            this.PrintSave.TabIndex = 48;
-            this.PrintSave.TabStop = false;
-            this.PrintSave.Text = "طباعة و تحضير";
-            this.PrintSave.UseVisualStyleBackColor = false;
-            this.PrintSave.Click += new System.EventHandler(this.PrintSave_Click);
-            this.PrintSave.MouseLeave += new System.EventHandler(this.PrintSave_MouseLeave);
-            // 
-            // CommentTB
-            // 
-            this.CommentTB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CommentTB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.CommentTB.BackColor = System.Drawing.Color.GhostWhite;
-            this.CommentTB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CommentTB.Location = new System.Drawing.Point(671, 823);
-            this.CommentTB.Margin = new System.Windows.Forms.Padding(0);
-            this.CommentTB.Name = "CommentTB";
-            this.CommentTB.Size = new System.Drawing.Size(271, 33);
-            this.CommentTB.TabIndex = 150;
-            this.CommentTB.WordWrap = false;
-            this.CommentTB.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
-            this.CommentTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
-            // 
-            // MobileLBL
-            // 
-            this.MobileLBL.AutoSize = true;
-            this.MobileLBL.BackColor = System.Drawing.Color.GhostWhite;
-            this.MobileLBL.Enabled = false;
-            this.MobileLBL.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MobileLBL.ForeColor = System.Drawing.Color.Silver;
-            this.MobileLBL.Location = new System.Drawing.Point(850, 636);
-            this.MobileLBL.Name = "MobileLBL";
-            this.MobileLBL.Size = new System.Drawing.Size(67, 17);
-            this.MobileLBL.TabIndex = 50;
-            this.MobileLBL.Text = "رقم العميل";
-            // 
-            // NameLBL
-            // 
-            this.NameLBL.AutoSize = true;
-            this.NameLBL.BackColor = System.Drawing.Color.GhostWhite;
-            this.NameLBL.Enabled = false;
-            this.NameLBL.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameLBL.ForeColor = System.Drawing.Color.Silver;
-            this.NameLBL.Location = new System.Drawing.Point(847, 685);
-            this.NameLBL.Name = "NameLBL";
-            this.NameLBL.Size = new System.Drawing.Size(70, 17);
-            this.NameLBL.TabIndex = 51;
-            this.NameLBL.Text = "إسم العميل";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.GhostWhite;
-            this.label1.Enabled = false;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Silver;
-            this.label1.Location = new System.Drawing.Point(845, 733);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 17);
-            this.label1.TabIndex = 52;
-            this.label1.Text = "وقت الطلب";
-            // 
-            // CommentLBL
-            // 
-            this.CommentLBL.AutoSize = true;
-            this.CommentLBL.BackColor = System.Drawing.Color.GhostWhite;
-            this.CommentLBL.Enabled = false;
-            this.CommentLBL.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CommentLBL.ForeColor = System.Drawing.Color.Silver;
-            this.CommentLBL.Location = new System.Drawing.Point(826, 829);
-            this.CommentLBL.Name = "CommentLBL";
-            this.CommentLBL.Size = new System.Drawing.Size(91, 17);
-            this.CommentLBL.TabIndex = 53;
-            this.CommentLBL.Text = "ملاحظة  الطلب";
-            // 
             // OrdersPanel
             // 
             this.OrdersPanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.OrdersPanel.Controls.Add(this.splitContainer1);
+            this.OrdersPanel.Controls.Add(this.CallerIDBTN);
             this.OrdersPanel.Controls.Add(this.xLabel);
             this.OrdersPanel.Controls.Add(this.label3);
             this.OrdersPanel.Controls.Add(this.CommentLBL);
@@ -473,7 +257,6 @@
             this.OrdersPanel.Controls.Add(this.ItemsPanel1);
             this.OrdersPanel.Controls.Add(this.unfocusableButton6);
             this.OrdersPanel.Controls.Add(this.OrderCut);
-            this.OrdersPanel.Controls.Add(this.jahezPrice);
             this.OrdersPanel.Controls.Add(this.AmountLBL);
             this.OrdersPanel.Controls.Add(this.dvItems);
             this.OrdersPanel.Controls.Add(this.LastOrder);
@@ -533,11 +316,11 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.LightSlateGray;
-            this.splitContainer1.Panel1.Controls.Add(this.sortType);
-            this.splitContainer1.Panel1.Controls.Add(this.ReadyStatus);
+            this.splitContainer1.Panel1.Controls.Add(this.Draft);
+            this.splitContainer1.Panel1.Controls.Add(this.toolStrip1);
+            this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.Search);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
-            this.splitContainer1.Panel1.Controls.Add(this.label4);
             this.splitContainer1.Panel1.Controls.Add(this.Wed);
             this.splitContainer1.Panel1.Controls.Add(this.AllDays);
             this.splitContainer1.Panel1.Controls.Add(this.Thu);
@@ -554,86 +337,194 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.LightSlateGray;
-            this.splitContainer1.Panel2.Controls.Add(this.HeldPanel);
-            this.splitContainer1.Panel2.Controls.Add(this.unfocusableButton5);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.splitContainer1.Panel2Collapsed = true;
             this.splitContainer1.Size = new System.Drawing.Size(961, 939);
-            this.splitContainer1.SplitterDistance = 793;
+            this.splitContainer1.SplitterDistance = 801;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 62;
             this.splitContainer1.Visible = false;
             // 
-            // sortType
+            // Draft
             // 
-            this.sortType.Controls.Add(this.SaveAllJahez);
-            this.sortType.Controls.Add(this.GroupSave);
-            this.sortType.Controls.Add(this.label8);
-            this.sortType.Location = new System.Drawing.Point(76, 9);
-            this.sortType.Name = "sortType";
-            this.sortType.Size = new System.Drawing.Size(143, 67);
-            this.sortType.TabIndex = 59;
-            this.sortType.TabStop = false;
+            this.Draft.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Draft.BackColor = System.Drawing.Color.GhostWhite;
+            this.Draft.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Draft.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
+            this.Draft.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.Draft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Draft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Draft.Location = new System.Drawing.Point(82, 39);
+            this.Draft.Name = "Draft";
+            this.Draft.Size = new System.Drawing.Size(69, 39);
+            this.Draft.TabIndex = 175;
+            this.Draft.TabStop = true;
+            this.Draft.Text = "فواتير معلقة";
+            this.Draft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Draft.UseVisualStyleBackColor = false;
+            this.Draft.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.AllowMerge = false;
+            this.toolStrip1.BackColor = System.Drawing.Color.GhostWhite;
+            this.toolStrip1.CanOverflow = false;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PrintMultiTool,
+            this.toolStripSeparator1,
+            this.SaveJahezAll,
+            this.toolStripSeparator2,
+            this.MultiSave_,
+            this.toolStripSeparator3,
+            this.OrdersReady});
+            this.toolStrip1.Location = new System.Drawing.Point(11, 5);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
+            this.toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStrip1.ShowItemToolTips = false;
+            this.toolStrip1.Size = new System.Drawing.Size(499, 28);
+            this.toolStrip1.TabIndex = 174;
+            // 
+            // PrintMultiTool
+            // 
+            this.PrintMultiTool.BackColor = System.Drawing.Color.Lavender;
+            this.PrintMultiTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.PrintMultiTool.Image = ((System.Drawing.Image)(resources.GetObject("PrintMultiTool.Image")));
+            this.PrintMultiTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.PrintMultiTool.Name = "PrintMultiTool";
+            this.PrintMultiTool.Size = new System.Drawing.Size(104, 25);
+            this.PrintMultiTool.Text = "طباعة متعددة";
+            this.PrintMultiTool.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.PrintMultiTool.Click += new System.EventHandler(this.PrintMulti_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
+            // 
+            // SaveJahezAll
+            // 
+            this.SaveJahezAll.BackColor = System.Drawing.Color.Lavender;
+            this.SaveJahezAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.SaveJahezAll.Image = ((System.Drawing.Image)(resources.GetObject("SaveJahezAll.Image")));
+            this.SaveJahezAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveJahezAll.Name = "SaveJahezAll";
+            this.SaveJahezAll.Size = new System.Drawing.Size(164, 25);
+            this.SaveJahezAll.Text = "تخزين جميع فواتير جاهز";
+            this.SaveJahezAll.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.SaveJahezAll.Click += new System.EventHandler(this.SaveAllJahez_Click);
+            this.SaveJahezAll.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SaveAllJahez_MouseUp);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
+            // 
+            // MultiSave_
+            // 
+            this.MultiSave_.BackColor = System.Drawing.Color.Lavender;
+            this.MultiSave_.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.MultiSave_.Image = ((System.Drawing.Image)(resources.GetObject("MultiSave_.Image")));
+            this.MultiSave_.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.MultiSave_.Name = "MultiSave_";
+            this.MultiSave_.Size = new System.Drawing.Size(95, 25);
+            this.MultiSave_.Text = "تخزين متعدد";
+            this.MultiSave_.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MultiSave_.Click += new System.EventHandler(this.MultiSave_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 28);
+            // 
+            // OrdersReady
+            // 
+            this.OrdersReady.BackColor = System.Drawing.Color.Lavender;
+            this.OrdersReady.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.OrdersReady.Image = ((System.Drawing.Image)(resources.GetObject("OrdersReady.Image")));
+            this.OrdersReady.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.OrdersReady.Name = "OrdersReady";
+            this.OrdersReady.Size = new System.Drawing.Size(107, 25);
+            this.OrdersReady.Text = "الطلبات جاهزة";
+            this.OrdersReady.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.OrdersReady.ToolTipText = "حدد حالة الطلب (زهري للإشارة إلى جاهزيته)";
+            this.OrdersReady.Click += new System.EventHandler(this.OrdersReady_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.GhostWhite;
+            this.label2.Location = new System.Drawing.Point(830, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(13, 13);
+            this.label2.TabIndex = 61;
+            this.label2.Text = "x";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.InvoicesDG);
+            this.panel1.Controls.Add(this.GroupSave);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 85);
+            this.panel1.Name = "panel1";
+            this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.panel1.Size = new System.Drawing.Size(961, 854);
+            this.panel1.TabIndex = 51;
+            this.panel1.Visible = false;
+            // 
+            // InvoicesDG
+            // 
+            this.InvoicesDG.AllowUserToAddRows = false;
+            this.InvoicesDG.AllowUserToDeleteRows = false;
+            this.InvoicesDG.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.InvoicesDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.InvoicesDG.DefaultCellStyle = dataGridViewCellStyle1;
+            this.InvoicesDG.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InvoicesDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.InvoicesDG.Location = new System.Drawing.Point(0, 0);
+            this.InvoicesDG.Name = "InvoicesDG";
+            this.InvoicesDG.ReadOnly = true;
+            this.InvoicesDG.RowTemplate.Height = 35;
+            this.InvoicesDG.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.InvoicesDG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.InvoicesDG.ShowCellErrors = false;
+            this.InvoicesDG.ShowEditingIcon = false;
+            this.InvoicesDG.ShowRowErrors = false;
+            this.InvoicesDG.Size = new System.Drawing.Size(961, 854);
+            this.InvoicesDG.TabIndex = 0;
+            this.InvoicesDG.TabStop = false;
+            this.InvoicesDG.DataSourceChanged += new System.EventHandler(this.InvoicesDG_DataSourceChanged);
+            this.InvoicesDG.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoicesDG_CellClick);
+            this.InvoicesDG.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoicesDG_CellDoubleClick);
+            this.InvoicesDG.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.InvoicesDG_CellFormatting);
+            this.InvoicesDG.CellToolTipTextNeeded += new System.Windows.Forms.DataGridViewCellToolTipTextNeededEventHandler(this.InvoicesDG_CellToolTipTextNeeded);
+            this.InvoicesDG.SelectionChanged += new System.EventHandler(this.InvoicesDG_SelectionChanged);
             // 
             // GroupSave
             // 
             this.GroupSave.Appearance = System.Windows.Forms.Appearance.Button;
-            this.GroupSave.BackColor = System.Drawing.Color.GhostWhite;
+            this.GroupSave.BackColor = System.Drawing.Color.Gold;
             this.GroupSave.FlatAppearance.CheckedBackColor = System.Drawing.Color.Lime;
             this.GroupSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GroupSave.Location = new System.Drawing.Point(4, 10);
+            this.GroupSave.Location = new System.Drawing.Point(38, 148);
             this.GroupSave.Name = "GroupSave";
-            this.GroupSave.Size = new System.Drawing.Size(135, 23);
+            this.GroupSave.Size = new System.Drawing.Size(90, 23);
             this.GroupSave.TabIndex = 63;
-            this.GroupSave.Text = "وضع التخزين المتعدد";
+            this.GroupSave.Text = "للكب";
             this.GroupSave.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.GroupSave.UseVisualStyleBackColor = false;
             this.GroupSave.CheckedChanged += new System.EventHandler(this.GroupSave_CheckedChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(10, 32);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(121, 26);
-            this.label8.TabIndex = 60;
-            this.label8.Text = "اختر الفواتير التي تريد\r\n تخزينها بالزر الأيمن للفأرة";
-            this.label8.Visible = false;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.LightSlateGray;
-            this.panel1.Controls.Add(this.PrintedInvoices);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 82);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(961, 711);
-            this.panel1.TabIndex = 51;
-            this.panel1.Visible = false;
-            this.panel1.VisibleChanged += new System.EventHandler(this.panel1_VisibleChanged);
-            // 
-            // PrintedInvoices
-            // 
-            this.PrintedInvoices.AllowDrop = true;
-            this.PrintedInvoices.AutoScroll = true;
-            this.PrintedInvoices.BackColor = System.Drawing.Color.GhostWhite;
-            this.PrintedInvoices.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PrintedInvoices.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.PrintedInvoices.Location = new System.Drawing.Point(0, 0);
-            this.PrintedInvoices.Name = "PrintedInvoices";
-            this.PrintedInvoices.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.PrintedInvoices.Size = new System.Drawing.Size(961, 711);
-            this.PrintedInvoices.TabIndex = 43;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(829, 64);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(128, 13);
-            this.label4.TabIndex = 58;
-            this.label4.Text = "الفواتير المطبوعة للتحضير:";
+            this.GroupSave.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GroupSave_MouseUp);
             // 
             // Wed
             // 
@@ -644,7 +535,7 @@
             this.Wed.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.Wed.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.Wed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Wed.Location = new System.Drawing.Point(431, 21);
+            this.Wed.Location = new System.Drawing.Point(432, 37);
             this.Wed.Name = "Wed";
             this.Wed.Size = new System.Drawing.Size(71, 42);
             this.Wed.TabIndex = 45;
@@ -663,7 +554,7 @@
             this.AllDays.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.AllDays.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.AllDays.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AllDays.Location = new System.Drawing.Point(222, 23);
+            this.AllDays.Location = new System.Drawing.Point(221, 39);
             this.AllDays.Name = "AllDays";
             this.AllDays.Size = new System.Drawing.Size(65, 38);
             this.AllDays.TabIndex = 50;
@@ -682,7 +573,7 @@
             this.Thu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.Thu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.Thu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Thu.Location = new System.Drawing.Point(360, 21);
+            this.Thu.Location = new System.Drawing.Point(361, 37);
             this.Thu.Name = "Thu";
             this.Thu.Size = new System.Drawing.Size(71, 42);
             this.Thu.TabIndex = 44;
@@ -701,9 +592,9 @@
             this.History.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.History.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.History.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.History.Location = new System.Drawing.Point(4, 22);
+            this.History.Location = new System.Drawing.Point(9, 39);
             this.History.Name = "History";
-            this.History.Size = new System.Drawing.Size(69, 52);
+            this.History.Size = new System.Drawing.Size(69, 39);
             this.History.TabIndex = 53;
             this.History.TabStop = true;
             this.History.Text = "التاريخ";
@@ -720,7 +611,7 @@
             this.Tue.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.Tue.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.Tue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Tue.Location = new System.Drawing.Point(502, 21);
+            this.Tue.Location = new System.Drawing.Point(503, 37);
             this.Tue.Name = "Tue";
             this.Tue.Size = new System.Drawing.Size(71, 42);
             this.Tue.TabIndex = 46;
@@ -734,7 +625,7 @@
             // 
             this.SearchLBL.AutoSize = true;
             this.SearchLBL.ForeColor = System.Drawing.Color.White;
-            this.SearchLBL.Location = new System.Drawing.Point(891, 8);
+            this.SearchLBL.Location = new System.Drawing.Point(892, 24);
             this.SearchLBL.Name = "SearchLBL";
             this.SearchLBL.Size = new System.Drawing.Size(66, 13);
             this.SearchLBL.TabIndex = 51;
@@ -749,7 +640,7 @@
             this.Fri.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.Fri.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.Fri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Fri.Location = new System.Drawing.Point(289, 21);
+            this.Fri.Location = new System.Drawing.Point(290, 37);
             this.Fri.Name = "Fri";
             this.Fri.Size = new System.Drawing.Size(71, 42);
             this.Fri.TabIndex = 43;
@@ -769,7 +660,7 @@
             this.Sat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.Sat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.Sat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Sat.Location = new System.Drawing.Point(715, 21);
+            this.Sat.Location = new System.Drawing.Point(716, 37);
             this.Sat.Name = "Sat";
             this.Sat.Size = new System.Drawing.Size(71, 42);
             this.Sat.TabIndex = 49;
@@ -788,7 +679,7 @@
             this.Mon.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.Mon.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.Mon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Mon.Location = new System.Drawing.Point(573, 21);
+            this.Mon.Location = new System.Drawing.Point(574, 37);
             this.Mon.Name = "Mon";
             this.Mon.Size = new System.Drawing.Size(71, 42);
             this.Mon.TabIndex = 47;
@@ -802,7 +693,7 @@
             // 
             this.SearchTB.BackColor = System.Drawing.Color.GhostWhite;
             this.SearchTB.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchTB.Location = new System.Drawing.Point(787, 25);
+            this.SearchTB.Location = new System.Drawing.Point(788, 41);
             this.SearchTB.Name = "SearchTB";
             this.SearchTB.Size = new System.Drawing.Size(168, 35);
             this.SearchTB.TabIndex = 42;
@@ -818,7 +709,7 @@
             this.Sun.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.Sun.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.Sun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Sun.Location = new System.Drawing.Point(644, 21);
+            this.Sun.Location = new System.Drawing.Point(645, 37);
             this.Sun.Name = "Sun";
             this.Sun.Size = new System.Drawing.Size(71, 42);
             this.Sun.TabIndex = 48;
@@ -827,19 +718,6 @@
             this.Sun.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Sun.UseVisualStyleBackColor = false;
             this.Sun.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            // 
-            // HeldPanel
-            // 
-            this.HeldPanel.AutoScroll = true;
-            this.HeldPanel.BackColor = System.Drawing.Color.LightSlateGray;
-            this.HeldPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.HeldPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.HeldPanel.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.HeldPanel.Location = new System.Drawing.Point(86, 0);
-            this.HeldPanel.Name = "HeldPanel";
-            this.HeldPanel.Size = new System.Drawing.Size(875, 145);
-            this.HeldPanel.TabIndex = 40;
-            this.HeldPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.HeldPanel_Paint);
             // 
             // xLabel
             // 
@@ -868,19 +746,139 @@
             this.label3.TabIndex = 103;
             this.label3.Text = "يوم الطلب";
             // 
-            // jahezPrice
+            // CommentLBL
             // 
-            this.jahezPrice.BackColor = System.Drawing.Color.Red;
-            this.jahezPrice.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.jahezPrice.ForeColor = System.Drawing.Color.White;
-            this.jahezPrice.Location = new System.Drawing.Point(145, 566);
-            this.jahezPrice.Name = "jahezPrice";
-            this.jahezPrice.Size = new System.Drawing.Size(106, 39);
-            this.jahezPrice.TabIndex = 168;
-            this.jahezPrice.Text = "0";
-            this.jahezPrice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.jahezPrice.UseCompatibleTextRendering = true;
-            this.jahezPrice.Visible = false;
+            this.CommentLBL.AutoSize = true;
+            this.CommentLBL.BackColor = System.Drawing.Color.GhostWhite;
+            this.CommentLBL.Enabled = false;
+            this.CommentLBL.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CommentLBL.ForeColor = System.Drawing.Color.Silver;
+            this.CommentLBL.Location = new System.Drawing.Point(826, 829);
+            this.CommentLBL.Name = "CommentLBL";
+            this.CommentLBL.Size = new System.Drawing.Size(91, 17);
+            this.CommentLBL.TabIndex = 53;
+            this.CommentLBL.Text = "ملاحظة  الطلب";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.GhostWhite;
+            this.label1.Enabled = false;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Silver;
+            this.label1.Location = new System.Drawing.Point(845, 733);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 17);
+            this.label1.TabIndex = 52;
+            this.label1.Text = "وقت الطلب";
+            // 
+            // NameLBL
+            // 
+            this.NameLBL.AutoSize = true;
+            this.NameLBL.BackColor = System.Drawing.Color.GhostWhite;
+            this.NameLBL.Enabled = false;
+            this.NameLBL.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NameLBL.ForeColor = System.Drawing.Color.Silver;
+            this.NameLBL.Location = new System.Drawing.Point(847, 685);
+            this.NameLBL.Name = "NameLBL";
+            this.NameLBL.Size = new System.Drawing.Size(70, 17);
+            this.NameLBL.TabIndex = 51;
+            this.NameLBL.Text = "إسم العميل";
+            // 
+            // MobileLBL
+            // 
+            this.MobileLBL.AutoSize = true;
+            this.MobileLBL.BackColor = System.Drawing.Color.GhostWhite;
+            this.MobileLBL.Enabled = false;
+            this.MobileLBL.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MobileLBL.ForeColor = System.Drawing.Color.Silver;
+            this.MobileLBL.Location = new System.Drawing.Point(850, 636);
+            this.MobileLBL.Name = "MobileLBL";
+            this.MobileLBL.Size = new System.Drawing.Size(67, 17);
+            this.MobileLBL.TabIndex = 50;
+            this.MobileLBL.Text = "رقم العميل";
+            // 
+            // ItemsPanel1
+            // 
+            this.ItemsPanel1.BackColor = System.Drawing.Color.GhostWhite;
+            this.ItemsPanel1.Location = new System.Drawing.Point(563, 3);
+            this.ItemsPanel1.Name = "ItemsPanel1";
+            this.ItemsPanel1.Size = new System.Drawing.Size(387, 611);
+            this.ItemsPanel1.TabIndex = 22;
+            // 
+            // AmountLBL
+            // 
+            this.AmountLBL.BackColor = System.Drawing.Color.GhostWhite;
+            this.AmountLBL.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmountLBL.Location = new System.Drawing.Point(146, 566);
+            this.AmountLBL.Name = "AmountLBL";
+            this.AmountLBL.Size = new System.Drawing.Size(104, 39);
+            this.AmountLBL.TabIndex = 28;
+            this.AmountLBL.Text = "0";
+            this.AmountLBL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AmountLBL.UseCompatibleTextRendering = true;
+            // 
+            // dvItems
+            // 
+            this.dvItems.AllowDrop = true;
+            this.dvItems.AllowUserToAddRows = false;
+            this.dvItems.AllowUserToOrderColumns = true;
+            this.dvItems.AllowUserToResizeColumns = false;
+            this.dvItems.AllowUserToResizeRows = false;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.dvItems.BackgroundColor = System.Drawing.Color.GhostWhite;
+            this.dvItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dvItems.CausesValidation = false;
+            this.dvItems.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.dvItems.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 8F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dvItems.Location = new System.Drawing.Point(11, 36);
+            this.dvItems.MultiSelect = false;
+            this.dvItems.Name = "dvItems";
+            this.dvItems.RowHeadersVisible = false;
+            this.dvItems.RowHeadersWidth = 10;
+            this.dvItems.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dvItems.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.dvItems.RowTemplate.Height = 30;
+            this.dvItems.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dvItems.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dvItems.Size = new System.Drawing.Size(442, 529);
+            this.dvItems.TabIndex = 30;
+            this.dvItems.TabStop = false;
+            this.dvItems.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DvItems_CellEndEdit);
+            this.dvItems.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DvItems_CellEnter);
+            this.dvItems.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DvItems_CellMouseClick);
+            this.dvItems.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DvItems_DataError);
+            this.dvItems.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataGridView1_EditingControlShowing);
+            this.dvItems.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DvItems_RowsRemoved);
+            this.dvItems.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DvItems_UserDeletingRow);
+            this.dvItems.DragDrop += new System.Windows.Forms.DragEventHandler(this.DvItems_DragDrop);
+            this.dvItems.DragOver += new System.Windows.Forms.DragEventHandler(this.dvItems_DragOver);
+            this.dvItems.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DvItems_MouseDown);
             // 
             // checkBox1
             // 
@@ -990,6 +988,42 @@
             this.SaveInvoice.Click += new System.EventHandler(this.SaveInvoice_Click);
             this.SaveInvoice.MouseLeave += new System.EventHandler(this.SaveInvoice_MouseLeave);
             // 
+            // InvoiceNumberID
+            // 
+            this.InvoiceNumberID.BackColor = System.Drawing.Color.GhostWhite;
+            this.InvoiceNumberID.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InvoiceNumberID.Location = new System.Drawing.Point(139, 2);
+            this.InvoiceNumberID.Name = "InvoiceNumberID";
+            this.InvoiceNumberID.ReadOnly = true;
+            this.InvoiceNumberID.Size = new System.Drawing.Size(77, 33);
+            this.InvoiceNumberID.TabIndex = 42;
+            this.InvoiceNumberID.TabStop = false;
+            this.InvoiceNumberID.Text = "0";
+            // 
+            // PrintSave
+            // 
+            this.PrintSave.BackColor = System.Drawing.Color.SteelBlue;
+            this.PrintSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintSave.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PrintSave.ForeColor = System.Drawing.Color.White;
+            this.PrintSave.Location = new System.Drawing.Point(174, 876);
+            this.PrintSave.Name = "PrintSave";
+            this.PrintSave.Size = new System.Drawing.Size(164, 47);
+            this.PrintSave.TabIndex = 48;
+            this.PrintSave.TabStop = false;
+            this.PrintSave.Text = "طباعة و تحضير";
+            this.PrintSave.UseVisualStyleBackColor = false;
+            this.PrintSave.Click += new System.EventHandler(this.PrintSave_Click);
+            this.PrintSave.MouseLeave += new System.EventHandler(this.PrintSave_MouseLeave);
+            // 
+            // SectionsPanel
+            // 
+            this.SectionsPanel.BackColor = System.Drawing.Color.GhostWhite;
+            this.SectionsPanel.Location = new System.Drawing.Point(459, 3);
+            this.SectionsPanel.Name = "SectionsPanel";
+            this.SectionsPanel.Size = new System.Drawing.Size(98, 562);
+            this.SectionsPanel.TabIndex = 24;
+            // 
             // DOWTB
             // 
             this.DOWTB.BackColor = System.Drawing.Color.GhostWhite;
@@ -1020,6 +1054,58 @@
             this.TimeTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TimeTB_KeyPress);
             this.TimeTB.Leave += new System.EventHandler(this.TimeTB_Leave);
             this.TimeTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
+            // 
+            // CommentTB
+            // 
+            this.CommentTB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CommentTB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.CommentTB.BackColor = System.Drawing.Color.GhostWhite;
+            this.CommentTB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CommentTB.Location = new System.Drawing.Point(671, 823);
+            this.CommentTB.Margin = new System.Windows.Forms.Padding(0);
+            this.CommentTB.Name = "CommentTB";
+            this.CommentTB.Size = new System.Drawing.Size(271, 33);
+            this.CommentTB.TabIndex = 150;
+            this.CommentTB.WordWrap = false;
+            this.CommentTB.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
+            this.CommentTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
+            // 
+            // MobileTB
+            // 
+            this.MobileTB.AllowDrop = true;
+            this.MobileTB.BackColor = System.Drawing.Color.GhostWhite;
+            this.MobileTB.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.MobileTB.Location = new System.Drawing.Point(726, 624);
+            this.MobileTB.Margin = new System.Windows.Forms.Padding(0);
+            this.MobileTB.Name = "MobileTB";
+            this.MobileTB.Size = new System.Drawing.Size(216, 43);
+            this.MobileTB.TabIndex = 23;
+            this.MobileTB.WordWrap = false;
+            this.MobileTB.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
+            this.MobileTB.DragDrop += new System.Windows.Forms.DragEventHandler(this.NameTB_DragDrop);
+            this.MobileTB.DragEnter += new System.Windows.Forms.DragEventHandler(this.NameTB_DragEnter);
+            this.MobileTB.DoubleClick += new System.EventHandler(this.MobileTB_DoubleClick);
+            this.MobileTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MobileTB_KeyDown);
+            this.MobileTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
+            // 
+            // NameTB
+            // 
+            this.NameTB.AllowDrop = true;
+            this.NameTB.BackColor = System.Drawing.Color.GhostWhite;
+            this.NameTB.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.NameTB.HideSelection = false;
+            this.NameTB.Location = new System.Drawing.Point(623, 673);
+            this.NameTB.Margin = new System.Windows.Forms.Padding(0);
+            this.NameTB.Name = "NameTB";
+            this.NameTB.Size = new System.Drawing.Size(319, 43);
+            this.NameTB.TabIndex = 26;
+            this.NameTB.WordWrap = false;
+            this.NameTB.TextChanged += new System.EventHandler(this.MobileTB_TextChanged);
+            this.NameTB.DragDrop += new System.Windows.Forms.DragEventHandler(this.NameTB_DragDrop);
+            this.NameTB.DragEnter += new System.Windows.Forms.DragEventHandler(this.NameTB_DragEnter);
+            this.NameTB.Enter += new System.EventHandler(this.NameTB_Enter);
+            this.NameTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MobileTB_KeyDown);
+            this.NameTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
             // 
             // AmountPriceLBL
             // 
@@ -1219,7 +1305,6 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.LightSlateGray;
             this.panel2.Controls.Add(this.OrdersPage);
             this.panel2.Controls.Add(this.MainMenu);
             this.panel2.Controls.Add(this.SalahTimes);
@@ -1227,6 +1312,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
+            this.panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.panel2.Size = new System.Drawing.Size(961, 69);
             this.panel2.TabIndex = 0;
             // 
@@ -1275,22 +1361,10 @@
             this.langCheck.UseVisualStyleBackColor = true;
             this.langCheck.CheckedChanged += new System.EventHandler(this.langCheck_CheckedChanged);
             // 
-            // backgroundWorker1
+            // CIDWorker
             // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            // 
-            // ReadyStatus
-            // 
-            this.ReadyStatus.AutoSize = true;
-            this.ReadyStatus.CheckAlign = System.Drawing.ContentAlignment.TopRight;
-            this.ReadyStatus.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReadyStatus.ForeColor = System.Drawing.Color.White;
-            this.ReadyStatus.Location = new System.Drawing.Point(7, 3);
-            this.ReadyStatus.Name = "ReadyStatus";
-            this.ReadyStatus.Size = new System.Drawing.Size(62, 14);
-            this.ReadyStatus.TabIndex = 60;
-            this.ReadyStatus.Text = "حالة الطلب";
-            this.ReadyStatus.UseVisualStyleBackColor = true;
+            this.CIDWorker.WorkerReportsProgress = true;
+            this.CIDWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CIDWorker_DoWork);
             // 
             // OrdersPage
             // 
@@ -1485,7 +1559,6 @@
             this.AsrLBL.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.AsrLBL.UseCompatibleTextRendering = true;
             this.AsrLBL.UseVisualStyleBackColor = false;
-            this.AsrLBL.Click += new System.EventHandler(this.AsrLBL_Click);
             // 
             // AsrBTN
             // 
@@ -1735,30 +1808,6 @@
             this.SettingsPage.UseVisualStyleBackColor = false;
             this.SettingsPage.Click += new System.EventHandler(this.SettingsPage_Click);
             // 
-            // SaveAllJahez
-            // 
-            this.SaveAllJahez.BackColor = System.Drawing.Color.White;
-            this.SaveAllJahez.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SaveAllJahez.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.SaveAllJahez.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.SaveAllJahez.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.SaveAllJahez.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.SaveAllJahez.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveAllJahez.Font = new System.Drawing.Font("Tahoma", 8F);
-            this.SaveAllJahez.ForeColor = System.Drawing.Color.Black;
-            this.SaveAllJahez.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SaveAllJahez.Location = new System.Drawing.Point(4, 38);
-            this.SaveAllJahez.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.SaveAllJahez.Name = "SaveAllJahez";
-            this.SaveAllJahez.Size = new System.Drawing.Size(135, 23);
-            this.SaveAllJahez.TabIndex = 41;
-            this.SaveAllJahez.TabStop = false;
-            this.SaveAllJahez.Text = "تخزين جميع فواتير جاهز";
-            this.SaveAllJahez.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.SaveAllJahez.UseVisualStyleBackColor = false;
-            this.SaveAllJahez.Click += new System.EventHandler(this.SaveAllJahez_Click);
-            this.SaveAllJahez.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SaveAllJahez_MouseUp);
-            // 
             // Search
             // 
             this.Search.BackColor = System.Drawing.Color.White;
@@ -1771,7 +1820,7 @@
             this.Search.Font = new System.Drawing.Font("Tahoma", 8F);
             this.Search.ForeColor = System.Drawing.Color.Black;
             this.Search.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Search.Location = new System.Drawing.Point(787, 24);
+            this.Search.Location = new System.Drawing.Point(788, 40);
             this.Search.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.Search.Name = "Search";
             this.Search.Size = new System.Drawing.Size(39, 37);
@@ -1782,30 +1831,27 @@
             this.Search.UseVisualStyleBackColor = false;
             this.Search.Click += new System.EventHandler(this.Search_Click);
             // 
-            // unfocusableButton5
+            // CallerIDBTN
             // 
-            this.unfocusableButton5.BackColor = System.Drawing.Color.LightSlateGray;
-            this.unfocusableButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.unfocusableButton5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.unfocusableButton5.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.unfocusableButton5.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.unfocusableButton5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.unfocusableButton5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.unfocusableButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton5.Font = new System.Drawing.Font("Tahoma", 7F);
-            this.unfocusableButton5.ForeColor = System.Drawing.Color.White;
-            this.unfocusableButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.unfocusableButton5.Location = new System.Drawing.Point(0, 0);
-            this.unfocusableButton5.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.unfocusableButton5.Name = "unfocusableButton5";
-            this.unfocusableButton5.Size = new System.Drawing.Size(83, 145);
-            this.unfocusableButton5.TabIndex = 61;
-            this.unfocusableButton5.TabStop = false;
-            this.unfocusableButton5.Text = "فتح الفواتير المعلقة (غير المطبوعة)";
-            this.unfocusableButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.unfocusableButton5.UseCompatibleTextRendering = true;
-            this.unfocusableButton5.UseVisualStyleBackColor = false;
-            this.unfocusableButton5.Click += new System.EventHandler(this.unfocusableButton5_Click_1);
+            this.CallerIDBTN.AllowDrop = true;
+            this.CallerIDBTN.BackColor = System.Drawing.Color.Green;
+            this.CallerIDBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CallerIDBTN.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.CallerIDBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CallerIDBTN.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CallerIDBTN.ForeColor = System.Drawing.Color.White;
+            this.CallerIDBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CallerIDBTN.Location = new System.Drawing.Point(686, 624);
+            this.CallerIDBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.CallerIDBTN.Name = "CallerIDBTN";
+            this.CallerIDBTN.Size = new System.Drawing.Size(38, 40);
+            this.CallerIDBTN.TabIndex = 173;
+            this.CallerIDBTN.TabStop = false;
+            this.CallerIDBTN.Text = "#";
+            this.CallerIDBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.CallerIDBTN.UseVisualStyleBackColor = false;
+            this.CallerIDBTN.Click += new System.EventHandler(this.CallerIDBTN_Click);
+            this.CallerIDBTN.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CallerIDBTN_MouseUp);
             // 
             // ShowMenuBTN
             // 
@@ -1821,7 +1867,7 @@
             this.ShowMenuBTN.ForeColor = System.Drawing.Color.White;
             this.ShowMenuBTN.Image = global::OrderForm.Properties.Resources.bill_receipt_icon__1_1;
             this.ShowMenuBTN.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.ShowMenuBTN.Location = new System.Drawing.Point(408, 808);
+            this.ShowMenuBTN.Location = new System.Drawing.Point(408, 797);
             this.ShowMenuBTN.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.ShowMenuBTN.Name = "ShowMenuBTN";
             this.ShowMenuBTN.Size = new System.Drawing.Size(188, 44);
@@ -2330,10 +2376,10 @@
             this.WhatAppBTN.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WhatAppBTN.ForeColor = System.Drawing.Color.White;
             this.WhatAppBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.WhatAppBTN.Location = new System.Drawing.Point(623, 624);
+            this.WhatAppBTN.Location = new System.Drawing.Point(589, 624);
             this.WhatAppBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.WhatAppBTN.Name = "WhatAppBTN";
-            this.WhatAppBTN.Size = new System.Drawing.Size(86, 40);
+            this.WhatAppBTN.Size = new System.Drawing.Size(96, 40);
             this.WhatAppBTN.TabIndex = 29;
             this.WhatAppBTN.TabStop = false;
             this.WhatAppBTN.Text = "WhatsApp";
@@ -2377,6 +2423,7 @@
             this.Controls.Add(this.OrdersPanel);
             this.DoubleBuffered = true;
             this.HelpButton = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Location = new System.Drawing.Point(945, 0);
             this.MaximizeBox = false;
@@ -2385,23 +2432,22 @@
             this.Name = "Orders";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
-            this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Orders_FormClosing);
             this.Load += new System.EventHandler(this.Orders_Load);
             this.rightClickMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dvItems)).EndInit();
             this.OrdersPanel.ResumeLayout(false);
             this.OrdersPanel.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.sortType.ResumeLayout(false);
-            this.sortType.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.InvoicesDG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvItems)).EndInit();
             this.InvoiceTypeOptions.ResumeLayout(false);
             this.InvoiceTypeOptions.PerformLayout();
             this.MenuSelection.ResumeLayout(false);
@@ -2418,83 +2464,22 @@
         private System.Windows.Forms.ToolStripMenuItem commentBTN;
         private System.Windows.Forms.ToolStripMenuItem DeleteBTN;
         private System.Windows.Forms.ToolStripMenuItem CustomComment;
-        private UnfocusableButton NewBTN;
-        private System.Windows.Forms.FlowLayoutPanel ItemsPanel1;
-        private System.Windows.Forms.FlowLayoutPanel SectionsPanel;
-        private System.Windows.Forms.TextBox MobileTB;
-        private UnfocusableButton WhatAppBTN;
-        public System.Windows.Forms.DataGridView dvItems;
-        private UnfocusableButton FourBTN;
-        private UnfocusableButton ThreeBTN;
-        private UnfocusableButton TwoBTN;
-        private UnfocusableButton OneBTN;
-        private UnfocusableButton DownBTN;
-        private UnfocusableButton UpBTN;
-        private UnfocusableButton EnterBTN;
-        private UnfocusableButton BackSpaceBTN;
-        private UnfocusableButton ZeroBTN;
-        private UnfocusableButton NineBTN;
-        private UnfocusableButton EightBTN;
-        private UnfocusableButton SevenBTN;
-        private UnfocusableButton SixBTN;
-        private UnfocusableButton FiveBTN;
-        private UnfocusableButton DeleteTouchBTN;
-        private System.Windows.Forms.Button PrintSave;
-        private System.Windows.Forms.Label MobileLBL;
-        private System.Windows.Forms.Label NameLBL;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label CommentLBL;
         private System.Windows.Forms.Panel OrdersPanel;
-        private UnfocusableButton TimeInfo;
-        private UnfocusableButton DayMenuBTN;
-        private System.Windows.Forms.TextBox TimeTB;
         private System.Windows.Forms.ContextMenuStrip DayMenu;
         private System.Windows.Forms.ContextMenuStrip HourPicker;
         private System.Windows.Forms.ContextMenuStrip MinutesPicker;
         private System.Windows.Forms.ContextMenuStrip TODPicker;
-        private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.TextBox DOWTB;
-        public System.Windows.Forms.TextBox NameTB;
-        public System.Windows.Forms.TextBox CommentTB;
         private System.Windows.Forms.ContextMenuStrip FastComment;
-        private System.Windows.Forms.Button SaveInvoice;
-        private System.Windows.Forms.Button OrderStatus;
-        private System.Windows.Forms.Button DeleteInvoice;
-        public System.Windows.Forms.TextBox InvoiceNumberID;
-        private System.Windows.Forms.Label AmountPriceLBL;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label ItemCount;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button HoldInvoice;
         private System.Windows.Forms.ContextMenuStrip MenuSelection;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         public System.Windows.Forms.Timer MenuTimeOut;
-        private UnfocusableButton RepeatOrder;
-        private UnfocusableButton LastOrder;
-        private System.Windows.Forms.Label jahezPrice;
-        private UnfocusableButton OrderCut;
-        private UnfocusableButton unfocusableButton6;
-        private System.Windows.Forms.Label xLabel;
         private System.Windows.Forms.PrintDialog printComment;
         private System.Windows.Forms.ContextMenuStrip WhatsSend;
-        public System.Windows.Forms.Label AmountLBL;
-        private UnfocusableButton ShowMenuBTN;
-        public System.Windows.Forms.ToolStrip InvoiceTypeOptions;
-        private System.Windows.Forms.ToolStripButton TelButton;
-        private System.Windows.Forms.ToolStripButton ToGoButton;
-        private System.Windows.Forms.ToolStripButton DineButton;
-        private System.Windows.Forms.ToolStripButton AppsButton;
         private System.Windows.Forms.Timer Api_Health;
-        public System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panel1;
-        private UnfocusableButton Search;
-        public System.Windows.Forms.GroupBox sortType;
-        private UnfocusableButton SaveAllJahez;
+        private UButton Search;
         private System.Windows.Forms.CheckBox GroupSave;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton AllDays;
         private System.Windows.Forms.RadioButton History;
         private System.Windows.Forms.Label SearchLBL;
@@ -2506,31 +2491,95 @@
         private System.Windows.Forms.RadioButton Tue;
         private System.Windows.Forms.RadioButton Thu;
         private System.Windows.Forms.RadioButton Wed;
-        private System.Windows.Forms.FlowLayoutPanel HeldPanel;
-        private UnfocusableButton unfocusableButton5;
         private System.Windows.Forms.Panel panel2;
-        private UnfocusableButton OrdersPage;
-        private UnfocusableButton MainMenu;
+        private UButton OrdersPage;
+        private UButton MainMenu;
         private System.Windows.Forms.FlowLayoutPanel SalahTimes;
         private System.Windows.Forms.CheckBox langCheck;
-        private UnfocusableButton changeMenu;
-        private UnfocusableButton TimeLeftLBL;
-        private UnfocusableButton TimeTillCountdown;
-        private UnfocusableButton DhuhrLBL;
-        private UnfocusableButton DhuhrBTN;
-        private UnfocusableButton AsrLBL;
-        private UnfocusableButton AsrBTN;
-        private UnfocusableButton MaghribLBL;
-        private UnfocusableButton MaghribBTN;
-        private UnfocusableButton IshaLBL;
-        private UnfocusableButton IshaBTN;
-        private UnfocusableButton DateLBL;
-        private UnfocusableButton DayLBL;
-        public UnfocusableButton TimeButton;
-        public UnfocusableButton CopyInvoice;
-        private UnfocusableButton SettingsPage;
-        private System.Windows.Forms.FlowLayoutPanel PrintedInvoices;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.CheckBox ReadyStatus;
+        private UButton changeMenu;
+        private UButton TimeLeftLBL;
+        private UButton TimeTillCountdown;
+        private UButton DhuhrLBL;
+        private UButton DhuhrBTN;
+        private UButton AsrLBL;
+        private UButton AsrBTN;
+        private UButton MaghribLBL;
+        private UButton MaghribBTN;
+        private UButton IshaLBL;
+        private UButton IshaBTN;
+        private UButton DateLBL;
+        private UButton DayLBL;
+        public UButton TimeButton;
+        public UButton CopyInvoice;
+        private UButton SettingsPage;
+        private System.ComponentModel.BackgroundWorker CIDWorker;
+        private UButton CallerIDBTN;
+        private System.Windows.Forms.Label xLabel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label CommentLBL;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label NameLBL;
+        private System.Windows.Forms.Label MobileLBL;
+        private UButton ShowMenuBTN;
+        private System.Windows.Forms.FlowLayoutPanel ItemsPanel1;
+        private UButton unfocusableButton6;
+        private UButton OrderCut;
+        public System.Windows.Forms.Label AmountLBL;
+        public System.Windows.Forms.DataGridView dvItems;
+        private UButton LastOrder;
+        private UButton RepeatOrder;
+        public System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button HoldInvoice;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label ItemCount;
+        private System.Windows.Forms.Button DeleteInvoice;
+        private System.Windows.Forms.Button SaveInvoice;
+        private UButton NewBTN;
+        public System.Windows.Forms.TextBox InvoiceNumberID;
+        private System.Windows.Forms.Button PrintSave;
+        private UButton DeleteTouchBTN;
+        private UButton FiveBTN;
+        private UButton SixBTN;
+        private UButton SevenBTN;
+        private UButton EightBTN;
+        private UButton NineBTN;
+        private UButton ZeroBTN;
+        private UButton BackSpaceBTN;
+        private UButton EnterBTN;
+        private UButton UpBTN;
+        private UButton DownBTN;
+        private UButton OneBTN;
+        private UButton TwoBTN;
+        private UButton ThreeBTN;
+        private UButton FourBTN;
+        private System.Windows.Forms.FlowLayoutPanel SectionsPanel;
+        public System.Windows.Forms.TextBox DOWTB;
+        private System.Windows.Forms.TextBox TimeTB;
+        private UButton TimeInfo;
+        public System.Windows.Forms.TextBox CommentTB;
+        private UButton WhatAppBTN;
+        public System.Windows.Forms.TextBox MobileTB;
+        public System.Windows.Forms.TextBox NameTB;
+        private UButton DayMenuBTN;
+        private System.Windows.Forms.Label AmountPriceLBL;
+        public System.Windows.Forms.ToolStrip InvoiceTypeOptions;
+        private System.Windows.Forms.ToolStripButton TelButton;
+        private System.Windows.Forms.ToolStripButton ToGoButton;
+        private System.Windows.Forms.ToolStripButton DineButton;
+        private System.Windows.Forms.ToolStripButton AppsButton;
+        private System.Windows.Forms.Button OrderStatus;
+        internal System.Windows.Forms.DataGridView InvoicesDG;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton PrintMultiTool;
+        private System.Windows.Forms.ToolStripButton MultiSave_;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton SaveJahezAll;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.RadioButton Draft;
+        private System.Windows.Forms.ToolStripButton OrdersReady;
     }
 }

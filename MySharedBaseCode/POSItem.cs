@@ -1,4 +1,8 @@
-﻿namespace sharedCode
+﻿using System;
+using System.ComponentModel;
+using System.Net.NetworkInformation;
+
+namespace sharedCode
 {
 
 
@@ -45,5 +49,53 @@
             this.comments = comments;
         }
     }
+
+    public class PhoneLog : INotifyPropertyChanged
+    {
+        public int Id { get; set; }
+        public DateTime CallDateTime { get; set; }
+
+        private string _phoneNumber;
+        public string PhoneNumber
+        {
+            get { return _phoneNumber; }
+            set
+            {
+                _phoneNumber = value;
+                OnPropertyChanged(nameof(PhoneNumber));
+            }
+        }
+
+        private string _customerName;
+        public string CustomerName
+        {
+            get { return _customerName; }
+            set
+            {
+                _customerName = value;
+                OnPropertyChanged(nameof(CustomerName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public string DisplayText
+        {
+            get { return $"{CustomerName} |  {PhoneNumber}  | {CallDateTime.ToString("hh:mm:sstt ddd")}"; }
+        }
+        public static PhoneLog NewPhoneLog(string phoneNumber)
+        {
+            PhoneLog phoneLog = new PhoneLog();
+            phoneLog.PhoneNumber = phoneNumber;
+            phoneLog.CallDateTime = DateTime.Now;
+            return phoneLog;
+        }
+    }
+
+
 }
 

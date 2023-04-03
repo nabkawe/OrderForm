@@ -14,7 +14,7 @@
     <UserControl.DataContext>
         <local:MenuItemsXViewModel/>
     </UserControl.DataContext>
-
+    
 
 
 
@@ -40,10 +40,10 @@
             <!--Price And Image-->
             <Canvas Grid.Row="0" Grid.RowSpan="1">
 
-                <Image x:Name="Picture"
+                <Image x:Name="Picture" 
                         Panel.ZIndex ="0"   Canvas.Right="0" 
-                        Source="{Binding ImagePath}"
-                        Stretch="Uniform" MaxWidth="125" MaxHeight="125" MinHeight="120" MinWidth ="120 "  />
+                         MaxWidth="125" MaxHeight="125" MinHeight="120" MinWidth ="120 " Source="{Binding ImagePathSmall}"  >
+                </Image>
 
                 <TextBlock   FlowDirection="RightToLeft" FontSize="30"  FontFamily="Bahnschrift"   Canvas.Left="10" Canvas.Top="5">
 

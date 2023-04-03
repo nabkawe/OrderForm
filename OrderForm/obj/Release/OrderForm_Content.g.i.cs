@@ -8,6 +8,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("api/appsettings.development.json")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("api/appsettings.json")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("api/web.config")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("api/aspnetcorev2_inprocess.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("api/mysharedbasecode.pdb")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("api/networksynq.exe")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("api/networksynq.pdb")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("api/prayertimes.pdb")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("headersource.zip")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("librasoft2.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("librasoft.ico")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("to%20do%20list.txt")]
 
 

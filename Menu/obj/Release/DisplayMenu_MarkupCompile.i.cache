@@ -8,7 +8,7 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\
 OrderForm
 none
 false
-TRACE
+DEBUG;TRACE
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\App.xaml
 52019952115
 
@@ -16,5 +16,5 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\App.xaml
 15-723937477
 NewFood.xaml;FoodItem.xaml;InformationPanel.xaml;MainWindow.xaml;Window1.xaml;
 
-True
+False
 

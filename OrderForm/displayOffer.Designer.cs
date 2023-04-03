@@ -35,19 +35,19 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dvItems2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ItemCount = new OrderForm.UnfocusableButton();
-            this.unfocusableButton2 = new OrderForm.UnfocusableButton();
-            this.Price = new OrderForm.UnfocusableButton();
-            this.unfocusableButton3 = new OrderForm.UnfocusableButton();
             this.Payment = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.ClientName = new OrderForm.UnfocusableButton();
-            this.ClientTitle = new OrderForm.UnfocusableButton();
-            this.PhoneTitle = new OrderForm.UnfocusableButton();
-            this.ClientPhone = new OrderForm.UnfocusableButton();
-            this.DateTitle = new OrderForm.UnfocusableButton();
-            this.ClientDate = new OrderForm.UnfocusableButton();
-            this.LogoPic = new OrderForm.UnfocusableButton();
+            this.ClientName = new OrderForm.UButton();
+            this.ClientTitle = new OrderForm.UButton();
+            this.PhoneTitle = new OrderForm.UButton();
+            this.ClientPhone = new OrderForm.UButton();
+            this.DateTitle = new OrderForm.UButton();
+            this.ClientDate = new OrderForm.UButton();
+            this.ItemCount = new OrderForm.UButton();
+            this.unfocusableButton2 = new OrderForm.UButton();
+            this.Price = new OrderForm.UButton();
+            this.unfocusableButton3 = new OrderForm.UButton();
+            this.LogoPic = new OrderForm.UButton();
             ((System.ComponentModel.ISupportInitialize)(this.dvItems2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Payment)).BeginInit();
@@ -117,64 +117,6 @@
             this.panel1.Size = new System.Drawing.Size(1004, 177);
             this.panel1.TabIndex = 37;
             // 
-            // ItemCount
-            // 
-            this.ItemCount.BackColor = System.Drawing.Color.White;
-            this.ItemCount.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ItemCount.FlatAppearance.BorderSize = 0;
-            this.ItemCount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ItemCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ItemCount.Location = new System.Drawing.Point(-57, 0);
-            this.ItemCount.Name = "ItemCount";
-            this.ItemCount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ItemCount.Size = new System.Drawing.Size(223, 177);
-            this.ItemCount.TabIndex = 45;
-            this.ItemCount.UseVisualStyleBackColor = false;
-            // 
-            // unfocusableButton2
-            // 
-            this.unfocusableButton2.BackColor = System.Drawing.Color.White;
-            this.unfocusableButton2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.unfocusableButton2.FlatAppearance.BorderSize = 0;
-            this.unfocusableButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.unfocusableButton2.Location = new System.Drawing.Point(166, 0);
-            this.unfocusableButton2.Name = "unfocusableButton2";
-            this.unfocusableButton2.Size = new System.Drawing.Size(142, 177);
-            this.unfocusableButton2.TabIndex = 43;
-            this.unfocusableButton2.Text = "ريال سعودي\r\n\r\nSaudi Riyal\r\n";
-            this.unfocusableButton2.UseVisualStyleBackColor = false;
-            // 
-            // Price
-            // 
-            this.Price.BackColor = System.Drawing.Color.White;
-            this.Price.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Price.FlatAppearance.BorderSize = 0;
-            this.Price.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Price.Font = new System.Drawing.Font("Segoe UI", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Price.ForeColor = System.Drawing.Color.Red;
-            this.Price.Location = new System.Drawing.Point(308, 0);
-            this.Price.Margin = new System.Windows.Forms.Padding(0);
-            this.Price.Name = "Price";
-            this.Price.Size = new System.Drawing.Size(471, 177);
-            this.Price.TabIndex = 42;
-            this.Price.Text = "0.00";
-            this.Price.UseVisualStyleBackColor = true;
-            // 
-            // unfocusableButton3
-            // 
-            this.unfocusableButton3.BackColor = System.Drawing.Color.White;
-            this.unfocusableButton3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.unfocusableButton3.FlatAppearance.BorderSize = 0;
-            this.unfocusableButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.unfocusableButton3.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unfocusableButton3.Location = new System.Drawing.Point(779, 0);
-            this.unfocusableButton3.Name = "unfocusableButton3";
-            this.unfocusableButton3.Size = new System.Drawing.Size(225, 177);
-            this.unfocusableButton3.TabIndex = 44;
-            this.unfocusableButton3.Text = "المبلغ الإجمالي\r\n\r\nTotal Amount";
-            this.unfocusableButton3.UseVisualStyleBackColor = false;
-            // 
             // Payment
             // 
             this.Payment.BackColor = System.Drawing.Color.White;
@@ -210,29 +152,39 @@
             // 
             this.ClientName.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientName.BackColor = System.Drawing.Color.White;
+            this.ClientName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientName.Dock = System.Windows.Forms.DockStyle.Right;
             this.ClientName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ClientName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClientName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ClientName.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.ClientName.Location = new System.Drawing.Point(711, 5);
+            this.ClientName.Margin = new System.Windows.Forms.Padding(1);
             this.ClientName.Name = "ClientName";
             this.ClientName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientName.Size = new System.Drawing.Size(191, 61);
             this.ClientName.TabIndex = 52;
+            this.ClientName.TabStop = false;
             this.ClientName.UseVisualStyleBackColor = false;
             // 
             // ClientTitle
             // 
             this.ClientTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientTitle.BackColor = System.Drawing.Color.GhostWhite;
+            this.ClientTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientTitle.Dock = System.Windows.Forms.DockStyle.Right;
             this.ClientTitle.FlatAppearance.BorderSize = 0;
             this.ClientTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ClientTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClientTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ClientTitle.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.ClientTitle.Location = new System.Drawing.Point(902, 5);
+            this.ClientTitle.Margin = new System.Windows.Forms.Padding(1);
             this.ClientTitle.Name = "ClientTitle";
             this.ClientTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientTitle.Size = new System.Drawing.Size(97, 61);
             this.ClientTitle.TabIndex = 51;
+            this.ClientTitle.TabStop = false;
             this.ClientTitle.Text = "إسم العميل:";
             this.ClientTitle.UseVisualStyleBackColor = false;
             // 
@@ -240,15 +192,20 @@
             // 
             this.PhoneTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.PhoneTitle.BackColor = System.Drawing.Color.GhostWhite;
+            this.PhoneTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.PhoneTitle.Dock = System.Windows.Forms.DockStyle.Left;
             this.PhoneTitle.FlatAppearance.BorderSize = 0;
             this.PhoneTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PhoneTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PhoneTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.PhoneTitle.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.PhoneTitle.Location = new System.Drawing.Point(508, 5);
+            this.PhoneTitle.Margin = new System.Windows.Forms.Padding(1);
             this.PhoneTitle.Name = "PhoneTitle";
             this.PhoneTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.PhoneTitle.Size = new System.Drawing.Size(95, 61);
             this.PhoneTitle.TabIndex = 53;
+            this.PhoneTitle.TabStop = false;
             this.PhoneTitle.Text = "رقم الهاتف:";
             this.PhoneTitle.UseVisualStyleBackColor = false;
             // 
@@ -256,29 +213,39 @@
             // 
             this.ClientPhone.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientPhone.BackColor = System.Drawing.Color.White;
+            this.ClientPhone.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientPhone.Dock = System.Windows.Forms.DockStyle.Left;
             this.ClientPhone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ClientPhone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClientPhone.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ClientPhone.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.ClientPhone.Location = new System.Drawing.Point(317, 5);
+            this.ClientPhone.Margin = new System.Windows.Forms.Padding(1);
             this.ClientPhone.Name = "ClientPhone";
             this.ClientPhone.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientPhone.Size = new System.Drawing.Size(191, 61);
             this.ClientPhone.TabIndex = 54;
+            this.ClientPhone.TabStop = false;
             this.ClientPhone.UseVisualStyleBackColor = false;
             // 
             // DateTitle
             // 
             this.DateTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.DateTitle.BackColor = System.Drawing.Color.GhostWhite;
+            this.DateTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.DateTitle.Dock = System.Windows.Forms.DockStyle.Left;
             this.DateTitle.FlatAppearance.BorderSize = 0;
             this.DateTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DateTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.DateTitle.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.DateTitle.Location = new System.Drawing.Point(216, 5);
+            this.DateTitle.Margin = new System.Windows.Forms.Padding(1);
             this.DateTitle.Name = "DateTitle";
             this.DateTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.DateTitle.Size = new System.Drawing.Size(101, 61);
             this.DateTitle.TabIndex = 55;
+            this.DateTitle.TabStop = false;
             this.DateTitle.Text = "موعد التنفيذ:";
             this.DateTitle.UseVisualStyleBackColor = false;
             // 
@@ -286,16 +253,96 @@
             // 
             this.ClientDate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientDate.BackColor = System.Drawing.Color.White;
+            this.ClientDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientDate.Dock = System.Windows.Forms.DockStyle.Left;
             this.ClientDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ClientDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClientDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ClientDate.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.ClientDate.Location = new System.Drawing.Point(5, 5);
             this.ClientDate.Margin = new System.Windows.Forms.Padding(0);
             this.ClientDate.Name = "ClientDate";
             this.ClientDate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientDate.Size = new System.Drawing.Size(211, 61);
             this.ClientDate.TabIndex = 56;
+            this.ClientDate.TabStop = false;
             this.ClientDate.UseVisualStyleBackColor = false;
+            // 
+            // ItemCount
+            // 
+            this.ItemCount.BackColor = System.Drawing.Color.White;
+            this.ItemCount.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ItemCount.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ItemCount.FlatAppearance.BorderSize = 0;
+            this.ItemCount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ItemCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ItemCount.ForeColor = System.Drawing.Color.White;
+            this.ItemCount.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ItemCount.Location = new System.Drawing.Point(-57, 0);
+            this.ItemCount.Margin = new System.Windows.Forms.Padding(1);
+            this.ItemCount.Name = "ItemCount";
+            this.ItemCount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ItemCount.Size = new System.Drawing.Size(223, 177);
+            this.ItemCount.TabIndex = 45;
+            this.ItemCount.TabStop = false;
+            this.ItemCount.UseVisualStyleBackColor = false;
+            // 
+            // unfocusableButton2
+            // 
+            this.unfocusableButton2.BackColor = System.Drawing.Color.White;
+            this.unfocusableButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.unfocusableButton2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.unfocusableButton2.FlatAppearance.BorderSize = 0;
+            this.unfocusableButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.unfocusableButton2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
+            this.unfocusableButton2.ForeColor = System.Drawing.Color.White;
+            this.unfocusableButton2.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.unfocusableButton2.Location = new System.Drawing.Point(166, 0);
+            this.unfocusableButton2.Margin = new System.Windows.Forms.Padding(1);
+            this.unfocusableButton2.Name = "unfocusableButton2";
+            this.unfocusableButton2.Size = new System.Drawing.Size(142, 177);
+            this.unfocusableButton2.TabIndex = 43;
+            this.unfocusableButton2.TabStop = false;
+            this.unfocusableButton2.Text = "ريال سعودي\r\n\r\nSaudi Riyal\r\n";
+            this.unfocusableButton2.UseVisualStyleBackColor = false;
+            // 
+            // Price
+            // 
+            this.Price.BackColor = System.Drawing.Color.White;
+            this.Price.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Price.Dock = System.Windows.Forms.DockStyle.Right;
+            this.Price.FlatAppearance.BorderSize = 0;
+            this.Price.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Price.Font = new System.Drawing.Font("Segoe UI", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Price.ForeColor = System.Drawing.Color.Red;
+            this.Price.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.Price.Location = new System.Drawing.Point(308, 0);
+            this.Price.Margin = new System.Windows.Forms.Padding(0);
+            this.Price.Name = "Price";
+            this.Price.Size = new System.Drawing.Size(471, 177);
+            this.Price.TabIndex = 42;
+            this.Price.TabStop = false;
+            this.Price.Text = "0.00";
+            this.Price.UseVisualStyleBackColor = true;
+            // 
+            // unfocusableButton3
+            // 
+            this.unfocusableButton3.BackColor = System.Drawing.Color.White;
+            this.unfocusableButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.unfocusableButton3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.unfocusableButton3.FlatAppearance.BorderSize = 0;
+            this.unfocusableButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.unfocusableButton3.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unfocusableButton3.ForeColor = System.Drawing.Color.White;
+            this.unfocusableButton3.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.unfocusableButton3.Location = new System.Drawing.Point(779, 0);
+            this.unfocusableButton3.Margin = new System.Windows.Forms.Padding(1);
+            this.unfocusableButton3.Name = "unfocusableButton3";
+            this.unfocusableButton3.Size = new System.Drawing.Size(225, 177);
+            this.unfocusableButton3.TabIndex = 44;
+            this.unfocusableButton3.TabStop = false;
+            this.unfocusableButton3.Text = "المبلغ الإجمالي\r\n\r\nTotal Amount";
+            this.unfocusableButton3.UseVisualStyleBackColor = false;
             // 
             // LogoPic
             // 
@@ -308,11 +355,13 @@
             this.LogoPic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogoPic.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LogoPic.ForeColor = System.Drawing.Color.Black;
+            this.LogoPic.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.LogoPic.Location = new System.Drawing.Point(0, 0);
             this.LogoPic.Margin = new System.Windows.Forms.Padding(1);
             this.LogoPic.Name = "LogoPic";
             this.LogoPic.Size = new System.Drawing.Size(1004, 125);
             this.LogoPic.TabIndex = 36;
+            this.LogoPic.TabStop = false;
             this.LogoPic.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LogoPic.UseVisualStyleBackColor = false;
             // 
@@ -351,19 +400,19 @@
         #endregion
         public System.Windows.Forms.DataGridView dvItems2;
         private System.Windows.Forms.Panel panel1;
-        private UnfocusableButton unfocusableButton2;
-        private UnfocusableButton unfocusableButton3;
+        private UButton unfocusableButton2;
+        private UButton unfocusableButton3;
         private System.Windows.Forms.PictureBox Payment;
         public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel2;
-        private UnfocusableButton ClientDate;
-        private UnfocusableButton DateTitle;
-        private UnfocusableButton ClientPhone;
-        private UnfocusableButton PhoneTitle;
-        private UnfocusableButton ClientName;
-        private UnfocusableButton ClientTitle;
-        private UnfocusableButton Price;
-        private UnfocusableButton ItemCount;
-        private UnfocusableButton LogoPic;
+        private UButton ClientDate;
+        private UButton DateTitle;
+        private UButton ClientPhone;
+        private UButton PhoneTitle;
+        private UButton ClientName;
+        private UButton ClientTitle;
+        private UButton Price;
+        private UButton ItemCount;
+        private UButton LogoPic;
     }
 }

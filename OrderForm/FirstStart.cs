@@ -36,6 +36,7 @@ namespace OrderForm
             {
                 Properties.Settings.Default.RestaurantName = FirstRestTB.Text;
                 Properties.Settings.Default.Logo = FirstLogoTB.Text;
+                Properties.Settings.Default.Api_Server = ServerPC.Checked;
                 this.Close();
             }
             else
@@ -55,6 +56,14 @@ namespace OrderForm
             FileOpen.ShowDialog();
             FirstLogoTB.Text = FileOpen.FileName.ToString();
 
+        }
+
+        private void FirstStart_Load(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(@"C:\db"))
+            {
+                Directory.CreateDirectory(@"C:\db");
+            }
         }
     }
 }

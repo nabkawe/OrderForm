@@ -6,12 +6,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace OrderForm
 {
     public class MenuItemsXViewModel : INotifyPropertyChanged
     {
-        public static  MenuItemsXViewModel me(MenuItemsX menuItemsX)
+        public static MenuItemsXViewModel me(MenuItemsX menuItemsX)
         {
             var viewModel = new MenuItemsXViewModel
             {
@@ -25,7 +27,8 @@ namespace OrderForm
                 Cal = menuItemsX.Cal,
                 Price = menuItemsX.Price,
                 ImagePath = menuItemsX.ImagePath,
-                Available = menuItemsX.Available,Lang = menuItemsX.Lang
+                Available = menuItemsX.Available,
+                Lang = menuItemsX.Lang
             };
             return viewModel;
         }
@@ -163,6 +166,32 @@ namespace OrderForm
         {
             get => imagePath;
             set => SetProperty(ref imagePath, value);
+        }
+
+        public BitmapImage ImagePathSmall
+        {
+            get
+            {
+                try
+                {
+                    if (imagePath != null)
+                    {
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.UriSource = new Uri(ImagePath);
+                        bitmapImage.DecodePixelWidth = 200; // set the width to 200 pixels
+                        bitmapImage.EndInit();
+                        return bitmapImage;
+                    }
+                    else return new BitmapImage();
+
+                }
+                catch (Exception)
+                {
+
+                    return new BitmapImage();
+                }
+            }
         }
 
         private bool available;

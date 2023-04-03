@@ -20,26 +20,25 @@ namespace NetworkSynq.Controllers
     [Route("[controller]")]
     public class LoadDBController : ControllerBase
     {
-        static readonly IConfiguration conf = (new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
-        private readonly static string DBConnection = conf["ConnectionString"].ToString();
-        public static readonly LiteDatabase db = new(DBConnection);
+        public static readonly LiteDatabase db = new(Helpers.ConnectionStringHelper.GetConnectionString());
+
         static readonly string LogFile = @"C:\db";
 
 
 
         [HttpGet]
         [Route("AreYouAlive")]
-        public ActionResult Alive()
+        public ActionResult<bool> Alive()
         {
             try
             {
                 Console.Write("Yes,I'm Alive");
-                return Ok();
+                return Ok(true);
             }
             catch (System.Exception)
             {
 
-                return Ok();
+                return Ok(false);
 
             }
 
@@ -79,8 +78,7 @@ namespace NetworkSynq.Controllers
 
         }
 
-
-        private static void LogMyAPI(string text)
+        public static void LogMyAPI(string text)
         {
             try
             {
@@ -205,7 +203,8 @@ namespace NetworkSynq.Controllers
             catch (Exception)
             {
 
-                return Ok(new List<POSsections>());            }
+                return Ok(new List<POSsections>());
+            }
         }
 
         [HttpGet]
@@ -242,7 +241,7 @@ namespace NetworkSynq.Controllers
             catch (Exception)
             {
 
-                return  Ok(new List<POSDepartments>());
+                return Ok(new List<POSDepartments>());
             }
 
         }
@@ -281,7 +280,8 @@ namespace NetworkSynq.Controllers
             catch (Exception)
             {
 
-                return new List<POSItems>();            }
+                return new List<POSItems>();
+            }
 
         }
 
@@ -416,6 +416,37 @@ namespace NetworkSynq.Controllers
                     LogMyAPI("Failed to Update");
                     return Ok("Failed to Update");
                 }
+            }
+            catch (Exception)
+            {
+                LogMyAPI("Failed to Update");
+
+                return Ok("Failed to Update");
+            }
+        }   
+        
+        [HttpPost]
+        [Route("UpdateReady")] // to Saved.
+        public ActionResult<string> UpdateReady(int ID, bool Ready)
+        {
+
+
+            try
+            {
+                var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                var readyinv = invoiceTable.Find(x => x.ID == ID).First();
+                if (readyinv != null)
+                {
+                    readyinv.InEditMode = Ready;
+                    invoiceTable.Update(readyinv);
+                    return Ok("Success");
+                }
+                else
+                {
+                    return Ok("Failure");
+                }
+                
+                
             }
             catch (Exception)
             {

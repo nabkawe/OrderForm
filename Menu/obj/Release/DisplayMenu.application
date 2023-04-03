@@ -7,14 +7,14 @@
     <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="DisplayMenu.exe.manifest" size="7189">
+    <dependentAssembly dependencyType="install" codebase="DisplayMenu.exe.manifest" size="7662">
       <assemblyIdentity name="DisplayMenu.exe" version="1.0.0.11" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SBnELfI+pLUtuVMTjGSoJO+OvBcp9zJO7ffy5CDgDWQ=</dsig:DigestValue>
+        <dsig:DigestValue>nkxOteZijyS3X6pypJSb2gjiJpBCqplWV61E5Mj82qs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

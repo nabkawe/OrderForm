@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -16,7 +17,7 @@ namespace OrderForm
         //log backcode
         public static void LogAction(string action, int id, InvStat status)
         {
-            //if (Properties.Settings.Default.API_ACCESS)
+            //if (Properties.Settings.Default.Api_On)
             //{
             //    var Logged = GetInvoiceByID(id);
             //    Logged.LogThis(action);
@@ -48,23 +49,32 @@ namespace OrderForm
             //}
         }
 
-        public static bool AreYouAlive()
+        public static async Task<bool> AreYouAlive()
         {
-            System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            var client = new RestClient(Orders.APIConnection + "/LoadDB/AreYouAlive");
-            var request = new RestRequest();
-            request.Timeout = 3000;
-            var response = client.Get(request);
-            if (response != null) { return true; } else { return false; }
+            try
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/AreYouAlive");
+                var request = new RestRequest();
+                request.Timeout = 5000;
+                var response = await client.ExecuteAsync(request);
+                if (response != null) { return true; } else { return false; }
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
         public static int GetInvoicesCount()
         {
             {
-                if (Properties.Settings.Default.API_ACCESS)
+                if (Properties.Settings.Default.Api_On)
                 {
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.APIConnection + "/LoadDB/InvoiceCount");
+                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/InvoiceCount");
                     var request = new RestRequest();
                     RestResponse response = client.Get(request);
                     if (response != null)
@@ -121,10 +131,10 @@ namespace OrderForm
 
         public static List<Invoice> GetDraftInvoices()
         {
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/GetList");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetList");
                 var request = new RestRequest();
                 request.AddParameter("inv", "draft");
                 RestResponse response = client.Get(request);
@@ -182,7 +192,7 @@ namespace OrderForm
 
         internal static List<Invoice> SearchPrintedInvoices(string text)
         {
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
 
                 {
@@ -213,10 +223,10 @@ namespace OrderForm
         public static List<Invoice> GetPrintedInvoices()
         {
 
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/GetList");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetList");
                 var request = new RestRequest();
                 request.AddParameter("inv", "printed");
                 RestResponse response = client.Get(request);
@@ -255,7 +265,7 @@ namespace OrderForm
 
         internal static void UpdateInvoice(int iD, string posID)
         {
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 var updated = GetInvoiceByID(iD);
                 updated.POSInvoiceNumber = posID;
@@ -265,7 +275,7 @@ namespace OrderForm
                 updated.Status = InvStat.SavedToPOS;
 
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceSaved");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateInvoiceSaved");
                 var request = new RestRequest();
                 request.AddHeader("Content-Type", "application/json");
                 request.AddHeader("Accept", "application/json");
@@ -294,13 +304,13 @@ namespace OrderForm
 
         internal static void UpdateInvoice(Invoice inv)
         {
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
 
                 CultureInfo[] cultures = { new CultureInfo("ar-SA") };
                 DateTime DT = DateTime.Now;
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceSaved");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateInvoiceSaved");
                 var request = new RestRequest();
                 request.AddHeader("Content-Type", "application/json");
                 request.AddHeader("Accept", "application/json");
@@ -321,22 +331,25 @@ namespace OrderForm
                 }
             }
         }
-        internal static void UpdateDraftInvoice(int iD, bool edit)
+        internal static void UpdateInvoiceReady(int iD, bool edit)
         {
 
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 var updated = GetInvoiceByID(iD);
-                updated.Comment = updated.Comment + " ";
                 updated.InEditMode = edit;
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceSaved");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateReady");
                 var request = new RestRequest();
                 request.AddHeader("Content-Type", "application/json");
                 request.AddHeader("Accept", "application/json");
                 request.RequestFormat = DataFormat.Json;
-                string i = Newtonsoft.Json.JsonConvert.SerializeObject(updated, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
-                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                //string i = Newtonsoft.Json.JsonConvert.SerializeObject(updated, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
+                //request.AddParameter("application/json", i, ParameterType.RequestBody);
+                request.AddQueryParameter("ID", updated.ID);
+                request.AddQueryParameter("Ready", edit);
+                
+
                 var response = client.Post(request);
 
             }
@@ -348,7 +361,8 @@ namespace OrderForm
                 {
                     var updatedInvoices = db.GetCollection<Invoice>("Invoices");
                     var updated = updatedInvoices.FindById(iD);
-
+                    updated.InEditMode = edit;
+                    updatedInvoices.Update(updated);
 
                 }
             }
@@ -356,11 +370,11 @@ namespace OrderForm
 
         public static Invoice GetInvoiceByID(int ID)
         {
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/GetByID");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetByID");
 
                 var request = new RestRequest();
                 request.AddParameter("id", ID);
@@ -394,11 +408,11 @@ namespace OrderForm
 
         public static List<Invoice> GetSavedInvoices()
         {
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
 
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/GetList");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetList");
                 var request = new RestRequest();
                 request.AddParameter("inv", "saved");
                 RestResponse response = client.Get(request);
@@ -434,10 +448,10 @@ namespace OrderForm
 
         public static List<Invoice> GetAllSavedInvoices()
         {
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/GetList");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetList");
                 var request = new RestRequest();
                 request.AddParameter("inv", "allsaved");
                 RestResponse response = client.Get(request);
@@ -466,10 +480,10 @@ namespace OrderForm
         }
         public static void CreateDraftInvoice(Invoice inv)
         {
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceDraft");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateInvoiceDraft");
                 var request = new RestRequest();
                 request.AddHeader("Content-Type", "application/json");
                 request.AddHeader("Accept", "application/json");
@@ -497,7 +511,7 @@ namespace OrderForm
 
             var Deleted = GetInvoiceByID(id);
 
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 if (comment == 1)
                 {
@@ -507,7 +521,7 @@ namespace OrderForm
                     Deleted.Comment = "تم الإلغاء من العميل";
                     Deleted.Status = InvStat.Deleted;
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceDraft");
+                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateInvoiceDraft");
                     var request = new RestRequest();
                     request.AddHeader("Content-Type", "application/json");
                     request.AddHeader("Accept", "application/json");
@@ -528,7 +542,7 @@ namespace OrderForm
                     Deleted.Comment = "لم يتم الإستلام من العميل";
                     Deleted.Status = InvStat.Deleted;
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceDraft");
+                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateInvoiceDraft");
                     var request = new RestRequest();
                     request.AddHeader("Content-Type", "application/json");
                     request.AddHeader("Accept", "application/json");
@@ -573,10 +587,10 @@ namespace OrderForm
         public static string CreatePreparingInvoice(Invoice inv)
         {
 
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/CreateNewInvoice");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/CreateNewInvoice");
                 var request = new RestRequest();
 
                 request.AddHeader("Content-Type", "application/json");
@@ -624,10 +638,10 @@ namespace OrderForm
 
         public static bool UpdatePreparingInvoice(Invoice inv)
         {
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceDraft");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateInvoiceDraft");
                 var request = new RestRequest();
                 request.AddHeader("Content-Type", "application/json");
                 request.AddHeader("Accept", "application/json");
@@ -918,10 +932,10 @@ namespace OrderForm
         public static void CreateAppOrder(Invoice inv)
         {
 
-            if (Properties.Settings.Default.API_ACCESS)
+            if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.APIConnection + "/LoadDB/UpdateInvoiceSaved");
+                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateInvoiceSaved");
                 var request = new RestRequest();
                 request.AddHeader("Content-Type", "application/json");
                 request.AddHeader("Accept", "application/json");
@@ -944,7 +958,7 @@ namespace OrderForm
 
         //internal static GetInvoiceByPhoneNumber(string number)
         //{
-        //    if (Properties.Settings.Default.API_ACCESS)
+        //    if (Properties.Settings.Default.Api_On)
         //    {
         //        try
         //        {

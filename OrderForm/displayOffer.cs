@@ -28,9 +28,25 @@ namespace OrderForm
             var Show = new displayOffer();
             Show.timer1.Start();
             Show.timer1.Tick += Show.T_Tick;
-            if (ClientDate != null) { if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; } }
-            if (ClientName != null) { if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; } }
-            if (ClientPhone != null) { if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; } }
+            if (!string.IsNullOrEmpty(ClientDate))
+            {
+                if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate;
+                else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; }
+            }
+
+
+            if (!string.IsNullOrEmpty(ClientName))
+            {
+                if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName;
+                else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; }
+            }
+            if (!string.IsNullOrEmpty(ClientPhone))
+            {
+                if (ClientPhone.Replace(" ", "") != "")
+                    Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6);
+                else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; }
+            }
+
             Show.Show();
             Show.POS_ListChanged(null, null);
 
@@ -42,9 +58,13 @@ namespace OrderForm
             var Show = new displayOffer();
             Show.timer1.Start();
             Show.timer1.Tick += Show.T_Tick;
-            if (ClientDate != null) { if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; } }
-            if (ClientName != null) { if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; } }
-            if (ClientPhone != null) { if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; } }
+            if (!string.IsNullOrEmpty(ClientDate))
+            { if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; } }
+            if (!string.IsNullOrEmpty(ClientName))
+            { if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; } }
+            if (!string.IsNullOrEmpty(ClientPhone))
+
+            { if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; } }
             Show.Show();
             Show.POS_ListChanged(null, null);
             Show.dvItems2.DataSource = inv.InvoiceItems;
@@ -81,9 +101,9 @@ namespace OrderForm
                 //this.dvItems2.Height += 350;
             }
             else { this.Payment.Visible = false; this.LogoPic.Visible = false; this.panel1.Dock = DockStyle.Top; this.panel1.SendToBack(); }
-                
 
-                dvItems2.DataSource = Orders.POS;
+
+            dvItems2.DataSource = Orders.POS;
             Orders.POS.ListChanged += POS_ListChanged;
             var cellstyleMaterial = new DataGridViewCellStyle
             {
@@ -165,7 +185,7 @@ namespace OrderForm
 
                 var c = Orders.POS.Sum<POSItems>((x) => x.RealQuantity).ToString();
                 ItemCount.Text = $"عدد المواد المطلوبة: \n\n {c}";
-                dvItems2.Height = dvItems2.Rows[0].Height * (dvItems2.Rows.Count +1);
+                dvItems2.Height = dvItems2.Rows[0].Height * (dvItems2.Rows.Count + 1);
             }
             else
             {

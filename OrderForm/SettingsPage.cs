@@ -12,7 +12,10 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Animation;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OrderForm
 {
@@ -240,8 +243,10 @@ namespace OrderForm
             logoTB.Text = Properties.Settings.Default.Logo;
             GetFonts();
             comboBox1.Text = Properties.Settings.Default.FontCombo;
-            APICheck.Checked = Properties.Settings.Default.API_ACCESS;
-            ServerFile.Text = Properties.Settings.Default.API_Server_Path;
+            APICheck.Checked = Properties.Settings.Default.Api_On;
+            ServerRB.Checked = Properties.Settings.Default.Api_Server;
+            ClientRB.Checked = !Properties.Settings.Default.Api_Server;
+
 
         }
 
@@ -598,6 +603,7 @@ namespace OrderForm
 
         private void SaveChangesPOS_Click(object sender, EventArgs e)
         {
+
             Properties.Settings.Default.pos = postb.Text;
             Properties.Settings.Default.barcodetb = barcodetb.Text;
             Properties.Settings.Default.invoiceprc = invoiceprc.Text;
@@ -650,12 +656,15 @@ namespace OrderForm
             Properties.Settings.Default.POSPhoneNumber = POSPhoneNumber_.Text;
             Properties.Settings.Default.WheelEnabled = WheelCheck.Checked;
             Properties.Settings.Default.WheelGridEnabled = WheelGridCheck.Checked;
-            Properties.Settings.Default.API_ACCESS = APICheck.Checked;
+            Properties.Settings.Default.Api_On = APICheck.Checked;
+        //Orders.MyForm.APIAccess = Properties.Settings.Default.Api_On;
             Properties.Settings.Default.API_Server_Path = LoadFile.FileName;
             Properties.Settings.Default.API_Connection = ipTB.Text;
+            Orders.MyForm.APIConnection = ipTB.Text;
             Properties.Settings.Default.RestaurantName = RestTB.Text;
             Properties.Settings.Default.Logo = logoTB.Text;
-            
+            Properties.Settings.Default.Api_Server = ServerRB.Checked;
+            Orders.servermode = ServerRB.Checked;
 
             if (ItemW.Text != null && ItemH.Text != null)
             {
@@ -668,9 +677,6 @@ namespace OrderForm
 
             }
 
-
-
-            Orders.APIConnection = ipTB.Text;
             Properties.Settings.Default.Save();
         }
 
@@ -1246,36 +1252,34 @@ namespace OrderForm
 
         private void button16_Click(object sender, EventArgs e)
         {
-            LoadFile.ShowDialog();
-            LoadFile.InitialDirectory = Application.StartupPath;
-            if (LoadFile.FileName.Contains("NetworkSynq"))
+            if (ipTB.Text == "")
             {
-                if (repeatedBehavior.AreYouSure("هل تريد ضبط الملف والحاسب المستخدم كسيرفر", "تنبيه"))
-                {
-                    ipTB.Text = "http://" + GetLocalIPAddress() + ":5000";
-
-                    var appSettingsPath = Path.Combine(LoadFile.FileName.Replace("NetworkSynq.exe", ""), "appsettings.json");
-                    var json = File.ReadAllText(appSettingsPath);
-                    var jsonSettings = new JsonSerializerSettings();
-                    jsonSettings.Converters.Add(new ExpandoObjectConverter());
-                    jsonSettings.Converters.Add(new StringEnumConverter());
-                    dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
-                    config.Kestrel.Endpoints.Http.Url = ipTB.Text;
-                    //config.Kestrel.Endpoints.Https.Url = ipTB.Text.Replace(":5000",":5001").Replace("http://","https://");
-                    config.ConnectionString = Properties.Settings.Default.DBConnection;
-                    var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
-                    File.WriteAllText(appSettingsPath, newJson);
-                    if (repeatedBehavior.AreYouSure("الرجاء إغلاق البرنامج لحفظ التعديل", "تنبيه؟"))
-                    {
-                        Properties.Settings.Default.API_Server_Path = LoadFile.FileName;
-                        Properties.Settings.Default.API_ACCESS = true;
-                        ServerFile.Text = LoadFile.FileName;
-                        Properties.Settings.Default.Save();
-                    }
-                }
-
+                ipTB.Text = "http://" + GetLocalIPAddress() + ":5000";
             }
-
+            var appSettingsPath = Path.Combine(System.Windows.Forms.Application.StartupPath + @"\API\" + "appsettings.json");
+            var json = File.ReadAllText(appSettingsPath);
+            var jsonSettings = new JsonSerializerSettings();
+            jsonSettings.Converters.Add(new ExpandoObjectConverter());
+            jsonSettings.Converters.Add(new StringEnumConverter());
+            dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
+            config.Kestrel.Endpoints.Http.Url = ipTB.Text;
+            //config.Kestrel.Endpoints.Https.Url = ipTB.Text.Replace(":5000",":5001").Replace("http://","https://");
+            config.ConnectionString = Properties.Settings.Default.DBConnection;
+            var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
+            File.WriteAllText(appSettingsPath, newJson);
+            Console.Beep(500, 2000);
+            if (repeatedBehavior.AreYouSure("هل تريد التأكد من صلاحية الآي بي للإتصال؟", "تأكد؟"))
+            {
+                Orders.KillandRestartAPI();
+                if (DbInv.AreYouAlive().Result)
+                {
+                    MessageBox.Show("الإتصال سليم");
+                }
+                else
+                {
+                    MessageBox.Show("قد يكون هناك خطأ في إعدادات السيرفر");
+                }
+            }
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -1301,18 +1305,33 @@ namespace OrderForm
 
             Console.WriteLine("I'm Here.");
             var OwnIp = GetLocalIPAddress().Split('.');
-            string NetworkIP = OwnIp[0] + "." + OwnIp[1] + "." + OwnIp[2] + ".";
+            string NetworkIP = $"{OwnIp[0]}.{OwnIp[1]}.{OwnIp[2]}.";
             Console.WriteLine(NetworkIP);
-            for (int i = 1; i <= 255; i++)
+            Parallel.For(1, 256, i =>
             {
-                if (scanForAPI(NetworkIP + i.ToString()))
+                if (scanForAPI($"{NetworkIP}{i}"))
                 {
                     Console.WriteLine(i);
-                    e.Result = NetworkIP + i.ToString();
+                    e.Result = $"{NetworkIP}{i}";
                     return;
                 }
-            }
+            });
             e.Result = "فشل العثور على السيرفر";
+
+            //Console.WriteLine("I'm Here.");
+            //var OwnIp = GetLocalIPAddress().Split('.');
+            //string NetworkIP = OwnIp[0] + "." + OwnIp[1] + "." + OwnIp[2] + ".";
+            //Console.WriteLine(NetworkIP);
+            //for (int i = 1; i <= 255; i++)
+            //{
+            //    if (scanForAPI(NetworkIP + i.ToString()))
+            //    {
+            //        Console.WriteLine(i);
+            //        e.Result = NetworkIP + i.ToString();
+            //        return;
+            //    }
+            //}
+            //e.Result = "فشل العثور على السيرفر";
         }
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1463,12 +1482,6 @@ namespace OrderForm
 
         }
 
-        private void button18_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.API_Server_Path = "";
-            Properties.Settings.Default.Save();
-
-        }
 
         private void AddingGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1510,7 +1523,7 @@ namespace OrderForm
                 MenuSection sect = new MenuSection();
                 sect.Name = mlistTB.Text;
                 MListLB.Items.Add(sect);
-                
+
                 sect.order = MListLB.FindString(sect.Name);
                 MenuDB.SaveMenuSection(sect);
                 MenuDB.UpdateSectionItems(MIZ.ToList(), sect.Name);
@@ -1520,6 +1533,84 @@ namespace OrderForm
         private void SettingsPage_FormClosed_1(object sender, FormClosedEventArgs e)
         {
             Orders.SettingsClosed();
+        }
+
+        private void PicTB_DoubleClick(object sender, EventArgs e)
+        {
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                if (repeatedBehavior.AreYouSure("هل تريد تحديث جميع الصور بناء على المينيو؟", "العملية قد تأخذ وقتا... "))
+                {
+                    var MenuItemZZZ = new List<MenuItemZ>();
+                    MenuDB.GetMenus().ForEach(x => MenuDB.GetMenuItems(x).ForEach(y => MenuItemZZZ.Add(y)));
+
+
+
+                    foreach (var item in MAT.ToList())
+                    {
+                        foreach (var z in MenuItemZZZ)
+                        {
+                            {
+                                if (z.SingleX)
+                                {
+                                    if (item.Barcode == z.items[0].Barcode) item.PicturePath = z.items[0].ImagePath;
+                                }
+                                else
+                                {
+                                    z.items.ForEach(multi => { if (multi.Barcode == item.Barcode) { item.PicturePath = multi.ImagePath; } });
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+            }
+        }
+
+        private void OpenDB_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = @"c:\db";
+            openFileDialog1.Filter = "db files (*.db)|*.db|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.CheckFileExists = false;
+            openFileDialog1.CheckPathExists = false;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                DBConnection.Text = "Filename=" + openFileDialog1.FileName;
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ClientRB.Checked)
+            {
+                APICheck.Checked = true;
+
+            }
+
+        }
+
+        private void ServerRB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ServerRB.Checked && DBConnection.Text == "")
+            {
+                if (repeatedBehavior.AreYouSure("لم تقم بضبط مكان لقاعدة البيانات وهو ضروري لعمل السيرفر" + Environment.NewLine + "هل تريد أن نقوم بضبطه في المكان الإفتراضي؟", "يرجى ضبط مكان قاعدة البيانات"))
+                {
+                    DBConnection.Text = @"Filename=C:\db\db.db";
+                }
+                APISETTINGS.Enabled = true;
+
+            }
+            else if (ServerRB.Checked)
+            {
+                
+                APISETTINGS.Enabled = true;
+            }
         }
     }
 }
