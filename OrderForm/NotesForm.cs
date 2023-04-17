@@ -38,7 +38,7 @@ namespace OrderForm
 
         private void AddNoteBTN_Click_1(object sender, EventArgs e)
         {
-            if (noteTB.Text.Replace(" ", "") != "")
+            if (!string.IsNullOrWhiteSpace( noteTB.Text))
             {
                 string note = noteTB.Text;
                 this.noteList.Items.Add(note);

@@ -23,24 +23,18 @@ namespace OrderForm.Custom_Classes
         private static int CommentSpace()
         {
 
-            if (order.Comment != null)
-            {
-                if (order.Comment != "")
+            
+                if (!string.IsNullOrEmpty(order.Comment))
                     return 105;
                 else return 0;
-            }
-            else return 0;
-
+            
         }
         private static int NumbersSpace()
         {
-            if (order.CustomerName != null || order.CustomerNumber != null)
-            {
-                if (order.CustomerName != "" || order.CustomerNumber != "")
+            
+                if (!string.IsNullOrEmpty(order.CustomerName) || !string.IsNullOrEmpty(order.CustomerNumber))
                     return 75;
                 else return 0;
-            }
-            else return 0;
 
         }
         private static Image FormatPage()
@@ -54,8 +48,8 @@ namespace OrderForm.Custom_Classes
             Bitmap offerInit = new Bitmap(800, 1); //initial
             var e = Graphics.FromImage(offerInit);
             int ItemSpace = 70;
-            var commentCount = order.InvoiceItems.Where(Com => Com.Comment != null && Com.Comment != "").Count();
-            int LogoSpace = 535;
+            var commentCount = order.InvoiceItems.Where(Com => (!string.IsNullOrEmpty(Com.Comment))).Count();
+            int LogoSpace = 550;
             int footer = 440;
 
             int h = LogoSpace + CommentSpace() + NumbersSpace() + ((order.InvoiceItems.Count + commentCount) * ItemSpace) + footer;
@@ -92,6 +86,7 @@ namespace OrderForm.Custom_Classes
             // SolidBrush drawBrush = new SolidBrush(Color.Black);
             SolidBrush drawBrush = new SolidBrush(Color.FromArgb(81, 52, 23));
             SolidBrush drawBrushAccent = new SolidBrush(Color.FromArgb(169, 107, 40));
+            SolidBrush drawBrushAccents = new SolidBrush(Color.Green);
             Pen pen = new Pen(Color.FromArgb(81, 52, 23), 1);
             // Set format of string.
             StringFormat drawFormatCenter = new StringFormat();
@@ -109,14 +104,14 @@ namespace OrderForm.Custom_Classes
 
             try
             {
-                var logo = Bitmap.FromFile(Properties.Settings.Default.Logo);
-                e.DrawImage(logo, (offer.Width - (logo.Width / 4)) / 2, y, logo.Width / 4, logo.Height / 4);
-                e.DrawImage(logo, (offer.Width - (logo.Width / 4)) / 2, y, logo.Width / 4, logo.Height / 4);
-                e.DrawString(DateTime.Now.ToString("hh:mmtt- dd/MM/yy") + Environment.NewLine + "السعر صالح لغاية استلام الطلب", tfnt, drawBrush, new RectangleF(x, y, width + 40, height), drawFormatRight);
+                var logo = Bitmap.FromFile(Properties.Settings.Default.Logo).GetThumbnailImage(300, 300, null, IntPtr.Zero) ;
+                
+                e.DrawImage(logo, (offer.Width - (logo.Width )) / 2, y, logo.Width , logo.Height );
+                e.DrawString(DateTime.Now.ToString("hh:mmtt- dd/MM/yy") + Environment.NewLine + "السعر صالح لغاية هذا التاريخ ", tfnt, drawBrush, new RectangleF(x, y, width + 40, height), drawFormatRight);
                 e.DrawString("عرض سعر", fnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
 
-                y += logo.Height / 4 + 50;
-                e.DrawString(Properties.Settings.Default.BranchName, lfnt, drawBrush, new RectangleF(x, y - 100, width, height), drawFormatLeft); ;
+                y += logo.Height;
+                e.DrawString(Properties.Settings.Default.BranchName, lfnt, drawBrush, new RectangleF(x, y- e.MeasureString("Hello",fnt).Height, width, height), drawFormatLeft); ;
 
 
             }
@@ -125,15 +120,11 @@ namespace OrderForm.Custom_Classes
 
 
             }
-            text = "رقم التحضير: " + order.ID.ToString();
+            text = "رقم الطلب: " + order.ID.ToString();
             e.DrawString(text, lfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += e.MeasureString(text, lfnt).Height;
             y += 5;
 
-            text = "نقبل بطاقات مدى بشكل حصري";
-            e.DrawString(text, fnt, drawBrushAccent, new RectangleF(x, y, width, height), drawFormatCenter);
-            y += e.MeasureString(text, lfnt).Height;
-            y += 10;
 
       
             //Order Day + Time
@@ -144,7 +135,7 @@ namespace OrderForm.Custom_Classes
             y += e.MeasureString(text, lfnt).Height;
 
             // Customer Name Check and print
-            if (order.CustomerName != "")
+            if (!string.IsNullOrEmpty(order.CustomerName))
             {
                 y += 5;
                 e.DrawLine(pen, new Point(10, Convert.ToInt32(y)), new Point(750, Convert.ToInt32(y)));
@@ -154,7 +145,7 @@ namespace OrderForm.Custom_Classes
                 e.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
                 // Customer Number Check and print
 
-                if (order.CustomerNumber != "")
+                if (!string.IsNullOrEmpty(order.CustomerNumber))
                 {
                     text = order.CustomerNumber;
                     e.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
@@ -169,9 +160,8 @@ namespace OrderForm.Custom_Classes
 
 
             // Order Notes Check and print
-            if (order.Comment != null)
-            {
-                if (order.Comment != "")
+            
+                if (!string.IsNullOrEmpty(order.Comment))
                 {
                     text = order.Comment;
                     e.DrawString("ملاحظة الفاتورة", tfnt, drawBrush, new RectangleF(x, y - 3, width, height), drawFormatRight);
@@ -179,7 +169,31 @@ namespace OrderForm.Custom_Classes
                     e.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
                     y += e.MeasureString(text, fnt).Height;
                 }
-            }
+
+            text = ":المبلغ المطلوب";
+            e.DrawString(text, Hugefnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
+            y += 100;
+            text = RtlMark + order.InvoicePrice + "   ريال سعودي   ";
+            e.DrawString(text, Hugefnt, drawBrushAccent, new RectangleF(x, y, width, height), drawFormatLeft);
+            y += 50;
+
+            y += 50;
+            e.DrawLine(pen, new Point(10, Convert.ToInt32(y)), new Point(750, Convert.ToInt32(y)));
+            y += 10;
+
+            text = "السعر شامل لضريبة القيمة المضافة";
+            e.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+            y += e.MeasureString(text, fnt).Height;
+
+            text = "نقبل الدفع عبر بطاقة مدى بشكل حصري";
+            e.DrawString(text, fnt, drawBrushAccents, new RectangleF(x, y, width, height), drawFormatCenter);
+            y += e.MeasureString(text, lfnt).Height;
+            y += 10;
+
+
+            text = "تفاصيل الطلب:";
+            e.DrawString(text, lfnt, drawBrush, new RectangleF(x, y, width, height), rtlFormat);
+            y += e.MeasureString(text, lfnt).Height;
 
             //  Items Header Area
             y += 5;
@@ -234,11 +248,11 @@ namespace OrderForm.Custom_Classes
                     y += e.MeasureString(text, fnt).Height;
                 }
                 //checking for item comments.
-                if (item.Comment != null)
+                if (!string.IsNullOrEmpty(item.Comment))
                 {
-                    if (item.Comment.Replace(" ", "") != "")
+                    
 
-                    {
+                    
                         y += 1;
                         e.DrawLine(pen, new Point(500, Convert.ToInt32(y)), new Point(750, Convert.ToInt32(y)));
                         y += 1;
@@ -246,7 +260,7 @@ namespace OrderForm.Custom_Classes
                         string comment = RtlMark + item.Comment;
                         e.DrawString(comment, cfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
                         y += e.MeasureString(comment, cfnt).Height;
-                    }
+                    
                 }
             }
             y += 10;
@@ -259,21 +273,7 @@ namespace OrderForm.Custom_Classes
             text = " عدد المواد الكلي  " + $"[ {order.RealQuantity} ]مادة";
             e.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
             y += 25;
-            text = ":المبلغ المطلوب";
-            e.DrawString(text, Hugefnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
-            y += 100;
-            text = RtlMark + order.InvoicePrice + "   ريال سعودي   ";
-            e.DrawString(text, Hugefnt, drawBrushAccent, new RectangleF(x, y, width, height), drawFormatLeft);
-            y += 50;
-
-            y += 50;
-            e.DrawLine(pen, new Point(10, Convert.ToInt32(y)), new Point(750, Convert.ToInt32(y)));
-            y += 10;
-
-            text = "السعر شامل لضريبة القيمة المضافة";
-            e.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-            y += e.MeasureString(text, fnt).Height;
-
+           
 
             Bitmap Trimoffer = new Bitmap(800, Convert.ToInt32(y) + 50);
             Graphics Trimmer = Graphics.FromImage(Trimoffer);

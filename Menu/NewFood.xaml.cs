@@ -48,13 +48,14 @@ namespace OrderForm
             if (pos.SingleX)
             {
                 Single = true;
-                Task.Run(() =>
-                {
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        this.DataContext = MenuItemsXViewModel.me(pos.items[0]);
-                    });
-                });
+                //Task.Run(() =>
+                //{
+                //    this.Dispatcher.Invoke(() =>
+                //    {
+                //        this.DataContext = MenuItemsXViewModel.me(pos.items[0]);
+                //    });
+                //});
+                this.DataContext = MenuItemsXViewModel.me(pos.items[0]);
                 this.Tag = pos.items[0].Barcode;
             }
             else

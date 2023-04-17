@@ -11,7 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisplayMenu", "Menu\Display
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkSynq", "NetworkSynq\NetworkSynq.csproj", "{38196F00-D647-4F8A-82CD-B53103C1CFE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CID", "CID\SampleBasicNetwork2008\CID.csproj", "{65931405-0311-41F9-BCC6-A1D8A93F706D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D645F50B-E2DF-46B1-AF48-E3FD26920D04}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,18 +74,6 @@ Global
 		{38196F00-D647-4F8A-82CD-B53103C1CFE4}.Release|x64.Build.0 = Release|Any CPU
 		{38196F00-D647-4F8A-82CD-B53103C1CFE4}.Release|x86.ActiveCfg = Release|Any CPU
 		{38196F00-D647-4F8A-82CD-B53103C1CFE4}.Release|x86.Build.0 = Release|Any CPU
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Debug|Any CPU.Build.0 = Debug|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Debug|x64.ActiveCfg = Debug|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Debug|x64.Build.0 = Debug|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Debug|x86.ActiveCfg = Debug|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Debug|x86.Build.0 = Debug|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Release|Any CPU.ActiveCfg = Release|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Release|Any CPU.Build.0 = Release|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Release|x64.ActiveCfg = Release|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Release|x64.Build.0 = Release|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Release|x86.ActiveCfg = Release|x86
-		{65931405-0311-41F9-BCC6-A1D8A93F706D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

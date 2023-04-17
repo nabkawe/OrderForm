@@ -30,11 +30,11 @@
                 <TextBlock x:Name="InfoContent" Foreground="#FF513519"   FlowDirection="RightToLeft" TextWrapping="Wrap" Text="" Width="340"  FontSize="13" FontFamily="AbdoMaster ☞"/>
             </Border>
         </StackPanel>
-        <Image x:Name="logoMid" Grid.Column="1" Source="C:\db\images\HeaderSource\logo.png" Stretch="Uniform"  Margin="24,5,33,22" />
+        <Image x:Name="logoMid" Grid.Column="1"  Stretch="Uniform"  Margin="24,5,33,22" />
         <StackPanel Grid.Column="0" FlowDirection="RightToLeft"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight"  HorizontalAlignment="Right">
-                <Image  Source="C:\db\images\HeaderSource\VAT.png" Stretch="Uniform" Height="65" Width="84" Margin="0,0,5,0"   />
-                <Image  Source="C:\db\images\HeaderSource\pricesinclude.jpg" Visibility="Visible" Stretch="Uniform" Height="69" Width="162" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
+                <Image x:Name="LogoVat"  Source="C:\db\images\HeaderSource\VAT.png" Stretch="Uniform" Height="65" Width="84" Margin="0,0,5,0"   />
+                <Image  x:Name="LogoPricesInclude" Source="C:\db\images\HeaderSource\pricesinclude.jpg" Visibility="Visible" Stretch="Uniform" Height="69" Width="162" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
             </StackPanel>
             <Image x:Name="MadaMid" Source="C:\db\images\HeaderSource\Mada.jpg"  Panel.ZIndex="1" Stretch="Uniform" Margin="0,0,5,0" HorizontalAlignment="Right" Height="61"  />
         </StackPanel>

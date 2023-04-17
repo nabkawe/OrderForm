@@ -1,6 +1,8 @@
 
 
 
+
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
@@ -11,6 +13,8 @@ if (!Directory.Exists(@"C:\db"))
 {
     Directory.CreateDirectory(@"C:\db");
 }
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -18,9 +22,9 @@ var app = builder.Build();
 
 
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 
@@ -30,7 +34,5 @@ try
 }
 catch (System.Exception)
 {
-
-}
-
     
+}

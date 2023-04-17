@@ -62,8 +62,7 @@ namespace sharedCode
                 {
                     if (this.InvoiceItems.Count > 0)
                     {
-                        int RQ = this.InvoiceItems.Sum(x => x.RealQuantity);
-                        return RQ;
+                        return this.InvoiceItems.Sum(x => x.RealQuantity);
                     }
                     else return 0;
 
@@ -139,9 +138,9 @@ namespace sharedCode
 
         //time related code
 
-        [DisplayName("يوم تنفيذ الطلب")]
+        [DisplayName("يوم الطلب")]
         public InvDay InvoiceDay { get ; set; }
-        [DisplayName("وقت تنفيذ الطلب")]
+        [DisplayName("وقت الطلب")]
         public string TimeinArabic { get; set; } // مكتوب بالعربي
         [Browsable(false)]
         public string TimeAMPM { get; set; } // مكتوب بالعربي المختصر
@@ -159,7 +158,7 @@ namespace sharedCode
             }
             else if ((int)this.InvoiceDay != (int)DateTime.Now.DayOfWeek)
             {
-                DayOfWeek dow = (DayOfWeek)(int)this.InvoiceDay;// = (int)this.InvoiceDay;
+                DayOfWeek dow = (DayOfWeek)(int)this.InvoiceDay;
                 DateTime dt = Next(DateTime.Now, dow);
                 return dt;
             }
@@ -167,11 +166,14 @@ namespace sharedCode
         } // 
         public DateTime Next(DateTime from, DayOfWeek dayOfWeek)
         {
-            int start = (int)from.DayOfWeek;
-            int target = (int)dayOfWeek;
-            if (target <= start)
-                target += 7;
-            return from.AddDays(target - start);
+            //int start = (int)from.DayOfWeek;
+            //int target = (int)dayOfWeek;
+            //if (target <= start)
+            //    target += 7;
+            //return from.AddDays(target - start);
+            int daysToAdd = ((int)dayOfWeek - (int)from.DayOfWeek + 7) % 7;
+            return from.AddDays(daysToAdd);
+
         }
         public static string GetDayName(int dayInt)
         {
@@ -254,40 +256,29 @@ namespace sharedCode
             return $"{ID}-{CustomerName}-{CustomerNumber}";
         }
         static bool t = true;
-        public bool Equal(Invoice New)
+        public bool Equal(Invoice other)
         {
-            if (New == null) return false;
-            if (New.Comment == null) New.Comment = "";
-            if (New.CustomerNumber == null) New.CustomerNumber = "";
-            if (New.CustomerName == null) New.CustomerName = "";
-            t = true;
-            if (this.InvoiceItems.Count() != New.InvoiceItems.Count())
+            if (other == null) return false;
+
+            if (InvoiceItems.Count != other.InvoiceItems.Count) return false;
+            if (InvoiceItems.Sum(x => x.RealQuantity) != other.InvoiceItems.Sum(x => x.RealQuantity)) return false;
+
+            other.Comment = other.Comment ?? "";
+            other.CustomerNumber = other.CustomerNumber ?? "";
+            other.CustomerName = other.CustomerName ?? "";
+
+            if (Comment != other.Comment || CustomerNumber != other.CustomerNumber ||
+                ID != other.ID || TimeinArabic != other.TimeinArabic || CustomerName != other.CustomerName ||
+                OrderType != other.OrderType || InvoiceDay != other.InvoiceDay) return false;
+
+            foreach (var item in InvoiceItems)
             {
-                t = false;
-                return t;
+                if (!other.InvoiceItems.Any(x => x.Name == item.Name && x.Quantity == item.Quantity && x.Comment == item.Comment))
+                    return false;
             }
 
-            if (this.Comment == New.Comment && this.CustomerNumber == New.CustomerNumber &&
-            this.ID == New.ID /*&& this.InvoicePrice == New.InvoicePrice*/ &&
-            this.TimeinArabic == New.TimeinArabic && this.CustomerName == New.CustomerName &&
-            this.OrderType == New.OrderType && this.InvoiceDay == New.InvoiceDay) { t = true; /*MessageBox.Show("All Good at Text level");*/ }
-            else { t = false; return t; }
-
-
-            foreach (var item in this.InvoiceItems)
-            {
-                var a = New.InvoiceItems.Any(x => x.Name == item.Name && x.Quantity == item.Quantity && x.Comment == item.Comment);
-                if (!a)
-                {
-                    t = false;
-                    return t;
-
-                }
-
-            }
-            return t;
+            return true;
         }
-
 
 
 

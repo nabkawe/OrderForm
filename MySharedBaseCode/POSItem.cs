@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiteDB;
+using System;
 using System.ComponentModel;
 using System.Net.NetworkInformation;
 
@@ -52,6 +53,8 @@ namespace sharedCode
 
     public class PhoneLog : INotifyPropertyChanged
     {
+        public PhoneLog() { }
+        [BsonId]
         public int Id { get; set; }
         public DateTime CallDateTime { get; set; }
 
@@ -76,6 +79,7 @@ namespace sharedCode
                 OnPropertyChanged(nameof(CustomerName));
             }
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

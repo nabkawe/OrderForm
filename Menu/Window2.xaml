@@ -1,0 +1,35 @@
+﻿<Window x:Class="OrderForm.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OrderForm"
+        mc:Ignorable="d"
+        Title="Window2" Height="1200" Width="800">
+    <WrapPanel>
+        <StackPanel>
+            <StackPanel Margin="50">
+                <DockPanel Background="GhostWhite" Width="300" FlowDirection="LeftToRight" Height="50">
+                    <Rectangle DockPanel.Dock="Left" Width="5" RadiusX="10"  RadiusY="1" Fill="DarkOrange"/>
+                    <Image DockPanel.Dock="Left" Source="C:\items\debes.png" Width="70" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <TextBlock DockPanel.Dock="Right"  Text="الفطائر الشامية" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="30"/>
+                </DockPanel>
+                <StackPanel FlowDirection="RightToLeft" >
+                    <DockPanel>
+                        <TextBlock Text="0.0رس" FontSize="10"></TextBlock>
+                        <Rectangle Fill="DarkOrange" DockPanel.Dock="Right" Width="60" RadiusX="8" RadiusY="8">
+                            
+                        </Rectangle>
+                        <StackPanel>
+                        <TextBlock FontSize="30"  Text="صفيحة دبس رمان"/>
+                        <TextBlock FontSize="15" Text= "معلومات صحية"></TextBlock>
+                    </StackPanel>
+                    </DockPanel>
+
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+
+    </WrapPanel>
+</Window>

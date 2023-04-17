@@ -246,7 +246,7 @@ namespace OrderForm
             APICheck.Checked = Properties.Settings.Default.Api_On;
             ServerRB.Checked = Properties.Settings.Default.Api_Server;
             ClientRB.Checked = !Properties.Settings.Default.Api_Server;
-
+            CIDCheck.Checked = Properties.Settings.Default.CallerIDEnabled;
 
         }
 
@@ -657,14 +657,16 @@ namespace OrderForm
             Properties.Settings.Default.WheelEnabled = WheelCheck.Checked;
             Properties.Settings.Default.WheelGridEnabled = WheelGridCheck.Checked;
             Properties.Settings.Default.Api_On = APICheck.Checked;
-        //Orders.MyForm.APIAccess = Properties.Settings.Default.Api_On;
             Properties.Settings.Default.API_Server_Path = LoadFile.FileName;
             Properties.Settings.Default.API_Connection = ipTB.Text;
-            Orders.MyForm.APIConnection = ipTB.Text;
             Properties.Settings.Default.RestaurantName = RestTB.Text;
             Properties.Settings.Default.Logo = logoTB.Text;
             Properties.Settings.Default.Api_Server = ServerRB.Checked;
-            Orders.servermode = ServerRB.Checked;
+
+            Properties.Settings.Default.Api_Server = ServerRB.Checked;
+            Properties.Settings.Default.CallerIDEnabled = CIDCheck.Checked;
+
+
 
             if (ItemW.Text != null && ItemH.Text != null)
             {
@@ -754,10 +756,8 @@ namespace OrderForm
 
         private void MaterialsEdit_Enter(object sender, EventArgs e)
         {
-            MAT.Clear();
-            dbQ.LoadMaterialItems().ForEach(x => MAT.Add(x));
-            matLB.DataSource = MAT;
-            TaxTB.Text = Properties.Settings.Default.CurrentTax.ToString();
+            this.uButton1.Visible = true;
+
 
         }
 
@@ -1271,7 +1271,7 @@ namespace OrderForm
             if (repeatedBehavior.AreYouSure("هل تريد التأكد من صلاحية الآي بي للإتصال؟", "تأكد؟"))
             {
                 Orders.KillandRestartAPI();
-                if (DbInv.AreYouAlive().Result)
+                if (DbInv.AreYouAlive())
                 {
                     MessageBox.Show("الإتصال سليم");
                 }
@@ -1581,7 +1581,7 @@ namespace OrderForm
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                DBConnection.Text = "Filename=" + openFileDialog1.FileName;
+                DBConnection.Text = "filename=" + openFileDialog1.FileName;
             }
         }
 
@@ -1601,16 +1601,25 @@ namespace OrderForm
             {
                 if (repeatedBehavior.AreYouSure("لم تقم بضبط مكان لقاعدة البيانات وهو ضروري لعمل السيرفر" + Environment.NewLine + "هل تريد أن نقوم بضبطه في المكان الإفتراضي؟", "يرجى ضبط مكان قاعدة البيانات"))
                 {
-                    DBConnection.Text = @"Filename=C:\db\db.db";
+                    DBConnection.Text = @"filename=C:\db\db.db";
                 }
                 APISETTINGS.Enabled = true;
 
             }
             else if (ServerRB.Checked)
             {
-                
+
                 APISETTINGS.Enabled = true;
             }
+        }
+
+        private void uButton1_Click(object sender, EventArgs e)
+        {
+            MAT.Clear();
+            dbQ.LoadMaterialItems().ForEach(x => MAT.Add(x));
+            matLB.DataSource = MAT;
+            TaxTB.Text = Properties.Settings.Default.CurrentTax.ToString();
+            this.uButton1.Visible = false;
         }
     }
 }

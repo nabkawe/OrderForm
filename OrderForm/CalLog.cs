@@ -1,5 +1,4 @@
-﻿using OrderFormCID;
-using sharedCode;
+﻿using sharedCode;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,13 +26,6 @@ namespace OrderForm
             phoneLogLB.DataSource = PhonelogList;
             phoneLogLB.ValueMember = "CallDateTime";
             phoneLogLB.MouseWheel += PhoneLogLB_MouseWheel;
-            PhoneLog ex = new PhoneLog();
-            ex.CustomerName = "محمد قبلان";
-            ex.PhoneNumber = "1234567890";
-            ex.CallDateTime = DateTime.Now;
-            ex.CallDateTime = ex.CallDateTime.AddMinutes(5);
-            PhonelogList.Add(ex);
-  
             phoneLogLB.Refresh();
             phoneLogLB.Update();
 

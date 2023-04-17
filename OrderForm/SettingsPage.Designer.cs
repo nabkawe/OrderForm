@@ -89,6 +89,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.posInvoiceTB = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CIDCheck = new System.Windows.Forms.CheckBox();
             this.label76 = new System.Windows.Forms.Label();
             this.logoTB = new System.Windows.Forms.TextBox();
             this.label75 = new System.Windows.Forms.Label();
@@ -260,6 +261,7 @@
             this.MListLB = new System.Windows.Forms.ListBox();
             this.sectionsML = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.LoadFile = new System.Windows.Forms.OpenFileDialog();
+            this.uButton1 = new OrderForm.UButton();
             this.About.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.Pos.SuspendLayout();
@@ -890,6 +892,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.CIDCheck);
             this.groupBox1.Controls.Add(this.label76);
             this.groupBox1.Controls.Add(this.logoTB);
             this.groupBox1.Controls.Add(this.label75);
@@ -935,6 +938,17 @@
             this.groupBox1.TabIndex = 73;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "أزرار  و نوافذ ليبرا";
+            // 
+            // CIDCheck
+            // 
+            this.CIDCheck.AutoSize = true;
+            this.CIDCheck.Location = new System.Drawing.Point(244, 213);
+            this.CIDCheck.Name = "CIDCheck";
+            this.CIDCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CIDCheck.Size = new System.Drawing.Size(105, 17);
+            this.CIDCheck.TabIndex = 88;
+            this.CIDCheck.Text = "وضع كاشف الرقم";
+            this.CIDCheck.UseVisualStyleBackColor = true;
             // 
             // label76
             // 
@@ -2218,6 +2232,7 @@
             // 
             // MaterialsEdit
             // 
+            this.MaterialsEdit.Controls.Add(this.uButton1);
             this.MaterialsEdit.Controls.Add(this.available);
             this.MaterialsEdit.Controls.Add(this.SectionNameTB);
             this.MaterialsEdit.Controls.Add(this.PrinterTB);
@@ -2875,6 +2890,24 @@
             // 
             this.LoadFile.FileName = "NetworkSynq.exe";
             // 
+            // uButton1
+            // 
+            this.uButton1.BackColor = System.Drawing.Color.LightSlateGray;
+            this.uButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.uButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uButton1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.uButton1.ForeColor = System.Drawing.Color.White;
+            this.uButton1.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.uButton1.Location = new System.Drawing.Point(21, 177);
+            this.uButton1.Margin = new System.Windows.Forms.Padding(1);
+            this.uButton1.Name = "uButton1";
+            this.uButton1.Size = new System.Drawing.Size(486, 126);
+            this.uButton1.TabIndex = 1000;
+            this.uButton1.TabStop = false;
+            this.uButton1.Text = "تحميل المواد لغاية التعديل؟";
+            this.uButton1.UseVisualStyleBackColor = false;
+            this.uButton1.Click += new System.EventHandler(this.uButton1_Click);
+            // 
             // SettingsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2941,7 +2974,6 @@
         private System.Windows.Forms.TabPage Pos;
         private System.Windows.Forms.TabPage prntSetting;
         private System.Windows.Forms.TabPage Sections;
-        private System.Windows.Forms.TabControl SettingTabs;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ListBox mat;
         private System.Windows.Forms.Button AddToGroup;
@@ -3168,5 +3200,8 @@
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label56;
         public System.Windows.Forms.CheckBox APICheck;
+        public System.Windows.Forms.TabControl SettingTabs;
+        public System.Windows.Forms.CheckBox CIDCheck;
+        private UButton uButton1;
     }
 }

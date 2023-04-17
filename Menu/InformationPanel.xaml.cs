@@ -1,6 +1,7 @@
 ﻿using sharedCode;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Converters;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace OrderForm
 {
@@ -26,12 +27,38 @@ namespace OrderForm
         public InformationPanel()
         {
             InitializeComponent();
-            infoObject a = MenuDB.LoadInfo();
-            if (a != null) { a.list.ForEach(x => posLoop.Add(x)); }
-            globalInfo = posLoop[0];
-            StartAnimation(posLoop[0]);
+            try
+            {
+                infoObject a = MenuDB.LoadInfo();
+                if (a?.list?.Count > 0) { a.list.ForEach(x => posLoop.Add(x)); }
+                globalInfo = posLoop[0];
+                StartAnimation(posLoop[0]);
 
-            StartTimer();
+                StartTimer();
+                string[] imageNames = { "logo.png", "VAT.png", "pricesinclude.jpg", "Mada.jpg" };
+                System.Windows.Controls.Image[] imageControls = { logoMid, LogoVat, LogoPricesInclude, MadaMid };
+                string basePath = @"C:\db\images\HeaderSource\";
+
+                for (int i = 0; i < imageNames.Length; i++)
+                {
+                    string imagePath = Path.Combine(basePath, imageNames[i]);
+                    if (File.Exists(imagePath))
+                    {
+                        imageControls[i].Source = new BitmapImage(new Uri(imagePath));
+                    }
+                    else
+                    {
+                        imageControls[i].Visibility = Visibility.Hidden;
+                        imageControls[i].Source = new BitmapImage();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                this.Visibility = Visibility.Hidden;
+            }
+
+
 
 
         }

@@ -27,7 +27,7 @@ namespace OrderForm
 
         private void AddNoteBTN_Click_1(object sender, EventArgs e)
         {
-            if (noteRB.Text.Replace(" ", "") != "" && shortTB.Text.Replace(" ", "") != "")
+            if (!string.IsNullOrWhiteSpace(noteRB.Text)  && !string.IsNullOrWhiteSpace(shortTB.Text))
             {
                 WhatsAppShortCut whatsAppShortCut = new WhatsAppShortCut();
                 whatsAppShortCut.Shortcut = shortTB.Text;

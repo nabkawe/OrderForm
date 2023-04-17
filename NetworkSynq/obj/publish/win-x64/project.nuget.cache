@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Agw7t5h13kQBHPF02K4VQJ1ygi4zk4x6b8+7jqTsWaDwStZBe41/rnsPIVZf60b8fZ757s+ZC2XzvYagyXlxdw==",
+  "dgSpecHash": "5oiRAZGzg2Y6z6pHZeZwSyQpgBKgujbpjDCisA/5bPAVLqFGS8qGMXRTQvducfU6wJ/w/4eEKYU3VlW1wP95Ew==",
   "success": true,
   "projectFilePath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\NetworkSynq.csproj",
   "expectedPackageFiles": [
@@ -16,7 +16,8 @@
     "C:\\Users\\Admin\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\7.0.4\\microsoft.netcore.app.runtime.win-x64.7.0.4.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\7.0.4\\microsoft.windowsdesktop.app.runtime.win-x64.7.0.4.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\7.0.4\\microsoft.aspnetcore.app.runtime.win-x64.7.0.4.nupkg.sha512"
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\7.0.4\\microsoft.aspnetcore.app.runtime.win-x64.7.0.4.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\7.0.4\\microsoft.netcore.app.crossgen2.win-x64.7.0.4.nupkg.sha512"
   ],
   "logs": []
 }

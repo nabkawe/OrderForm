@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Windows.ApplicationModel.Contacts;
+using Windows.UI.WebUI;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace OrderForm
@@ -30,7 +31,7 @@ namespace OrderForm
             {
 
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/LoadContacts");
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/LoadContacts");
                 var request = new RestRequest();
                 request.AddParameter("number", number);
                 RestResponse response = client.Get(request);
@@ -65,7 +66,7 @@ namespace OrderForm
             if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/SaveContacts");
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/SaveContacts");
                 var request = new RestRequest();
                 request.AddHeader("Content-Type", "application/json");
                 request.AddHeader("Accept", "application/json");
@@ -100,11 +101,11 @@ namespace OrderForm
             if (Properties.Settings.Default.Api_On)
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Orders.MyForm.APIConnection + "/CallerID/LoadPhoneLog");
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/CallerID/LoadPhoneLog");
                 var request = new RestRequest();
-                    request.AddParameter("max", max);
+                request.AddParameter("max", max);
                 var response = client.Get(request);
-           
+
                 if (response != null)
                 {
                     if (response.StatusCode.ToString() == "OK")
@@ -121,451 +122,452 @@ namespace OrderForm
             }
             else
             {
-                return new List<PhoneLog>();    
+                return new List<PhoneLog>();
             }
         }
 
 
 
-            public static void UpdateSectionNotes(POSsections sect)
+        public static void UpdateSectionNotes(POSsections sect)
+        {
+            if (Properties.Settings.Default.Api_On)
             {
-                if (Properties.Settings.Default.Api_On)
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateSectionNotes");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(sect, Newtonsoft.Json.Formatting.Indented);// 
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
+
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
                 {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateSectionNotes");
-                    var request = new RestRequest();
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddHeader("Accept", "application/json");
-                    request.RequestFormat = RestSharp.DataFormat.Json;
-                    string i = Newtonsoft.Json.JsonConvert.SerializeObject(sect, Newtonsoft.Json.Formatting.Indented);// 
-                    request.AddParameter("application/json", i, ParameterType.RequestBody);
-                    var response = client.Post(request);
+                    var Deps = db.GetCollection<POSsections>("Sections");
+                    Deps.Update(sect);
 
-                }
-                else
-                {
-                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
-                    {
-                        var Deps = db.GetCollection<POSsections>("Sections");
-                        Deps.Update(sect);
-
-                    }
                 }
             }
+        }
 
-            public static void SaveDepartments(List<POSDepartments> list)
+        public static void SaveDepartments(List<POSDepartments> list)
+        {
+
+
+            if (Properties.Settings.Default.Api_On)
             {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/SaveDepartments");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);// 
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
 
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
-                if (Properties.Settings.Default.Api_On)
                 {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/SaveDepartments");
-                    var request = new RestRequest();
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddHeader("Accept", "application/json");
-                    request.RequestFormat = RestSharp.DataFormat.Json;
-                    string i = Newtonsoft.Json.JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);// 
-                    request.AddParameter("application/json", i, ParameterType.RequestBody);
-                    var response = client.Post(request);
-
-                }
-                else
-                {
-                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
+                    var Deps = db.GetCollection<POSDepartments>("POSDepartment");
+                    if (Deps.Count() > 0)
                     {
-                        var Deps = db.GetCollection<POSDepartments>("POSDepartment");
-                        if (Deps.Count() > 0)
+                        Deps.DeleteAll();
+                        int c = 0;
+                        foreach (POSDepartments deps in list)
+
                         {
-                            Deps.DeleteAll();
-                            int c = 0;
-                            foreach (POSDepartments deps in list)
+                            POSDepartments a = new POSDepartments(deps.Name, deps.DefaultPrinter);
+                            c = c++;
+                            a.ID = c;
+                            Deps.Insert(a);
 
-                            {
-                                POSDepartments a = new POSDepartments(deps.Name, deps.DefaultPrinter);
-                                c = c++;
-                                a.ID = c;
-                                Deps.Insert(a);
-
-                            }
                         }
-                        else
-                        {
-                            int c = 0;
-
-                            foreach (POSDepartments deps in list)
-
-                            {
-                                POSDepartments a = new POSDepartments(deps.Name, deps.DefaultPrinter);
-                                c = c++;
-                                a.ID = c;
-                                Deps.Insert(a);
-
-                            }
-                        }
-
                     }
+                    else
+                    {
+                        int c = 0;
+
+                        foreach (POSDepartments deps in list)
+
+                        {
+                            POSDepartments a = new POSDepartments(deps.Name, deps.DefaultPrinter);
+                            c = c++;
+                            a.ID = c;
+                            Deps.Insert(a);
+
+                        }
+                    }
+
                 }
             }
+        }
 
 
 
-            public static List<POSDepartments> LoadDepartments()
+        public static List<POSDepartments> LoadDepartments()
+        {
+            if (Properties.Settings.Default.Api_On)
             {
-                if (Properties.Settings.Default.Api_On)
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/GetDepartments");
+                var request = new RestRequest();
+                RestResponse response = client.Get(request);
+                if (response != null)
                 {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetDepartments");
-                    var request = new RestRequest();
-                    RestResponse response = client.Get(request);
-                    if (response != null)
+                    if (response.StatusCode.ToString() == "OK")
                     {
-                        if (response.StatusCode.ToString() == "OK")
-                        {
-                            var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSDepartments>>(response.Content.ToString());
-                            return i;
-                        }
-                        else return new List<POSDepartments>();
-
-
+                        var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSDepartments>>(response.Content.ToString());
+                        return i;
                     }
                     else return new List<POSDepartments>();
 
 
                 }
-                else
-                {
-                    try
-                    {
-                        using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+                else return new List<POSDepartments>();
 
-                        {
-                            var Deps = db.GetCollection<POSDepartments>("POSDepartment");
-                            List<POSDepartments> a = Deps.FindAll().ToList();
-                            return a;
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-                        return new List<POSDepartments>();
-                    }
-                }
-            }
-
-            public static void DefaultPrinters(string printer)
-            {
-
-                Properties.Settings.Default.DefaultPrinter = printer;
-                Properties.Settings.Default.Save();
-            }
-            public static void CashierPrinter(string printer)
-            {
-                Properties.Settings.Default.CashierPrinter = printer;
-                Properties.Settings.Default.Save();
 
             }
-            public static string DefaultPrinters()
+            else
             {
-                return Properties.Settings.Default.DefaultPrinter;
-            }
-            public static string CashierPrinter()
-            {
-                return Properties.Settings.Default.CashierPrinter;
-            }
-            internal static void DeleteItemSections(List<POSItems> list)
-            {
-                UpdateAllItemsPrinters(list);
-            }
-            public static void UpdateAllItemsPrinters(List<POSItems> list)
-            {
-                if (Properties.Settings.Default.Api_On)
-                {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateMatSections");
-                    var request = new RestRequest();
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddHeader("Accept", "application/json");
-                    request.RequestFormat = RestSharp.DataFormat.Json;
-                    string i = Newtonsoft.Json.JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);// 
-                    request.AddParameter("application/json", i, ParameterType.RequestBody);
-                    var response = client.Post(request);
-
-
-                }
-                else
+                try
                 {
                     using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
                     {
-                        var materials = db.GetCollection<POSItems>("Materials");
-                        list.ForEach(x => materials.Update(x));
+                        var Deps = db.GetCollection<POSDepartments>("POSDepartment");
+                        List<POSDepartments> a = Deps.FindAll().ToList();
+                        return a;
                     }
                 }
+                catch (Exception)
+                {
+
+                    return new List<POSDepartments>();
+                }
+            }
+        }
+
+        public static void DefaultPrinters(string printer)
+        {
+
+            Properties.Settings.Default.DefaultPrinter = printer;
+            Properties.Settings.Default.Save();
+        }
+        public static void CashierPrinter(string printer)
+        {
+            Properties.Settings.Default.CashierPrinter = printer;
+            Properties.Settings.Default.Save();
+
+        }
+        public static string DefaultPrinters()
+        {
+            return Properties.Settings.Default.DefaultPrinter;
+        }
+        public static string CashierPrinter()
+        {
+            return Properties.Settings.Default.CashierPrinter;
+        }
+        internal static void DeleteItemSections(List<POSItems> list)
+        {
+            UpdateAllItemsPrinters(list);
+        }
+        public static void UpdateAllItemsPrinters(List<POSItems> list)
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateMatSections");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);// 
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
+
 
             }
-
-            public static POSsections PrinterGetSectionMaterial(string selected)
+            else
             {
                 using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
                 {
-                    var sectionTable = db.GetCollection<POSsections>("Sections");
                     var materials = db.GetCollection<POSItems>("Materials");
-                    POSsections SelectedSect = sectionTable.FindOne(x => x.Name == selected);
-                    return SelectedSect;
-                }
-            }
-            static int order = 0;
-            public static void UpdateItemSections(List<POSItems> list, string section)
-            {
-                if (Properties.Settings.Default.Api_On)
-                {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateSectionMaterials");
-                    var request = new RestRequest();
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddHeader("Accept", "application/json");
-                    request.RequestFormat = RestSharp.DataFormat.Json;
-                    string i = Newtonsoft.Json.JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);// 
-                    request.AddParameter("application/json", i, ParameterType.RequestBody);
-                    request.AddQueryParameter("section", section);
-                    var response = client.Post(request);
-                }
-                else
-                {
-                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
-                    {
-
-                        var materials = db.GetCollection<POSItems>("Materials");
-                        materials.Find(x => x.SectionName == section).ToList().ForEach(x => { x.SectionName = "بدون قسم"; materials.Update(x); });
-                        list.ForEach(x => { order += 1; x.order = order; x.SectionName = section; materials.Update(x); });
-                    }
+                    list.ForEach(x => materials.Update(x));
                 }
             }
 
-            public static List<POSItems> GetItemsForSection(string section)
+        }
+
+        public static POSsections PrinterGetSectionMaterial(string selected)
+        {
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
             {
+                var sectionTable = db.GetCollection<POSsections>("Sections");
+                var materials = db.GetCollection<POSItems>("Materials");
+                POSsections SelectedSect = sectionTable.FindOne(x => x.Name == selected);
+                return SelectedSect;
+            }
+        }
+        static int order = 0;
+        public static void UpdateItemSections(List<POSItems> list, string section)
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateSectionMaterials");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);// 
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                request.AddQueryParameter("section", section);
+                var response = client.Post(request);
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
-                if (Properties.Settings.Default.Api_On)
                 {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetMaterialsForSection");
-                    var request = new RestRequest();
-                    request.AddParameter("section", section);
-                    RestResponse response = client.Get(request);
-                    if (response != null)
-                    {
-                        if (response.StatusCode.ToString() == "OK")
-                        {
-                            var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSItems>>(response.Content.ToString());
-                            return i;
-                        }
-                        else return new List<POSItems>();
 
+                    var materials = db.GetCollection<POSItems>("Materials");
+                    materials.Find(x => x.SectionName == section).ToList().ForEach(x => { x.SectionName = "بدون قسم"; materials.Update(x); });
+                    list.ForEach(x => { order += 1; x.order = order; x.SectionName = section; materials.Update(x); });
+                }
+            }
+        }
+
+        public static List<POSItems> GetItemsForSection(string section)
+        {
+
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/GetMaterialsForSection");
+                var request = new RestRequest();
+                request.AddParameter("section", section);
+                RestResponse response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSItems>>(response.Content.ToString());
+                        return i;
                     }
                     else return new List<POSItems>();
 
                 }
+                else return new List<POSItems>();
+
+            }
+            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+            {
+                var materials = db.GetCollection<POSItems>("Materials");
+                List<POSItems> items = materials.Find(x => x.SectionName == section).ToList();
+                return items.OrderBy(x => x.order).ToList();
+            }
+
+        }
+
+
+
+        public static POSsections GetSection(POSItems item)
+        {
+            foreach (POSsections Section in PopulateSections())
+            {
+                foreach (var SectionMaterials in GetItemsForSection(Section.Name))
+                {
+                    if (SectionMaterials.Name == item.Name)
+                    {
+                        return Section;
+                    }
+                }
+            }
+            return new POSsections();
+
+        }
+        public static List<POSsections> GetSections()
+        {
+            return dbQ.PopulateSections();
+        }
+        public static void SaveSections(ListBox list)
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateSections");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(list.Items.Cast<POSsections>().ToList(), Newtonsoft.Json.Formatting.Indented);// 
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                {
+                    var mat = db.GetCollection<POSItems>("Materials");
+                    var sectionTable = db.GetCollection<POSsections>("Sections");
+                    var lll = list.Items.Cast<POSsections>().ToList();
+                    sectionTable.DeleteAll();
+                    lll.ForEach(x => { x.ID = sectionTable.Count() + 1; sectionTable.Insert(x); });
+
+                    //delete all groups
+                    if (lll.Count == 0)
+                    {
+                        sectionTable.DeleteAll();
+                    }
+
+                }
+            }
+        }
+        public static bool IsRowEmpty(DataGridViewRow dgv)
+        {
+            foreach (DataGridViewCell dc in dgv.Cells)
+            {
+                if (string.IsNullOrWhiteSpace(Convert.ToString(dc.Value)))
+                {
+                    return true;
+                }
+                else return false;
+            }
+
+            return false;
+        }
+
+        public static void MatAvailableSet(string barcode, bool state)
+        {
+            {
+                try
+                {
+                    var Mdb = new LiteDatabase(@"Filename=C:\\db\\MenuDB.db;Connection=shared");
+                    var Menus = Mdb.GetCollection<MenuSection>("Menus");
+                    foreach (MenuSection item in Menus.FindAll().ToList())
+                    {
+                        foreach (MenuItemZ items in item.list)
+                        {
+
+                            var a = items.FindBarcode(barcode);
+                            if (a != null)
+                            {
+                                MenuSection m = Menus.Find(x=> x.Name == item.Name).First();
+                                if (m != null)
+                                {
+                                    
+                                    foreach (var itemz in m.list)
+                                    {
+                                        itemz.items.ForEach(z => { if (z.Barcode.Contains(a.Barcode)) { z.Available = state; Menus.Update(m); }  });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return;
+                }
+                catch (Exception )
+                {
+
+                }
+
+            }
+        }
+
+
+
+        public static List<POSsections> PopulateSections() //at Load
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/GetSections");
+                var request = new RestRequest();
+                RestResponse response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSsections>>(response.Content.ToString());
+                        return i;
+                    }
+                    else return new List<POSsections>();
+
+                }
+                else return new List<POSsections>(); ;
+
+            }
+            else
+            {
+                try
+                {
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                    {
+                        var s = db.GetCollection<POSsections>("Sections");
+                        var S = s.FindAll();
+                        return S.ToList();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return new List<POSsections>();
+                }
+            }
+
+        }
+
+        internal static void SaveOrUpdateItems(List<POSItems> MAT)
+        {
+
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/SaveOrUpdateItems");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(MAT, Newtonsoft.Json.Formatting.Indented);// 
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
+
+            }
+            else
+            {
                 using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
                 {
-                    var materials = db.GetCollection<POSItems>("Materials");
-                    List<POSItems> items = materials.Find(x => x.SectionName == section).ToList();
-                    return items.OrderBy(x => x.order).ToList();
-                }
-
-            }
-
-
-
-            public static POSsections GetSection(POSItems item)
-            {
-                foreach (POSsections Section in PopulateSections())
-                {
-                    foreach (var SectionMaterials in GetItemsForSection(Section.Name))
-                    {
-                        if (SectionMaterials.Name == item.Name)
-                        {
-                            return Section;
-                        }
-                    }
-                }
-                return new POSsections();
-
-            }
-            public static List<POSsections> GetSections()
-            {
-                return dbQ.PopulateSections();
-            }
-            public static void SaveSections(ListBox list)
-            {
-                if (Properties.Settings.Default.Api_On)
-                {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/UpdateSections");
-                    var request = new RestRequest();
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddHeader("Accept", "application/json");
-                    request.RequestFormat = RestSharp.DataFormat.Json;
-                    string i = Newtonsoft.Json.JsonConvert.SerializeObject(list.Items.Cast<POSsections>().ToList(), Newtonsoft.Json.Formatting.Indented);// 
-                    request.AddParameter("application/json", i, ParameterType.RequestBody);
-                    var response = client.Post(request);
-                }
-                else
-                {
-                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
-                    {
-                        var mat = db.GetCollection<POSItems>("Materials");
-                        var sectionTable = db.GetCollection<POSsections>("Sections");
-                        var lll = list.Items.Cast<POSsections>().ToList();
-                        sectionTable.DeleteAll();
-                        lll.ForEach(x => { x.ID = sectionTable.Count() + 1; sectionTable.Insert(x); });
-
-                        //delete all groups
-                        if (lll.Count == 0)
-                        {
-                            sectionTable.DeleteAll();
-                        }
-
-                    }
-                }
-            }
-            public static bool IsRowEmpty(DataGridViewRow dgv)
-            {
-                foreach (DataGridViewCell dc in dgv.Cells)
-                {
-                    if (Convert.ToString(dc.Value) == "")
-                    {
-                        return true;
-                    }
-                    else return false;
-                }
-
-                return false;
-            }
-
-            public static void MatAvailableSet(string barcode, bool state)
-            {
-                {
-                    try
-                    {
-                        //var Mdb = new LiteDatabase(@"Filename=C:\\db\\MenuDB.db;Connection=shared");
-                        //var Menus = Mdb.GetCollection<MenuSection>("Menus");
-                        //foreach (MenuSection item in Menus.FindAll().ToList())
-                        //{
-                        //    foreach (object items in item.list)
-                        //    {
-
-
-
-
-
-                        //    if (MenuItemsX items.Barcode == barcode)
-                        //        {
-                        //            items.Available =state;
-                        //            Menus.Update(item);
-                        //            break;  
-                        //        }
-                        //    }
-                        //}
-
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-
-                    }
+                    var mat = db.GetCollection<POSItems>("Materials");
+                    var deleted = mat.FindAll().Except(MAT);
+                    deleted.ToList().ForEach(x => mat.Delete(x.ID));
+                    MAT.ForEach(x => mat.Upsert(x));
 
                 }
             }
+        }
+        internal static List<POSItems> LoadMaterialItems()
+        {
 
 
-
-            public static List<POSsections> PopulateSections() //at Load
+            if (Properties.Settings.Default.Api_On)
             {
-                if (Properties.Settings.Default.Api_On)
-                {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetSections");
-                    var request = new RestRequest();
-                    RestResponse response = client.Get(request);
-                    if (response != null)
-                    {
-                        if (response.StatusCode.ToString() == "OK")
-                        {
-                            var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<POSsections>>(response.Content.ToString());
-                            return i;
-                        }
-                        else return new List<POSsections>();
-
-                    }
-                    else return new List<POSsections>(); ;
-
-                }
-                else
-                {
-                    try
-                    {
-                        using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
-                        {
-                            var s = db.GetCollection<POSsections>("Sections");
-                            var S = s.FindAll();
-                            return S.ToList();
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-                        return new List<POSsections>();
-                    }
-                }
-
-            }
-
-            internal static void SaveOrUpdateItems(List<POSItems> MAT)
-            {
-
-                if (Properties.Settings.Default.Api_On)
-                {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/SaveOrUpdateItems");
-                    var request = new RestRequest();
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddHeader("Accept", "application/json");
-                    request.RequestFormat = RestSharp.DataFormat.Json;
-                    string i = Newtonsoft.Json.JsonConvert.SerializeObject(MAT, Newtonsoft.Json.Formatting.Indented);// 
-                    request.AddParameter("application/json", i, ParameterType.RequestBody);
-                    var response = client.Post(request);
-
-                }
-                else
-                {
-                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-                    {
-                        var mat = db.GetCollection<POSItems>("Materials");
-                        var deleted = mat.FindAll().Except(MAT);
-                        deleted.ToList().ForEach(x => mat.Delete(x.ID));
-                        MAT.ForEach(x => mat.Upsert(x));
-
-                    }
-                }
-            }
-            internal static List<POSItems> LoadMaterialItems()
-            {
-
-
-                if (Properties.Settings.Default.Api_On)
-                {
                 try
                 {
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetAllMaterials");
+                    var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/GetAllMaterials");
                     var request = new RestRequest();
                     RestResponse response = client.Get(request);
                     if (response != null)
@@ -585,96 +587,96 @@ namespace OrderForm
                 {
                     return new List<POSItems>();
                 }
-                }
-                else
-                {
-                    try
-                    {
-                        using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
-                        {
-                            var mat = db.GetCollection<POSItems>("Materials");
-                            return mat.FindAll().ToList();
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        return new List<POSItems>();
-                        ////
-                    }
-
-                }
             }
-
-            internal static List<WhatsAppShortCut> GetAllShortcuts()
+            else
             {
-                if (Properties.Settings.Default.Api_On)
+                try
                 {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/GetWhatsappShortcut");
-                    var request = new RestRequest();
-                    RestResponse response = client.Get(request);
-                    if (response != null)
-                    {
-                        if (response.StatusCode.ToString() == "OK")
-                        {
-                            var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WhatsAppShortCut>>(response.Content.ToString());
-                            return i;
-                        }
-                        else return new List<WhatsAppShortCut>();
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
 
+                    {
+                        var mat = db.GetCollection<POSItems>("Materials");
+                        return mat.FindAll().ToList();
+                    }
+                }
+                catch (Exception)
+                {
+                    return new List<POSItems>();
+                    ////
+                }
+
+            }
+        }
+
+        internal static List<WhatsAppShortCut> GetAllShortcuts()
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/GetWhatsappShortcut");
+                var request = new RestRequest();
+                RestResponse response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WhatsAppShortCut>>(response.Content.ToString());
+                        return i;
                     }
                     else return new List<WhatsAppShortCut>();
 
+                }
+                else return new List<WhatsAppShortCut>();
 
-                }
-                else
-                {
-                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-                    {
-                        var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
-                        return cuts.FindAll().ToList();
-                    }
-                }
 
             }
-
-            internal static void SaveAllShortcuts(List<WhatsAppShortCut> Shortcuts)
+            else
             {
-                if (Properties.Settings.Default.Api_On)
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
                 {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Orders.MyForm.APIConnection + "/LoadDB/SaveWhatsappShortcut");
-                    var request = new RestRequest();
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddHeader("Accept", "application/json");
-                    request.RequestFormat = RestSharp.DataFormat.Json;
-                    string i = Newtonsoft.Json.JsonConvert.SerializeObject(Shortcuts, Newtonsoft.Json.Formatting.Indented);// 
-                    request.AddParameter("application/json", i, ParameterType.RequestBody);
-                    var response = client.Post(request);
-
+                    var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
+                    return cuts.FindAll().ToList();
                 }
-                else
-                {
-                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-                    {
-                        var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
-                        cuts.DeleteAll();
-
-                        Shortcuts.ForEach(x => cuts.Upsert(x));
-                    }
-                }
-
             }
 
-            internal static void CreatePayment()
+        }
+
+        internal static void SaveAllShortcuts(List<WhatsAppShortCut> Shortcuts)
+        {
+            if (Properties.Settings.Default.Api_On)
             {
-                using (var db = new LiteDatabase("Filename=\\\\DESKTOP-RRGCFGK\\db\\db.db;Connection=Shared"))
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/SaveWhatsappShortcut");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(Shortcuts, Newtonsoft.Json.Formatting.Indented);// 
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
+
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
                 {
-                    var a = db.GetCollection<Payment>("PaymentTest");
-                    Invoice inv = new Invoice();
-                    a.Upsert(new Payment { Name = "Casho", Amount = (decimal)5.05 });
+                    var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
+                    cuts.DeleteAll();
+
+                    Shortcuts.ForEach(x => cuts.Upsert(x));
                 }
+            }
+
+        }
+
+        internal static void CreatePayment()
+        {
+            using (var db = new LiteDatabase("Filename=\\\\DESKTOP-RRGCFGK\\db\\db.db;Connection=Shared"))
+            {
+                var a = db.GetCollection<Payment>("PaymentTest");
+                Invoice inv = new Invoice();
+                a.Upsert(new Payment { Name = "Casho", Amount = (decimal)5.05 });
             }
         }
-    } 
+    }
+}

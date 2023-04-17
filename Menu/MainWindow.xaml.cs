@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -18,6 +19,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using WpfScreenHelper;
 
 
@@ -32,11 +34,13 @@ namespace OrderForm
         {
             InitializeComponent();
             ShowOnSecondScreen();
-            FoodItemZ = new BindingList<NewFood>();
+            FoodItemZ = new ObservableCollection<NewFood>();
+            FoodList.ItemsSource = FoodItemZ;
+
         }
 
 
-        public static BindingList<NewFood> FoodItemZ { get; set; }
+        public static ObservableCollection<NewFood> FoodItemZ { get; set; }
         public string CurrentMenu;
         public static System.Windows.Size Currentsize;
 
@@ -47,18 +51,22 @@ namespace OrderForm
             {
                 FoodItemZ.Clear();
 
-                this.FoodList.ItemsSource = FoodItemZ;
-
-   
+  
                 CurrentMenu = CurrentMenuIn;
-
                 foreach (MenuItemZ item in list)
                 {
                     item.items.ForEach(x => x.Lang = langs);
                     NewFood foodItem = new NewFood(item);
                     if (ItemSize.Width > 0) { foodItem.Width = ItemSize.Width; foodItem.Height = ItemSize.Height; Currentsize = ItemSize; }
                     FoodItemZ.Add(foodItem);
+
+
+                    //await Dispatcher.BeginInvoke(new Action(() =>
+                    //{
+
+                    //}), DispatcherPriority.Background);
                 }
+                    
             }
             catch (Exception ex)
             {

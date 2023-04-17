@@ -36,3 +36,5 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\DisplayMenu.appli
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\DisplayMenu.csproj.CopyComplete
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\DisplayMenu.exe
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\DisplayMenu.pdb
+C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\Window2.g.cs
+C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\Window2.baml

@@ -37,3 +37,8 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\CID\SampleBasicNetwork2008\obj\x86
 C:\Users\Admin\source\repos\nabkawe\OrderForm\CID\SampleBasicNetwork2008\obj\x86\Debug\CID.csproj.CopyComplete
 C:\Users\Admin\source\repos\nabkawe\OrderForm\CID\SampleBasicNetwork2008\obj\x86\Debug\CID.exe
 C:\Users\Admin\source\repos\nabkawe\OrderForm\CID\SampleBasicNetwork2008\obj\x86\Debug\CID.pdb
+C:\Users\Admin\source\repos\nabkawe\OrderForm\CID\SampleBasicNetwork2008\bin\x86\Debug\CID.exe.manifest
+C:\Users\Admin\source\repos\nabkawe\OrderForm\CID\SampleBasicNetwork2008\bin\x86\Debug\CID.application
+C:\Users\Admin\source\repos\nabkawe\OrderForm\CID\SampleBasicNetwork2008\obj\x86\Debug\CID.TrustInfo.xml
+C:\Users\Admin\source\repos\nabkawe\OrderForm\CID\SampleBasicNetwork2008\obj\x86\Debug\CID.exe.manifest
+C:\Users\Admin\source\repos\nabkawe\OrderForm\CID\SampleBasicNetwork2008\obj\x86\Debug\CID.application

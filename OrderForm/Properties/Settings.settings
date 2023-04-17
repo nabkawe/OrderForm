@@ -132,7 +132,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Fnt" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">20</Value>
+      <Value Profile="(Default)">22</Value>
     </Setting>
     <Setting Name="FontCombo" Type="System.String" Scope="User">
       <Value Profile="(Default)">Arial</Value>
@@ -149,11 +149,8 @@
     <Setting Name="WheelGridEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="API_Server_Path" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="API_Connection" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http:\\192.168.1.5:5000</Value>
+      <Value Profile="(Default)">http:\\192.168.1.7:5000</Value>
     </Setting>
     <Setting Name="ItemSize" Type="System.Windows.Size" Scope="User">
       <Value Profile="(Default)">200,222</Value>
@@ -171,10 +168,13 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Api_On" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="CallerIDEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="API_Server_Path" Type="System.String" Scope="User">
+      <Value Profile="(Default)">null</Value>
     </Setting>
   </Settings>
 </SettingsFile>

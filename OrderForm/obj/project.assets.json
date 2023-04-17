@@ -530,18 +530,6 @@
           }
         }
       },
-      "CID/1.0.0": {
-        "type": "project",
-        "dependencies": {
-          "MySharedBaseCode": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/CID.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/CID.dll": {}
-        }
-      },
       "DisplayMenu/1.0.0": {
         "type": "project",
         "dependencies": {
@@ -1047,18 +1035,6 @@
           "lib/net47/System.ValueTuple.dll": {
             "related": ".xml"
           }
-        }
-      },
-      "CID/1.0.0": {
-        "type": "project",
-        "dependencies": {
-          "MySharedBaseCode": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/CID.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/CID.dll": {}
         }
       },
       "DisplayMenu/1.0.0": {
@@ -1568,18 +1544,6 @@
           }
         }
       },
-      "CID/1.0.0": {
-        "type": "project",
-        "dependencies": {
-          "MySharedBaseCode": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/CID.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/CID.dll": {}
-        }
-      },
       "DisplayMenu/1.0.0": {
         "type": "project",
         "dependencies": {
@@ -2085,18 +2049,6 @@
           "lib/net47/System.ValueTuple.dll": {
             "related": ".xml"
           }
-        }
-      },
-      "CID/1.0.0": {
-        "type": "project",
-        "dependencies": {
-          "MySharedBaseCode": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/CID.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/CID.dll": {}
         }
       },
       "DisplayMenu/1.0.0": {
@@ -3286,11 +3238,6 @@
         "version.txt"
       ]
     },
-    "CID/1.0.0": {
-      "type": "project",
-      "path": "../CID/SampleBasicNetwork2008/CID.csproj",
-      "msbuildProject": "../CID/SampleBasicNetwork2008/CID.csproj"
-    },
     "DisplayMenu/1.0.0": {
       "type": "project",
       "path": "../Menu/DisplayMenu.csproj",
@@ -3304,7 +3251,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
-      "CID >= 1.0.0",
       "DisplayMenu >= 1.0.0",
       "ESCPOS >= 1.2.3",
       "Microsoft.Bcl.AsyncInterfaces >= 5.0.0",
@@ -3363,9 +3309,6 @@
       "frameworks": {
         "net48": {
           "projectReferences": {
-            "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\CID\\SampleBasicNetwork2008\\CID.csproj": {
-              "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\CID\\SampleBasicNetwork2008\\CID.csproj"
-            },
             "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\Menu\\DisplayMenu.csproj": {
               "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\Menu\\DisplayMenu.csproj"
             },

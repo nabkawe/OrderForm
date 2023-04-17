@@ -4,25 +4,6 @@
     "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\OrderForm\\OrderForm.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\CID\\SampleBasicNetwork2008\\CID.csproj": {
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\CID\\SampleBasicNetwork2008\\CID.csproj",
-        "projectName": "CID",
-        "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\CID\\SampleBasicNetwork2008\\CID.csproj",
-        "frameworks": {
-          "net48": {
-            "projectReferences": {
-              "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj": {
-                "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\MySharedBaseCode\\MySharedBaseCode.csproj"
-              }
-            }
-          }
-        }
-      },
-      "frameworks": {
-        "net48": {}
-      }
-    },
     "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\Menu\\DisplayMenu.csproj": {
       "restore": {
         "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\Menu\\DisplayMenu.csproj",
@@ -85,9 +66,6 @@
         "frameworks": {
           "net48": {
             "projectReferences": {
-              "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\CID\\SampleBasicNetwork2008\\CID.csproj": {
-                "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\CID\\SampleBasicNetwork2008\\CID.csproj"
-              },
               "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\Menu\\DisplayMenu.csproj": {
                 "projectPath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\Menu\\DisplayMenu.csproj"
               },

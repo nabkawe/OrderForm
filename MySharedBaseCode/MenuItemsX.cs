@@ -26,9 +26,22 @@ namespace sharedCode
         public string NameToShow { get { if (SingleX) return this.items[0].Name + "-" + this.items[0].Price; else { TotalNames = "" ; this.items.ForEach(x => TotalNames += x.Name + "," + x.Price + " "); return "مجموعة" + ":" + TotalNames; } } }
         public MenuItemsX FindBarcode(string barcode)
         {
-            if (SingleX) { if (barcode == this.items[0].Barcode) { return this.items[0]; } else return null; }
-
-            else { if (this.items.Find(x => x.Barcode == barcode) != null) { return this.items.Find(x => x.Barcode == barcode); } else return null; }
+            if (SingleX)
+            {
+                if (this.items[0].Barcode.Contains(barcode))
+                {
+                    return this.items[0];
+                }
+                else return null;
+            }
+            else
+            {
+                if (this.items.Find(x => x.Barcode.Contains(barcode)) != null)
+                {
+                    return this.items.Find(x => x.Barcode.Contains(barcode));
+                }
+                else return null;
+            }
         }
     }
 

@@ -541,7 +541,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("22")]
         public int Fnt {
             get {
                 return ((int)(this["Fnt"]));
@@ -613,19 +613,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string API_Server_Path {
-            get {
-                return ((string)(this["API_Server_Path"]));
-            }
-            set {
-                this["API_Server_Path"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http:\\\\192.168.1.5:5000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http:\\\\192.168.1.7:5000")]
         public string API_Connection {
             get {
                 return ((string)(this["API_Connection"]));
@@ -697,7 +685,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Api_On {
             get {
                 return ((bool)(this["Api_On"]));
@@ -716,6 +704,18 @@ namespace OrderForm.Properties {
             }
             set {
                 this["CallerIDEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("null")]
+        public string API_Server_Path {
+            get {
+                return ((string)(this["API_Server_Path"]));
+            }
+            set {
+                this["API_Server_Path"] = value;
             }
         }
     }

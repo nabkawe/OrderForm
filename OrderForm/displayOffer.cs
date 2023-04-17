@@ -30,19 +30,19 @@ namespace OrderForm
             Show.timer1.Tick += Show.T_Tick;
             if (!string.IsNullOrEmpty(ClientDate))
             {
-                if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate;
+                if (!string.IsNullOrWhiteSpace(ClientDate)) Show.ClientDate.Text = ClientDate;
                 else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; }
             }
 
 
             if (!string.IsNullOrEmpty(ClientName))
             {
-                if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName;
+                if (!string.IsNullOrWhiteSpace(ClientName)) Show.ClientName.Text = ClientName;
                 else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; }
             }
             if (!string.IsNullOrEmpty(ClientPhone))
             {
-                if (ClientPhone.Replace(" ", "") != "")
+                if (!string.IsNullOrWhiteSpace(ClientPhone))
                     Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6);
                 else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; }
             }
@@ -59,20 +59,40 @@ namespace OrderForm
             Show.timer1.Start();
             Show.timer1.Tick += Show.T_Tick;
             if (!string.IsNullOrEmpty(ClientDate))
-            { if (ClientDate.Replace(" ", "") != "") Show.ClientDate.Text = ClientDate; else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; } }
+            {
+                Show.ClientDate.Text = ClientDate;
+            }
+            else
+            {
+                Show.ClientDate.Visible = false;
+                Show.DateTitle.Visible = false;
+            }
             if (!string.IsNullOrEmpty(ClientName))
-            { if (ClientName.Replace(" ", "") != "") Show.ClientName.Text = ClientName; else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; } }
-            if (!string.IsNullOrEmpty(ClientPhone))
+            {
+                Show.ClientName.Text = ClientName;
+            }
+            else
+            {
+                Show.ClientName.Visible = false;
+                Show.ClientTitle.Visible = false;
+            }
+            if (!string.IsNullOrEmpty(ClientPhone)&& ClientPhone.Length >= 9)
+            {
 
-            { if (ClientPhone.Replace(" ", "") != "") Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6); else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; } }
+                Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6);
+            }
+            else
+            {
+                Show.ClientPhone.Visible = false;
+                Show.PhoneTitle.Visible = false;
+            }
+
             Show.Show();
             Show.POS_ListChanged(null, null);
             Show.dvItems2.DataSource = inv.InvoiceItems;
             Show.Price.Text = inv.InvoicePrice.ToString();
             var c = inv.InvoiceItems.Sum<POSItems>((x) => x.RealQuantity).ToString();
             Show.ItemCount.Text = $"عدد المواد المطلوبة: \n\n {c}";
-
-
         }
 
 

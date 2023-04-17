@@ -28,7 +28,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>66</ApplicationRevision>
+    <ApplicationRevision>103</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -84,7 +84,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>569187B9429931C27605FFA41763BB1EAD835ABD</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>FA5296172B9F5F30A36D77161262703A2544357B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -97,10 +97,17 @@
     <ApplicationIcon>LibraSoft.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>OrderForm.Program</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>nabkawe%40gmail.com.pfx</ManifestKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="LiteDB, Version=5.0.12.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.5.0.12\lib\net45\LiteDB.dll</HintPath>
@@ -128,6 +135,13 @@
       <DependentUpon>AreYouSure.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateOffer.cs" />
+    <Compile Include="LoadingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoadingForm.Designer.cs">
+      <DependentUpon>LoadingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VS Studio Backend\Program.cs" />
     <Compile Include="UButton.cs">
       <CustomToolNamespace>OrderForm</CustomToolNamespace>
       <SubType>Component</SubType>
@@ -156,11 +170,11 @@
     <Compile Include="FirstStart.Designer.cs">
       <DependentUpon>FirstStart.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyReport - Copy.cs">
+    <Compile Include="MatReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MyReport - Copy.Designer.cs">
-      <DependentUpon>MyReport - Copy.cs</DependentUpon>
+    <Compile Include="MatReport.Designer.cs">
+      <DependentUpon>MatReport.cs</DependentUpon>
     </Compile>
     <Compile Include="MyReport.cs">
       <SubType>Form</SubType>
@@ -201,7 +215,6 @@
     <Compile Include="Orders.Designer.cs">
       <DependentUpon>Orders.cs</DependentUpon>
     </Compile>
-    <Compile Include="VS Studio Backend\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AreYouSure.resx">
       <DependentUpon>AreYouSure.cs</DependentUpon>
@@ -209,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CalLog.resx">
       <DependentUpon>CalLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadingForm.resx">
+      <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UButton.resx">
       <DependentUpon>UButton.cs</DependentUpon>
@@ -221,8 +237,8 @@
       <DependentUpon>FirstStart.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyReport - Copy.resx">
-      <DependentUpon>MyReport - Copy.cs</DependentUpon>
+    <EmbeddedResource Include="MatReport.resx">
+      <DependentUpon>MatReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyReport.resx">
       <DependentUpon>MyReport.cs</DependentUpon>
@@ -259,14 +275,34 @@
     <Content Include="API\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="API\NetworkSynq.deps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\NetworkSynq.runtimeconfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="API\web.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="app.config" />
-    <Content Include="API\aspnetcorev2_inprocess.dll">
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+    <None Include="app.config.Sample" />
+    <None Include="nabkawe%40gmail.com.pfx" />
+    <None Include="VS Studio Backend\app.config" />
+    <Content Include="API\LiteDB.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\Microsoft.Win32.SystemEvents.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\MySharedBaseCode.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="API\MySharedBaseCode.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\NetworkSynq.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="API\NetworkSynq.exe">
@@ -275,15 +311,39 @@
     <Content Include="API\NetworkSynq.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="API\Newtonsoft.Json.Bson.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\PrayerTimes.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="API\PrayerTimes.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\System.Configuration.ConfigurationManager.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\System.Drawing.Common.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\System.Security.Cryptography.ProtectedData.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\System.Security.Permissions.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="API\System.Windows.Extensions.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="HeaderSource.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="VS Studio Backend\packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\sharedCode.Invoice.datasource" />
-    <None Include="VS Studio Backend\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -293,9 +353,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="VS Studio Backend\App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="LibraSoft2.ico" />
@@ -309,6 +366,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="LibraSoft.ico" />
+    <Content Include="MNSCID.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="to do list.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -327,10 +387,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CID\SampleBasicNetwork2008\CID.csproj">
-      <Project>{65931405-0311-41f9-bcc6-a1d8a93f706d}</Project>
-      <Name>CID</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Menu\DisplayMenu.csproj">
       <Project>{c617e0be-8d11-4428-83f6-81e2fd258b0d}</Project>
       <Name>DisplayMenu</Name>

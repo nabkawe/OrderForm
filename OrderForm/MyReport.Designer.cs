@@ -45,6 +45,7 @@
             this.eatIn = new System.Windows.Forms.RadioButton();
             this.PaymentMethods = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.HourSort = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dvReport)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -133,6 +134,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.HourSort);
             this.panel1.Controls.Add(this.OrderDirection);
             this.panel1.Controls.Add(this.toGo);
             this.panel1.Controls.Add(this.All);
@@ -164,7 +166,7 @@
             // toGo
             // 
             this.toGo.AutoSize = true;
-            this.toGo.Location = new System.Drawing.Point(255, 47);
+            this.toGo.Location = new System.Drawing.Point(325, 47);
             this.toGo.Name = "toGo";
             this.toGo.Size = new System.Drawing.Size(57, 17);
             this.toGo.TabIndex = 16;
@@ -175,7 +177,7 @@
             // 
             this.All.AutoSize = true;
             this.All.Checked = true;
-            this.All.Location = new System.Drawing.Point(191, 24);
+            this.All.Location = new System.Drawing.Point(261, 24);
             this.All.Name = "All";
             this.All.Size = new System.Drawing.Size(127, 17);
             this.All.TabIndex = 17;
@@ -186,7 +188,7 @@
             // Phone
             // 
             this.Phone.AutoSize = true;
-            this.Phone.Location = new System.Drawing.Point(324, 47);
+            this.Phone.Location = new System.Drawing.Point(394, 47);
             this.Phone.Name = "Phone";
             this.Phone.Size = new System.Drawing.Size(49, 17);
             this.Phone.TabIndex = 15;
@@ -196,7 +198,7 @@
             // Jahez
             // 
             this.Jahez.AutoSize = true;
-            this.Jahez.Location = new System.Drawing.Point(322, 24);
+            this.Jahez.Location = new System.Drawing.Point(392, 24);
             this.Jahez.Name = "Jahez";
             this.Jahez.Size = new System.Drawing.Size(53, 17);
             this.Jahez.TabIndex = 14;
@@ -216,7 +218,7 @@
             // eatIn
             // 
             this.eatIn.AutoSize = true;
-            this.eatIn.Location = new System.Drawing.Point(191, 47);
+            this.eatIn.Location = new System.Drawing.Point(261, 47);
             this.eatIn.Name = "eatIn";
             this.eatIn.Size = new System.Drawing.Size(53, 17);
             this.eatIn.TabIndex = 13;
@@ -241,6 +243,16 @@
             this.label3.TabIndex = 19;
             this.label3.Text = "المبيعات الكاملة";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // HourSort
+            // 
+            this.HourSort.AutoSize = true;
+            this.HourSort.Location = new System.Drawing.Point(123, 11);
+            this.HourSort.Name = "HourSort";
+            this.HourSort.Size = new System.Drawing.Size(120, 17);
+            this.HourSort.TabIndex = 19;
+            this.HourSort.Text = "ترتيب حسب الساعة";
+            this.HourSort.UseVisualStyleBackColor = true;
             // 
             // MyReport
             // 
@@ -282,5 +294,6 @@
         private System.Windows.Forms.CheckBox OrderDirection;
         private System.Windows.Forms.Panel PaymentMethods;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox HourSort;
     }
 }

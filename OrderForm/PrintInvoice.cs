@@ -127,7 +127,7 @@ namespace OrderForm
             y += e.Graphics.MeasureString(text, lfnt).Height;
 
             // Customer Name Check and print
-            if (order.CustomerName != "")
+            if (!string.IsNullOrEmpty(order.CustomerName))
             {
                 y += 5;
                 e.Graphics.DrawLine(new Pen(Color.Black), new Point(0, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
@@ -137,7 +137,7 @@ namespace OrderForm
                 e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
                 // Customer Number Check and print
 
-                if (order.CustomerNumber != "")
+                if (!string.IsNullOrEmpty(order.CustomerNumber))
                 {
                     text = order.CustomerNumber;
                     e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
@@ -151,9 +151,8 @@ namespace OrderForm
 
 
             // Order Notes Check and print
-            if (order.Comment != null)
-            {
-                if (order.Comment != "")
+            
+                if (!string.IsNullOrEmpty(order.Comment))
                 {
                     text = RtlMark +order.Comment;
                     e.Graphics.DrawString("ملاحظة الفاتورة", tfnt, drawBrush, new RectangleF(x, y - 3, width, height), drawFormatRight);
@@ -161,7 +160,7 @@ namespace OrderForm
                     e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
                     y += e.Graphics.MeasureString(text, fnt).Height;
                 }
-            }
+            
 
             //  Items Header Area
             y += 5;
@@ -169,7 +168,7 @@ namespace OrderForm
             y += 5;
             //printing time
             var rectangleH = new RectangleF(x, y, width, height);
-            e.Graphics.DrawString(DateTime.Now.ToString("hh:mmtt- dd/MM/yy"), tfnt, drawBrush, rectangleH, drawFormatCenter);
+            e.Graphics.DrawString(DateTime.Now.ToString("hh:mmtt-dd/MM/yy"), sfnt, drawBrush, rectangleH, drawFormatCenter);
             e.Graphics.DrawString("المادة", sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
             e.Graphics.DrawString("الكمية", sfnt, drawBrush, rectangleH, drawFormatLeft);
             y += e.Graphics.MeasureString(text, tfnt).Height;
@@ -211,11 +210,9 @@ namespace OrderForm
                     y += e.Graphics.MeasureString(text, fnt).Height;
                 }
                 //checking for item comments.
-                if (item.Comment != null)
+                if (!string.IsNullOrEmpty(item.Comment))
                 {
-                    if (item.Comment.Replace(" ", "") != "")
-
-                    {
+                                       
                         y += 1;
                         e.Graphics.DrawLine(new Pen(Color.Black), new Point(150, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
                         y += 1;
@@ -223,7 +220,7 @@ namespace OrderForm
                         string comment = RtlMark +  item.Comment;
                         e.Graphics.DrawString(comment, cfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatRight);
                         y += e.Graphics.MeasureString(comment, cfnt).Height;
-                    }
+                    
                 }
             }
             y += 1;
@@ -279,7 +276,7 @@ namespace OrderForm
         private static void FormatPage(object sender, PrintPageEventArgs e)
         {
             float x = 0;
-            float y = 10;
+            float y = 0;
             float width = 270.0F; // max width I found through trial and error
             float height = 0F;
 
@@ -306,13 +303,18 @@ namespace OrderForm
 
 
             string text;
+            if (order.OrderType == "محلي")
+            {
+                text = order.OrderType;
+                e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(" ", lfnt).Height;
+            }
+            else
+            {
+                y += 5;
+            }
             
-            text = order.OrderType;
-            e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-            y += e.Graphics.MeasureString(" ", lfnt).Height;
-
-
-            text = "ورقة التحضير#";
+             text = "رقم الطلب#";
             e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += e.Graphics.MeasureString(" ", lfnt).Height;
 
@@ -329,47 +331,46 @@ namespace OrderForm
             y += 5;
 
             y += e.Graphics.MeasureString(text, mfnt).Height;
-            text =  order.InvoicePrice + " SAR ";
+            text = order.TimeinArabic + (order.InEditMode ? " الطلب جاهز "  : "");
             e.Graphics.DrawString(text, sfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
             y += e.Graphics.MeasureString(text, mfnt).Height;
 
 
             // Customer Name Check and print
-            if (order.CustomerName != "")
-            {
-                y += 5;
-                e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
-                y += 5;
+            //if (!string.IsNullOrEmpty(order.CustomerName))
+            //{
+            //    y += 5;
+            //    e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
+            //    y += 5;
 
-                text = order.CustomerName;
-                e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+            //    text = order.CustomerName;
+            //    e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
                 
-                y += e.Graphics.MeasureString(text, hfnt).Height;
-                y += 5;
-                e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
-                y += 5;
+            //    y += e.Graphics.MeasureString(text, hfnt).Height;
+            //    y += 5;
+            //    e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
+            //    y += 5;
 
-                // Customer Number Check and print
+            //    // Customer Number Check and print
 
-                //if (order.CustomerNumber != "")
-                //{
-                //    text = order.CustomerNumber;
-                //    e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                //}
+            //    //if (order.CustomerNumber != "")
+            //    //{
+            //    //    text = order.CustomerNumber;
+            //    //    e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
+            //    //}
 
-            }
+            //}
             // Order Notes Check and print
-            if (order.Comment != null)
-            {
-                if (order.Comment != "")
-                {
-                    text = order.Comment;
-                    e.Graphics.DrawString("ملاحظة الفاتورة", tfnt, drawBrush, new RectangleF(2, y - 3, width, height), drawFormatRight);
-                    y += e.Graphics.MeasureString(text, sfnt).Height;
-                    e.Graphics.DrawString(text, tfnt, drawBrush, new RectangleF(2, y, width, height), drawFormatRight);
-                    y += e.Graphics.MeasureString(text, fnt).Height;
-                }
-            }
+            
+            
+                //if (!string.IsNullOrEmpty(order.Comment))
+                //{
+                //    text = order.Comment;
+                //    e.Graphics.DrawString("ملاحظة الفاتورة", tfnt, drawBrush, new RectangleF(2, y - 3, width, height), drawFormatRight);
+                //    y += e.Graphics.MeasureString(text, sfnt).Height;
+                //    e.Graphics.DrawString(text, tfnt, drawBrush, new RectangleF(2, y, width, height), drawFormatRight);
+                //    y += e.Graphics.MeasureString(text, fnt).Height;
+                //}
 
             e.Graphics.DrawRectangle(new Pen(Color.Black), 2, 2, 270, y);
 
