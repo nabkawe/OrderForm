@@ -63,7 +63,7 @@
       <Value Profile="(Default)">[NAME:SwitchButton1]</Value>
     </Setting>
     <Setting Name="pos" Type="System.String" Scope="User">
-      <Value Profile="(Default)"> نقطة بيع مطعم سحائب طيبه سليمانية 2022</Value>
+      <Value Profile="(Default)"> نقطة بيع مطعم سحائب طيبه سليمانية 2023</Value>
     </Setting>
     <Setting Name="Mada1" Type="System.String" Scope="User">
       <Value Profile="(Default)">[NAME:TextBox22]</Value>
@@ -156,7 +156,7 @@
       <Value Profile="(Default)">200,222</Value>
     </Setting>
     <Setting Name="RestaurantName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">سحائب طييبة</Value>
+      <Value Profile="(Default)">سحائب طيبه</Value>
     </Setting>
     <Setting Name="Logo" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\db\images\debes.png</Value>

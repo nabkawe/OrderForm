@@ -23,6 +23,7 @@ using Point = System.Drawing.Point;
 using TextDataFormat = System.Windows.Forms.TextDataFormat;
 using OrderForm.SavingandPayment;
 using static System.Windows.Forms.DataFormats;
+using Application = System.Windows.Forms.Application;
 using System.Text;
 using System.Drawing;
 using Newtonsoft.Json.Linq;
@@ -31,7 +32,9 @@ using Windows.ApplicationModel.DataTransfer;
 using System.Windows.Markup;
 using System.Diagnostics.Eventing.Reader;
 using Windows.UI.Notifications;
-using Windows.ApplicationModel.Background;
+using Clipboard = Windows.ApplicationModel.Background;
+using System.Windows;
+
 
 namespace OrderForm
 {
@@ -174,6 +177,7 @@ namespace OrderForm
         {
             var item = sender as UButton;
             item.BackgroundImage = btnImage;
+            item.Text = ItemsLists.First(x => x.Barcode == item.Tag.ToString()).Name;
         }
         private static Image btnImage;
         private void Item_MouseEnter(object sender, EventArgs e)
@@ -183,6 +187,10 @@ namespace OrderForm
             btnImage = null; btnImage = Image;
 
             item.BackgroundImage = null;
+            item.Text = ItemsLists.First(x => x.Barcode == item.Tag.ToString()).Price.ToString() + Environment.NewLine + item.Text;
+
+
+
         }
 
 
@@ -205,7 +213,7 @@ namespace OrderForm
 
 
                 rightClickMenu.Show(Cursor.Position);
-                rightClickMenu.Items[3].Text = btn.Text;
+                rightClickMenu.Items[3].Text = ItemsLists.First(x => x.Barcode == btn.Tag.ToString()).Name;
                 rightClickMenu.Items[2].Visible = false;
                 rightClickMenu.Tag = (string)btn.Tag;
             }
@@ -1163,18 +1171,18 @@ namespace OrderForm
 
         private void LoadOrders()
         {
-            if (SearchTB.Text.Replace(" ","") == "")
+            if (SearchTB.Text.Replace(" ", "") == "")
             {
 
                 CheckDay();
             }
 
-            this.panel1.Visible = true;
-            this.OrdersContainer.Visible = true;
+            this.panel1.Visible = true; this.panel1.BringToFront();
+            this.OrdersContainer.Visible = true; this.OrdersContainer.BringToFront();
             this.OrdersPanel.Visible = false;
             LastOrder.Visible = false;
             EditName.Visible = false;
-
+            GridUIPrinted();
 
         }
 
@@ -1282,7 +1290,8 @@ namespace OrderForm
                 FillPOS(heldInv.InvoiceItems);
                 //this.panel1.Visible = false;
                 this.OrdersContainer.Visible = false;
-                this.OrdersPanel.Visible = true;
+                this.OrdersPanel.Visible = true; this.OrdersPanel.BringToFront();
+
 
                 return;
             }
@@ -1300,7 +1309,7 @@ namespace OrderForm
                 OrderStatus.Text = heldInv.OrderType;
                 FillPOS(heldInv.InvoiceItems);
                 this.OrdersContainer.Visible = false;
-                this.OrdersPanel.Visible = true;
+                this.OrdersPanel.Visible = true; this.OrdersPanel.BringToFront();
             }
             else if (heldInv.Status == InvStat.SavedToPOS)
             {
@@ -1318,7 +1327,7 @@ namespace OrderForm
                     OrderStatus.Text = heldInv.OrderType;
                     FillPOS(heldInv.InvoiceItems);
                     this.OrdersContainer.Visible = false;
-                    this.OrdersPanel.Visible = true;
+                    this.OrdersPanel.Visible = true; this.OrdersPanel.BringToFront();
 
                 }
                 else { OrdersPage_Click(null, null); }
@@ -1338,7 +1347,7 @@ namespace OrderForm
                 if (!string.IsNullOrEmpty(heldInv.OrderType)) OrderStatus.Text = heldInv.OrderType;
                 else OrderStatus.Text = InvoiceTypeOptions.Items[Properties.Settings.Default.defaultOrder].Text;
                 this.OrdersContainer.Visible = false;
-                this.OrdersPanel.Visible = true;
+                this.OrdersPanel.Visible = true; this.OrdersPanel.BringToFront();
                 FillPOS(heldInv.InvoiceItems);
             }
             IsItPrinted = true;
@@ -1583,7 +1592,7 @@ namespace OrderForm
 
         private void NameTB_Enter(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(MobileTB.Text))
+            if (!string.IsNullOrWhiteSpace(MobileTB.Text) && string.IsNullOrWhiteSpace(NameTB.Text))
             {
                 var con = dbQ.LoadContacts(MobileTB.Text);
 
@@ -1741,6 +1750,7 @@ namespace OrderForm
             {
                 OrdersContainer.Visible = false;
                 this.OrdersPanel.Visible = true;
+                this.OrdersPanel.BringToFront();
 
 
                 //Update();
@@ -1885,8 +1895,8 @@ namespace OrderForm
 
             InvoicesDG.Columns["ID"].Width = 98;
 
-            InvoicesDG.Columns["OrderType"].Width = 80;
-
+            InvoicesDG.Columns["OrderType"].Width = 120;
+            Console.WriteLine(InvoicesDG.Columns["OrderType"].Index);
 
             InvoicesDG.Columns["InvoiceDay"].Width = 80;
 
@@ -2123,6 +2133,7 @@ namespace OrderForm
                         {
                             if (IsItPrinted && SaveToPOS.Equal(DbInv.GetInvoiceByID(SaveToPOS.ID)))
                             {
+                                SaveToPOS.TimeOfPrinting = DbInv.GetInvoiceByID(SaveToPOS.ID).TimeOfPrinting;
                                 Save2POS(SaveToPOS);
                                 return;
                             }
@@ -2131,14 +2142,14 @@ namespace OrderForm
                                 DialogResult dialogResult = MessageBox.Show("هل تريد إعادة الطباعة؟", "تم تعديل الفاتورة", MessageBoxButtons.YesNo);
                                 if (dialogResult == DialogResult.Yes)
                                 {
-
+                                    SaveToPOS.TimeOfPrinting = DbInv.GetInvoiceByID(SaveToPOS.ID).TimeOfPrinting;
                                     PrintSave_Click(sender, null);
                                     Save2POS(SaveToPOS);
                                     return;
                                 }
                                 else if (dialogResult == DialogResult.No)
                                 {
-
+                                    SaveToPOS.TimeOfPrinting = DbInv.GetInvoiceByID(SaveToPOS.ID).TimeOfPrinting;
                                     Save2POS(SaveToPOS);
                                     return;
                                 }
@@ -2146,7 +2157,9 @@ namespace OrderForm
                             }
                             else
                             {
+
                                 PrintSave_Click(sender, null);
+                                SaveToPOS.TimeOfPrinting = DateTime.Now.ToString("hh:mmtt dd/MM/yy");
                                 Save2POS(SaveToPOS);
                                 return;
 
@@ -2195,6 +2208,10 @@ namespace OrderForm
                         var payment = new Payment() { Name = "Jahez", Amount = SaveToPOS.InvoicePrice };
                         SaveToPOS.Payments.Add(payment);
                         SaveToPOS.TimeOfSaving = DateTime.Now;
+
+
+                        SaveToPOS.TimeOfPrinting = DbInv.GetInvoiceByID(SaveToPOS.ID).TimeOfPrinting;
+
                         DbInv.CreateAppOrder(SaveToPOS);
                         return;
 
@@ -2498,8 +2515,9 @@ namespace OrderForm
 
             LastOrder.Visible = false;
             EditName.Visible = false;
-            this.panel1.Visible = true;
+            this.panel1.Visible = false;
             this.OrdersContainer.Visible = true;
+            this.OrdersContainer.BringToFront();
             History.Checked = true;
             this.SearchTB.Text = MobileTB.Text;
             Search_Click(null, null);
@@ -2520,7 +2538,7 @@ namespace OrderForm
 
             string JahezParser = "";
             JahezParser = e.Data.GetData(DataFormats.UnicodeText).ToString();
-         Match match = Regex.Match(JahezParser, @"^\d\r?");
+            Match match = Regex.Match(JahezParser, @"^\d\r?");
 
 
             if (JahezParser.Contains("Order"))
@@ -2599,6 +2617,7 @@ namespace OrderForm
 
                 MatchCollection matches = Regex.Matches(a, @"\n(\d+)×\n(.+?)\s+([\d.]+) ر.س.");
 
+
                 foreach (Match matchA in matches)
                 {
                     string quantity = matchA.Groups[1].Value;
@@ -2608,6 +2627,7 @@ namespace OrderForm
                     MessageBox.Show($"{quantity}x {itemName} for {price} ر.س.");
                 }
             }
+
             else if (JahezParser.Contains("(") || JahezParser.Contains("ر.س"))
             {
                 string whatsappParser = string.Empty;
@@ -2687,13 +2707,15 @@ namespace OrderForm
                     {
                         if (due != decimalPrice)
                         {
-                            Console.Beep(2000, 500);
-                            Console.Beep(2000, 500);
+                            MessageBox.Show("السعر لا يساوي السعر بالسلة");
                             return;
                         }
                         else
                         {
-                            Console.Beep(1000, 1000);
+                            if (System.Windows.Clipboard.ContainsText())
+                            {
+                                MobileTB.Text = System.Windows.Clipboard.GetText();
+                            }
                             return;
                         }
                     }
@@ -2701,6 +2723,88 @@ namespace OrderForm
 
                 }
             }
+
+
+
+            //else if (JahezParser.Contains("(") || JahezParser.Contains("ر.س"))
+            //{
+            //    string whatsappParser = string.Empty;
+            //    whatsappParser = e.Data.GetData(DataFormats.UnicodeText).ToString();
+            //    POS.Clear();
+            //    String MatParser = "";
+            //    {
+
+            //        foreach (string s in whatsappParser.Split('\u000a'))
+            //        {
+
+            //            if (s.Contains("\""))
+            //            {
+            //                var start = s.IndexOf("\"") + 1;//add one to not include quote
+            //                var end = s.LastIndexOf("\"") - start;
+            //                var result = s.Substring(start, end);
+            //                MatParser += Environment.NewLine + "*" + result;
+            //            }
+            //            if (s.Contains('•'))
+            //            {
+
+            //                MatParser += Environment.NewLine + s.Split('•')[1].Replace("Quantity ", "").Replace("الكمية ", "");
+            //            }
+
+            //        }
+
+            //        try
+            //        {
+
+            //            for (int i = 1; i < MatParser.Split('*').Count() + 1; i++)
+            //            {
+            //                string WhatsBarcode = MatParser.Split('*')[i].Split('\u000a')[0];
+            //                string WhatsQuantity = MatParser.Split('*')[i].Split('\u000a')[1];
+            //                WhatsBarcode = WhatsBarcode.Replace('\r', ' ').Replace(" ", "");
+            //                WhatsQuantity = WhatsQuantity.Replace('\r', ' ').Replace(" ", "");
+
+            //                var Item = ItemsLists.First(x => x.Barcode == WhatsBarcode);
+            //                if (Item != null)
+            //                {
+            //                    Item.Quantity = Convert.ToInt32(WhatsQuantity);
+            //                    Item.Comment = "";
+            //                    POSItems New = new POSItems();
+            //                    New.Name = Item.Name;
+            //                    New.Quantity = Item.Quantity;
+            //                    New.Price = Item.Price;
+            //                    New.PrinterName = Item.PrinterName;
+            //                    Item.printerlist.ForEach(x => New.printerlist.Add(x));
+            //                    New.realquan = Item.realquan;
+            //                    New.Barcode = Item.Barcode;
+            //                    New.ID = Item.ID;
+            //                    New.Parent = Item.Parent;
+            //                    New.Available = Item.Available;
+            //                    POS.Add(New);
+            //                }
+
+            //            }
+            //        }
+
+
+            //        catch (Exception)
+            //        {
+            //            //JahezBarcode = JahezBarcode.Remove(JahezBarcode.Length - 2, JahezBarcode.Length);
+            //            //JahezQuantity = JahezQuantity.Remove(JahezQuantity.Length - 2, JahezQuantity.Length);
+            //        }
+
+            //        string price = whatsappParser.Split('\u000a')[1].
+            //            Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
+            //        string price1 = whatsappParser.Split('\u000a')[1].
+            //            Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
+            //        string price0 = whatsappParser.Split('\u000a')[0].
+            //            Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
+
+            //        decimal due = Convert.ToDecimal(AmountLBL.Text);
+            //        string CartPrice = price.Replace("/r", "");
+
+
+
+            //    }
+            //}
         }
         #endregion
         private void Search_Click(object sender, EventArgs e)
@@ -3296,10 +3400,11 @@ namespace OrderForm
 
 
             }
-            if (e.ColumnIndex == InvoicesDG.Columns["OrderType"].Index && item.InEditMode && item.TimeOfSaving != null)
+            if (e.ColumnIndex == 5 && item.InEditMode && item.TimeOfSaving != null)
             {
 
-                e.Value = "جاهز";
+                e.Value = "الطلب جاهز";
+
 
 
             }
@@ -3629,7 +3734,7 @@ namespace OrderForm
                     }
                     else { DbInv.UpdateInvoiceReady(inv.ID, false); inv.InEditMode = false; }
                 });
-
+                InvoicesDG.Refresh();
 
 
             }
@@ -3738,8 +3843,39 @@ namespace OrderForm
 
         }
 
+        private void InvoicesDG_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            {
+                if (e.Value != null)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.ContentForeground);
 
+                    ButtonRenderer.DrawButton(e.Graphics, e.CellBounds, e.Value.ToString(), this.Font, false, System.Windows.Forms.VisualStyles.PushButtonState.Hot);
 
+                    e.Handled = true;
+                }
+            }
+    
+            if (e.ColumnIndex == 5 && e.RowIndex >= 0 && e.FormattedValue.ToString() == "الطلب جاهز")
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.ContentForeground);
+                ButtonRenderer.DrawButton(e.Graphics, e.CellBounds, e.FormattedValue.ToString(), this.Font, false, System.Windows.Forms.VisualStyles.PushButtonState.Hot);
+                e.Handled = true;
+            }
+
+            }
+
+        private void uButton1_Click(object sender, EventArgs e)
+        {
+
+            if (System.Windows.Clipboard.ContainsText(System.Windows.TextDataFormat.Text))
+            {
+                if (!System.Windows.Clipboard.GetText().Replace("+", "").Replace(" ","").Any(c => !Char.IsDigit(c)))
+                    MobileTB.Text = System.Windows.Clipboard.GetText();
+                else { NameTB.Text = System.Windows.Clipboard.GetText(); }
+            }
+        }
     }
 }
 

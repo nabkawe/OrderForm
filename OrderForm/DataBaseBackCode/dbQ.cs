@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using Windows.ApplicationModel.Contacts;
 using Windows.UI.WebUI;
@@ -384,17 +385,18 @@ namespace OrderForm
 
         public static POSsections GetSection(POSItems item)
         {
+            List<POSsections> sss = new List<POSsections>();
             foreach (POSsections Section in PopulateSections())
             {
                 foreach (var SectionMaterials in GetItemsForSection(Section.Name))
                 {
-                    if (SectionMaterials.Name == item.Name)
+                    if (SectionMaterials.Barcode == item.Barcode)
                     {
-                        return Section;
+                        sss.Add(Section);
                     }
                 }
             }
-            return new POSsections();
+            if (sss.Count > 0) return sss.Last(); else return new POSsections();
 
         }
         public static List<POSsections> GetSections()
@@ -464,13 +466,13 @@ namespace OrderForm
                             var a = items.FindBarcode(barcode);
                             if (a != null)
                             {
-                                MenuSection m = Menus.Find(x=> x.Name == item.Name).First();
+                                MenuSection m = Menus.Find(x => x.Name == item.Name).First();
                                 if (m != null)
                                 {
-                                    
+
                                     foreach (var itemz in m.list)
                                     {
-                                        itemz.items.ForEach(z => { if (z.Barcode.Contains(a.Barcode)) { z.Available = state; Menus.Update(m); }  });
+                                        itemz.items.ForEach(z => { if (z.Barcode.Contains(a.Barcode)) { z.Available = state; Menus.Update(m); } });
                                     }
                                 }
                             }
@@ -478,7 +480,7 @@ namespace OrderForm
                     }
                     return;
                 }
-                catch (Exception )
+                catch (Exception)
                 {
 
                 }

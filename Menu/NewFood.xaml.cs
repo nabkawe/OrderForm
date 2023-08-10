@@ -138,29 +138,7 @@ namespace OrderForm
    
         public void PickedYou()
         {
-          //  Window1 window = new Window1();
-          //  Type type = this.GetType();
-          //  string xaml = XamlWriter.Save(this);
-          //  StringReader stringReader = new StringReader(xaml);
-          //  XmlReader xmlReader = XmlReader.Create(stringReader);
-          //  NewFood newFood = (NewFood)XamlReader.Load(xmlReader);
-          //  newFood.Name = "foodi";
-          //  newFood.Height = window.Height;
-          //  newFood.Width = window.Width;   
-          //window.Grid.Children.Add(newFood);
-            
-
-
-          //  //window.Content = XamlReader.Parse(XamlWriter.Save(this));
-          //  Window parentWindow = Window.GetWindow(this);
-          //  window.Owner = parentWindow;
-          //  Point rl = this.TranslatePoint(new Point(0, 0), parentWindow) ;
-          //  //Screen screen = Screen.FromPoint(rl) ;
-          //  window.Topmost = true;
-          //  window.Left = this.PointToScreen(new Point(MainWindow.Currentsize.Width * 1.5 / this.Width ,0)).X;
-          //  window.Top = this.PointToScreen(new Point(0, 0)).Y;
-
-          //  window.Show();
+ 
 
             this.dispatcherTimer.Stop();
             this.RegisterName("BlurEffect", dropEffect);

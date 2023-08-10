@@ -44,6 +44,7 @@
             this.ItemNameTag = new System.Windows.Forms.ToolStripMenuItem();
             this.SalahTMR = new System.Windows.Forms.Timer(this.components);
             this.OrdersPanel = new System.Windows.Forms.Panel();
+            this.uButton1 = new OrderForm.UButton();
             this.EditName = new OrderForm.UButton();
             this.xLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -126,10 +127,10 @@
             this.OrdersReady = new System.Windows.Forms.ToolStripButton();
             this.label2 = new System.Windows.Forms.Label();
             this.Search = new OrderForm.UButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.InvoicesDG = new System.Windows.Forms.DataGridView();
             this.SearchLBL = new System.Windows.Forms.Label();
             this.SearchTB = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.InvoicesDG = new System.Windows.Forms.DataGridView();
             this.DayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.HourPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MinutesPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -251,6 +252,7 @@
             // OrdersPanel
             // 
             this.OrdersPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.OrdersPanel.Controls.Add(this.uButton1);
             this.OrdersPanel.Controls.Add(this.EditName);
             this.OrdersPanel.Controls.Add(this.xLabel);
             this.OrdersPanel.Controls.Add(this.label3);
@@ -309,6 +311,27 @@
             this.OrdersPanel.Size = new System.Drawing.Size(1034, 953);
             this.OrdersPanel.TabIndex = 21;
             this.OrdersPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrdersPanel_Paint);
+            // 
+            // uButton1
+            // 
+            this.uButton1.AllowDrop = true;
+            this.uButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.uButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.uButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.uButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uButton1.Font = new System.Drawing.Font("Webdings", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.uButton1.ForeColor = System.Drawing.Color.White;
+            this.uButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uButton1.Location = new System.Drawing.Point(627, 649);
+            this.uButton1.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.uButton1.Name = "uButton1";
+            this.uButton1.Size = new System.Drawing.Size(47, 40);
+            this.uButton1.TabIndex = 175;
+            this.uButton1.TabStop = false;
+            this.uButton1.Text = "¤";
+            this.uButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.uButton1.UseVisualStyleBackColor = false;
+            this.uButton1.Click += new System.EventHandler(this.uButton1_Click);
             // 
             // EditName
             // 
@@ -675,7 +698,7 @@
             // 
             this.label6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.GhostWhite;
-            this.label6.Location = new System.Drawing.Point(72, 570);
+            this.label6.Location = new System.Drawing.Point(70, 570);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 26);
             this.label6.TabIndex = 158;
@@ -1210,10 +1233,10 @@
             this.WhatAppBTN.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WhatAppBTN.ForeColor = System.Drawing.Color.White;
             this.WhatAppBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.WhatAppBTN.Location = new System.Drawing.Point(661, 650);
+            this.WhatAppBTN.Location = new System.Drawing.Point(685, 650);
             this.WhatAppBTN.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.WhatAppBTN.Name = "WhatAppBTN";
-            this.WhatAppBTN.Size = new System.Drawing.Size(96, 40);
+            this.WhatAppBTN.Size = new System.Drawing.Size(107, 40);
             this.WhatAppBTN.TabIndex = 29;
             this.WhatAppBTN.TabStop = false;
             this.WhatAppBTN.Text = "WhatsApp";
@@ -1227,7 +1250,7 @@
             this.MobileTB.AllowDrop = true;
             this.MobileTB.BackColor = System.Drawing.Color.GhostWhite;
             this.MobileTB.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.MobileTB.Location = new System.Drawing.Point(798, 650);
+            this.MobileTB.Location = new System.Drawing.Point(797, 650);
             this.MobileTB.Margin = new System.Windows.Forms.Padding(0);
             this.MobileTB.Name = "MobileTB";
             this.MobileTB.Size = new System.Drawing.Size(216, 43);
@@ -1408,9 +1431,9 @@
             this.OrdersContainer.Panel1.Controls.Add(this.toolStrip1);
             this.OrdersContainer.Panel1.Controls.Add(this.label2);
             this.OrdersContainer.Panel1.Controls.Add(this.Search);
-            this.OrdersContainer.Panel1.Controls.Add(this.panel1);
             this.OrdersContainer.Panel1.Controls.Add(this.SearchLBL);
             this.OrdersContainer.Panel1.Controls.Add(this.SearchTB);
+            this.OrdersContainer.Panel1.Controls.Add(this.panel1);
             this.OrdersContainer.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             // 
             // OrdersContainer.Panel2
@@ -1791,6 +1814,27 @@
             this.Search.UseVisualStyleBackColor = false;
             this.Search.Click += new System.EventHandler(this.Search_Click);
             // 
+            // SearchLBL
+            // 
+            this.SearchLBL.AutoSize = true;
+            this.SearchLBL.ForeColor = System.Drawing.Color.White;
+            this.SearchLBL.Location = new System.Drawing.Point(952, 9);
+            this.SearchLBL.Name = "SearchLBL";
+            this.SearchLBL.Size = new System.Drawing.Size(66, 13);
+            this.SearchLBL.TabIndex = 51;
+            this.SearchLBL.Text = "بحث الفواتير:";
+            // 
+            // SearchTB
+            // 
+            this.SearchTB.BackColor = System.Drawing.Color.GhostWhite;
+            this.SearchTB.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchTB.Location = new System.Drawing.Point(790, 27);
+            this.SearchTB.Name = "SearchTB";
+            this.SearchTB.Size = new System.Drawing.Size(231, 35);
+            this.SearchTB.TabIndex = 42;
+            this.SearchTB.TextChanged += new System.EventHandler(this.SearchTB_TextChanged);
+            this.SearchTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchTB_KeyUp);
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.InvoicesDG);
@@ -1807,7 +1851,7 @@
             this.InvoicesDG.AllowUserToAddRows = false;
             this.InvoicesDG.AllowUserToDeleteRows = false;
             this.InvoicesDG.AllowUserToResizeRows = false;
-            this.InvoicesDG.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.InvoicesDG.BackgroundColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1845,29 +1889,9 @@
             this.InvoicesDG.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoicesDG_CellDoubleClick);
             this.InvoicesDG.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.InvoicesDG_CellFormatting);
             this.InvoicesDG.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.InvoicesDG_CellMouseUp);
+            this.InvoicesDG.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.InvoicesDG_CellPainting);
             this.InvoicesDG.CellToolTipTextNeeded += new System.Windows.Forms.DataGridViewCellToolTipTextNeededEventHandler(this.InvoicesDG_CellToolTipTextNeeded);
             this.InvoicesDG.SelectionChanged += new System.EventHandler(this.InvoicesDG_SelectionChanged);
-            // 
-            // SearchLBL
-            // 
-            this.SearchLBL.AutoSize = true;
-            this.SearchLBL.ForeColor = System.Drawing.Color.White;
-            this.SearchLBL.Location = new System.Drawing.Point(952, 9);
-            this.SearchLBL.Name = "SearchLBL";
-            this.SearchLBL.Size = new System.Drawing.Size(66, 13);
-            this.SearchLBL.TabIndex = 51;
-            this.SearchLBL.Text = "بحث الفواتير:";
-            // 
-            // SearchTB
-            // 
-            this.SearchTB.BackColor = System.Drawing.Color.GhostWhite;
-            this.SearchTB.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchTB.Location = new System.Drawing.Point(790, 27);
-            this.SearchTB.Name = "SearchTB";
-            this.SearchTB.Size = new System.Drawing.Size(231, 35);
-            this.SearchTB.TabIndex = 42;
-            this.SearchTB.TextChanged += new System.EventHandler(this.SearchTB_TextChanged);
-            this.SearchTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchTB_KeyUp);
             // 
             // DayMenu
             // 
@@ -2465,11 +2489,6 @@
             this.SettingsPage.UseVisualStyleBackColor = false;
             this.SettingsPage.Click += new System.EventHandler(this.SettingsPage_Click);
             // 
-            // CIDWorker
-            // 
-            //this.CIDWorker.WorkerReportsProgress = true;
-            //this.CIDWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CIDWorker_DoWork);
-            // 
             // Orders
             // 
             this.AllowDrop = true;
@@ -2478,9 +2497,8 @@
             this.BackColor = System.Drawing.Color.LightSlateGray;
             this.ClientSize = new System.Drawing.Size(1034, 999);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.OrdersContainer);
             this.Controls.Add(this.OrdersPanel);
-            this.DoubleBuffered = true;
+            this.Controls.Add(this.OrdersContainer);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -2648,5 +2666,6 @@
         private System.Windows.Forms.Label selectedLBL;
         public System.Windows.Forms.DataGridView InvoicesDG;
         public System.Windows.Forms.FlowLayoutPanel ItemsPanel1;
+        private UButton uButton1;
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OrderForm.Properties;
+using System;
+using System.Configuration;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -19,6 +21,8 @@ namespace OrderForm
                 //    Console.WriteLine("Only one instance of this app is allowed.");
                 //    return;
                 //}
+                if (!ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).HasFile)
+                    Settings.Default.Upgrade();
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(true);

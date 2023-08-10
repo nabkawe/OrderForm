@@ -27,7 +27,7 @@
                           BlurRadius="1" Direction="90" />
 
         </Border.Effect>
-
+        <Grid x:Name="MultiItems">
         <Grid x:Name="BackGroundGrid">
             <Grid.RowDefinitions>
                 <RowDefinition  Height="8*"/>
@@ -82,6 +82,7 @@
             <TextBlock Grid.Row="3" FontSize="9" FlowDirection="RightToLeft" Margin="0,0,10,0" Foreground="#FF513519"> "
             <Run Text="{Binding Content, Mode=OneWay, Source={StaticResource kCalories}}"></Run>
             </TextBlock>
+        </Grid>
         </Grid>
     </Border>
 </UserControl>

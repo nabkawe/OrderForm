@@ -5,6 +5,7 @@ using sharedCode;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Deployment.Application;
 using System.Drawing;
 using System.Dynamic;
 using System.IO;
@@ -159,6 +160,15 @@ namespace OrderForm
                             infolist.Items.Add(item);
                         }
                     }
+                }
+                try
+                {
+                    label54.Text += Environment.NewLine + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+
+                }
+                catch (Exception)
+                {
+                    Console.Beep(500, 500);
                 }
             }
             else if (e.TabPage.Name == "MenuDisplaySettings")
@@ -714,7 +724,7 @@ namespace OrderForm
 
         private void AddMat_Click(object sender, EventArgs e)
         {
-
+            if (uButton1.Visible) return;
             POSItems pos = new POSItems()
             {
                 Name = NameTB.Text,
@@ -791,6 +801,8 @@ namespace OrderForm
 
         private void EditMat_Click(object sender, EventArgs e)
         {
+            if (uButton1.Visible) return;
+
             POSItems pos = MAT[matLB.SelectedIndex];
             pos.Name = NameTB.Text;
             pos.Barcode = BarTB.Text;

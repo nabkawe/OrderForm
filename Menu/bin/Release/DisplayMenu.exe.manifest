@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DisplayMenu.exe" size="77216">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DisplayMenu.exe" size="79776">
       <assemblyIdentity name="DisplayMenu" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>P4nK/dLep/6guRtxTc1iZR5wSxPI4wUvye27MsLifUY=</dsig:DigestValue>
+        <dsig:DigestValue>eNm9ufcDKsXAu8ytOi4rARco1REturENrx4dAdXXoc4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
