@@ -28,7 +28,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>107</ApplicationRevision>
+    <ApplicationRevision>118</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -137,6 +137,12 @@
       <DependentUpon>AreYouSure.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateOffer.cs" />
+    <Compile Include="Headers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Headers.Designer.cs">
+      <DependentUpon>Headers.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoadingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CalLog.resx">
       <DependentUpon>CalLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Headers.resx">
+      <DependentUpon>Headers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>

@@ -234,15 +234,7 @@ namespace OrderForm
             Orders.MenuShowing = false;
         }
 
-        private void dvItems2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void Payment_Click(object sender, EventArgs e)
-        {
-
-        }
+    
     }
 
 

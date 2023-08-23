@@ -18,23 +18,53 @@ namespace sharedCode
 
         public static List<MenuItemZ> GetMenuItems(string MenuName)
         {
-            using( var db = Connect())
+            using (var db = Connect())
             {
                 var sect = db.GetCollection<MenuSection>("Menus");
-                var s = sect.FindOne(x=> x.Name == MenuName);
+                var s = sect.FindOne(x => x.Name == MenuName);
                 return s.list;
             }
         }
-
-        public static void  UpdateSectionItems(List<MenuItemZ> SavedItems,string MenuName)
+        public static List<headerObject> GetMenuHeaders(string MenuName)
         {
             using (var db = Connect())
             {
                 var sect = db.GetCollection<MenuSection>("Menus");
                 var s = sect.FindOne(x => x.Name == MenuName);
-                s.list.Clear(); 
+                // do a null check and return an empty list if null ;
+                if (s.headerList == null) { return new List<headerObject>(); } else return s.headerList;
+            }
+        }
+
+        public static void UpdateSectionItems(List<MenuItemZ> SavedItems, string MenuName)
+        {
+            using (var db = Connect())
+            {
+                var sect = db.GetCollection<MenuSection>("Menus");
+                var s = sect.FindOne(x => x.Name == MenuName);
+                s.list.Clear();
                 s.list = SavedItems;
+
                 sect.Update(s);
+            }
+
+        }
+        public static void UpdateSectionHeaders(List<headerObject> SavedHeaders, string MenuName)
+
+        {
+            using (var db = Connect())
+            {
+                var sect = db.GetCollection<MenuSection>("Menus");
+                var s = sect.FindOne(x => x.Name == MenuName);
+                if (s != null)
+                {
+
+                        s.headerList = SavedHeaders;
+                        sect.Upsert(s);
+
+                }
+
+                
             }
 
         }
@@ -45,14 +75,14 @@ namespace sharedCode
                 var sect = db.GetCollection<MenuSection>("Menus");
                 sect.Upsert(s);
             }
-        }  
-        public static void UpdateMenuSection(string MenuName,int order)
+        }
+        public static void UpdateMenuSection(string MenuName, int order)
         {
             using (var db = Connect())
             {
                 var sect = db.GetCollection<MenuSection>("Menus");
                 var s = sect.FindOne(x => x.Name == MenuName);
-                s.order = order;    
+                s.order = order;
                 sect.Update(s);
             }
         }

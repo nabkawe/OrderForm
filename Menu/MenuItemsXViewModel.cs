@@ -176,74 +176,64 @@ namespace OrderForm
         {
             get
             {
-
-                string cacheImagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "CacheImages2");
-                string cachedPhotoPath = Path.Combine(cacheImagesFolder, Path.GetFileName(ImagePath));
-
-                if (!Directory.Exists(cacheImagesFolder))
+                try
                 {
-                    Directory.CreateDirectory(cacheImagesFolder);
-                }
-                else
-                {
-                    if (File.Exists(cachedPhotoPath))
+                    string cacheImagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "CacheImages2");
+                    string cachedPhotoPath = Path.Combine(cacheImagesFolder, Path.GetFileName(ImagePath));
+
+                    if (!Directory.Exists(cacheImagesFolder))
                     {
-                        
-                        
-                        return  new BitmapImage(new Uri(cachedPhotoPath)); 
+                        Directory.CreateDirectory(cacheImagesFolder);
                     }
                     else
                     {
-                        if (File.Exists(ImagePath))
+                        if (File.Exists(cachedPhotoPath))
                         {
-                            BitmapImage bitmapImage = new BitmapImage();
-                            bitmapImage.BeginInit();
-                            bitmapImage.UriSource = new Uri(ImagePath);
-                            bitmapImage.DecodePixelWidth = 200; // set the width to 200 pixels
-                            bitmapImage.EndInit();
 
-                            PngBitmapEncoder encoder = new PngBitmapEncoder();
-                            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
 
-                            using (var fileStream = new FileStream(cachedPhotoPath, FileMode.Create))
+                            return new BitmapImage(new Uri(cachedPhotoPath));
+                        }
+                        else
+                        {
+                            if (File.Exists(ImagePath))
                             {
-                                encoder.Save(fileStream);
-                            }
+                                BitmapImage bitmapImage = new BitmapImage();
+                                bitmapImage.BeginInit();
+                                bitmapImage.UriSource = new Uri(ImagePath);
+                                bitmapImage.DecodePixelWidth = 200; // set the width to 200 pixels
+                                bitmapImage.EndInit();
 
-                            if (File.Exists(cachedPhotoPath))
-                            {
-                                return new BitmapImage(new Uri(cachedPhotoPath));
+                                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+                                using (var fileStream = new FileStream(cachedPhotoPath, FileMode.Create))
+                                {
+                                    encoder.Save(fileStream);
+                                }
+
+                                if (File.Exists(cachedPhotoPath))
+                                {
+                                    return new BitmapImage(new Uri(cachedPhotoPath));
+                                }
                             }
                         }
                     }
                 }
+                catch (Exception)
+                {
+                    return new BitmapImage();
 
+                }
                 return new BitmapImage();
+
+
 
 
             }
         }
 
 
-//              try
-//                {
-//                    if (imagePath != null)
-//                    {
-//                        BitmapImage bitmapImage = new BitmapImage();
-//        bitmapImage.BeginInit();
-//                        bitmapImage.UriSource = new Uri(ImagePath);
-//        bitmapImage.DecodePixelWidth = 200; // set the width to 200 pixels
-//                        bitmapImage.EndInit();
-//                        return bitmapImage;
-//                    }
-//                    else return new BitmapImage();
-
-//}
-//                catch (Exception)
-//                {
-
-//    return new BitmapImage();
-//}
+ 
 
 private bool available;
         public bool Available

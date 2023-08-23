@@ -20,10 +20,10 @@ namespace sharedCode
         {
             get { if (ItemCount > 1) return false; else return true; }
         }
-        public MenuItemZ() { items = new List<MenuItemsX>();   }
+        public MenuItemZ() { items = new List<MenuItemsX>(); }
 
         string TotalNames;
-        public string NameToShow { get { if (SingleX) return this.items[0].Name + "-" + this.items[0].Price; else { TotalNames = "" ; this.items.ForEach(x => TotalNames += x.Name + "," + x.Price + " "); return "مجموعة" + ":" + TotalNames; } } }
+        public string NameToShow { get { if (SingleX) return this.items[0].Name + "-" + this.items[0].Price; else { TotalNames = ""; this.items.ForEach(x => TotalNames += x.Name + "," + x.Price + " "); return "مجموعة" + ":" + TotalNames; } } }
         public MenuItemsX FindBarcode(string barcode)
         {
             if (SingleX)
@@ -51,7 +51,7 @@ namespace sharedCode
         public string Barcode { get; set; }
         public int order { get; set; }
 
-        public string Name { get {return name; } set { name = value; NotifyPropertyChanged(name); } }
+        public string Name { get { return name; } set { name = value; NotifyPropertyChanged(name); } }
         private string name;
         public string Details { get; set; }
 
@@ -66,7 +66,7 @@ namespace sharedCode
         public string ImagePath { get; set; }
 
         public bool Available { get; set; }
-        
+
         [Browsable(false)]
         public bool Lang { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -90,6 +90,12 @@ namespace sharedCode
         public int order { get; set; }
         public string Name { get; set; }
         public List<MenuItemZ> list { get; set; }
+
+        // make a list of headerObject  
+
+        public List<headerObject> headerList { get; set; }  
+
+
         public override string ToString()
         {
             return Name;
@@ -97,6 +103,9 @@ namespace sharedCode
         public MenuSection()
         {
             list = new List<MenuItemZ>();
+
+
+
         }
     }
     public class infoObject
@@ -108,5 +117,24 @@ namespace sharedCode
             list = new List<string>();
 
         }
+    }
+    public class headerObject
+    {
+
+        public int ID { get; set; }
+
+        public string HeaderName { get; set; }
+        public string BackgroundColor { get; set; }
+        public string ForegroundColor { get; set; }
+        public int FontSize { get; set; }
+        public string FontFamily { get; set; }
+        public int initialHeight { get; set; }  
+        public int height { get; set; }
+
+        override public string ToString()
+        {
+            return HeaderName;
+        }
+
     }
 }

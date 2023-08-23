@@ -1530,6 +1530,8 @@ namespace OrderForm
         }
         private void CopyMenu_Click(object sender, EventArgs e)
         {
+            //explain this please?
+
             if (mlistTB.Text != "")
             {
                 MenuSection sect = new MenuSection();
@@ -1632,6 +1634,31 @@ namespace OrderForm
             matLB.DataSource = MAT;
             TaxTB.Text = Properties.Settings.Default.CurrentTax.ToString();
             this.uButton1.Visible = false;
+        }
+
+        private void MListLB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            // open a showdialog for the user to change headers title
+            // save the new headers to the database 
+
+            if (MListLB.SelectedIndex != -1)
+            {
+                if (MListLB.SelectedItem != null)
+                {
+                    // why am I having a system.outofmemory exception listbox contains too many items here??
+
+
+
+                    Headers h = new Headers(MListLB.SelectedItem.ToString());
+                    h.ShowDialog();
+                }
+            }
+            
         }
     }
 }

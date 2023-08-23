@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dvItems2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -39,6 +39,7 @@
             this.unfocusableButton2 = new OrderForm.UButton();
             this.Price = new OrderForm.UButton();
             this.unfocusableButton3 = new OrderForm.UButton();
+            this.uButton1 = new OrderForm.UButton();
             this.Payment = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ClientName = new OrderForm.UButton();
@@ -48,7 +49,6 @@
             this.DateTitle = new OrderForm.UButton();
             this.ClientDate = new OrderForm.UButton();
             this.LogoPic = new OrderForm.UButton();
-            this.uButton1 = new OrderForm.UButton();
             ((System.ComponentModel.ISupportInitialize)(this.dvItems2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Payment)).BeginInit();
@@ -57,7 +57,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 60000;
+            this.timer1.Interval = 180000;
             this.timer1.Tick += new System.EventHandler(this.T_Tick);
             // 
             // dvItems2
@@ -74,7 +74,7 @@
             this.dvItems2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dvItems2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dvItems2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dvItems2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dvItems2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dvItems2.ColumnHeadersHeight = 30;
             this.dvItems2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dvItems2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -86,13 +86,13 @@
             this.dvItems2.MultiSelect = false;
             this.dvItems2.Name = "dvItems2";
             this.dvItems2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems2.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems2.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dvItems2.RowHeadersVisible = false;
             this.dvItems2.RowHeadersWidth = 10;
             this.dvItems2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle6.NullValue = null;
-            this.dvItems2.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.NullValue = null;
+            this.dvItems2.RowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dvItems2.RowTemplate.Height = 30;
             this.dvItems2.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dvItems2.ScrollBars = System.Windows.Forms.ScrollBars.None;
@@ -104,7 +104,6 @@
             this.dvItems2.Size = new System.Drawing.Size(1004, 559);
             this.dvItems2.TabIndex = 31;
             this.dvItems2.TabStop = false;
-            this.dvItems2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvItems2_CellContentClick);
             // 
             // panel1
             // 
@@ -195,6 +194,25 @@
             this.unfocusableButton3.Text = "المبلغ الإجمالي\r\n\r\nTotal Amount";
             this.unfocusableButton3.UseVisualStyleBackColor = false;
             // 
+            // uButton1
+            // 
+            this.uButton1.BackColor = System.Drawing.Color.White;
+            this.uButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.uButton1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.uButton1.FlatAppearance.BorderSize = 0;
+            this.uButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uButton1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uButton1.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.uButton1.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.uButton1.Location = new System.Drawing.Point(0, 0);
+            this.uButton1.Margin = new System.Windows.Forms.Padding(0);
+            this.uButton1.Name = "uButton1";
+            this.uButton1.Size = new System.Drawing.Size(1004, 49);
+            this.uButton1.TabIndex = 46;
+            this.uButton1.TabStop = false;
+            this.uButton1.Text = "نقبل بطاقات مدى الإئتمانية بشكل حصري و نعتذر عن قبول أي بطاقات أخرى";
+            this.uButton1.UseVisualStyleBackColor = true;
+            // 
             // Payment
             // 
             this.Payment.BackColor = System.Drawing.Color.White;
@@ -207,7 +225,6 @@
             this.Payment.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Payment.TabIndex = 41;
             this.Payment.TabStop = false;
-            this.Payment.Click += new System.EventHandler(this.Payment_Click);
             // 
             // panel2
             // 
@@ -366,25 +383,6 @@
             this.LogoPic.TabStop = false;
             this.LogoPic.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LogoPic.UseVisualStyleBackColor = false;
-            // 
-            // uButton1
-            // 
-            this.uButton1.BackColor = System.Drawing.Color.White;
-            this.uButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.uButton1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.uButton1.FlatAppearance.BorderSize = 0;
-            this.uButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uButton1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uButton1.ForeColor = System.Drawing.Color.DeepSkyBlue;
-            this.uButton1.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.uButton1.Location = new System.Drawing.Point(0, 0);
-            this.uButton1.Margin = new System.Windows.Forms.Padding(0);
-            this.uButton1.Name = "uButton1";
-            this.uButton1.Size = new System.Drawing.Size(1004, 49);
-            this.uButton1.TabIndex = 46;
-            this.uButton1.TabStop = false;
-            this.uButton1.Text = "نقبل بطاقات مدى الإئتمانية بشكل حصري و نعتذر عن قبول أي بطاقات أخرى";
-            this.uButton1.UseVisualStyleBackColor = true;
             // 
             // displayOffer
             // 

@@ -2,12 +2,14 @@
 using sharedCode;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace OrderForm.SavingandPayment
@@ -54,7 +56,7 @@ namespace OrderForm.SavingandPayment
         public string POSClientName = Properties.Settings.Default.POSClientName;
         public AutoItX3 AutoItX = new AutoItX3();
 
-        public bool singleOrMultipleInvoice;
+        public bool SingleInvoice;
         public List<Invoice> MultipleInvoices = new List<Invoice>();
         public List<POSItems> MultipleItems = new List<POSItems>();
 
@@ -96,7 +98,7 @@ namespace OrderForm.SavingandPayment
                     TB.GotFocus += TB_GotFocus;
 
                 }
-            singleOrMultipleInvoice = true;
+            SingleInvoice = true;
             invoice = inv;
             invoiceBindingSource.DataSource = inv;
             ShowInvoice();
@@ -117,27 +119,6 @@ namespace OrderForm.SavingandPayment
             }
         }
 
-        public PaymentOptions(List<Invoice> invList) // SingleInvoice Constructor
-        {
-            InitializeComponent();
-            //Cash.Text = inv.InvoicePrice.ToString();
-            dueLBL.Text = invList.Sum(x => x.InvoicePrice).ToString();
-            invoice_price = dueLBL.Text;
-            targetTextBox = Cash.Name;
-            foreach (Control TB in Controls)
-                if (TB is TextBox)
-                {
-                    TB.GotFocus += TB_GotFocus;
-
-                }
-            singleOrMultipleInvoice = false; ;
-            invList.ForEach(x => this.MultipleInvoices.Add(x));
-            invoice = MultipleInvoices[0];
-            //ShowInvoice();
-            this.Activate();
-            this.Update();
-
-        }
 
 
 
@@ -155,7 +136,7 @@ namespace OrderForm.SavingandPayment
             if (GetPOSWindow() && CheckIfReadyToSave())
             {
                 AutoItX.WinActivate(pos);
-                AutoItX.WinWaitActive(pos,"",5000); 
+                AutoItX.WinWaitActive(pos, "", 5000);
                 //if (Convert.ToDecimal(AutoItX.ControlGetText(pos, "", invoiceprc)) != 0)
                 //{
                 //    AutoItX.WinActivate(pos);
@@ -165,7 +146,7 @@ namespace OrderForm.SavingandPayment
                 //    return;
                 //}
                 AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
-                AddItemsToPOS(singleOrMultipleInvoice);
+                AddItemsToPOS(SingleInvoice);
                 if (Convert.ToInt32(AutoItX.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
                 {
                     if (string.IsNullOrWhiteSpace(Cash.Text))
@@ -204,7 +185,7 @@ namespace OrderForm.SavingandPayment
 
                     }
                 }
-                SaveInvoiceNumber(singleOrMultipleInvoice);
+                SaveInvoiceNumber(SingleInvoice);
             }
             else if (!CheckIfReadyToSave())
             {
@@ -244,7 +225,7 @@ namespace OrderForm.SavingandPayment
 
                 AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
 
-                AddItemsToPOS(singleOrMultipleInvoice);
+                AddItemsToPOS(SingleInvoice);
 
                 if (Convert.ToInt32(AutoItX.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
                 {
@@ -263,7 +244,7 @@ namespace OrderForm.SavingandPayment
 
                         }
                     }
-                    SaveInvoiceNumber(singleOrMultipleInvoice);
+                    SaveInvoiceNumber(SingleInvoice);
                     //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
                 }
                 else
@@ -285,7 +266,7 @@ namespace OrderForm.SavingandPayment
 
                         }
                     }
-                    SaveInvoiceNumber(singleOrMultipleInvoice);
+                    SaveInvoiceNumber(SingleInvoice);
                     //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
                 }
 
@@ -341,7 +322,7 @@ namespace OrderForm.SavingandPayment
 
 
                 AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
-                AddItemsToPOS(singleOrMultipleInvoice);
+                AddItemsToPOS(SingleInvoice);
 
                 AutoItX.ControlClick(pos, "", SwitchBTN, "left");
                 AutoItX.Sleep(500);
@@ -363,8 +344,8 @@ namespace OrderForm.SavingandPayment
                     AutoItX.ControlClick(pos, "", Mada2CB, "Left");
                     AutoItX.ControlSend(pos, "", Mada2CB, "{DOWN}{ENTER}", 0);
                     AutoItX.Sleep(100);
-                    
-                   
+
+
                 }
 
                 if (!string.IsNullOrEmpty(Mada3_.Text))
@@ -410,7 +391,7 @@ namespace OrderForm.SavingandPayment
                 }
 
 
-                SaveInvoiceNumber(singleOrMultipleInvoice);
+                SaveInvoiceNumber(SingleInvoice);
                 //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
             }
             else if (!CheckIfReadyToSave())
@@ -421,23 +402,36 @@ namespace OrderForm.SavingandPayment
 
         }
 
+        [DllImport("user32.dll")]
+    public static extern short GetAsyncKeyState(int vKey);
 
+    public static bool IsCtrlKeyPressed()
+    {
+        return (GetAsyncKeyState(0xA2) & 0x8000) != 0;
+    }
+    
 
         /// <summary>
         /// Saving and Updating invoices for invoice number.
         /// </summary>
+        /// 
+
         private void SaveInvoiceNumber(bool single)
         {
 
             string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
-            if (!Properties.Settings.Default.TestingMode) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
+            if (!Properties.Settings.Default.TestingMode && !IsCtrlKeyPressed()) AutoItX.ControlClick(pos, "", SaveBTN, "left", 1); else
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+            }
 
             if (single)
             {
                 invoice.POSInvoiceNumber = invoiceNTB;
-                DateTime DT = DateTime.Now;
                 invoice.Status = InvStat.SavedToPOS;
-                invoice.TimeOfSaving = DT;
+                invoice.TimeOfPrinting = DbInv.GetInvoiceByID(invoice.ID).TimeOfPrinting;
+                invoice.TimeOfSaving = DateTime.Now;
                 DbInv.UpdateInvoice(invoice);
                 if (Orders.MyCheckBox.Checked)
                 {
@@ -476,7 +470,7 @@ namespace OrderForm.SavingandPayment
                     Update.InvoiceDay = invoice.InvoiceDay;
                     Update.Tax = invoice.Tax;
                     Update.TimeAMPM = invoice.TimeAMPM;
-                    Update.TimeOfPrinting = invoice.TimeOfPrinting;
+                    Update.TimeOfPrinting = DbInv.GetInvoiceByID(invoice.ID).TimeOfPrinting;
                     Update.TimeOfSaving = DT;
                     Update.TimeinArabic = invoice.TimeinArabic;
                     invoice.Payments.ForEach(x => Update.Payments.Add(x));
@@ -524,6 +518,7 @@ namespace OrderForm.SavingandPayment
                     SaveInvoiceNumber(true);
                 }
             }
+            this.DialogResult = DialogResult.OK;
             this.Close();
 
         }
@@ -538,7 +533,7 @@ namespace OrderForm.SavingandPayment
         {
             if (DiscountTB.Text != "0" || !string.IsNullOrEmpty(DiscountTB.Text)) { DoDiscount(); }
 
-            if (singleOrMultipleInvoice)
+            if (SingleInvoice)
             {
                 AutoItX.ControlClick(pos, "", POSClearNumber, "left", 1);
                 foreach (var item in invoice.InvoiceItems)
@@ -554,15 +549,11 @@ namespace OrderForm.SavingandPayment
 
                 if (!string.IsNullOrWhiteSpace(invoice.CustomerName))
                 {
-
                     AutoItX.ControlSetText(pos, "", POSClientName, invoice.CustomerName);
                     AutoItX.ControlSetText(pos, "", POSPhoneNumber, invoice.CustomerNumber);
-                    AutoItX.ControlSetText(pos, "", invoicenotes, "#" + invoice.ID.ToString() + " " + Orders.GetDayName((int)invoice.InvoiceDay) + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
-
-
-
+                    AutoItX.ControlSetText(pos, "", invoicenotes, "#" + invoice.ID.ToString() + " " + Orders.GetDayName((int)invoice.InvoiceDay) + Environment.NewLine + " | " + invoice.Comment);
                 }
-                else AutoItX.ControlSetText(pos, "", invoicenotes, "#" + invoice.ID.ToString() + " " + Orders.GetDayName((int)invoice.InvoiceDay) + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + invoice.Comment);
+                else AutoItX.ControlSetText(pos, "", invoicenotes, "#" + invoice.ID.ToString() + " " + Orders.GetDayName((int)invoice.InvoiceDay) + Environment.NewLine + " | " + invoice.Comment);
 
             }
             else
@@ -592,7 +583,7 @@ namespace OrderForm.SavingandPayment
                 AutoItX.ControlSetText(pos, "", POSPhoneNumber, this.MultipleInvoices[0].CustomerNumber);
 
                 AutoItX.ControlSetText(pos, "", invoicenotes, "أوراق تحضير:" + joinedNames);
-                AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.MultipleInvoices[0].ID.ToString() + Environment.NewLine + "رقم الفاتورة:" + invoiceNTB + " ||| " + this.MultipleInvoices[0].Comment);
+                AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.MultipleInvoices[0].ID.ToString() + Environment.NewLine + " | " + this.MultipleInvoices[0].Comment);
 
 
 
@@ -897,7 +888,7 @@ namespace OrderForm.SavingandPayment
         private void PaymentOptions_Load(object sender, EventArgs e)
         {
 
-
+            QuickItems.Clear();
             if (Properties.Settings.Default.CloseWindow)
             {
                 while (AutoItX.WinExists(pos, "") == 1)
@@ -958,6 +949,193 @@ namespace OrderForm.SavingandPayment
         {
 
         }
+
+        BindingList<POSItems> QuickItems = new BindingList<POSItems>();
+        private void QuickAddBTN_Click(object sender, EventArgs e)
+        {
+            
+
+            dataGridView1.DataSource = QuickItems;
+            
+            GridViewUI();
+            
+            var ContextMenu = new ContextMenu();
+            ContextMenu.RightToLeft = RightToLeft.Yes;
+            foreach (var section in dbQ.PopulateSections())
+            {
+
+                MenuItem menuItem = new MenuItem();
+                menuItem.Text = section.Name;
+
+                foreach (var item in dbQ.GetItemsForSection(section.Name))
+                {
+                    MenuItem Item = new MenuItem(item.Name, onClick);
+                    Item.Tag = item.Barcode.ToString();
+                    menuItem.MenuItems.Add(Item);
+                }
+                ContextMenu.MenuItems.Add(menuItem);
+
+            }
+            ContextMenu.Show(QuickAddBTN, new Point(0, 0));
+
+        }
+
+        private void GridViewUI()
+        {
+
+            if (!dataGridView1.Columns.Contains("Increment"))
+            {
+
+                dataGridView1.Columns[2].Visible = false;
+                dataGridView1.Columns[3].Visible = false;
+                dataGridView1.Columns[4].Visible = false;
+
+                DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
+                buttonColumn.Name = "Increment";
+                buttonColumn.HeaderText = "زيادة سريعة";
+                buttonColumn.Text = "+";
+                buttonColumn.FlatStyle = FlatStyle.Popup;
+
+                buttonColumn.UseColumnTextForButtonValue = true;
+                dataGridView1.Columns.Add(buttonColumn);
+            }
+            
+        
+       
+        }
+
+        private void onClick(object sender, EventArgs e)
+        {
+            if (!quickPayGB.Visible) {  quickPayGB.Visible = true; }
+            
+            var se = sender as MenuItem;
+            var order = Orders.ItemsLists.First(x => x.Barcode == se.Tag.ToString());
+            order.Quantity = 1;
+            QuickItems.Add(order);
+            dataGridView1.Refresh();
+            dataGridView1.Update();
+            
+
+        }
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Console.WriteLine(e.RowIndex);
+            // Check if the clicked cell is in the buttons column
+            if (e.ColumnIndex == dataGridView1.Columns["Increment"].Index && e.RowIndex >= 0)
+            {
+                // Get the value of the cell in column [1] of the same row
+                int value = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[2].Value);
+
+                // Increment the value by 1
+                value++;
+
+                // Set the new value to the cell in column [1] of the same row
+                dataGridView1.Rows[e.RowIndex].Cells[2].Value = value;
+            }
+        }
+
+        private void AddToInvoice_Click(object sender, EventArgs e)
+        {
+            quickPayGB.Visible = false;
+            QuickAddBTN.Enabled = false;
+            QuickAddBTN.Text = "تمت إضافة المواد السريعة إلى الفاتورة";
+            
+            
+            var poslist = new List<POSItems>();
+            poslist.Clear();
+                foreach (POSItems Material in invoice.InvoiceItems)
+                {
+                    {
+                        poslist.Add(Material);
+                    }
+                }
+                QuickItems.ToList().ForEach(x=> poslist.Add(x));
+            
+            var grouped = poslist.GroupBy(item => item.Barcode);
+
+            foreach (var group in grouped)
+            {
+                var firstItem = group.First();
+                firstItem.Comment = string.Join(", ", group.Where(item => !string.IsNullOrEmpty(item.Comment))
+                                                           .Select(item => $"{item.Quantity}: {item.Comment}"));
+                firstItem.Quantity = group.Sum(item => item.Quantity);
+            }
+            poslist = poslist.GroupBy(item => item.Barcode)
+                             .Select(group => group.First())
+                             .ToList();
+
+            invoice.InvoiceItems.Clear();
+            foreach (var group in poslist)
+            {
+                invoice.InvoiceItems.Add(group);
+            }
+            invoice.InvoicePrice = invoice.InvoiceItems.Sum(x => x.TotalPrice);
+            dueLBL.Text = invoice.InvoicePrice.ToString();
+            invoice_price = dueLBL.Text;
+            this.Update();//invoice.InvoiceItems;
+            this.Refresh();
+            //foreach(var item in  invoice.InvoiceItems)
+            //{
+            //    MessageBox.Show(item.Name + " " + item.Quantity);
+            //}
+        }
+
+        private void PreviewOrder_Click(object sender, EventArgs e)
+        {
+            var t = new ToolTip();
+            t.UseAnimation = false;
+            t.UseFading= false;
+            t.ToolTipTitle = "الطلب حتى الآن" + Environment.NewLine + "_____________" + Environment.NewLine;
+            string OrderSoFar ="" + Environment.NewLine ;
+            foreach (var  mat in invoice.InvoiceItems)
+            {
+                OrderSoFar +=  $"{mat.Name} - {mat.Quantity}  " + Environment.NewLine;
+            }
+            OrderSoFar += Environment.NewLine + " ";
+            t.Show(OrderSoFar, PreviewOrder, 35, 35, 5000);
+        }
+
+        private void PartCashLabel_click(object sender, EventArgs e)
+        {
+            // lookup ChangeLBL.Text if it's not zero and is not negative number then put it's value inside the textbox PartCash
+            if (ChangeLBL.Text != "0.00" && !ChangeLBL.Text.Contains("-"))
+            {
+                PartCash_.Text = ChangeLBL.Text;
+            }   
+        }
+
+        private void Mada1LBL_Click(object sender, EventArgs e)
+        {
+            // do the same as PartCashLabel_click  but for Mada1_ textbox   
+            if (ChangeLBL.Text != "0.00" && ChangeLBL.Text != "0.0" && !ChangeLBL.Text.Contains("-"))
+            {
+                Mada1_.Text = ChangeLBL.Text;
+            }   
+            // repeat for Mada2_ textbox    
+
+        }
+
+        private void Mada2LBL_Click(object sender, EventArgs e)
+        {
+            if (ChangeLBL.Text != "0.00" && ChangeLBL.Text != "0.0" && !ChangeLBL.Text.Contains("-"))
+            {
+                Mada2_.Text = ChangeLBL.Text;
+            }   
+        }
+
+        private void Mada3LBL_Click(object sender, EventArgs e)
+        {
+            // now do the same for Mada3_ textbox upon mada3LBL click event 
+            if (ChangeLBL.Text != "0.00" && ChangeLBL.Text != "0.0" && !ChangeLBL.Text.Contains("-"))
+            {
+                
+                Mada3_.Text = ChangeLBL.Text;
+            }   
+
+        }
+
+
+
 
         private void Btn50_Click(object sender, EventArgs e)
         {

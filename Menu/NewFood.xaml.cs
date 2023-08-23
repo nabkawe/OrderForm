@@ -67,9 +67,8 @@ namespace OrderForm
 
                 pos.items.ForEach(x => posLoop.Add(x));
 
-                var timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(6);
-                timer.Tick += (sender, args) =>
+                this.dispatcherTimer.Interval = TimeSpan.FromSeconds(6);
+                this.dispatcherTimer.Tick += (sender, args) =>
                 {
                     if (posLoop.Count > 0)
                     {
@@ -93,7 +92,7 @@ namespace OrderForm
                         BackGroundGrid.BeginAnimation(Grid.OpacityProperty, opacityAnimation);
                     }
                 };
-                timer.Start();
+                this.dispatcherTimer.Start();
             }
         
         }
@@ -138,7 +137,6 @@ namespace OrderForm
    
         public void PickedYou()
         {
- 
 
             this.dispatcherTimer.Stop();
             this.RegisterName("BlurEffect", dropEffect);
@@ -182,5 +180,15 @@ namespace OrderForm
             return contentControl;
         }
 
+        internal void ChangeDataContext(MenuItemsX items)
+        {
+            Task.Run(() =>
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.DataContext = MenuItemsXViewModel.me(items); ;
+                });
+            });
+        }
     }
 }

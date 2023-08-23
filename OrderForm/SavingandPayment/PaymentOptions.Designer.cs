@@ -63,16 +63,23 @@
             this.DiscountTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
+            this.PreviewOrder = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
             this.invoiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.QuickAddBTN = new System.Windows.Forms.Button();
+            this.quickPayGB = new System.Windows.Forms.GroupBox();
+            this.AddQuickItemsToInvoice = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).BeginInit();
+            this.quickPayGB.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // CashBTN
@@ -354,6 +361,7 @@
             this.Mada1LBL.TabIndex = 21;
             this.Mada1LBL.Text = "مدى بطاقة 1";
             this.Mada1LBL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mada1LBL.Click += new System.EventHandler(this.Mada1LBL_Click);
             // 
             // Mada2LBL
             // 
@@ -367,6 +375,7 @@
             this.Mada2LBL.TabIndex = 22;
             this.Mada2LBL.Text = "مدى بطاقة 2";
             this.Mada2LBL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mada2LBL.Click += new System.EventHandler(this.Mada2LBL_Click);
             // 
             // Mada3LBL
             // 
@@ -380,6 +389,7 @@
             this.Mada3LBL.TabIndex = 23;
             this.Mada3LBL.Text = "مدى بطاقة 3";
             this.Mada3LBL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mada3LBL.Click += new System.EventHandler(this.Mada3LBL_Click);
             // 
             // minus
             // 
@@ -420,6 +430,7 @@
             this.label2.TabIndex = 26;
             this.label2.Text = "جزء نقدي";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Click += new System.EventHandler(this.PartCashLabel_click);
             // 
             // LBLdue
             // 
@@ -487,12 +498,12 @@
             this.lblPay.Text = "المبلغ المدفوع:";
             this.lblPay.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // textBox1
+            // DiscountTB
             // 
             this.DiscountTB.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.DiscountTB.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiscountTB.Location = new System.Drawing.Point(334, 611);
-            this.DiscountTB.Name = "textBox1";
+            this.DiscountTB.Name = "DiscountTB";
             this.DiscountTB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.DiscountTB.Size = new System.Drawing.Size(154, 39);
             this.DiscountTB.TabIndex = 50;
@@ -516,6 +527,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.PreviewOrder);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
@@ -523,12 +535,44 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label8);
-            this.panel1.Location = new System.Drawing.Point(12, 43);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(226, 152);
+            this.panel1.Size = new System.Drawing.Size(226, 183);
             this.panel1.TabIndex = 39;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // PreviewOrder
+            // 
+            this.PreviewOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.PreviewOrder.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PreviewOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PreviewOrder.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PreviewOrder.ForeColor = System.Drawing.Color.White;
+            this.PreviewOrder.Location = new System.Drawing.Point(0, 147);
+            this.PreviewOrder.Name = "PreviewOrder";
+            this.PreviewOrder.Size = new System.Drawing.Size(226, 36);
+            this.PreviewOrder.TabIndex = 7;
+            this.PreviewOrder.Text = "معاينة الطلب";
+            this.PreviewOrder.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.PreviewOrder.UseCompatibleTextRendering = true;
+            this.PreviewOrder.UseVisualStyleBackColor = false;
+            this.PreviewOrder.Click += new System.EventHandler(this.PreviewOrder_Click);
+            // 
+            // label9
+            // 
+            this.label9.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.invoiceBindingSource, "Comment", true));
+            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(0, 126);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(226, 21);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "ملاحظة الطلب";
+            // 
+            // invoiceBindingSource
+            // 
+            this.invoiceBindingSource.DataSource = typeof(sharedCode.Invoice);
             // 
             // label7
             // 
@@ -540,10 +584,6 @@
             this.label7.Size = new System.Drawing.Size(226, 21);
             this.label7.TabIndex = 4;
             this.label7.Text = "وقت الطلب";
-            // 
-            // invoiceBindingSource
-            // 
-            this.invoiceBindingSource.DataSource = typeof(sharedCode.Invoice);
             // 
             // label6
             // 
@@ -600,16 +640,60 @@
             this.label8.TabIndex = 5;
             this.label8.Text = "نوع الطلب";
             // 
-            // label9
+            // QuickAddBTN
             // 
-            this.label9.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.invoiceBindingSource, "Comment", true));
-            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(0, 126);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(226, 21);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "ملاحظة الطلب";
+            this.QuickAddBTN.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.QuickAddBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.QuickAddBTN.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.QuickAddBTN.ForeColor = System.Drawing.Color.GhostWhite;
+            this.QuickAddBTN.Location = new System.Drawing.Point(11, 673);
+            this.QuickAddBTN.Name = "QuickAddBTN";
+            this.QuickAddBTN.Size = new System.Drawing.Size(622, 77);
+            this.QuickAddBTN.TabIndex = 53;
+            this.QuickAddBTN.Text = "إضافة مواد سريعة";
+            this.QuickAddBTN.UseVisualStyleBackColor = false;
+            this.QuickAddBTN.Click += new System.EventHandler(this.QuickAddBTN_Click);
+            // 
+            // quickPayGB
+            // 
+            this.quickPayGB.Controls.Add(this.AddQuickItemsToInvoice);
+            this.quickPayGB.Controls.Add(this.dataGridView1);
+            this.quickPayGB.Location = new System.Drawing.Point(12, 404);
+            this.quickPayGB.Name = "quickPayGB";
+            this.quickPayGB.Size = new System.Drawing.Size(299, 248);
+            this.quickPayGB.TabIndex = 54;
+            this.quickPayGB.TabStop = false;
+            this.quickPayGB.Text = "إضافة مواد سريعة";
+            this.quickPayGB.Visible = false;
+            // 
+            // AddQuickItemsToInvoice
+            // 
+            this.AddQuickItemsToInvoice.BackColor = System.Drawing.Color.SlateBlue;
+            this.AddQuickItemsToInvoice.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.AddQuickItemsToInvoice.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddQuickItemsToInvoice.ForeColor = System.Drawing.Color.GhostWhite;
+            this.AddQuickItemsToInvoice.Location = new System.Drawing.Point(3, 198);
+            this.AddQuickItemsToInvoice.Name = "AddQuickItemsToInvoice";
+            this.AddQuickItemsToInvoice.Size = new System.Drawing.Size(293, 47);
+            this.AddQuickItemsToInvoice.TabIndex = 55;
+            this.AddQuickItemsToInvoice.Text = "أضف المواد إلى الفاتورة";
+            this.AddQuickItemsToInvoice.UseVisualStyleBackColor = false;
+            this.AddQuickItemsToInvoice.Click += new System.EventHandler(this.AddToInvoice_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(293, 177);
+            this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // PaymentOptions
             // 
@@ -617,6 +701,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(645, 751);
+            this.Controls.Add(this.quickPayGB);
+            this.Controls.Add(this.QuickAddBTN);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DiscountTB);
             this.Controls.Add(this.panel1);
@@ -670,6 +756,8 @@
             this.Load += new System.EventHandler(this.PaymentOptions_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).EndInit();
+            this.quickPayGB.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -719,5 +807,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.BindingSource invoiceBindingSource;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button QuickAddBTN;
+        private System.Windows.Forms.GroupBox quickPayGB;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button AddQuickItemsToInvoice;
+        private System.Windows.Forms.Button PreviewOrder;
     }
 }

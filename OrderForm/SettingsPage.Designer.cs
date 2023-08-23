@@ -208,7 +208,6 @@
             this.groupTB = new System.Windows.Forms.TextBox();
             this.SettingTabs = new System.Windows.Forms.TabControl();
             this.MaterialsEdit = new System.Windows.Forms.TabPage();
-            this.uButton1 = new OrderForm.UButton();
             this.available = new System.Windows.Forms.CheckBox();
             this.SectionNameTB = new System.Windows.Forms.TextBox();
             this.PrinterTB = new System.Windows.Forms.TextBox();
@@ -262,6 +261,8 @@
             this.MListLB = new System.Windows.Forms.ListBox();
             this.sectionsML = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.LoadFile = new System.Windows.Forms.OpenFileDialog();
+            this.uButton1 = new OrderForm.UButton();
+            this.button13 = new System.Windows.Forms.Button();
             this.About.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.Pos.SuspendLayout();
@@ -2268,24 +2269,6 @@
             this.MaterialsEdit.UseVisualStyleBackColor = true;
             this.MaterialsEdit.Enter += new System.EventHandler(this.MaterialsEdit_Enter);
             // 
-            // uButton1
-            // 
-            this.uButton1.BackColor = System.Drawing.Color.LightSlateGray;
-            this.uButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.uButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uButton1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.uButton1.ForeColor = System.Drawing.Color.White;
-            this.uButton1.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.uButton1.Location = new System.Drawing.Point(21, 177);
-            this.uButton1.Margin = new System.Windows.Forms.Padding(1);
-            this.uButton1.Name = "uButton1";
-            this.uButton1.Size = new System.Drawing.Size(486, 126);
-            this.uButton1.TabIndex = 1000;
-            this.uButton1.TabStop = false;
-            this.uButton1.Text = "تحميل المواد لغاية التعديل؟";
-            this.uButton1.UseVisualStyleBackColor = false;
-            this.uButton1.Click += new System.EventHandler(this.uButton1_Click);
-            // 
             // available
             // 
             this.available.AutoSize = true;
@@ -2770,6 +2753,7 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.button13);
             this.groupBox12.Controls.Add(this.CopyMenu);
             this.groupBox12.Controls.Add(this.SaveOrder);
             this.groupBox12.Controls.Add(this.MSDown);
@@ -2804,9 +2788,9 @@
             this.SaveOrder.BackColor = System.Drawing.Color.White;
             this.SaveOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveOrder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveOrder.Location = new System.Drawing.Point(6, 11);
+            this.SaveOrder.Location = new System.Drawing.Point(6, 69);
             this.SaveOrder.Name = "SaveOrder";
-            this.SaveOrder.Size = new System.Drawing.Size(91, 28);
+            this.SaveOrder.Size = new System.Drawing.Size(161, 28);
             this.SaveOrder.TabIndex = 45;
             this.SaveOrder.TabStop = false;
             this.SaveOrder.Text = "حفظ الترتيب";
@@ -2896,6 +2880,7 @@
             this.MListLB.TabIndex = 41;
             this.MListLB.TabStop = false;
             this.MListLB.Click += new System.EventHandler(this.MListLB_Click);
+            this.MListLB.SelectedIndexChanged += new System.EventHandler(this.MListLB_SelectedIndexChanged);
             // 
             // sectionsML
             // 
@@ -2907,6 +2892,39 @@
             // LoadFile
             // 
             this.LoadFile.FileName = "NetworkSynq.exe";
+            // 
+            // uButton1
+            // 
+            this.uButton1.BackColor = System.Drawing.Color.LightSlateGray;
+            this.uButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.uButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uButton1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.uButton1.ForeColor = System.Drawing.Color.White;
+            this.uButton1.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.uButton1.Location = new System.Drawing.Point(21, 177);
+            this.uButton1.Margin = new System.Windows.Forms.Padding(1);
+            this.uButton1.Name = "uButton1";
+            this.uButton1.Size = new System.Drawing.Size(486, 126);
+            this.uButton1.TabIndex = 1000;
+            this.uButton1.TabStop = false;
+            this.uButton1.Text = "تحميل المواد لغاية التعديل؟";
+            this.uButton1.UseVisualStyleBackColor = false;
+            this.uButton1.Click += new System.EventHandler(this.uButton1_Click);
+            // 
+            // button13
+            // 
+            this.button13.BackColor = System.Drawing.Color.White;
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button13.Location = new System.Drawing.Point(6, 11);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(161, 28);
+            this.button13.TabIndex = 47;
+            this.button13.TabStop = false;
+            this.button13.Text = "إضافة عنواين للقائمة المختارة";
+            this.button13.UseCompatibleTextRendering = true;
+            this.button13.UseVisualStyleBackColor = false;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // SettingsPage
             // 
@@ -3203,5 +3221,6 @@
         public System.Windows.Forms.TabControl SettingTabs;
         public System.Windows.Forms.CheckBox CIDCheck;
         private UButton uButton1;
+        private System.Windows.Forms.Button button13;
     }
 }

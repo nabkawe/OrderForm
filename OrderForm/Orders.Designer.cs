@@ -44,6 +44,7 @@
             this.ItemNameTag = new System.Windows.Forms.ToolStripMenuItem();
             this.SalahTMR = new System.Windows.Forms.Timer(this.components);
             this.OrdersPanel = new System.Windows.Forms.Panel();
+            this.ItemsPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.uButton1 = new OrderForm.UButton();
             this.EditName = new OrderForm.UButton();
             this.xLabel = new System.Windows.Forms.Label();
@@ -53,7 +54,6 @@
             this.NameLBL = new System.Windows.Forms.Label();
             this.MobileLBL = new System.Windows.Forms.Label();
             this.ShowMenuBTN = new OrderForm.UButton();
-            this.ItemsPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.unfocusableButton6 = new OrderForm.UButton();
             this.OrderCut = new OrderForm.UButton();
             this.AmountLBL = new System.Windows.Forms.Label();
@@ -129,7 +129,7 @@
             this.Search = new OrderForm.UButton();
             this.SearchLBL = new System.Windows.Forms.Label();
             this.SearchTB = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.OrdersFlowLayoutPanel = new System.Windows.Forms.Panel();
             this.InvoicesDG = new System.Windows.Forms.DataGridView();
             this.DayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.HourPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -164,6 +164,7 @@
             this.CopyInvoice = new OrderForm.UButton();
             this.SettingsPage = new OrderForm.UButton();
             this.CIDWorker = new System.ComponentModel.BackgroundWorker();
+            this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.rightClickMenu.SuspendLayout();
             this.OrdersPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvItems)).BeginInit();
@@ -174,7 +175,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.OrdersFlowLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoicesDG)).BeginInit();
             this.MenuSelection.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -252,6 +253,7 @@
             // OrdersPanel
             // 
             this.OrdersPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.OrdersPanel.Controls.Add(this.ItemsPanel1);
             this.OrdersPanel.Controls.Add(this.uButton1);
             this.OrdersPanel.Controls.Add(this.EditName);
             this.OrdersPanel.Controls.Add(this.xLabel);
@@ -261,7 +263,6 @@
             this.OrdersPanel.Controls.Add(this.NameLBL);
             this.OrdersPanel.Controls.Add(this.MobileLBL);
             this.OrdersPanel.Controls.Add(this.ShowMenuBTN);
-            this.OrdersPanel.Controls.Add(this.ItemsPanel1);
             this.OrdersPanel.Controls.Add(this.unfocusableButton6);
             this.OrdersPanel.Controls.Add(this.OrderCut);
             this.OrdersPanel.Controls.Add(this.AmountLBL);
@@ -311,6 +312,15 @@
             this.OrdersPanel.Size = new System.Drawing.Size(1034, 953);
             this.OrdersPanel.TabIndex = 21;
             this.OrdersPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrdersPanel_Paint);
+            // 
+            // ItemsPanel1
+            // 
+            this.ItemsPanel1.AllowDrop = true;
+            this.ItemsPanel1.BackColor = System.Drawing.Color.GhostWhite;
+            this.ItemsPanel1.Location = new System.Drawing.Point(554, 3);
+            this.ItemsPanel1.Name = "ItemsPanel1";
+            this.ItemsPanel1.Size = new System.Drawing.Size(476, 643);
+            this.ItemsPanel1.TabIndex = 22;
             // 
             // uButton1
             // 
@@ -463,15 +473,6 @@
             this.ShowMenuBTN.UseCompatibleTextRendering = true;
             this.ShowMenuBTN.UseVisualStyleBackColor = false;
             this.ShowMenuBTN.Click += new System.EventHandler(this.ShowMenuBTN_Click);
-            // 
-            // ItemsPanel1
-            // 
-            this.ItemsPanel1.AllowDrop = true;
-            this.ItemsPanel1.BackColor = System.Drawing.Color.GhostWhite;
-            this.ItemsPanel1.Location = new System.Drawing.Point(554, 3);
-            this.ItemsPanel1.Name = "ItemsPanel1";
-            this.ItemsPanel1.Size = new System.Drawing.Size(476, 643);
-            this.ItemsPanel1.TabIndex = 22;
             // 
             // unfocusableButton6
             // 
@@ -1433,7 +1434,7 @@
             this.OrdersContainer.Panel1.Controls.Add(this.Search);
             this.OrdersContainer.Panel1.Controls.Add(this.SearchLBL);
             this.OrdersContainer.Panel1.Controls.Add(this.SearchTB);
-            this.OrdersContainer.Panel1.Controls.Add(this.panel1);
+            this.OrdersContainer.Panel1.Controls.Add(this.OrdersFlowLayoutPanel);
             this.OrdersContainer.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             // 
             // OrdersContainer.Panel2
@@ -1835,16 +1836,16 @@
             this.SearchTB.TextChanged += new System.EventHandler(this.SearchTB_TextChanged);
             this.SearchTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchTB_KeyUp);
             // 
-            // panel1
+            // OrdersFlowLayoutPanel
             // 
-            this.panel1.Controls.Add(this.InvoicesDG);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 72);
-            this.panel1.Name = "panel1";
-            this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.panel1.Size = new System.Drawing.Size(1027, 854);
-            this.panel1.TabIndex = 51;
-            this.panel1.Visible = false;
+            this.OrdersFlowLayoutPanel.Controls.Add(this.InvoicesDG);
+            this.OrdersFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.OrdersFlowLayoutPanel.Location = new System.Drawing.Point(0, 72);
+            this.OrdersFlowLayoutPanel.Name = "OrdersFlowLayoutPanel";
+            this.OrdersFlowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.OrdersFlowLayoutPanel.Size = new System.Drawing.Size(1027, 854);
+            this.OrdersFlowLayoutPanel.TabIndex = 51;
+            this.OrdersFlowLayoutPanel.Visible = false;
             // 
             // InvoicesDG
             // 
@@ -2489,6 +2490,12 @@
             this.SettingsPage.UseVisualStyleBackColor = false;
             this.SettingsPage.Click += new System.EventHandler(this.SettingsPage_Click);
             // 
+            // imgList
+            // 
+            this.imgList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imgList.ImageSize = new System.Drawing.Size(50, 50);
+            this.imgList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // Orders
             // 
             this.AllowDrop = true;
@@ -2530,7 +2537,7 @@
             this.groupBox1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.OrdersFlowLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.InvoicesDG)).EndInit();
             this.MenuSelection.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -2559,7 +2566,7 @@
         private System.Windows.Forms.ContextMenuStrip WhatsSend;
         private System.Windows.Forms.Timer Api_Health;
         private System.Windows.Forms.SplitContainer OrdersContainer;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel OrdersFlowLayoutPanel;
         private UButton Search;
         private System.Windows.Forms.RadioButton AllDays;
         private System.Windows.Forms.RadioButton History;
@@ -2667,5 +2674,6 @@
         public System.Windows.Forms.DataGridView InvoicesDG;
         public System.Windows.Forms.FlowLayoutPanel ItemsPanel1;
         private UButton uButton1;
+        private System.Windows.Forms.ImageList imgList;
     }
 }
