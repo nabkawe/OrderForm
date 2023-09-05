@@ -18,8 +18,8 @@
 
     <Grid>
 
-        <Border x:Name="HeaderBack"  CornerRadius="25,25,0,0" BorderBrush="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF5A9AE0">
-            <TextBlock x:Name="HeaderText" Text="فطائر شامية" FontSize="30" Foreground="White" FontFamily="Segoui"  Margin="0,12,0,0"  FontWeight="Bold" Width="200" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Border x:Name="HeaderBack"  CornerRadius="20,20,0,0" BorderBrush="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF5A9AE0">
+            <TextBlock x:Name="HeaderText" Text="فطائر شامية" FontSize="30" Foreground="White" FontFamily="Segoui"  Margin="0,12,0,0"  FontWeight="ExtraBold" Width="200" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Border>
 
     </Grid>

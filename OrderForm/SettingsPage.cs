@@ -163,7 +163,7 @@ namespace OrderForm
                 }
                 try
                 {
-                    label54.Text += Environment.NewLine + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+                    label54.Text = "dev: Nabkawe@gmail.com" + Environment.NewLine + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
 
                 }
                 catch (Exception)

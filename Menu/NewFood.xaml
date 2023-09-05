@@ -55,7 +55,7 @@
                     </TextBlock.Background>
                    <Run FontSize="30" Text="{Binding Price}"/>
                 </TextBlock>
-                <Label Canvas.Top="40" Canvas.Left="9">
+                <Label x:Name="CurrencyTag"  Canvas.Top="40" Canvas.Left="9">
                     <Run x:Name="KCur"  FontSize="13"   Foreground="#FF513519" FontWeight="ExtraBold" 
                      FlowDirection="RightToLeft">
                         <Run.Resources>

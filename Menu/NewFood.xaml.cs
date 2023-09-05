@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -43,7 +44,10 @@ namespace OrderForm
             this.InitializeComponent();
             this.RegisterName("BackGroundGrid", scopedElement: this.BackGroundGrid);
             this.Name = "Foodi";
-            
+            if (string.IsNullOrEmpty(pos.items[0].Price))
+            {
+                CurrencyTag.Visibility = Visibility.Hidden;
+            }
 
             if (pos.SingleX)
             {
@@ -55,6 +59,8 @@ namespace OrderForm
                 //        this.DataContext = MenuItemsXViewModel.me(pos.items[0]);
                 //    });
                 //});
+                pos.items.ForEach(x => posLoop.Add(x));
+                MenuX = posLoop[0];
                 this.DataContext = MenuItemsXViewModel.me(pos.items[0]);
                 this.Tag = pos.items[0].Barcode;
             }
@@ -166,7 +172,12 @@ namespace OrderForm
             s.Children.Add(fadeInAnimation);
             s.Children.Add(thick);
             s.Begin(this);
+
+ 
+
+
         }
+
         private void Story_Completed(object sender, EventArgs e)
         {
             var brush = new SolidColorBrush(Color.FromRgb(169, 107, 40));
@@ -186,7 +197,8 @@ namespace OrderForm
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.DataContext = MenuItemsXViewModel.me(items); ;
+                    
+                    this.DataContext = MenuItemsXViewModel.me(items);
                 });
             });
         }

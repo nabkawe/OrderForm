@@ -1072,12 +1072,12 @@ namespace OrderForm.SavingandPayment
             invoice.InvoicePrice = invoice.InvoiceItems.Sum(x => x.TotalPrice);
             dueLBL.Text = invoice.InvoicePrice.ToString();
             invoice_price = dueLBL.Text;
-            this.Update();//invoice.InvoiceItems;
+            
+            this.Update();
             this.Refresh();
-            //foreach(var item in  invoice.InvoiceItems)
-            //{
-            //    MessageBox.Show(item.Name + " " + item.Quantity);
-            //}
+            Orders.POS.Clear();
+            invoice.InvoiceItems.ToList().ForEach(x => Orders.POS.Add(x));
+            
         }
 
         private void PreviewOrder_Click(object sender, EventArgs e)

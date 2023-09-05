@@ -123,7 +123,13 @@ namespace OrderForm
                     if (ContainsBarcode(bar, barcode))
                     {
                         item.PickedYou();
+                        //create a pop up window to show the item
+
+
+
+
                         return;
+
                     }
                 }
                 else
@@ -139,6 +145,7 @@ namespace OrderForm
                     }
                 }
             }
+            
         }
 
         private static bool ContainsBarcode(string source, string target)

@@ -35,6 +35,7 @@ using Windows.UI.Notifications;
 using Clipboard = Windows.ApplicationModel.Background;
 using System.Windows;
 using System.Windows.Media.Animation;
+using Windows.ApplicationModel.Contacts;
 
 namespace OrderForm
 {
@@ -644,35 +645,22 @@ namespace OrderForm
 
             dvItems.MouseWheel += new MouseEventHandler(DataGridView1_MouseWheel);
 
+            //  check if it exists first 
+            if (dvItems.Columns["btnColumn"] != null) return;
+
+            DataGridViewButtonColumn btnColumn = new DataGridViewButtonColumn();
+            btnColumn.HeaderText = "م";
+            btnColumn.Name = "btnColumn";
+            btnColumn.Text = "ملاحظة سريعة";
+            btnColumn.UseColumnTextForButtonValue = true;
+            btnColumn.Width = 20;
+            dvItems.Columns.Add(btnColumn);
+
+
+
 
         }
 
-        //private void InvoicesDG_MouseWheel(object sender, MouseEventArgs e)
-        //{
-        //    if (InvoicesDG.Rows.Count <= 0) return;
-        //    if (e.Delta > 0 && InvoicesDG.FirstDisplayedScrollingRowIndex > 0)
-        //    {
-        //        InvoicesDG.FirstDisplayedScrollingRowIndex--;
-        //    }
-        //    else if (e.Delta < 0)
-        //    {
-        //        InvoicesDG.FirstDisplayedScrollingRowIndex++;
-        //    }
-
-        //    if (InvoicesDG.CurrentCell != null)
-        //    {
-
-
-        //        int currentIndex = InvoicesDG.CurrentCell.RowIndex;
-        //        int newIndex = currentIndex - Math.Sign(e.Delta);
-        //        if (newIndex >= 0 && newIndex < InvoicesDG.Rows.Count)
-        //        {
-        //            InvoicesDG.CurrentCell = InvoicesDG[0, newIndex];
-        //        }
-        //    }
-
-
-        //}
 
         private void DvItems_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -770,8 +758,15 @@ namespace OrderForm
         {
             if (e.Clicks == 1 && e.Button == MouseButtons.Right)
             {
+                if (dvItems.IsCurrentCellInEditMode)
+                {
+
+                    return;
+                }
+
                 int rowIndex = dvItems.HitTest(e.X, e.Y).RowIndex;
 
+                // check if any cell is in edit mode
                 if (dvItems.RowCount > 0 && dvItems.SelectedRows.Count != -1 && rowIndex != -1)
                 {
                     var row = dvItems.Rows[rowIndex];
@@ -1079,24 +1074,22 @@ namespace OrderForm
                     dbQ.SaveContacts(customer);
                     Invoice PNI = PrintNewInvoice();
                     PNI.TimeOfPrinting = DateTime.Now.ToString("hh:mmtt dd/MM/yy");
-
-
                     DbInv.UpdatePreparingInvoice(PNI);
-
                     Custom_Classes.CreateOffer.CreateOfferNow(PrintNewInvoice(), true);
+                    var se = sender;
                     if (sender is null)
                     {
                         // do nothing;
+                    }
+                    else if (se.GetType() == typeof(string))
+                    {
+                        NewBTN_Click(null, null);
+
                     }
                     else
                     {
                         NewBTN_Click(null, null);
                     }
-
-
-
-
-
                 }
             }
         }
@@ -1243,7 +1236,7 @@ namespace OrderForm
 
             var se = (ToolStripButton)sender;
             string posid = (string)se.Tag;
-            
+
             if (posid != null)
             {
                 new SavingandPayment.PaymentOptions(posid);
@@ -1285,7 +1278,9 @@ namespace OrderForm
             }
             else if (heldInv.Status == InvStat.Printed)
             {
-                StopEditing = false;
+                StopEditing = true;
+                IsItPrinted = true;
+
                 ButtonStates(true);
                 OrdersPanel.Enabled = true;
                 InvoiceNumberID.Text = heldInv.ID.ToString();
@@ -1298,12 +1293,29 @@ namespace OrderForm
                 FillPOS(heldInv.InvoiceItems);
                 this.OrdersContainer.Visible = false;
                 this.OrdersPanel.Visible = true; this.OrdersPanel.BringToFront();
+
+                // start a timer of 5 seconds to do this code : StopEditing = false;
+                System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                timer.Interval = 800;
+                timer.Tick += (s, e) =>
+                {
+                    StopEditing = false;
+                    timer.Stop();
+                    timer.Dispose();
+                };
+                timer.Start();
+                
+
+
+                return;
             }
             else if (heldInv.Status == InvStat.SavedToPOS)
             {
                 if (History.Checked)
                 {
                     StopEditing = true;
+                    IsItPrinted = true;
+
                     ButtonStates(false);
                     OrdersPanel.Enabled = true;
                     InvoiceNumberID.Text = heldInv.ID.ToString();
@@ -1318,11 +1330,12 @@ namespace OrderForm
                     this.OrdersPanel.Visible = true; this.OrdersPanel.BringToFront();
                     // create a tooltip to show on top of the button ShowMenuBTN
                     ToolTip tt = new ToolTip();
-                    tt.UseAnimation = false; 
+                    tt.UseAnimation = false;
                     tt.UseFading = false;
                     tt.ToolTipTitle = "معلومات الطلب";
                     string msg = $"تم التخزين: {heldInv.TimeOfSaving} {Environment.NewLine} تمت الطباعة: {heldInv.TimeOfPrinting} {Environment.NewLine} وسيلة الدفع: {heldInv.PaymentName}";
-                    tt.Show(msg, InvoiceNumberID, 5000);
+                    tt.Show(msg, InvoiceNumberID, 20000);
+                    return;
                 }
                 else { OrdersPage_Click(null, null); }
 
@@ -1344,8 +1357,6 @@ namespace OrderForm
                 this.OrdersPanel.Visible = true; this.OrdersPanel.BringToFront();
                 FillPOS(heldInv.InvoiceItems);
             }
-            IsItPrinted = true;
-            HoldInvoice.Enabled = false;
 
         }
         private void FillPOS(List<POSItems> list)
@@ -1620,7 +1631,7 @@ namespace OrderForm
 
             var Cind = e.ColumnIndex;
             var Rind = e.RowIndex;
-            if (Cind == 4)
+            if (Cind == 5)
             {
 
                 if (dvItems.RowCount > 0 && dvItems.SelectedRows.Count != -1 && Rind != -1)
@@ -1656,7 +1667,7 @@ namespace OrderForm
             }
             else
             {
-                if (dvItems.RowCount > 0 && dvItems.SelectedRows.Count != -1 && Rind != -1)
+                if (dvItems.RowCount > 0 && dvItems.SelectedRows.Count != -1 && Rind != -1 && Cind != 4)
                 {
 
                     var row = dvItems.Rows[Rind];
@@ -1719,6 +1730,10 @@ namespace OrderForm
             label1.Visible = string.IsNullOrWhiteSpace(TimeTB.Text);
             label3.Visible = string.IsNullOrWhiteSpace(DOWTB.Text);
             CommentLBL.Visible = string.IsNullOrWhiteSpace(CommentTB.Text);
+            if (!string.IsNullOrWhiteSpace(MobileTB.Text) && !InvoiceTypeOptions.Items.Find("DineButton", false).First().Pressed)
+            {
+                InvoiceTypeOptions.Items.Find("TelButton",false).First().PerformClick();
+            }
 
             if (InvoiceNumberID.Enabled == false)
             {
@@ -1726,7 +1741,8 @@ namespace OrderForm
             }
             if (MobileTB.Text.Contains("+966"))
             {
-                MobileTB.Text = MobileTB.Text.Replace("+966", "0").Replace(" ", "").Replace(" ", "");
+               MobileTB.Text = MobileTB.Text.Replace("+966", "0").Replace(" ", "").Replace(" ", "");
+
             }
 
             foreach (ToolStripButton btn in InvoiceTypeOptions.Items)
@@ -1795,12 +1811,62 @@ namespace OrderForm
         {
             if (day == 100)
             {
+                var list = DbInv.GetSavedInvoices();
 
-                InvoicesDG.DataSource = DbInv.GetSavedInvoices();
+                // list all checked items in FilterMenu 
+                // protect against finding a seperator in the list
+                // avoid null seperator in the cast
+                var checkedItems = FilterMenu.Items.OfType<ToolStripMenuItem>().Cast<ToolStripMenuItem>()
+                    .Where(item => item is ToolStripMenuItem && item.Checked)
+                    .Select(item => item.Name)
+                    .ToList();
+
+                if (checkedItems.Any(item => item == todaysFilter.Name))
+                {
+                    // account for if x.TimeOfSaving is null 
+                    list = list.Where(x => x.TimeOfSaving != null && x.TimeOfSaving.Date == DateTime.Now.Date).ToList();
+                }
+                if (checkedItems.Any(item => item == jahezFilter.Name))
+                {
+                    list = list.Where(x => x.OrderType == "تطبيقات").ToList();
+                }else if (checkedItems.Any(item => item == notJahezFilter.Name))
+                {
+                    list = list.Where(x => x.OrderType != "تطبيقات" && x.Status != InvStat.Deleted).ToList();
+                }
+                if (checkedItems.Any(item => item == deletedFilter.Name))
+                {
+                    list = list.Where(x => x.Status == InvStat.Deleted).ToList();
+                }
+                if (checkedItems.Any(item=> item == savingTimeFilter.Name))
+                {
+                   //sort list by time of saving with a null check
+                   list = list.Where(x => x.TimeOfSaving != null).OrderByDescending(x => x.TimeOfSaving).ToList();  
+                }    
+                if (checkedItems.Any(item=> item == multiPaymentFilter.Name))
+                {
+                   //sort list by time of saving with a null check
+                    list = list.Where(x => x.PaymentName != null && x.PaymentName == "دفع متعدد").ToList();
+
+                }else if (checkedItems.Any(item=> item == CashFilter.Name))
+                {
+                    //sort list by time of saving with a null check
+                    list = list.Where(x => x.PaymentName != null && x.PaymentName == "Cash").ToList();
+                }
+                else if (checkedItems.Any(item=> item == madaFilter.Name))
+                {
+                   //sort list by time of saving with a null check
+                   list = list.Where(x => x.PaymentName != null && x.PaymentName == "Mada").ToList();  
+                }   
+                
+
+
+
+                InvoicesDG.DataSource = list;
+
+
                 radioChecked = day;
                 GridUISaved();
                 CountLBL.Text = InvoicesDG.RowCount.ToString();
-
 
 
 
@@ -2217,15 +2283,10 @@ namespace OrderForm
                 }
             }
         }
-
-
         private void Save2POS(Invoice SaveToPOS)
         {
             this.Hide();
-            //var canceled = new InvoiceButton(SaveToPOS);
             int id = SaveToPOS.ID;
-            //canceled.Tag = id;
-
             var a = NewPayForm(SaveToPOS);
             ShowMenuBTN.BackColor = Color.SlateGray;
             if (a.ShowDialog() == DialogResult.OK)
@@ -2236,7 +2297,6 @@ namespace OrderForm
                 this.BringToFront();
                 this.Activate();
                 return;
-
             }
             else
             {
@@ -2246,15 +2306,7 @@ namespace OrderForm
                 this.BringToFront();
                 this.Activate();
                 return;
-
-
-
-
-
-
             }
-
-
         }
 
         public CheckBox ParentCheckBox
@@ -2473,6 +2525,8 @@ namespace OrderForm
                 dbQ.MatAvailableSet(item, true);
             }
             else dbQ.MatAvailableSet(item, false);
+            langCheck.Checked = !langCheck.Checked;
+            langCheck.Checked = !langCheck.Checked;
 
             /////////// To Be Programmed.
         }
@@ -2508,17 +2562,17 @@ namespace OrderForm
 
         private void LastOrder_Click(object sender, EventArgs e)
         {
-            this.OrdersFlowLayoutPanel.Visible = true; this.OrdersFlowLayoutPanel.BringToFront();
-            this.OrdersContainer.Visible = true; this.OrdersContainer.BringToFront();
-            this.OrdersPanel.Visible = false;
-            LastOrder.Visible = false;
-            EditName.Visible = false;
+
             History.Checked = true;
             this.SearchTB.Text = MobileTB.Text;
             GridUISaved();
             Search_Click(null, null);
             // AddDraftInvoices(); 
-
+            this.OrdersFlowLayoutPanel.Visible = true; this.OrdersFlowLayoutPanel.BringToFront();
+            this.OrdersContainer.Visible = true; this.OrdersContainer.BringToFront();
+            this.OrdersPanel.Visible = false;
+            LastOrder.Visible = false;
+            EditName.Visible = false;
 
         }
 
@@ -2602,7 +2656,8 @@ namespace OrderForm
                 {
                     if (DbInv.GetInvoiceByID(Convert.ToInt32(InvoiceNumberID.Text)).Status == InvStat.Draft)
                     {
-                        PrintSave_Click(null, null);
+                        string printJahez = string.Empty;
+                        PrintSave_Click(printJahez, null);
                     }
                     else { MessageBox.Show("ربما تقوم بنسخ فاتورة جاهز فوق فاتورة معدة من قبل الرجاء بدء فاتورة جديدة"); }
                 }
@@ -2614,28 +2669,6 @@ namespace OrderForm
 
 
             }
-
-            //else if (match.Success)
-            //{
-            //    JahezParser = JahezParser.Replace("\u200F", "");
-            //    string a = JahezParser;
-            //    while (a.Contains("\r") || a.Contains("\n\n"))
-            //    {
-            //        a = a.Replace("\r", "").Replace("\n\n", "\n");
-            //    }
-
-            //    MatchCollection matches = Regex.Matches(a, @"\n(\d+)×\n(.+?)\s+([\d.]+) ر.س.");
-
-
-            //    foreach (Match matchA in matches)
-            //    {
-            //        string quantity = matchA.Groups[1].Value;
-            //        string itemName = matchA.Groups[2].Value;
-            //        string price = matchA.Groups[3].Value;
-
-            //        MessageBox.Show($"{quantity}x {itemName} for {price} ر.س.");
-            //    }
-            //}
 
             else if (JahezParser.Contains("المبلغ المُقدَّر") || JahezParser.Contains("estimated"))
             {
@@ -2701,11 +2734,6 @@ namespace OrderForm
                         //JahezQuantity = JahezQuantity.Remove(JahezQuantity.Length - 2, JahezQuantity.Length);
                     }
 
-                    //string price = whatsappParser.Split('\u000a')[2].
-                    //    Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace("(المبلغالمُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
-                    //MessageBox.Show(price);
-                    //string price0 = whatsappParser.Split('\u000a')[0].
-                    //    Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace("(المبلغالمُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
 
                     string price1 = whatsappParser.Split('\u000a')[1].
                         Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace("(المبلغالمُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
@@ -2722,7 +2750,7 @@ namespace OrderForm
                         }
                         else
                         {
-                            uButton1_Click(null, null);
+                            PasteBTN_Click(null, null);
                             return;
                         }
                     }
@@ -2733,85 +2761,7 @@ namespace OrderForm
 
 
 
-            //else if (JahezParser.Contains("(") || JahezParser.Contains("ر.س"))
-            //{
-            //    string whatsappParser = string.Empty;
-            //    whatsappParser = e.Data.GetData(DataFormats.UnicodeText).ToString();
-            //    POS.Clear();
-            //    String MatParser = "";
-            //    {
 
-            //        foreach (string s in whatsappParser.Split('\u000a'))
-            //        {
-
-            //            if (s.Contains("\""))
-            //            {
-            //                var start = s.IndexOf("\"") + 1;//add one to not include quote
-            //                var end = s.LastIndexOf("\"") - start;
-            //                var result = s.Substring(start, end);
-            //                MatParser += Environment.NewLine + "*" + result;
-            //            }
-            //            if (s.Contains('•'))
-            //            {
-
-            //                MatParser += Environment.NewLine + s.Split('•')[1].Replace("Quantity ", "").Replace("الكمية ", "");
-            //            }
-
-            //        }
-
-            //        try
-            //        {
-
-            //            for (int i = 1; i < MatParser.Split('*').Count() + 1; i++)
-            //            {
-            //                string WhatsBarcode = MatParser.Split('*')[i].Split('\u000a')[0];
-            //                string WhatsQuantity = MatParser.Split('*')[i].Split('\u000a')[1];
-            //                WhatsBarcode = WhatsBarcode.Replace('\r', ' ').Replace(" ", "");
-            //                WhatsQuantity = WhatsQuantity.Replace('\r', ' ').Replace(" ", "");
-
-            //                var Item = ItemsLists.First(x => x.Barcode == WhatsBarcode);
-            //                if (Item != null)
-            //                {
-            //                    Item.Quantity = Convert.ToInt32(WhatsQuantity);
-            //                    Item.Comment = "";
-            //                    POSItems New = new POSItems();
-            //                    New.Name = Item.Name;
-            //                    New.Quantity = Item.Quantity;
-            //                    New.Price = Item.Price;
-            //                    New.PrinterName = Item.PrinterName;
-            //                    Item.printerlist.ForEach(x => New.printerlist.Add(x));
-            //                    New.realquan = Item.realquan;
-            //                    New.Barcode = Item.Barcode;
-            //                    New.ID = Item.ID;
-            //                    New.Parent = Item.Parent;
-            //                    New.Available = Item.Available;
-            //                    POS.Add(New);
-            //                }
-
-            //            }
-            //        }
-
-
-            //        catch (Exception)
-            //        {
-            //            //JahezBarcode = JahezBarcode.Remove(JahezBarcode.Length - 2, JahezBarcode.Length);
-            //            //JahezQuantity = JahezQuantity.Remove(JahezQuantity.Length - 2, JahezQuantity.Length);
-            //        }
-
-            //        string price = whatsappParser.Split('\u000a')[1].
-            //            Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
-            //        string price1 = whatsappParser.Split('\u000a')[1].
-            //            Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
-            //        string price0 = whatsappParser.Split('\u000a')[0].
-            //            Replace(" ر.س.‏", "").Replace("(estimated)", "").Replace("SAR", "").Replace("(المبلغ المُقدَّر)", "").Replace('٫', '.').Replace(" ", "").Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4").Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9");
-
-            //        decimal due = Convert.ToDecimal(AmountLBL.Text);
-            //        string CartPrice = price.Replace("/r", "");
-
-
-
-            //    }
-            //}
         }
         #endregion
         private void Search_Click(object sender, EventArgs e)
@@ -2833,7 +2783,15 @@ namespace OrderForm
                 }
                 else
                 {
-                    InvoicesDG.DataSource = DbInv.GetAllSavedInvoices().Where(x => ToUnifiedArabic(x.SearchResult).Contains(ToUnifiedArabic(SearchTB.Text))).ToList();
+                    if (ModifierKeys.HasFlag(Keys.Control))
+                    {
+
+                    }
+                    else
+                    {
+                        InvoicesDG.DataSource = DbInv.GetAllSavedInvoicesDB(ToUnifiedArabic(SearchTB.Text));
+                    }
+
 
                 }
                 CountLBL.Text = InvoicesDG.RowCount.ToString();
@@ -3005,8 +2963,12 @@ namespace OrderForm
                     // check if a file exists...    
                     if (File.Exists(details))
                     {
-                        // copy the file to the clipboard...    
-                        System.Windows.Clipboard.SetFileDropList(new System.Collections.Specialized.StringCollection { details });
+                        // copy the file to the clipboard... // copy the file to the clipboard 
+                        System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
+                        paths.Add(details);
+                        System.Windows.Clipboard.SetFileDropList(paths);
+
+
                     }
                 }
 
@@ -3191,41 +3153,34 @@ namespace OrderForm
         }
 
 
-        private async void MobileTB_DoubleClick(object sender, EventArgs e)
-        {
-            var a = await getcontextMenu();
-            if (a != null)
-            {
-                a.Show(MobileTB, new Point(0, 0));
-                a.MenuItems[0].PerformSelect();
-            }
 
-        }
-        async Task<ContextMenu> getcontextMenu()
+        async Task<ContextMenuStrip> getcontextMenu()
         {
 
             var items = await Windows.ApplicationModel.DataTransfer.Clipboard.GetHistoryItemsAsync();
-            var context = new ContextMenu();
-
-            var empty = new MenuItem(" ");
+            var context = new ContextMenuStrip();
+            context.Font = new Font("SegouUI", 17,System.Drawing.FontStyle.Bold);
+            //no image for context
+            context.ShowImageMargin = false;
+            context.BackColor = Color.FromArgb(255, 255, 255);
+            var empty = new  ToolStripMenuItem(" ");
             empty.Click += Menu_Click;
-
-            context.MenuItems.Add(empty);
+            context.Items.Add(empty);
 
             foreach (var item in items.Items.Where(x => x.Content.AvailableFormats.Contains(StandardDataFormats.Text)).Distinct().ToList())
             {
                 string data = await item.Content.GetTextAsync();
                 if (data.Length == 10 && data.StartsWith("0"))
                 {
-                    var menu = new MenuItem(data);
+                    var name = string.IsNullOrEmpty(dbQ.LoadContacts(data)?.Name.Replace(" ","")) ? "رقم جديد" : dbQ.LoadContacts(data)?.Name;
+                    var menu = new ToolStripMenuItem(data+"-"+name);
                     menu.Click += Menu_Click;
-
-                    context.MenuItems.Add(menu);
+                    context.Items.Add(menu);
                 }
 
             }
 
-            if (context.MenuItems.Count > 0)
+            if (context.Items.Count > 0)
             {
 
                 return context;
@@ -3233,36 +3188,16 @@ namespace OrderForm
             else return null;
 
 
-            //var items = await Windows.ApplicationModel.DataTransfer.Clipboard.GetHistoryItemsAsync();
-            //var context = new ContextMenu();
-            //foreach (var item in items.Items.Take(30))
-            //{
-
-            //    var data = await item.Content();
-            //    if (data.GetType() == typeof(string)) { 
-
-            //    if (data.Length == 10 && data.StartsWith("0"))
-            //    {
-            //        var menu = new MenuItem(data);
-            //        menu.Click += Menu_Click;
-
-            //        context.MenuItems.Add(menu);
-            //    }
-            //    }
-            //}
-
 
 
         }
         private void Menu_Click(object sender, EventArgs e)
         {
-            var mi = (MenuItem)sender;
 
-            MobileTB.Text = mi.Text;
+            var mi = (ToolStripMenuItem)sender;
 
+            MobileTB.Text = mi.Text.Split('-')[0];
             if (mi.Text != "") NameTB_Enter(null, null); else MobileTB.Text = "";
-
-
 
         }
 
@@ -3393,8 +3328,14 @@ namespace OrderForm
         {
             if (e.RowIndex < 0) return;
             Invoice item = (Invoice)InvoicesDG.Rows[e.RowIndex].DataBoundItem;
+            if (History.Checked)
+            {
+                LoadInvoiceUI(item);
+            }
+            else{
             var Opened = DbInv.GetInvoiceByID(item.ID);
             LoadInvoiceUI(Opened);
+            }
 
         }
 
@@ -3457,12 +3398,13 @@ namespace OrderForm
                 InvoicesDG.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
 
             }
-            else if (item.Status ==  InvStat.Deleted)
+            else if (item.Status == InvStat.Deleted)
             {
                 InvoicesDG.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightPink;
                 InvoicesDG.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
 
-            }else
+            }
+            else
             {
                 InvoicesDG.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
                 InvoicesDG.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
@@ -3700,6 +3642,7 @@ namespace OrderForm
                             item.InvoiceItems.Clear();
                             item.Comment = "فاتورة مجمعة تابعة لرقم: " + oldID;
                             item.Status = InvStat.Deleted;
+                            item.TimeOfSaving = DateTime.Now;
                             item.InvoicePrice = 0;
                             DbInv.UpdateInvoice(item);
                         }
@@ -3769,9 +3712,15 @@ namespace OrderForm
             {
                 if (e.RowIndex < 0) return;
                 Invoice item = (Invoice)InvoicesDG.Rows[e.RowIndex].DataBoundItem;
+                if (History.Checked)
+                {
+                    LoadInvoiceUI(item);    
+                }
+                else { 
                 var Opened = DbInv.GetInvoiceByID(item.ID);
                 LoadInvoiceUI(Opened);
-                return;
+                
+                }
             }
         }
 
@@ -3880,15 +3829,97 @@ namespace OrderForm
 
         }
 
-        private void uButton1_Click(object sender, EventArgs e)
+        private void PasteBTN_Click(object sender, EventArgs e)
         {
 
             if (System.Windows.Clipboard.ContainsText(System.Windows.TextDataFormat.Text))
             {
                 if (!System.Windows.Clipboard.GetText().Replace("+", "").Replace(" ", "").Any(c => !Char.IsDigit(c)))
-                    MobileTB.Text = System.Windows.Clipboard.GetText();
+                { MobileTB.Text = System.Windows.Clipboard.GetText(); NameTB.Focus(); }
                 else { NameTB.Text = System.Windows.Clipboard.GetText(); }
             }
+        }
+
+        private async void uButton1_Click(object sender, EventArgs e)
+        {
+            var a = await getcontextMenu();
+            if (a != null)
+            {
+                a.Show(MobileTB, new Point(0, 0));
+                a.Items[0].Select();
+            }
+        }
+
+        private void FilterBTN_Click(object sender, EventArgs e)
+        {
+            FilterMenu.Show(this.FilterBTN, new Point(0, 0)); 
+        }
+
+        private void FilterMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if(e.ClickedItem.Name == madaFilter.Name)
+            {
+                CashFilter.Checked = false;                
+                multiPaymentFilter.Checked = false;
+
+            }
+            else if (e.ClickedItem.Name == CashFilter.Name)
+            {
+                madaFilter.Checked = false; 
+                multiPaymentFilter.Checked = false; 
+            }
+            else if (e.ClickedItem.Name == multiPaymentFilter.Name)
+            {
+                CashFilter.Checked = false;
+                madaFilter.Checked = false; 
+            }
+            if( e.ClickedItem.Name == notJahezFilter.Name)
+            {
+                jahezFilter.Checked = false;
+                deletedFilter.Checked = false;
+            }
+            else if (e.ClickedItem.Name == jahezFilter.Name)
+            {
+                notJahezFilter.Checked = false;
+                deletedFilter.Checked = false;
+            }
+
+        }
+
+        private void CountLBL_Click(object sender, EventArgs e)
+        {
+            // check for radio button checked named history
+            // calculate InvoicePrice Column in InvoicesDG
+            try
+            {
+                var sum = InvoicesDG.Rows.Cast<DataGridViewRow>().Sum(t => Convert.ToDouble(t.Cells["InvoicePrice"].Value));
+                //Make a 5 second tool tip to show the result of sum    
+                ToolTip tt = new ToolTip();
+                tt.Show(sum.ToString(), CountLBL, 0, 0, 5000);
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            
+
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            NameTB.Clear();
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            MobileTB.Clear();   
+        }
+
+        private void uButton5_Click(object sender, EventArgs e)
+        {
+            CommentTB.Clear();
         }
     }
 }

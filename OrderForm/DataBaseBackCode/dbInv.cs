@@ -3,7 +3,9 @@ using RestSharp;
 using sharedCode;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -49,7 +51,7 @@ namespace OrderForm
             //}
         }
 
-        public static  bool AreYouAlive()
+        public static bool AreYouAlive()
         {
             try
             {
@@ -57,7 +59,7 @@ namespace OrderForm
                 var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/AreYouAlive");
                 var request = new RestRequest();
                 request.Timeout = 1000;
-                var response =  client.Get(request);
+                var response = client.Get(request);
                 if (response != null) { return true; } else { return false; }
 
             }
@@ -171,24 +173,86 @@ namespace OrderForm
 
         internal static void DeleteDBInvoices()
         {
-            try
+            //[HttpGet]
+            //[Route("DeleteDB")]
+            //public ActionResult<bool> DeleteDB()
+            //{
+            //    try
+            //    {
+            //        LogMyAPI("Backing Up");
+            //        //create a backup for the db
+            //        string backupPath = @"C:\db";
+            //        string backupFile = backupPath + @$"\db{DateTime.Now.Month}_{DateTime.Now.Year}.db";
+            //        if (!Directory.Exists(backupPath))
+            //        {
+            //            Directory.CreateDirectory(backupPath);
+            //        }
+
+
+            //        db.Dispose();
+            //        LogMyAPI("db disposed");
+            //        // create a back up file
+            //        System.IO.File.Copy(DBConnection, backupFile, true);
+            //        LogMyAPI("File Copied");
+
+            //        db.DropCollection("Invoices");
+            //        LogMyAPI("Invoices Dropped");
+            //        db.Rebuild();
+            //        LogMyAPI("Rebuilt DB");
+
+            //        return true;
+
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        LogMyAPI(ex.Message);
+            //        return false;
+            //    }
+
+
+            //} get boolean result from this api
+
+
+
+            if (Properties.Settings.Default.Api_On)
             {
-                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/DeleteDB");
+                var request = new RestRequest();
+                RestResponse response = client.Get(request);
+                //check if response is true 
+                if (response.Content == "true")
                 {
-
-                    db.DropCollection("Invoices");
-
+                    MessageBox.Show("DB Reset and Backed up");
+                }else
+                {
+                    MessageBox.Show("DB Not Deleted");
                 }
             }
-            catch (Exception)
+            else
             {
-                MessageBox.Show("You can't delete Invoice from the API");
+                try
+                {
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+
+                    {
+
+                        db.DropCollection("Invoices");
+
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("You can't delete Invoice from the API");
+
+                }
+
 
             }
 
-        }
 
+        }
 
         internal static List<Invoice> SearchPrintedInvoices(string text)
         {
@@ -348,7 +412,7 @@ namespace OrderForm
                 //request.AddParameter("application/json", i, ParameterType.RequestBody);
                 request.AddQueryParameter("ID", updated.ID);
                 request.AddQueryParameter("Ready", edit);
-                
+
 
                 var response = client.Post(request);
 
@@ -478,6 +542,33 @@ namespace OrderForm
                 }
             }
         }
+
+        public static List<Invoice> GetAllSavedInvoicesDB(string searchstring)
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/SearchALLDB");
+                var request = new RestRequest();
+                request.AddParameter("search", searchstring);
+                RestResponse response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        {
+                            var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Invoice>>(response.Content.ToString());// <Invoice>(item);
+                            return i;
+                        }
+                    }
+                }
+                else { return new List<Invoice>(); }
+            }
+            else { return new List<Invoice>(); }
+            return new List<Invoice>();
+
+
+        }
         public static void CreateDraftInvoice(Invoice inv)
         {
             if (Properties.Settings.Default.Api_On)
@@ -520,6 +611,7 @@ namespace OrderForm
                     Deleted = GetInvoiceByID(id);
                     Deleted.Comment = "تم الإلغاء من العميل";
                     Deleted.Status = InvStat.Deleted;
+                    Deleted.TimeOfSaving = DateTime.Now;
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                     var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateInvoiceDraft");
                     var request = new RestRequest();
@@ -541,6 +633,8 @@ namespace OrderForm
                     Deleted = GetInvoiceByID(id);
                     Deleted.Comment = "لم يتم الإستلام من العميل";
                     Deleted.Status = InvStat.Deleted;
+                    Deleted.TimeOfSaving = DateTime.Now;
+
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                     var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateInvoiceDraft");
                     var request = new RestRequest();
@@ -566,13 +660,13 @@ namespace OrderForm
                     var Invoices = db.GetCollection<Invoice>("Invoices");
                     Deleted = Invoices.FindById(id);
                     Deleted.Status = InvStat.Deleted;
+                    Deleted.TimeOfSaving = DateTime.Now;
+
                     if (comment != 0)
                     {
                         Deleted.Comment = "تم الإلغاء من العميل";
                         DbInv.LogAction("Printed Invoice Deleted Canceled", Deleted.ID, Deleted.Status);
-
                         return Invoices.Update(Deleted);
-
                     }
                     else
                     {
@@ -1014,8 +1108,12 @@ namespace OrderForm
                 Materials.EnsureIndex(x => x.Barcode);
                 var sectionTable = db.GetCollection<POSsections>("Sections");
                 sectionTable.EnsureIndex(x => x.Name);
+
                 var Deps = db.GetCollection<Contacts>("Customers");
+                Deps.DeleteMany(x => x.Number == null);
+                Deps.DropIndex("Number");
                 Deps.EnsureIndex(x => x.Number);
+
             }
         }
 

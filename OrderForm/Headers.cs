@@ -53,8 +53,8 @@ namespace OrderForm
             FontDialog MyDialog = new FontDialog();
             MyDialog.ShowColor = true;
             MyDialog.Color = this.Fonts.ForeColor;
-            MyDialog.Font = this.Fonts.Font;    
-            
+            MyDialog.Font = this.Fonts.Font;
+
             if (MyDialog.ShowDialog() == DialogResult.OK)
             {
                 this.Fonts.Font = MyDialog.Font;
@@ -102,14 +102,14 @@ namespace OrderForm
             h.HeaderName = titleBox.Text;
             h.FontFamily = Fonts.Font.FontFamily.Name;
             h.FontSize = (int)Fonts.Font.Size;
-            h.ForegroundColor = Fonts.ForeColor.A.ToString() + "," + Fonts.ForeColor.R.ToString() + "," + Fonts.ForeColor.G.ToString() + "," + Fonts.ForeColor.B.ToString();    
-            h.BackgroundColor = Fonts.BackColor.A.ToString() + "," + Fonts.BackColor.R.ToString() + "," + Fonts.BackColor.G.ToString() + "," + Fonts.BackColor.B.ToString();    
+            h.ForegroundColor = Fonts.ForeColor.A.ToString() + "," + Fonts.ForeColor.R.ToString() + "," + Fonts.ForeColor.G.ToString() + "," + Fonts.ForeColor.B.ToString();
+            h.BackgroundColor = Fonts.BackColor.A.ToString() + "," + Fonts.BackColor.R.ToString() + "," + Fonts.BackColor.G.ToString() + "," + Fonts.BackColor.B.ToString();
             h.height = (int)headerHeight.Value;
             h.initialHeight = (int)headerLocation.Value;
             return h;
         }
 
-        
+
 
         private void MoveUp_Click(object sender, EventArgs e)
         {
@@ -138,9 +138,13 @@ namespace OrderForm
         private void MoveDown_Click(object sender, EventArgs e)
         {
             // move down in datagridview
+            
+
+
 
             if (dataGridView1.SelectedRows.Count == 1 && dataGridView1.SelectedRows[0].Index < dataGridView1.Rows.Count - 1)
             {
+
                 // move row up
                 int index = dataGridView1.SelectedRows[0].Index;
                 DataGridViewRowCollection rows = dataGridView1.Rows;
@@ -157,7 +161,7 @@ namespace OrderForm
 
         private void Headers_Load(object sender, EventArgs e)
         {
-            
+
             MenuDB.GetMenuHeaders(sectionName).ForEach(x => headers.Add(x));
             MenuTitle.Text = sectionName;
             this.dataGridView1.DataSource = headers;
@@ -174,9 +178,9 @@ namespace OrderForm
                 var row = dataGridView1.SelectedRows[0].DataBoundItem as headerObject;
                 titleBox.Text = row.HeaderName;
                 Fonts.Font = new Font(row.FontFamily, (float)row.FontSize);
-                Fonts.ForeColor = Color.FromArgb(Convert.ToByte(row.ForegroundColor.Split(',')[0]), Convert.ToByte(row.ForegroundColor.Split(',')[1]), Convert.ToByte(row.ForegroundColor.Split(',')[2]), Convert.ToByte(row.ForegroundColor.Split(',')[3]));   
-                Fonts.BackColor = Color.FromArgb(Convert.ToByte(row.BackgroundColor.Split(',')[0]), Convert.ToByte(row.BackgroundColor.Split(',')[1]), Convert.ToByte(row.BackgroundColor.Split(',')[2]), Convert.ToByte(row.BackgroundColor.Split(',')[3]));       
-                
+                Fonts.ForeColor = Color.FromArgb(Convert.ToByte(row.ForegroundColor.Split(',')[0]), Convert.ToByte(row.ForegroundColor.Split(',')[1]), Convert.ToByte(row.ForegroundColor.Split(',')[2]), Convert.ToByte(row.ForegroundColor.Split(',')[3]));
+                Fonts.BackColor = Color.FromArgb(Convert.ToByte(row.BackgroundColor.Split(',')[0]), Convert.ToByte(row.BackgroundColor.Split(',')[1]), Convert.ToByte(row.BackgroundColor.Split(',')[2]), Convert.ToByte(row.BackgroundColor.Split(',')[3]));
+
                 headerHeight.Value = Convert.ToInt32(row.height);
                 headerLocation.Value = Convert.ToInt32(row.initialHeight);
 
