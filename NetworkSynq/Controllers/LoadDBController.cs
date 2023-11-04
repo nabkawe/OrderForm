@@ -13,6 +13,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Net;
 using System.Threading.Tasks;
 using System.Text;
+using System.Security.Cryptography.X509Certificates;
 
 namespace NetworkSynq.Controllers
 {
@@ -44,9 +45,9 @@ namespace NetworkSynq.Controllers
 
                 return Ok(true);
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
                 return Ok(false);
 
             }
@@ -155,9 +156,9 @@ namespace NetworkSynq.Controllers
                     w.WriteLine(text);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
             }
 
         }
@@ -184,7 +185,7 @@ namespace NetworkSynq.Controllers
                 }
                 else if (inv == "saved")
                 {// get all invoices that are saved to POS or deleted in the last 2 days
-                    var draftinv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x => x.TimeOfSaving > DateTime.Now.AddDays(-2)).OrderByDescending(x => x.ID).ToList();
+                    var draftinv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x => x.TimeOfSaving > DateTime.Now.AddDays(-14)).OrderByDescending(x => x.ID).ToList();
 
 
                     if (draftinv.Count() > 0)
@@ -212,14 +213,27 @@ namespace NetworkSynq.Controllers
                     var d = draft.Query().Where(x => x.Status == InvStat.Draft && x.InvoiceItems.Count > 0).Limit(100).ToList();
                     return Ok(d);
                 }
-                else
+                else if(inv == "lastapps")
+                {
+                    var d = draft.Find(x => x.OrderType == "تطبيقات" && x.Status == InvStat.SavedToPOS).OrderByDescending(x=> x.ID).Take(100).ToList();
+                    return Ok(d);
+                }else if(inv == "readyOrdersOnly")
+                {
+                    var d = draft.Find(x => x.InEditMode && x.Status != InvStat.Deleted ).OrderByDescending(x => x.ID).Take(42).ToList();
+                    return Ok(d);
+                }
+                else if (inv == "last42invoices")
                 {
 
-                    {
+                    var d = draft.Find(x => x.Status != InvStat.Deleted).OrderByDescending(x => x.ID).Take(42).ToList();
+                    return Ok(d);
+                }
+                else
+                {                   
                         var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x => x.SearchResult.Contains(inv));
                         var d = draftInv.OrderByDescending(i => Convert.ToInt32(i.IDstring)).ToList();
                         return Ok(d);
-                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -230,8 +244,24 @@ namespace NetworkSynq.Controllers
             }
 
         }
-
-
+        [HttpPost]
+        [Route("InvoiceReady")]
+        public void InvoiceReady(string id)
+        {
+            try
+            {
+                LogMyAPI("Invoice Ready");
+                var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                var a = invoiceTable.FindOne(x => x.IDstring == id);
+                a.InEditMode = !a.InEditMode;
+                invoiceTable.Update(a);
+                
+            }
+            catch (Exception ex)
+            {
+                LogMyAPI(ex.Message);
+            }
+        }
 
 
 
@@ -281,6 +311,91 @@ namespace NetworkSynq.Controllers
             }
 
         }
+        [HttpGet]
+        [Route("SearchALLDBLoyal")]
+        public ActionResult<List<string>> SearchALLDBLoyal()
+        {
+            LogMyAPI("Search loyalty Started ");
+            try
+            {
+                var combined = new List<Invoice>();
+                LogMyAPI("Combined List");
+
+                // find all databases with .db extension in the folder DBConnection
+
+                string[] files = Directory.GetFiles(DBConnection.ToLower().Replace("filename=", "").Replace("db.db", ""), "*.db");
+                var dbs = files.Where(x => x != @"c:\db\db.db" && x != @"c:\db\db-log.db");
+                LogMyAPI("Found " + files.Count() + " DBs");
+                try
+                {
+
+                    foreach (var item in dbs)
+                    {
+                        LogMyAPI(item + " " + "Foreach started.");
+
+                        if (item != @"c:\db\db.db")
+                        {
+                            LogMyAPI(item + " " + "item doesn't equal db.db.");
+
+                            var newdb = new LiteDatabase("filename=" + item);
+                            LogMyAPI(item + " " + "created new newdb instance");
+
+                            if (newdb.GetCollectionNames().Contains("Invoices"))
+                            {
+                                LogMyAPI(item + " " + "Database contains Invoices");
+                                var invoices = newdb.GetCollection<Invoice>("Invoices");
+                                LogMyAPI(item + " " + "GotInvoiceCollection Invoices");
+                                combined.AddRange(invoices.FindAll().Where(x => x.OrderType != "تطبيقات" && x.Status == InvStat.SavedToPOS).ToList());
+                                LogMyAPI(item + " " + "AddedRange");
+                                combined = combined.DistinctBy(x => x.TimeOfSaving).ToList();
+                                LogMyAPI(item + " " + "distinct combined.");
+                                newdb.Dispose();
+                                LogMyAPI(item + " " + "DisposedDB.");
+                            }
+                            else
+                            {
+                                newdb.Dispose();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogMyAPI(ex.Message);
+
+                    throw;
+                }
+
+                LogMyAPI("db reached.");
+                var invoicesdbdb = db.GetCollection<Invoice>("Invoices");
+                LogMyAPI(  "GotInvoiceCollection Invoices");
+                combined.AddRange(invoicesdbdb.Find(z => z.Status == InvStat.SavedToPOS && z.OrderType != "تطبيقات"));
+                LogMyAPI( "AddedRange");
+                combined = combined.DistinctBy(x => x.TimeOfSaving).ToList();
+                LogMyAPI("distinct combined.");
+
+
+                var loyalCustomers = combined.DistinctBy(x => x.TimeOfSaving)
+                    .GroupBy(i => i.CustomerNumber)
+                    .Select(g => new { CustomerNumber = g.Key, TotalSales = g.Sum(i => i.InvoicePrice), OrderCount = g.Count() })
+                    .OrderByDescending(x => x.TotalSales)
+                    .ThenByDescending(x => x.OrderCount)
+                    .Select(g =>  $"TotalSales: {g.TotalSales} | OrderCount: {g.OrderCount} | Customer: {string.Join(",", combined.Where(x => x.CustomerNumber == g.CustomerNumber).Select(x => x.CustomerName).Distinct())} | Number: {g.CustomerNumber} ")
+                    .ToList();
+                return Ok(loyalCustomers.Take(200));
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                LogMyAPI(ex.Message);
+                return new List<string>();
+            }
+
+        }
 
 
 
@@ -308,11 +423,7 @@ namespace NetworkSynq.Controllers
                     return Ok(invoice);
                 }
             }
-            catch (Exception)
-            {
-
-                return NoContent();
-            }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return NoContent(); }
 
         }
         [HttpGet]
@@ -327,9 +438,9 @@ namespace NetworkSynq.Controllers
                 return Ok(S.ToList());
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
                 return Ok(new List<POSsections>());
             }
         }
@@ -345,11 +456,7 @@ namespace NetworkSynq.Controllers
                 if (cuts.Count() > 0) return Ok(cuts.FindAll().ToList());
                 else { return NoContent(); }
             }
-            catch (Exception)
-            {
-
-                return NoContent();
-            }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return NoContent(); }
 
         }
 
@@ -365,9 +472,9 @@ namespace NetworkSynq.Controllers
                 var S = s.FindAll().ToList();
                 return Ok(S);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
                 return Ok(new List<POSDepartments>());
             }
 
@@ -385,11 +492,7 @@ namespace NetworkSynq.Controllers
                 List<POSItems> items = materials.Find(x => x.SectionName == section).ToList();
                 return items.OrderBy(x => x.order).ToList();
             }
-            catch (Exception)
-            {
-
-                return new List<POSItems>();
-            }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return new List<POSItems>(); }
 
         }
 
@@ -404,9 +507,9 @@ namespace NetworkSynq.Controllers
                 List<POSItems> items = materials.FindAll().ToList();
                 return items;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
                 return new List<POSItems>();
             }
 
@@ -420,13 +523,21 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI("loading Contact");
                 var con = db.GetCollection<Contacts>("Customers");
-                Contacts Contact = con.Find(x => x.Number.Replace(" ", "") == number.Replace(" ", "")).FirstOrDefault();
-                return Contact;
+                var Contact = con.Find(x => x.Number.Replace(" ", "") == number.Replace(" ", "")).Where(z=> z.Name.Replace(" ","") != "");
+                if (Contact.Count() > 0)
+                {
+                    return Contact.First();
+                }
+                else
+                {
+                    return new Contacts();  
+                }
+                
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
                 return new Contacts();
             }
         }
@@ -443,9 +554,9 @@ namespace NetworkSynq.Controllers
                 return Contact;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
                 return new List<string>();
             }
         }
@@ -488,9 +599,9 @@ namespace NetworkSynq.Controllers
                 return Ok();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
                 return Ok();
             }
         }
@@ -521,9 +632,9 @@ namespace NetworkSynq.Controllers
                     return StatusCode(200);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
                 return StatusCode(200);
             }
         }
@@ -554,11 +665,7 @@ namespace NetworkSynq.Controllers
                 }
 
             }
-            catch (Exception)
-            {
-                return Ok("Failed to Update");
-
-            }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return Ok("Failed to Update"); }
         }
         [HttpPost]
         [Route("UpdateInvoiceDraft")] // to Saved.
@@ -584,9 +691,10 @@ namespace NetworkSynq.Controllers
                     return Ok("Failed to Update");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 LogMyAPI("Failed to Update");
+                LogMyAPI(ex.Message.ToString());
 
                 return Ok("Failed to Update");
             }
@@ -615,10 +723,10 @@ namespace NetworkSynq.Controllers
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 LogMyAPI("Failed to Update");
-
+                LogMyAPI(ex.Message.ToString());
                 return Ok("Failed to Update");
             }
         }
@@ -646,8 +754,10 @@ namespace NetworkSynq.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+
+                LogMyAPI(ex.Message.ToString());    
                 return Ok(false);
 
             }
@@ -686,9 +796,9 @@ namespace NetworkSynq.Controllers
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogMyAPI(ex.Message.ToString());
                 return Ok(false);
             }
         }
@@ -730,11 +840,7 @@ namespace NetworkSynq.Controllers
                 Sections.Update(POSsection);
                 return Ok();
             }
-            catch (Exception)
-            {
-                return Ok();
-
-            }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return Ok(); }
 
 
         }
@@ -778,10 +884,7 @@ namespace NetworkSynq.Controllers
                 }
 
             }
-            catch (Exception)
-            {
-                return Ok();
-            }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return Ok(); }
 
 
         }
@@ -799,11 +902,7 @@ namespace NetworkSynq.Controllers
                 list.ForEach(x => { order += 1; x.order = order; x.SectionName = section; materials.Update(x); });
                 return Ok();
             }
-            catch (Exception)
-            {
-
-                return Ok();
-            }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return Ok(); }
 
         }
 
@@ -827,11 +926,7 @@ namespace NetworkSynq.Controllers
                 }
                 return Ok();
             }
-            catch (Exception)
-            {
-
-                return Ok();
-            }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return Ok(); }
         }
 
         [HttpPost]
@@ -846,11 +941,7 @@ namespace NetworkSynq.Controllers
 
                 return Ok();
             }
-            catch (Exception)
-            {
-                return Ok();
-
-            }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return Ok();  }
         }
 
         [HttpPost]
@@ -866,14 +957,85 @@ namespace NetworkSynq.Controllers
                 list.ForEach(x => mat.Upsert(x));
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+
+
+                LogMyAPI(ex.Message.ToString());
                 return Ok();
             }
 
         }
-
-
+        // HungerStation, TryOrder.
+        [HttpPost]
+        [Route("SaveApps")]
+        public ActionResult SaveOrUpsertApps(AppSets Name)
+        {
+            try
+            {
+                LogMyAPI("Saving Apps Materials");
+                var mat = db.GetCollection<AppSets>("Apps");
+                
+                mat.Upsert(Name);
+                
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                LogMyAPI(ex.Message.ToString());
+                return Ok();
+            }
+        }
+        [HttpGet]
+        [Route("LoadAllApps")]
+        public ActionResult<List<AppSets>> LoadAllApps()
+        {
+            try
+            {
+                LogMyAPI("Saving Apps Materials");
+                var mat = db.GetCollection<AppSets>("Apps");
+                return Ok(mat.FindAll().Where(x=>x.Name != ""));
+            }
+            catch (Exception ex)
+            {
+                LogMyAPI(ex.Message.ToString());
+                return Ok();
+            }
+        }
+        [HttpGet]
+        [Route("LoadApp")]
+        public ActionResult<AppSets> LoadOneApps(string name)
+        {
+            try
+            {
+                LogMyAPI("Saving Apps Materials");
+                var mat = db.GetCollection<AppSets>("Apps");
+                return Ok(mat.FindOne(x=> x.Name == name));
+            }
+            catch (Exception ex)
+            {
+                LogMyAPI(ex.Message.ToString());
+                return Ok();
+            }
+        }
+        
+        [HttpPost]
+        [Route("DeleteApps")]
+        public ActionResult DeleteAllApps()
+        {
+            try
+            {
+                LogMyAPI("Delete all Apps Materials");
+                var mat = db.GetCollection<AppSets>("Apps");
+                mat.DeleteAll();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                LogMyAPI(ex.Message.ToString());
+                return Ok();
+            }
+        }
 
     }
 

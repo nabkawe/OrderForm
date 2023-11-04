@@ -130,6 +130,28 @@ namespace OrderForm
             }
 
         }
+        public static List<Invoice> GetLastSaveApps()
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/GetList");
+                var request = new RestRequest();
+                request.AddParameter("inv", "lastapps");
+                RestResponse response = client.Get(request);
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<List<Invoice>>(response.Content.ToString());// <Invoice>(item);
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+                {
+                    var d = db.GetCollection<Invoice>("Invoices");
+                    return d.Find(x => x.OrderType == "تطبيقات" && x.Status == InvStat.SavedToPOS).OrderByDescending(x => x.ID).Take(100).ToList();
+                }
+
+
+            }
+        }
 
         public static List<Invoice> GetDraftInvoices()
         {
@@ -173,45 +195,6 @@ namespace OrderForm
 
         internal static void DeleteDBInvoices()
         {
-            //[HttpGet]
-            //[Route("DeleteDB")]
-            //public ActionResult<bool> DeleteDB()
-            //{
-            //    try
-            //    {
-            //        LogMyAPI("Backing Up");
-            //        //create a backup for the db
-            //        string backupPath = @"C:\db";
-            //        string backupFile = backupPath + @$"\db{DateTime.Now.Month}_{DateTime.Now.Year}.db";
-            //        if (!Directory.Exists(backupPath))
-            //        {
-            //            Directory.CreateDirectory(backupPath);
-            //        }
-
-
-            //        db.Dispose();
-            //        LogMyAPI("db disposed");
-            //        // create a back up file
-            //        System.IO.File.Copy(DBConnection, backupFile, true);
-            //        LogMyAPI("File Copied");
-
-            //        db.DropCollection("Invoices");
-            //        LogMyAPI("Invoices Dropped");
-            //        db.Rebuild();
-            //        LogMyAPI("Rebuilt DB");
-
-            //        return true;
-
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        LogMyAPI(ex.Message);
-            //        return false;
-            //    }
-
-
-            //} get boolean result from this api
 
 
 
@@ -224,10 +207,13 @@ namespace OrderForm
                 //check if response is true 
                 if (response.Content == "true")
                 {
-                    MessageBox.Show("DB Reset and Backed up");
-                }else
+                    MessageForm.SHOW("إعادة تهيئة قاعدة البيانات و نسخها احتياطيا","تمت العملية","مفهوم");
+                }
+                else
                 {
-                    MessageBox.Show("DB Not Deleted");
+                    MessageForm.SHOW("حدث خطأ ما أثناء النسخ الاحتياطي", "خطأ بالعملية", "مفهوم");
+
+
                 }
             }
             else
@@ -244,7 +230,7 @@ namespace OrderForm
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("You can't delete Invoice from the API");
+                    MessageForm.SHOW("لا يمكنك حذف الفواتير من الإي بي آي","تنويه","مفهوم");
 
                 }
 
@@ -334,7 +320,7 @@ namespace OrderForm
                 var updated = GetInvoiceByID(iD);
                 updated.POSInvoiceNumber = posID;
                 CultureInfo[] cultures = { new CultureInfo("ar-SA") };
-                DateTime DT = DateTime.Now;
+                DateTime DT = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
                 updated.TimeOfSaving = DT;
                 updated.Status = InvStat.SavedToPOS;
 
@@ -358,7 +344,7 @@ namespace OrderForm
                     var updated = updatedInvoices.FindById(iD);
                     updated.POSInvoiceNumber = posID;
                     CultureInfo[] cultures = { new CultureInfo("ar-SA") };
-                    DateTime DT = DateTime.Now;
+                    DateTime DT = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
                     updated.TimeOfSaving = DT;
                     updated.Status = InvStat.SavedToPOS;
                     updatedInvoices.Update(updated);
@@ -372,7 +358,7 @@ namespace OrderForm
             {
 
                 CultureInfo[] cultures = { new CultureInfo("ar-SA") };
-                DateTime DT = DateTime.Now;
+                DateTime DT = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateInvoiceSaved");
                 var request = new RestRequest();
@@ -542,6 +528,29 @@ namespace OrderForm
                 }
             }
         }
+        public static List<String> GetAllLoyalCustomers()
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/SearchALLDBLoyal");
+                var request = new RestRequest();
+                RestResponse response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        {
+                            var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(response.Content.ToString());// <Invoice>(item);
+                            return i;
+                        }
+                    }
+                }
+                else { return new List<String>(); }
+            }
+            else { return new List<String>(); }
+            return new List<String>();
+        }
 
         public static List<Invoice> GetAllSavedInvoicesDB(string searchstring)
         {
@@ -611,7 +620,7 @@ namespace OrderForm
                     Deleted = GetInvoiceByID(id);
                     Deleted.Comment = "تم الإلغاء من العميل";
                     Deleted.Status = InvStat.Deleted;
-                    Deleted.TimeOfSaving = DateTime.Now;
+                    Deleted.TimeOfSaving = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                     var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateInvoiceDraft");
                     var request = new RestRequest();
@@ -633,7 +642,7 @@ namespace OrderForm
                     Deleted = GetInvoiceByID(id);
                     Deleted.Comment = "لم يتم الإستلام من العميل";
                     Deleted.Status = InvStat.Deleted;
-                    Deleted.TimeOfSaving = DateTime.Now;
+                    Deleted.TimeOfSaving = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
 
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                     var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateInvoiceDraft");
@@ -660,7 +669,7 @@ namespace OrderForm
                     var Invoices = db.GetCollection<Invoice>("Invoices");
                     Deleted = Invoices.FindById(id);
                     Deleted.Status = InvStat.Deleted;
-                    Deleted.TimeOfSaving = DateTime.Now;
+                    Deleted.TimeOfSaving = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
 
                     if (comment != 0)
                     {
@@ -700,7 +709,6 @@ namespace OrderForm
                     if (response.Content == "true")
                     {
                         Application.OpenForms[0].Focus();
-                        MessageBox.Show(response.Content.ToString());
                     }
 
 
@@ -957,8 +965,7 @@ namespace OrderForm
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
-
+                            MessageForm.SHOW(ex.Message, "خطأ", "مفهوم");
                         }
 
                     }
@@ -1122,6 +1129,159 @@ namespace OrderForm
             using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
             {
                 db.Rebuild();
+            }
+        }
+
+        internal static void SaveApps(AppSets app)
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                //save to api
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/SaveApps");
+                var request = new RestRequest();
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.RequestFormat = DataFormat.Json;
+                string i = Newtonsoft.Json.JsonConvert.SerializeObject(app, Newtonsoft.Json.Formatting.Indented);
+                request.AddParameter("application/json", i, ParameterType.RequestBody);
+                var response = client.Post(request);
+            }
+            else
+            {
+                try
+                {
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+                    {
+                        var mat = db.GetCollection<AppSets>("Apps");
+                        mat.Upsert(app);
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+        internal static void deleteAllApps()
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/DeleteApps");
+                var request = new RestRequest();
+                var response = client.Post(request);
+            }
+            else
+            {
+                try
+                {
+                    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+                    {
+                        var mat = db.GetCollection<AppSets>("Apps");
+                        mat.DeleteAll();
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
+        internal static List<AppSets> LoadApps()
+        {
+
+            if (Properties.Settings.Default.Api_On)
+            {
+                // load all apps via api
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/LoadAllApps");
+                var request = new RestRequest();
+                var response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<AppSets>>(response.Content.ToString());
+                        return i;
+                    }
+                    else
+                    {
+                        return new List<AppSets>();
+                    }
+                }
+                else { return new List<AppSets>(); }
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+                {
+                    var mat = db.GetCollection<AppSets>("Apps");
+                    return mat.FindAll().Where(x => x.Name != "").ToList();
+                }
+            }
+        }
+        internal static AppSets LoadApp(string name)
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                //get from api
+                
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/LoadApp");
+                var request = new RestRequest();
+                    request.AddParameter("name", name.ToLower());
+                var response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        var i = Newtonsoft.Json.JsonConvert.DeserializeObject<AppSets>(response.Content.ToString());
+                        return i;
+                    }
+                    else
+                    {
+                        return new AppSets();
+                    }
+                }
+                else { return new AppSets(); }
+            }
+            else
+            {
+                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+                {
+                    var mat = db.GetCollection<AppSets>("Apps");
+                    return mat.FindOne(x => x.Name == name);
+                }
+            }
+            
+
+        }
+
+        internal static List<Invoice> GetLast42Ready()
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                    var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/GetList");
+                    var request = new RestRequest();
+                    request.AddParameter("inv", "readyOrdersOnly");
+                    RestResponse response = client.Get(request);
+                    if (response != null)
+                    {
+                        if (response.StatusCode.ToString() == "OK")
+                        {
+                            var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Invoice>>(response.Content.ToString());// <Invoice>(item);
+                            return i;
+                        }
+                        else return new List<Invoice>();
+
+                    }
+                    else return new List<Invoice>();
+                
+            }
+            else
+            {
+                return new List<Invoice>();
             }
         }
     }

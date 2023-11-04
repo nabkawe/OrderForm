@@ -107,6 +107,10 @@
               "target": "Package",
               "version": "[108.0.3, )"
             },
+            "SharpClipboard": {
+              "target": "Package",
+              "version": "[3.5.2, )"
+            },
             "System.Buffers": {
               "target": "Package",
               "version": "[4.5.1, )"

@@ -171,7 +171,6 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.ap
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.csproj.CopyComplete
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.exe
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.pdb
-C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.LoadingForm.resources
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\API\appsettings.Development.json
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\API\appsettings.json
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\API\NetworkSynq.deps.json
@@ -194,3 +193,9 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\API\System.S
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\API\System.Security.Permissions.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\API\System.Windows.Extensions.dll
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.Headers.resources
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\SharpClipboard.dll
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.AppsSetting.resources
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.ReadyOrders.resources
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.Discounnt.resources
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\bin\Release\Resources\message.ico
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.MessageForm.resources

@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Windows.Forms;
 
 namespace OrderForm
@@ -13,9 +14,13 @@ namespace OrderForm
 
         public displayOffer()
         {
-            InitializeComponent();
-            TimeUp += DisplayOffer_TimeUp;
-            LogoPic.BackgroundImage = Bitmap.FromFile(Properties.Settings.Default.Logo);
+           if (!Application.OpenForms.OfType<ReadyOrders>().Any())
+            {
+                InitializeComponent();
+                TimeUp += DisplayOffer_TimeUp;
+                LogoPic.BackgroundImage = Bitmap.FromFile(Properties.Settings.Default.Logo);
+            }
+            this.Hide();
         }
 
 
@@ -53,7 +58,7 @@ namespace OrderForm
         }
         public static void showme(string ClientName, string ClientPhone, string ClientDate, Invoice inv)
         {
-
+            
             Orders.MenuShowing = true;
             var Show = new displayOffer();
             Show.timer1.Start();

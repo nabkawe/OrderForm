@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -31,6 +33,9 @@ namespace OrderForm
         public List<Invoice> dv = new List<Invoice>();
         private void FindAll_Click(object sender, EventArgs e)
         {
+            dvReport.DataSource = null;
+            listBox1.Visible = false;
+
             if (eatIn.Checked)
             {
                 dv = DbInv.GetAllSavedInvoices().FindAll(x => x.TimeOfSaving > this.StartDate.Value && x.TimeOfSaving < this.EndDate.Value && x.Status == sharedCode.InvStat.SavedToPOS && x.OrderType == "محلي");
@@ -94,7 +99,7 @@ namespace OrderForm
                         }
                     }
                     return false;
-                    
+
                 });
                 dvReport.DataSource = dv;
                 this.totalSales.Text = dv.Sum(x => x.InvoicePrice).ToString();
@@ -103,20 +108,21 @@ namespace OrderForm
             }
             else if (All.Checked)
             {
-                if (!HourSort.Checked) { 
-                dv = DbInv.GetAllSavedInvoices().FindAll(x =>
-                   x.TimeOfSaving > this.StartDate.Value
-                && x.TimeOfSaving < this.EndDate.Value
-                && x.Status == sharedCode.InvStat.SavedToPOS
-                && x.OrderType != "تطبيقات");
-                dvReport.DataSource = dv;
-                this.totalSales.Text = dv.Sum(x => x.InvoicePrice).ToString();
+                if (!HourSort.Checked)
+                {
+                    dv = DbInv.GetAllSavedInvoices().FindAll(x =>
+                       x.TimeOfSaving > this.StartDate.Value
+                    && x.TimeOfSaving < this.EndDate.Value
+                    && x.Status == sharedCode.InvStat.SavedToPOS
+                    && x.OrderType != "تطبيقات");
+                    dvReport.DataSource = dv;
+                    this.totalSales.Text = dv.Sum(x => x.InvoicePrice).ToString();
                 }
                 else
                 {
                     dv = DbInv.GetAllSavedInvoices()
-    .Where(x => x.TimeOfSaving > this.StartDate.Value && x.TimeOfSaving < this.EndDate.Value && x.Status == sharedCode.InvStat.SavedToPOS && x.OrderType != "تطبيقات")
-    .ToList();
+                    .Where(x => x.TimeOfSaving > this.StartDate.Value && x.TimeOfSaving < this.EndDate.Value && x.Status == sharedCode.InvStat.SavedToPOS && x.OrderType != "تطبيقات")
+                    .ToList();
 
                     var groupedInvoices = dv.GroupBy(x => x.TimeOfSaving.Hour * 2 + x.TimeOfSaving.Minute / 30);
 
@@ -135,12 +141,22 @@ namespace OrderForm
                     result = result.OrderByDescending(x => x.InvoicePrice).ToList();
 
                     this.totalSales.Text = result.Sum(x => x.InvoicePrice).ToString();
-                    dvReport.AutoGenerateColumns = true;    
+                    dvReport.AutoGenerateColumns = true;
                     dvReport.DataSource = result;
                     dvReport.Refresh();
+
                 }
             }
+            else if (LoyalRadio.Checked)
+            {
+                listBox1.Visible = true;
+                DbInv.GetAllLoyalCustomers().ForEach(x => listBox1.Items.Add(x)); PaymentMethods.Controls.Clear();
+                return;
+            }
             MakePayments();
+
+
+
         }
 
         private void MakePayments()
@@ -181,36 +197,36 @@ namespace OrderForm
             //}
             //totalSales.SendToBack();
 
-            
-                var list = new List<string>();
-                var totalPayments = new List<Payment>();
 
-                foreach (var x in dv)
+            var list = new List<string>();
+            var totalPayments = new List<Payment>();
+
+            foreach (var x in dv)
+            {
+                if (x.Payments.Count > 0)
                 {
-                    if (x.Payments.Count > 0)
-                    {
-                        list.AddRange(x.Payments.Select(z => z.Name));
-                        totalPayments.AddRange(x.Payments);
-                    }
-                    else
-                    {
-                        list.Add(x.PaymentName);
-                        totalPayments.Add(new Payment { Name = x.PaymentName, Amount = x.InvoicePrice });
-                    }
+                    list.AddRange(x.Payments.Select(z => z.Name));
+                    totalPayments.AddRange(x.Payments);
                 }
-
-                var payMethods = list.Distinct().ToList();
-                PaymentMethods.Controls.Clear();
-                payMethods.ForEach(x => PaymentMethods.Controls.Add(CreatePaymentResult(x)));
-
-                foreach (var item in payMethods)
+                else
                 {
-                    var tb = (TextBox)PaymentMethods.Controls.Find(item, false).First();
-                    tb.Text = item.Replace("_", " ") + ": " + totalPayments.Where(x => x.Name == item).Sum(z => z.Amount);
+                    list.Add(x.PaymentName);
+                    totalPayments.Add(new Payment { Name = x.PaymentName, Amount = x.InvoicePrice });
                 }
+            }
 
-                totalSales.SendToBack();
-            
+            var payMethods = list.Distinct().ToList();
+            PaymentMethods.Controls.Clear();
+            payMethods.ForEach(x => PaymentMethods.Controls.Add(CreatePaymentResult(x)));
+
+            foreach (var item in payMethods)
+            {
+                var tb = (TextBox)PaymentMethods.Controls.Find(item, false).First();
+                tb.Text = item.Replace("_", " ") + ": " + totalPayments.Where(x => x.Name == item).Sum(z => z.Amount);
+            }
+
+            totalSales.SendToBack();
+
 
 
         }
@@ -245,8 +261,6 @@ namespace OrderForm
 
         private static void Tb_Click(object sender, EventArgs e)
         {
-            var se = (TextBox)sender;
-            MessageBox.Show(se.Name.ToString());
         }
 
         private void dvReport_DataSourceChanged(object sender, EventArgs e)
@@ -260,6 +274,18 @@ namespace OrderForm
         }
 
         private void PaymentMethods_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            var items = listBox1.Items.Cast<string>().ToArray();
+            File.WriteAllLines(@"c:\db\OurTopCustomers.text", items);
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

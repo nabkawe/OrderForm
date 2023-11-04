@@ -191,6 +191,24 @@
           }
         }
       },
+      "SharpClipboard/3.5.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Drawing.Design",
+          "System.Windows.Forms"
+        ],
+        "compile": {
+          "lib/net20/SharpClipboard.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net20/SharpClipboard.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "frameworkAssemblies": [
@@ -742,6 +760,24 @@
           }
         }
       },
+      "SharpClipboard/3.5.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Drawing.Design",
+          "System.Windows.Forms"
+        ],
+        "compile": {
+          "lib/net20/SharpClipboard.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net20/SharpClipboard.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "frameworkAssemblies": [
@@ -1245,6 +1281,24 @@
         },
         "runtime": {
           "lib/netstandard2.0/RestSharp.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpClipboard/3.5.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Drawing.Design",
+          "System.Windows.Forms"
+        ],
+        "compile": {
+          "lib/net20/SharpClipboard.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net20/SharpClipboard.dll": {
             "related": ".xml"
           }
         }
@@ -1756,6 +1810,24 @@
           }
         }
       },
+      "SharpClipboard/3.5.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Drawing.Design",
+          "System.Windows.Forms"
+        ],
+        "compile": {
+          "lib/net20/SharpClipboard.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net20/SharpClipboard.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "frameworkAssemblies": [
@@ -2259,6 +2331,24 @@
         },
         "runtime": {
           "lib/netstandard2.0/RestSharp.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpClipboard/3.5.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Drawing.Design",
+          "System.Windows.Forms"
+        ],
+        "compile": {
+          "lib/net20/SharpClipboard.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net20/SharpClipboard.dll": {
             "related": ".xml"
           }
         }
@@ -2898,6 +2988,22 @@
         "restsharp.108.0.3.nupkg.sha512",
         "restsharp.nuspec",
         "restsharp.png"
+      ]
+    },
+    "SharpClipboard/3.5.2": {
+      "sha512": "FdH8/Rd+xDLwnj7CgeQAZb/EuPGzSXNxfE1SOr2I1XbWB6pANhYvTsc70GYelXWZHBGlct2p+PJK/AETTbkHjQ==",
+      "type": "package",
+      "path": "sharpclipboard/3.5.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "clipboard.png",
+        "lib/net20/SharpClipboard.dll",
+        "lib/net20/SharpClipboard.xml",
+        "lib/netcoreapp3.0/SharpClipboard.dll",
+        "lib/netcoreapp3.0/SharpClipboard.xml",
+        "sharpclipboard.3.5.2.nupkg.sha512",
+        "sharpclipboard.nuspec"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -3767,6 +3873,7 @@
       "Newtonsoft.Json.Bson >= 1.0.2",
       "PrayerTimes >= 1.0.1",
       "RestSharp >= 108.0.3",
+      "SharpClipboard >= 3.5.2",
       "System.Buffers >= 4.5.1",
       "System.IO >= 4.3.0",
       "System.Memory >= 4.5.4",
@@ -3856,6 +3963,10 @@
           "RestSharp": {
             "target": "Package",
             "version": "[108.0.3, )"
+          },
+          "SharpClipboard": {
+            "target": "Package",
+            "version": "[3.5.2, )"
           },
           "System.Buffers": {
             "target": "Package",

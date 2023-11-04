@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,12 +25,21 @@ namespace sharedCode
         public int Quantity
         {
             get { return quantity; }
-            set { quantity = value; NotifyPropertyChanged("Quantity"); NotifyPropertyChanged("TotalPrice"); }
+            set
+            {
+                if (this.Barcode == "discount") { quantity = 1; } else { 
+                    quantity = value; NotifyPropertyChanged("Quantity"); NotifyPropertyChanged("TotalPrice");
+                }
+            }
 
         }
+        
+        
         [DisplayName("السعر")]
-        public decimal Price { get; set; }
+        public decimal Price { get { return price; } set { price = value; NotifyPropertyChanged("Price"); NotifyPropertyChanged("TotalPrice"); } }  
+
         [DisplayName("الإجمالي")]
+        
         public decimal TotalPrice
         {
             get { return Price * Quantity; }
@@ -119,18 +129,29 @@ namespace sharedCode
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
+        private decimal price { get; set; }
+        [Browsable(false)]
+        public bool discount { get{ return this.Barcode == "discount"; }  }
         /// <summary>
         /// Pass 1 to increase quantity, Pass -1 to decrease quantity.
         /// </summary>
         /// <param name="Number"></param>
         public void ChangeQuantity(int Number)
         {
-            if(Number == 1)
+            if (this.Barcode != "discount")
             {
-                this.Quantity++;
+                if (Number == 1)
+                {
+                    this.Quantity++;
+                }
+                else { this.Quantity--; if (this.Quantity <= 0) this.Quantity = 1; }
             }
-            else { this.Quantity--; if (this.Quantity <= 0) this.Quantity = 1; }
+            else
+            {
+                //
+            }
+            
+
         }
 
         public POSItems(/*int id,string barcode, string nm, decimal prc,int realq,decimal t*/)

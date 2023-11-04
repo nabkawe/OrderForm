@@ -70,8 +70,6 @@ namespace sharedCode
                 catch (Exception)
                 {
 
-                    //MessageBox.Show("خطأ غير معروف ( يمكنكم تجاهله)");
-                    //MessageBox.Show(ex.ToString());
                     return 0;
                 }
 

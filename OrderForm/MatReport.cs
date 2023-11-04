@@ -34,6 +34,8 @@ namespace OrderForm
 
         private void FindAll_Click(object sender, EventArgs e)
         {
+            dvReport.DataSource = null;
+
             if (ModifierKeys.HasFlag(Keys.Control))
             {
                 GetAllReport();
@@ -46,7 +48,7 @@ namespace OrderForm
                 dv.ForEach(x => { if (x.InvoiceItems.Any(y => y.Name == comboBox1.Text)) { L.Add(x.InvoiceItems.First(z => z.Name == comboBox1.Text)); } });
                 this.totalSales.Text = L.Sum(x => x.Quantity).ToString();
                 this.MatTotalSales.Text = L.Sum(x => x.TotalPrice).ToString();
-
+                dvReport.DataSource = L;
 
             }
             else if (Phone.Checked)
@@ -58,7 +60,7 @@ namespace OrderForm
 
                 this.totalSales.Text = L.Sum(x => x.Quantity).ToString();
                 this.MatTotalSales.Text = L.Sum(x => x.TotalPrice).ToString();
-                dvReport.DataSource = null;
+                
                 dvReport.DataSource = L;
 
             }
@@ -70,7 +72,7 @@ namespace OrderForm
 
                 this.totalSales.Text = L.Sum(x => x.Quantity).ToString();
                 this.MatTotalSales.Text = L.Sum(x => x.TotalPrice).ToString();
-                dvReport.DataSource = null;
+                
                 dvReport.DataSource = L;
 
             }
@@ -79,9 +81,9 @@ namespace OrderForm
                 dv = DbInv.GetAllSavedInvoices().FindAll(x => x.Status == sharedCode.InvStat.SavedToPOS && x.OrderType == "تطبيقات" && x.TimeOfPrinting != null && DateTime.Parse(x.TimeOfPrinting) > this.StartDate.Value && DateTime.Parse(x.TimeOfPrinting) < this.EndDate.Value);
                 L.Clear();
                 dv.ForEach(x => { if (x.InvoiceItems.Any(y => y.Name == comboBox1.Text)) { L.Add(x.InvoiceItems.First(z => z.Name == comboBox1.Text)); } });
-                dvReport.DataSource = L;
                 this.totalSales.Text = L.Sum(x => x.Quantity).ToString();
                 this.MatTotalSales.Text = L.Sum(x => x.TotalPrice).ToString();
+                dvReport.DataSource = L;
 
             }
             else if (All.Checked)
@@ -184,7 +186,6 @@ namespace OrderForm
 
             this.totalSales.Text = L.Sum(x => x.Quantity).ToString();
             this.MatTotalSales.Text = L.Sum(x => x.TotalPrice).ToString();
-            dvReport.DataSource = null;
             dvReport.DataSource = L;
         }
 

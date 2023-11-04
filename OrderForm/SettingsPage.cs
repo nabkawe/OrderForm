@@ -196,74 +196,20 @@ namespace OrderForm
 
         private void GetSettings()
         {
-            postb.Text = Properties.Settings.Default.pos;
-            barcodetb.Text = Properties.Settings.Default.barcodetb;
-            invoiceprc.Text = Properties.Settings.Default.invoiceprc;
-            invoicenotes.Text = Properties.Settings.Default.invoicenotes;
-            btntogo.Text = Properties.Settings.Default.btntogo;
-            btnphone.Text = Properties.Settings.Default.btnphone;
-            btn1.Text = Properties.Settings.Default.btn1;
-            btn2.Text = Properties.Settings.Default.btn2;
-            btn3.Text = Properties.Settings.Default.btn3;
-            btn4.Text = Properties.Settings.Default.btn4;
-            btn5.Text = Properties.Settings.Default.btn5;
-            btn6.Text = Properties.Settings.Default.btn6;
-            btn7.Text = Properties.Settings.Default.btn7;
-            btn8.Text = Properties.Settings.Default.btn8;
-            btn9.Text = Properties.Settings.Default.btn9;
-            btn0.Text = Properties.Settings.Default.btn0;
-            btnsubmit.Text = Properties.Settings.Default.btnsubmit;
-            amountlbl.Text = Properties.Settings.Default.amountlbl;
-            CashTextBox.Text = Properties.Settings.Default.CashTextBox;
-            SaveBTN_.Text = Properties.Settings.Default.SaveBTN;
-            SwitchBTNPOS.Text = Properties.Settings.Default.SwitchBTN;
-            Mada1.Text = Properties.Settings.Default.Mada1;
-            Mada2.Text = Properties.Settings.Default.Mada2;
-            Mada3.Text = Properties.Settings.Default.Mada3;
-            Mada1CB.Text = Properties.Settings.Default.Mada1Combo;
-            Mada2CB.Text = Properties.Settings.Default.Mada2Combo;
-            Mada3CB.Text = Properties.Settings.Default.Mada3Combo;
-            PartCash.Text = Properties.Settings.Default.PartCash;
-            InvoiceNumberTB.Text = Properties.Settings.Default.InvoiceNumberTB;
-            InvoiceTimeTB.Text = Properties.Settings.Default.InvoiceTime;
-            POSName.Text = Properties.Settings.Default.POSMainName;
-            POSNewBTN.Text = Properties.Settings.Default.POSNewBTN;
-            POSShortcut.Text = Properties.Settings.Default.POSShortcut;
-            POSWinShortcut.Text = Properties.Settings.Default.POSWinShortcut;
-            //
-            POSClearNumber.Text = Properties.Settings.Default.POSClearNumber;
+            GetFonts();
             CurrentTax.Text = Properties.Settings.Default.CurrentTax.ToString();
-            BranchName.Text = Properties.Settings.Default.BranchName;
-
             defaultOrder.Text = Properties.Settings.Default.defaultOrder.ToString();
-            DBConnection.Text = Properties.Settings.Default.DBConnection;
-            CloseWin_.Checked = Properties.Settings.Default.CloseWindow;
-            showMenu.Checked = Properties.Settings.Default.showMenu;
-            TestingMode.Checked = Properties.Settings.Default.TestingMode;
             FntUpDown.Value = Properties.Settings.Default.Fnt;
-            POSClientName_.Text = Properties.Settings.Default.POSClientName;
-            POSPhoneNumber_.Text = Properties.Settings.Default.POSPhoneNumber;
-            WheelCheck.Checked = Properties.Settings.Default.WheelEnabled;
-            WheelGridCheck.Checked = Properties.Settings.Default.WheelGridEnabled;
             LoadFile.FileName = Properties.Settings.Default.API_Server_Path;
-            ipTB.Text = Properties.Settings.Default.API_Connection;
             ItemW.Text = Properties.Settings.Default.ItemSize.Width.ToString();
             ItemH.Text = Properties.Settings.Default.ItemSize.Height.ToString();
-            RestTB.Text = Properties.Settings.Default.RestaurantName;
-            logoTB.Text = Properties.Settings.Default.Logo;
-            GetFonts();
-            comboBox1.Text = Properties.Settings.Default.FontCombo;
-            APICheck.Checked = Properties.Settings.Default.Api_On;
-            ServerRB.Checked = Properties.Settings.Default.Api_Server;
             ClientRB.Checked = !Properties.Settings.Default.Api_Server;
-            CIDCheck.Checked = Properties.Settings.Default.CallerIDEnabled;
 
         }
 
         private void GetFonts()
         {
             List<string> fonts = new List<string>();
-
             foreach (FontFamily font in System.Drawing.FontFamily.Families)
             {
                 comboBox1.Items.Add(font.Name);
@@ -597,7 +543,8 @@ namespace OrderForm
             {
                 var a = PrepareList.SelectedItem as POSDepartments;
 
-                MessageBox.Show(a.DefaultPrinter);
+                MessageForm.SHOW("الطابعة الحالية للقسم هي: " + a.DefaultPrinter, "الطابعة الحالية", "مفهوم");
+   
             }
         }
 
@@ -614,69 +561,10 @@ namespace OrderForm
         private void SaveChangesPOS_Click(object sender, EventArgs e)
         {
 
-            Properties.Settings.Default.pos = postb.Text;
-            Properties.Settings.Default.barcodetb = barcodetb.Text;
-            Properties.Settings.Default.invoiceprc = invoiceprc.Text;
-            Properties.Settings.Default.invoicenotes = invoicenotes.Text;
-            Properties.Settings.Default.btntogo = btntogo.Text;
-            Properties.Settings.Default.btnphone = btnphone.Text;
-            Properties.Settings.Default.btn1 = btn1.Text;
-            Properties.Settings.Default.btn2 = btn2.Text;
-            Properties.Settings.Default.btn3 = btn3.Text;
-            Properties.Settings.Default.btn4 = btn4.Text;
-            Properties.Settings.Default.btn5 = btn5.Text;
-            Properties.Settings.Default.btn6 = btn6.Text;
-            Properties.Settings.Default.btn7 = btn8.Text;
-            Properties.Settings.Default.btn8 = btn8.Text;
-            Properties.Settings.Default.btn9 = btn9.Text;
-            Properties.Settings.Default.btn0 = btn0.Text;
-            Properties.Settings.Default.btnsubmit = btnsubmit.Text;
-            Properties.Settings.Default.amountlbl = amountlbl.Text;
-            Properties.Settings.Default.CashTextBox = CashTextBox.Text;
-            Properties.Settings.Default.SaveBTN = SaveBTN_.Text;
-            Properties.Settings.Default.SwitchBTN = SwitchBTNPOS.Text;
-            Properties.Settings.Default.Mada1 = Mada1.Text;
-            Properties.Settings.Default.Mada2 = Mada2.Text;
-            Properties.Settings.Default.Mada3 = Mada3.Text;
-            Properties.Settings.Default.Mada1Combo = Mada1CB.Text;
-            Properties.Settings.Default.Mada2Combo = Mada2CB.Text;
-            Properties.Settings.Default.Mada3Combo = Mada3CB.Text;
-            Properties.Settings.Default.PartCash = PartCash.Text;
-            Properties.Settings.Default.InvoiceNumberTB = InvoiceNumberTB.Text;
-            Properties.Settings.Default.InvoiceTime = InvoiceTimeTB.Text;
-            Properties.Settings.Default.POSMainName = POSName.Text;
 
-            Properties.Settings.Default.POSNewBTN = POSNewBTN.Text;
-            Properties.Settings.Default.POSShortcut = POSShortcut.Text;
-            Properties.Settings.Default.POSWinShortcut = POSWinShortcut.Text;
-            Properties.Settings.Default.POSClearNumber = POSClearNumber.Text;
-
-            Properties.Settings.Default.POSClearNumber = POSClearNumber.Text;
             Properties.Settings.Default.CurrentTax = Convert.ToDecimal(CurrentTax.Text);
-            Properties.Settings.Default.BranchName = BranchName.Text;
             Properties.Settings.Default.defaultOrder = Convert.ToInt32(defaultOrder.Text);
-            Properties.Settings.Default.DBConnection = DBConnection.Text;
-            Properties.Settings.Default.showMenu = showMenu.Checked;
-            Properties.Settings.Default.CloseWindow = CloseWin_.Checked;
-            Properties.Settings.Default.TestingMode = TestingMode.Checked;
             Properties.Settings.Default.Fnt = Convert.ToInt32(FntUpDown.Value);
-            Properties.Settings.Default.FontCombo = comboBox1.Text;
-
-            Properties.Settings.Default.POSClientName = POSClientName_.Text;
-            Properties.Settings.Default.POSPhoneNumber = POSPhoneNumber_.Text;
-            Properties.Settings.Default.WheelEnabled = WheelCheck.Checked;
-            Properties.Settings.Default.WheelGridEnabled = WheelGridCheck.Checked;
-            Properties.Settings.Default.Api_On = APICheck.Checked;
-            Properties.Settings.Default.API_Server_Path = LoadFile.FileName;
-            Properties.Settings.Default.API_Connection = ipTB.Text;
-            Properties.Settings.Default.RestaurantName = RestTB.Text;
-            Properties.Settings.Default.Logo = logoTB.Text;
-            Properties.Settings.Default.Api_Server = ServerRB.Checked;
-
-            Properties.Settings.Default.Api_Server = ServerRB.Checked;
-            Properties.Settings.Default.CallerIDEnabled = CIDCheck.Checked;
-
-
 
             if (ItemW.Text != null && ItemH.Text != null)
             {
@@ -698,11 +586,6 @@ namespace OrderForm
             {
                 DbInv.DeleteDBInvoices();
             }
-
-        }
-
-        private void Pos_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -758,7 +641,7 @@ namespace OrderForm
                 NameTB.Focus();
                 matLB.Enabled = true;
             }
-            else MessageBox.Show("إسم المادة متكرر");
+            else MessageForm.SHOW("إسم المادة متكرر","خطأ","مفهوم");
 
 
 
@@ -1054,39 +937,6 @@ namespace OrderForm
                 SaveMulti.Enabled = true;
 
 
-                //if (M.SingleX)
-                //{
-                //    if (!Control.ModifierKeys.HasFlag(Keys.Control))
-                //    {
-                //        MultiLB.Items.Clear();
-                //        SaveMulti.Enabled = false;
-                //        AddMultiItem.Enabled = true;
-                //        using (var form = new EditMenuItemX())
-                //        {
-                //            form.EditItems(M.items[0]);
-                //            var result = form.ShowDialog();
-                //            if (result == DialogResult.OK)
-                //            {
-                //                MenuItemsX val = form.MIX;            //values preserved after close
-                //                M.items[0] = val;
-                //                MenuLB.Items[MenuLB.SelectedIndex] = M;
-                //            }
-                //        }
-                //    }
-                //    else
-                //    {
-                //        MultiLB.Items.Add(M.items[0]);
-                //        MenuLB.Items.Remove(MenuLB.Items[MenuLB.SelectedIndex]);
-                //    }
-                //}
-                //else
-                //{
-
-                //    MultiLB.Items.Clear();
-                //    M.items.ForEach(x => MultiLB.Items.Add(x));
-                //    SaveMulti.Enabled = true;
-                //    AddMultiItem.Enabled = false;
-                //}
             }
         }
 
@@ -1223,7 +1073,7 @@ namespace OrderForm
                 MIZ.ResetBindings();
                 MIX.Clear();
             }
-            else { MessageBox.Show("قم بإختيار المجموعة التي تريد تحديثها قبل محاولة الحفظ "); }
+            else { MessageForm.SHOW("قم بإختيار المجموعة التي تريد تحديثها قبل محاولة الحفظ ","تنويه","مفهوم"); }
         }
 
         private void sectionsML_Opening(object sender, CancelEventArgs e)
@@ -1285,11 +1135,12 @@ namespace OrderForm
                 Orders.KillandRestartAPI();
                 if (DbInv.AreYouAlive())
                 {
-                    MessageBox.Show("الإتصال سليم");
+                    MessageForm.SHOW("الإتصال سليم","تم الإتصال","مفهوم");
                 }
                 else
                 {
-                    MessageBox.Show("قد يكون هناك خطأ في إعدادات السيرفر");
+                    MessageForm.SHOW("قد يكون هناك خطأ في إعدادات السيرفر", "لم يتم الإتصال", "مفهوم");
+
                 }
             }
         }
@@ -1631,9 +1482,18 @@ namespace OrderForm
         {
             MAT.Clear();
             dbQ.LoadMaterialItems().ForEach(x => MAT.Add(x));
+
+            string clipboardText = "";
+            foreach (var item in MAT)
+            {
+                clipboardText += item.Name + "      \"" + item.Barcode + "\"\n";
+            }
+            Clipboard.SetText(clipboardText);
+
             matLB.DataSource = MAT;
             TaxTB.Text = Properties.Settings.Default.CurrentTax.ToString();
             this.uButton1.Visible = false;
+
         }
 
         private void MListLB_SelectedIndexChanged(object sender, EventArgs e)
@@ -1658,7 +1518,39 @@ namespace OrderForm
                     h.ShowDialog();
                 }
             }
+
+        }
+
+        private void backupMat_Click(object sender, EventArgs e)
+        {
+            if (!uButton1.Visible) return;// backup the mat list to a json file
+
+            string json = JsonConvert.SerializeObject(MAT, Formatting.Indented);
+            string name = DateTime.Now.ToString("hh-mm-dd-MM-yy");
+            File.WriteAllText(@"c:\db\" + name+ "mat.backup", json);
+            json = null;
+            name = null;
             
+        }
+
+        private void loadMat_Click(object sender, EventArgs e)
+        {
+            if (!uButton1.Visible) return;
+            // load the mat list from a json file
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = @"c:\db";
+            openFileDialog1.Filter = "backup files (*.backup)|*.backup|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.CheckFileExists = true;
+            openFileDialog1.CheckPathExists = true; 
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string json = File.ReadAllText(openFileDialog1.FileName);
+                MAT = JsonConvert.DeserializeObject<BindingList<POSItems>>(json);
+                matLB.DataSource = MAT;
+                json = null;
+            }
         }
     }
 }

@@ -95,7 +95,7 @@ namespace sharedCode
         {
             PhoneLog phoneLog = new PhoneLog();
             phoneLog.PhoneNumber = phoneNumber;
-            phoneLog.CallDateTime = DateTime.Now;
+            phoneLog.CallDateTime = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
             return phoneLog;
         }
     }

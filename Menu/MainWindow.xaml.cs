@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -30,14 +31,38 @@ namespace OrderForm
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
+
         public MainWindow()
         {
             InitializeComponent();
             ShowOnSecondScreen();
             FoodItemZ = new ObservableCollection<NewFood>();
             FoodList.ItemsSource = FoodItemZ;
+            // Set the timer interval to 30000 second.
+            timer.Interval = new TimeSpan(0, 0, 30);
+            // Set the timer event handler. 
+            timer.Tick += new EventHandler(timer_Tick);
+            // Start the timer.
+            wd = this.HeadersPanel.ActualWidth;
+            timer.Start();
+        }
+        double wd;
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            Storyboard sb = new Storyboard();
+            DoubleAnimation da = new DoubleAnimation();
+            da.From = 60 ;
+            da.To = 0;
+            da.AutoReverse = true;  
+            da.Duration = new Duration(TimeSpan.FromSeconds(3));
+            sb.Children.Add(da);
+            Storyboard.SetTarget(da, this.HeadersPanel);
+            Storyboard.SetTargetProperty(da, new PropertyPath("Width"));
+            sb.Begin();
 
         }
+
 
 
         public static ObservableCollection<NewFood> FoodItemZ { get; set; }
@@ -90,20 +115,20 @@ namespace OrderForm
                         fcolor.R = frbyte;
                         fcolor.G = fgbyte;
                         fcolor.B = fbbyte;
-                        h.HeaderBack.Background = new SolidColorBrush(bColor);  
+                        h.HeaderBack.Background = new SolidColorBrush(bColor);
                         h.HeaderText.Foreground = new SolidColorBrush(fcolor);
                         h.HeaderText.FontFamily = new FontFamily(item.FontFamily);
                         h.HeaderText.FontSize = item.FontSize;
-                        
+
                         HeadersPanel.Children.Add(h);
-                        HeadersPanel.UpdateLayout();    
+                        HeadersPanel.UpdateLayout();
                     }
 
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(GetWindow(this), ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show( ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
 
@@ -145,7 +170,7 @@ namespace OrderForm
                     }
                 }
             }
-            
+
         }
 
         private static bool ContainsBarcode(string source, string target)
@@ -201,6 +226,11 @@ namespace OrderForm
             e.Cancel = true;
             this.Hide();
         }
+     
+
+
+
+
     }
 }
 

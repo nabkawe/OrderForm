@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "08b9PuUYwbebYAfzH1+lud0tPg/AjXKseZfYhpV7q49pqloZyOGMuGW95gJt+kSKBlQvMwVjgOcL56F5jsCOVg==",
+  "dgSpecHash": "qaKu/qXaY59xwR6HlA+PGra/inwI3e1kIL2+UkNkfylH/WEg34gTUKVW2W2KVeAYc29HBu4SLYJIsXH6BASLGQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\OrderForm\\OrderForm.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\prayertimes\\1.0.1\\prayertimes.1.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\restsharp\\108.0.3\\restsharp.108.0.3.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\sharpclipboard\\3.5.2\\sharpclipboard.3.5.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",

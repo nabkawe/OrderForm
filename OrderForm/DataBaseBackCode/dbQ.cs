@@ -9,7 +9,6 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using Windows.ApplicationModel.Contacts;
 using Windows.UI.WebUI;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace OrderForm
 {

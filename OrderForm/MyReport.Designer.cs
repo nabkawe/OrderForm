@@ -36,6 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.LoyalRadio = new System.Windows.Forms.RadioButton();
+            this.HourSort = new System.Windows.Forms.CheckBox();
             this.OrderDirection = new System.Windows.Forms.CheckBox();
             this.toGo = new System.Windows.Forms.RadioButton();
             this.All = new System.Windows.Forms.RadioButton();
@@ -45,7 +47,7 @@
             this.eatIn = new System.Windows.Forms.RadioButton();
             this.PaymentMethods = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.HourSort = new System.Windows.Forms.CheckBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dvReport)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -134,6 +136,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.LoyalRadio);
             this.panel1.Controls.Add(this.HourSort);
             this.panel1.Controls.Add(this.OrderDirection);
             this.panel1.Controls.Add(this.toGo);
@@ -153,6 +156,26 @@
             this.panel1.Size = new System.Drawing.Size(800, 87);
             this.panel1.TabIndex = 7;
             // 
+            // LoyalRadio
+            // 
+            this.LoyalRadio.AutoSize = true;
+            this.LoyalRadio.Location = new System.Drawing.Point(256, 60);
+            this.LoyalRadio.Name = "LoyalRadio";
+            this.LoyalRadio.Size = new System.Drawing.Size(200, 17);
+            this.LoyalRadio.TabIndex = 20;
+            this.LoyalRadio.Text = "العملاء المهمين (كل البيانات دون تاريخ)";
+            this.LoyalRadio.UseVisualStyleBackColor = true;
+            // 
+            // HourSort
+            // 
+            this.HourSort.AutoSize = true;
+            this.HourSort.Location = new System.Drawing.Point(123, 11);
+            this.HourSort.Name = "HourSort";
+            this.HourSort.Size = new System.Drawing.Size(120, 17);
+            this.HourSort.TabIndex = 19;
+            this.HourSort.Text = "ترتيب حسب الساعة";
+            this.HourSort.UseVisualStyleBackColor = true;
+            // 
             // OrderDirection
             // 
             this.OrderDirection.AutoSize = true;
@@ -166,7 +189,7 @@
             // toGo
             // 
             this.toGo.AutoSize = true;
-            this.toGo.Location = new System.Drawing.Point(325, 47);
+            this.toGo.Location = new System.Drawing.Point(325, 35);
             this.toGo.Name = "toGo";
             this.toGo.Size = new System.Drawing.Size(57, 17);
             this.toGo.TabIndex = 16;
@@ -177,7 +200,7 @@
             // 
             this.All.AutoSize = true;
             this.All.Checked = true;
-            this.All.Location = new System.Drawing.Point(261, 24);
+            this.All.Location = new System.Drawing.Point(258, 11);
             this.All.Name = "All";
             this.All.Size = new System.Drawing.Size(127, 17);
             this.All.TabIndex = 17;
@@ -188,7 +211,7 @@
             // Phone
             // 
             this.Phone.AutoSize = true;
-            this.Phone.Location = new System.Drawing.Point(394, 47);
+            this.Phone.Location = new System.Drawing.Point(394, 35);
             this.Phone.Name = "Phone";
             this.Phone.Size = new System.Drawing.Size(49, 17);
             this.Phone.TabIndex = 15;
@@ -198,7 +221,7 @@
             // Jahez
             // 
             this.Jahez.AutoSize = true;
-            this.Jahez.Location = new System.Drawing.Point(392, 24);
+            this.Jahez.Location = new System.Drawing.Point(392, 11);
             this.Jahez.Name = "Jahez";
             this.Jahez.Size = new System.Drawing.Size(53, 17);
             this.Jahez.TabIndex = 14;
@@ -218,7 +241,7 @@
             // eatIn
             // 
             this.eatIn.AutoSize = true;
-            this.eatIn.Location = new System.Drawing.Point(261, 47);
+            this.eatIn.Location = new System.Drawing.Point(258, 35);
             this.eatIn.Name = "eatIn";
             this.eatIn.Size = new System.Drawing.Size(53, 17);
             this.eatIn.TabIndex = 13;
@@ -244,21 +267,22 @@
             this.label3.Text = "المبيعات الكاملة";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // HourSort
+            // listBox1
             // 
-            this.HourSort.AutoSize = true;
-            this.HourSort.Location = new System.Drawing.Point(123, 11);
-            this.HourSort.Name = "HourSort";
-            this.HourSort.Size = new System.Drawing.Size(120, 17);
-            this.HourSort.TabIndex = 19;
-            this.HourSort.Text = "ترتيب حسب الساعة";
-            this.HourSort.UseVisualStyleBackColor = true;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(3, 94);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(797, 381);
+            this.listBox1.TabIndex = 20;
+            this.listBox1.Visible = false;
+            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
             // MyReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 575);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.PaymentMethods);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dvReport);
@@ -295,5 +319,7 @@
         private System.Windows.Forms.Panel PaymentMethods;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox HourSort;
+        private System.Windows.Forms.RadioButton LoyalRadio;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="Custom Classes\TimeParse.cs" />
     <Compile Include="Ihere.cs" />
     <Compile Include="Invoice.cs" />
+    <Compile Include="kitems.cs" />
     <Compile Include="MenuDB.cs" />
     <Compile Include="MenuItemsX.cs" />
     <Compile Include="MySharedBaseCode.cs" />
