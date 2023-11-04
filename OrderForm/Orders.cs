@@ -4201,7 +4201,7 @@ namespace OrderForm
                     if (POS.Count == 0)
                     {
 
-                        var result = MessageForm.SHOW("تم إلتقاط فاتورة عبر الحافظة، هل تريد محاولة قراءتها؟", "العثور الذكي على الفواتير", "نعم", "لا");
+                        var result = MessageForm.SHOW("تم إلتقاط فاتورة عبر الحافظة، هل تريد محاولة قراءتها؟" + Environment.NewLine + e.Content.ToString(), "العثور الذكي على الفواتير", "نعم", "لا") ;
                         if (result == DialogResult.Yes)
                         {
                             ParseInvoices(e.Content.ToString());
