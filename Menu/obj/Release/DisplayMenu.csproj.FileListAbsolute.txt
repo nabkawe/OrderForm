@@ -11,7 +11,6 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\bin\Release\MySharedBaseCode.
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\bin\Release\PrayerTimes.pdb
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\bin\Release\LiteDB.xml
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\DisplayMenu.csproj.AssemblyReference.cache
-C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\DisplayMenu.csproj.SuggestedBindingRedirects.cache
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\NewFood.g.cs
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\InformationPanel.g.cs
 C:\Users\Admin\source\repos\nabkawe\OrderForm\Menu\obj\Release\MainWindow.g.cs

@@ -12,33 +12,54 @@ using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using System.Net;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NetworkSynq.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
+
     public class CallerIDController : Controller
     {
 
-        static readonly IConfiguration conf = (new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
-        private readonly static string DBConnection = conf["ConnectionString"].ToString();
-        public static readonly LiteDatabase db = new(DBConnection);
         static readonly string LogFile = @"C:\db";
 
-
+        //http://192.168.1.5:5000/CallerID/LogPhone?PhoneNumber=0551987609
 
 
         [HttpPost]
         [Route("LogPhone")] // to Saved.
-        public ActionResult<bool> LogPhone([FromBody] PhoneLog phoneLog)
+        public ActionResult<bool> LogPhone(string PhoneNumber)
         {
-            LoadDBController.LogMyAPI(phoneLog.PhoneNumber);
+            LoadDBController.LogMyAPI(PhoneNumber);
             try
             {
                 LoadDBController.LogMyAPI("Saving Contact");
-                var phlog = db.GetCollection<PhoneLog>("PhoneLog");
-                if (phoneLog != null)
+                var phlog = LoadDBController.db.GetCollection<PhoneLog>("PhoneLog");
+                LoadDBController.LogMyAPI("Collection Init");
+                var phonelog = PhoneLog.NewPhoneLog(PhoneNumber);
+                LoadDBController.LogMyAPI("PhoneLog Created");
+                LoadDBController.LogMyAPI("loading Contact");
+                var con = LoadDBController.db.GetCollection<Contacts>("Customers");
+                LoadDBController.LogMyAPI("loaded Contacts");
+                LoadDBController.LogMyAPI("finding");
+                Contacts Contact = new Contacts();
+                if (con.Exists(x => x.Number.Replace(" ", "") == PhoneNumber.Replace(" ", "")))
+                {
+                    Contact = con.Find(x => x.Number.Replace(" ", "") == PhoneNumber.Replace(" ", "")).First();
+                    phonelog.CustomerName = Contact.Name;
+                }
+                else
+                {
+                    phonelog.CustomerName = "رقم جديد";
+                }
+                                
+                
+                LoadDBController.LogMyAPI("Compared");
+                if (phonelog != null)
                 {
                     LoadDBController.LogMyAPI("phoneLog wasn't null ");
-                    phlog.Insert(phoneLog);
+                    phlog.Insert(phonelog);
                     return Ok(true);
                 }
                 else { LoadDBController.LogMyAPI("phoneLog wasn null "); return Ok(false); }
@@ -47,7 +68,7 @@ namespace NetworkSynq.Controllers
             }
             catch (Exception ex)
             {
-                LoadDBController.LogMyAPI("PhoneLog Exception: " + ex.Message);
+                LoadDBController.LogMyAPI("PhoneLog Exception: " +  ex.ToString() + ex.Message);
 
                 return Ok(false);
             }
@@ -60,7 +81,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LoadDBController.LogMyAPI("loading PhoneLog");
-                var con = db.GetCollection<PhoneLog>("PhoneLog");
+                var con = LoadDBController.db.GetCollection<PhoneLog>("PhoneLog");
                 if (max > 0)
                 {
                     LoadDBController.LogMyAPI("max > 0 ");

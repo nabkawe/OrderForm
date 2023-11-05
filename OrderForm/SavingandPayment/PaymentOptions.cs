@@ -86,7 +86,6 @@ namespace OrderForm.SavingandPayment
         public PaymentOptions(Invoice inv) // SingleInvoice Constructor
         {
             InitializeComponent();
-            //Cash.Text = inv.InvoicePrice.ToString();
             dueLBL.Text = inv.InvoicePrice.ToString();
             invoice_price = dueLBL.Text;
             targetTextBox = Cash.Name;
@@ -181,10 +180,18 @@ namespace OrderForm.SavingandPayment
                 {
                     if (discount > 0)
                     {
-                        var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
-                        invoice.Payments.Add(Dispayment);
-                        invoice.InvoicePrice = invoice.InvoicePrice + Dispayment.Amount;
-
+                        if(invoice.InvoiceItems.Any(x=>x.discount))
+                        {
+                            var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                            invoice.Payments.Add(Dispayment);
+                        
+                        }
+                        else
+                        {
+                            var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                            invoice.Payments.Add(Dispayment);
+                            invoice.InvoicePrice = invoice.InvoicePrice + Dispayment.Amount;
+                        }
                     }
                 }
                 SaveInvoiceNumber(SingleInvoice);
@@ -244,10 +251,18 @@ namespace OrderForm.SavingandPayment
                     {
                         if (discount > 0)
                         {
-                            var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
-                            invoice.Payments.Add(Dispayment);
-                            invoice.InvoicePrice = invoice.InvoicePrice + Dispayment.Amount;
+                            if (invoice.InvoiceItems.Any(x => x.discount))
+                            {
+                                var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                                invoice.Payments.Add(Dispayment);
 
+                            }
+                            else
+                            {
+                                var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                                invoice.Payments.Add(Dispayment);
+                                invoice.InvoicePrice = invoice.InvoicePrice + Dispayment.Amount;
+                            }
                         }
                     }
                     SaveInvoiceNumber(SingleInvoice);
@@ -266,10 +281,18 @@ namespace OrderForm.SavingandPayment
                     {
                         if (discount > 0)
                         {
-                            var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
-                            invoice.Payments.Add(Dispayment);
-                            invoice.InvoicePrice = invoice.InvoicePrice + Dispayment.Amount;
+                            if (invoice.InvoiceItems.Any(x => x.discount))
+                            {
+                                var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                                invoice.Payments.Add(Dispayment);
 
+                            }
+                            else
+                            {
+                                var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                                invoice.Payments.Add(Dispayment);
+                                invoice.InvoicePrice = invoice.InvoicePrice + Dispayment.Amount;
+                            }
                         }
                     }
                     SaveInvoiceNumber(SingleInvoice);
@@ -392,10 +415,18 @@ namespace OrderForm.SavingandPayment
                 {
                     if (discount > 0)
                     {
-                        var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
-                        invoice.Payments.Add(Dispayment);
+                        if (invoice.InvoiceItems.Any(x => x.discount))
+                        {
+                            var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                            invoice.Payments.Add(Dispayment);
 
-
+                        }
+                        else
+                        {
+                            var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                            invoice.Payments.Add(Dispayment);
+                            invoice.InvoicePrice = invoice.InvoicePrice + Dispayment.Amount;
+                        }
                     }
                 }
 
@@ -698,7 +729,7 @@ namespace OrderForm.SavingandPayment
                 }
                 else
                 {
-                    MessageForm.SHOW("قم بتشغيل برنامج ليبرا وسجل الدخول قبل محاولة الحفظ","تنبيه","مفهوم");
+                    MessageForm.SHOW("قم بتشغيل برنامج ليبرا وسجل الدخول قبل محاولة الحفظ", "تنبيه", "مفهوم");
                     return false;
                 }
             }

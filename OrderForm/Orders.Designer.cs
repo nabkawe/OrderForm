@@ -30,12 +30,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Orders));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DeleteBTN = new System.Windows.Forms.ToolStripMenuItem();
             this.sep = new System.Windows.Forms.ToolStripSeparator();
@@ -134,7 +134,7 @@
             this.selectedLBL = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.CountLBL = new System.Windows.Forms.Label();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.JahezToolStrip = new System.Windows.Forms.ToolStrip();
             this.PrintMultiTool = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.SaveJahezAll = new System.Windows.Forms.ToolStripButton();
@@ -149,16 +149,11 @@
             this.OrdersFlowLayoutPanel = new System.Windows.Forms.Panel();
             this.InvoicesDG = new System.Windows.Forms.DataGridView();
             this.DayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.HourPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.MinutesPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.TODPicker = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MenuSelection = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.FastComment = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MenuTimeOut = new System.Windows.Forms.Timer(this.components);
-            this.printComment = new System.Windows.Forms.PrintDialog();
             this.WhatsSend = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.Api_Health = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.OrdersPage = new OrderForm.UButton();
             this.MainMenu = new OrderForm.UButton();
@@ -180,7 +175,6 @@
             this.TimeButton = new OrderForm.UButton();
             this.CopyInvoice = new OrderForm.UButton();
             this.SettingsPage = new OrderForm.UButton();
-            this.CIDWorker = new System.ComponentModel.BackgroundWorker();
             this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.sharpClipboard1 = new WK.Libraries.SharpClipboardNS.SharpClipboard(this.components);
             this.rightClickMenu.SuspendLayout();
@@ -193,7 +187,7 @@
             this.FilterMenu.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.JahezToolStrip.SuspendLayout();
             this.OrdersFlowLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoicesDG)).BeginInit();
             this.MenuSelection.SuspendLayout();
@@ -266,7 +260,7 @@
             // SalahTMR
             // 
             this.SalahTMR.Enabled = true;
-            this.SalahTMR.Interval = 1000;
+            this.SalahTMR.Interval = 10000;
             this.SalahTMR.Tick += new System.EventHandler(this.SalahTMR_Tick);
             // 
             // OrdersPanel
@@ -336,7 +330,6 @@
             this.OrdersPanel.Name = "OrdersPanel";
             this.OrdersPanel.Size = new System.Drawing.Size(1034, 953);
             this.OrdersPanel.TabIndex = 21;
-            this.OrdersPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrdersPanel_Paint);
             // 
             // uButton6
             // 
@@ -517,7 +510,7 @@
             this.uButton1.Text = ")";
             this.uButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.uButton1.UseVisualStyleBackColor = false;
-            this.uButton1.Click += new System.EventHandler(this.uButton1_Click);
+            this.uButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.uButton1_MouseUp);
             // 
             // ItemsPanel1
             // 
@@ -733,36 +726,36 @@
             this.dvItems.AllowUserToOrderColumns = true;
             this.dvItems.AllowUserToResizeColumns = false;
             this.dvItems.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dvItems.BackgroundColor = System.Drawing.Color.GhostWhite;
             this.dvItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dvItems.CausesValidation = false;
             this.dvItems.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dvItems.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 8F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 8F);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.GhostWhite;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems.DefaultCellStyle = dataGridViewCellStyle8;
             this.dvItems.Location = new System.Drawing.Point(5, 36);
             this.dvItems.MultiSelect = false;
             this.dvItems.Name = "dvItems";
@@ -1353,7 +1346,6 @@
             this.TimeTB.TextChanged += new System.EventHandler(this.TimeTB_TextChanged);
             this.TimeTB.DoubleClick += new System.EventHandler(this.TimeTB_DoubleClick);
             this.TimeTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TimeTB_KeyPress);
-            this.TimeTB.Leave += new System.EventHandler(this.TimeTB_Leave);
             this.TimeTB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MobileTB_PreviewKeyDown);
             // 
             // TimeInfo
@@ -1599,14 +1591,13 @@
             this.OrdersContainer.Panel1.Controls.Add(this.History);
             this.OrdersContainer.Panel1.Controls.Add(this.groupBox2);
             this.OrdersContainer.Panel1.Controls.Add(this.groupBox1);
-            this.OrdersContainer.Panel1.Controls.Add(this.toolStrip1);
+            this.OrdersContainer.Panel1.Controls.Add(this.JahezToolStrip);
             this.OrdersContainer.Panel1.Controls.Add(this.label2);
             this.OrdersContainer.Panel1.Controls.Add(this.Search);
             this.OrdersContainer.Panel1.Controls.Add(this.SearchLBL);
             this.OrdersContainer.Panel1.Controls.Add(this.SearchTB);
             this.OrdersContainer.Panel1.Controls.Add(this.OrdersFlowLayoutPanel);
             this.OrdersContainer.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.OrdersContainer.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.OrdersContainer_Panel1_Paint);
             // 
             // OrdersContainer.Panel2
             // 
@@ -1821,7 +1812,6 @@
             this.Fri.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Fri.UseVisualStyleBackColor = false;
             this.Fri.CheckedChanged += new System.EventHandler(this.Fri_CheckedChanged);
-            this.Fri.Click += new System.EventHandler(this.Fri_Click);
             this.Fri.MouseUp += new System.Windows.Forms.MouseEventHandler(this.History_MouseUp);
             // 
             // Sat
@@ -1964,14 +1954,14 @@
             this.CountLBL.Text = "0";
             this.CountLBL.Click += new System.EventHandler(this.CountLBL_Click);
             // 
-            // toolStrip1
+            // JahezToolStrip
             // 
-            this.toolStrip1.AllowMerge = false;
-            this.toolStrip1.BackColor = System.Drawing.Color.GhostWhite;
-            this.toolStrip1.CanOverflow = false;
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.JahezToolStrip.AllowMerge = false;
+            this.JahezToolStrip.BackColor = System.Drawing.Color.GhostWhite;
+            this.JahezToolStrip.CanOverflow = false;
+            this.JahezToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.JahezToolStrip.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JahezToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.PrintMultiTool,
             this.toolStripSeparator1,
             this.SaveJahezAll,
@@ -1979,13 +1969,13 @@
             this.MultiSave_,
             this.toolStripSeparator3,
             this.OrdersReady});
-            this.toolStrip1.Location = new System.Drawing.Point(11, 5);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStrip1.ShowItemToolTips = false;
-            this.toolStrip1.Size = new System.Drawing.Size(499, 28);
-            this.toolStrip1.TabIndex = 174;
+            this.JahezToolStrip.Location = new System.Drawing.Point(11, 5);
+            this.JahezToolStrip.Name = "JahezToolStrip";
+            this.JahezToolStrip.Padding = new System.Windows.Forms.Padding(0);
+            this.JahezToolStrip.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.JahezToolStrip.ShowItemToolTips = false;
+            this.JahezToolStrip.Size = new System.Drawing.Size(478, 28);
+            this.JahezToolStrip.TabIndex = 174;
             // 
             // PrintMultiTool
             // 
@@ -2011,10 +2001,9 @@
             this.SaveJahezAll.Image = ((System.Drawing.Image)(resources.GetObject("SaveJahezAll.Image")));
             this.SaveJahezAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveJahezAll.Name = "SaveJahezAll";
-            this.SaveJahezAll.Size = new System.Drawing.Size(164, 25);
-            this.SaveJahezAll.Text = "تخزين جميع فواتير جاهز";
+            this.SaveJahezAll.Size = new System.Drawing.Size(143, 25);
+            this.SaveJahezAll.Text = "آخر فواتير التطبيقات";
             this.SaveJahezAll.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.SaveJahezAll.Click += new System.EventHandler(this.SaveAllJahez_Click);
             this.SaveJahezAll.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SaveAllJahez_MouseUp);
             // 
             // toolStripSeparator2
@@ -2104,7 +2093,6 @@
             this.SearchTB.Name = "SearchTB";
             this.SearchTB.Size = new System.Drawing.Size(231, 35);
             this.SearchTB.TabIndex = 42;
-            this.SearchTB.TextChanged += new System.EventHandler(this.SearchTB_TextChanged);
             this.SearchTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchTB_KeyUp);
             // 
             // OrdersFlowLayoutPanel
@@ -2124,23 +2112,23 @@
             this.InvoicesDG.AllowUserToDeleteRows = false;
             this.InvoicesDG.AllowUserToResizeRows = false;
             this.InvoicesDG.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.InvoicesDG.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.InvoicesDG.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.InvoicesDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.InvoicesDG.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.InvoicesDG.DefaultCellStyle = dataGridViewCellStyle10;
             this.InvoicesDG.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.InvoicesDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.InvoicesDG.Location = new System.Drawing.Point(0, 8);
@@ -2157,7 +2145,6 @@
             this.InvoicesDG.TabIndex = 0;
             this.InvoicesDG.TabStop = false;
             this.InvoicesDG.DataSourceChanged += new System.EventHandler(this.InvoicesDG_DataSourceChanged);
-            this.InvoicesDG.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoicesDG_CellClick);
             this.InvoicesDG.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoicesDG_CellDoubleClick);
             this.InvoicesDG.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.InvoicesDG_CellFormatting);
             this.InvoicesDG.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.InvoicesDG_CellMouseUp);
@@ -2175,39 +2162,6 @@
             this.DayMenu.ShowItemToolTips = false;
             this.DayMenu.Size = new System.Drawing.Size(36, 4);
             this.DayMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DayMenu_ItemClicked);
-            // 
-            // HourPicker
-            // 
-            this.HourPicker.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HourPicker.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table;
-            this.HourPicker.Name = "DayMenu";
-            this.HourPicker.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.HourPicker.ShowImageMargin = false;
-            this.HourPicker.ShowItemToolTips = false;
-            this.HourPicker.Size = new System.Drawing.Size(36, 4);
-            this.HourPicker.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TimePicker_ItemClicked);
-            // 
-            // MinutesPicker
-            // 
-            this.MinutesPicker.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MinutesPicker.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table;
-            this.MinutesPicker.Name = "DayMenu";
-            this.MinutesPicker.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.MinutesPicker.ShowImageMargin = false;
-            this.MinutesPicker.ShowItemToolTips = false;
-            this.MinutesPicker.Size = new System.Drawing.Size(36, 4);
-            this.MinutesPicker.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MinutesPicker_ItemClicked);
-            // 
-            // TODPicker
-            // 
-            this.TODPicker.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TODPicker.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table;
-            this.TODPicker.Name = "DayMenu";
-            this.TODPicker.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TODPicker.ShowImageMargin = false;
-            this.TODPicker.ShowItemToolTips = false;
-            this.TODPicker.Size = new System.Drawing.Size(36, 4);
-            this.TODPicker.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TODPicker_ItemClicked);
             // 
             // MenuSelection
             // 
@@ -2241,10 +2195,6 @@
             this.MenuTimeOut.Interval = 60000;
             this.MenuTimeOut.Tick += new System.EventHandler(this.MenuTimeOut_Tick);
             // 
-            // printComment
-            // 
-            this.printComment.UseEXDialog = true;
-            // 
             // WhatsSend
             // 
             this.WhatsSend.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2254,12 +2204,6 @@
             this.WhatsSend.ShowItemToolTips = false;
             this.WhatsSend.Size = new System.Drawing.Size(36, 4);
             this.WhatsSend.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.WhatsSend_ItemClicked);
-            // 
-            // Api_Health
-            // 
-            this.Api_Health.Enabled = true;
-            this.Api_Health.Interval = 30000;
-            this.Api_Health.Tick += new System.EventHandler(this.Api_Health_Tick);
             // 
             // panel2
             // 
@@ -2802,7 +2746,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = " ";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Orders_FormClosing);
             this.Load += new System.EventHandler(this.Orders_Load);
             this.rightClickMenu.ResumeLayout(false);
             this.OrdersPanel.ResumeLayout(false);
@@ -2819,8 +2762,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.JahezToolStrip.ResumeLayout(false);
+            this.JahezToolStrip.PerformLayout();
             this.OrdersFlowLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.InvoicesDG)).EndInit();
             this.MenuSelection.ResumeLayout(false);
@@ -2839,16 +2782,11 @@
         private System.Windows.Forms.ToolStripMenuItem CustomComment;
         private System.Windows.Forms.Panel OrdersPanel;
         private System.Windows.Forms.ContextMenuStrip DayMenu;
-        private System.Windows.Forms.ContextMenuStrip HourPicker;
-        private System.Windows.Forms.ContextMenuStrip MinutesPicker;
-        private System.Windows.Forms.ContextMenuStrip TODPicker;
         private System.Windows.Forms.ContextMenuStrip FastComment;
         private System.Windows.Forms.ContextMenuStrip MenuSelection;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         public System.Windows.Forms.Timer MenuTimeOut;
-        private System.Windows.Forms.PrintDialog printComment;
         private System.Windows.Forms.ContextMenuStrip WhatsSend;
-        private System.Windows.Forms.Timer Api_Health;
         private System.Windows.Forms.SplitContainer OrdersContainer;
         private System.Windows.Forms.Panel OrdersFlowLayoutPanel;
         private UButton Search;
@@ -2884,7 +2822,6 @@
         public UButton TimeButton;
         public UButton CopyInvoice;
         private UButton SettingsPage;
-        private System.ComponentModel.BackgroundWorker CIDWorker;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label CommentLBL;
         private System.Windows.Forms.Label label1;
@@ -2925,7 +2862,6 @@
         private UButton FourBTN;
         private System.Windows.Forms.FlowLayoutPanel SectionsPanel;
         public System.Windows.Forms.TextBox DOWTB;
-        private System.Windows.Forms.TextBox TimeTB;
         private UButton TimeInfo;
         public System.Windows.Forms.TextBox CommentTB;
         private UButton WhatAppBTN;
@@ -2939,7 +2875,7 @@
         private System.Windows.Forms.ToolStripButton AppsButton;
         private System.Windows.Forms.Button OrderStatus;
         private System.Windows.Forms.Label label2;
-        public System.Windows.Forms.ToolStrip toolStrip1;
+        public System.Windows.Forms.ToolStrip JahezToolStrip;
         private System.Windows.Forms.ToolStripButton PrintMultiTool;
         private System.Windows.Forms.ToolStripButton MultiSave_;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -2977,5 +2913,6 @@
         private WK.Libraries.SharpClipboardNS.SharpClipboard sharpClipboard1;
         private UButton AppsSettings;
         private UButton uButton6;
+        public System.Windows.Forms.TextBox TimeTB;
     }
 }

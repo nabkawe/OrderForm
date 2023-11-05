@@ -36,6 +36,8 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.phoneLogLB = new System.Windows.Forms.ListBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.SearchLog = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -43,6 +45,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.SearchLog);
             this.panel1.Controls.Add(this.AddNumberToForm);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.panel2);
@@ -129,17 +133,37 @@
             // 
             // phoneLogLB
             // 
+            this.phoneLogLB.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.phoneLogLB.ColumnWidth = 100;
             this.phoneLogLB.Dock = System.Windows.Forms.DockStyle.Top;
             this.phoneLogLB.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.phoneLogLB.ForeColor = System.Drawing.Color.DodgerBlue;
             this.phoneLogLB.FormattingEnabled = true;
             this.phoneLogLB.ItemHeight = 33;
             this.phoneLogLB.Location = new System.Drawing.Point(5, 5);
             this.phoneLogLB.Name = "phoneLogLB";
             this.phoneLogLB.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.phoneLogLB.Size = new System.Drawing.Size(694, 367);
+            this.phoneLogLB.Size = new System.Drawing.Size(694, 330);
             this.phoneLogLB.TabIndex = 9;
             this.phoneLogLB.DoubleClick += new System.EventHandler(this.phoneLogLB_DoubleClick);
+            // 
+            // SearchLog
+            // 
+            this.SearchLog.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchLog.Location = new System.Drawing.Point(8, 346);
+            this.SearchLog.Name = "SearchLog";
+            this.SearchLog.Size = new System.Drawing.Size(100, 26);
+            this.SearchLog.TabIndex = 14;
+            this.SearchLog.TextChanged += new System.EventHandler(this.SearchLog_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(114, 353);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(27, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "بحث";
             // 
             // CalLog
             // 
@@ -160,6 +184,7 @@
             this.Deactivate += new System.EventHandler(this.CalLog_Deactivate);
             this.Load += new System.EventHandler(this.CalLog_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
@@ -176,5 +201,7 @@
         private System.Windows.Forms.Button AddSingleItem;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox SearchLog;
+        private System.Windows.Forms.Label label1;
     }
 }

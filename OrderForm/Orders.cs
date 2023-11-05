@@ -1,43 +1,28 @@
 ﻿using LiteDB;
+using OrderForm.SavingandPayment;
 using PrayerTimes;
-using RestSharp;
 using sharedCode;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Deployment.Application;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.ApplicationModel.DataTransfer;
+using Application = System.Windows.Forms.Application;
 using Color = System.Drawing.Color;
-using DataFormat = RestSharp.DataFormat;
 using DataFormats = System.Windows.Forms.DataFormats;
 using DragDropEffects = System.Windows.Forms.DragDropEffects;
 using DragEventArgs = System.Windows.Forms.DragEventArgs;
 using Point = System.Drawing.Point;
-using TextDataFormat = System.Windows.Forms.TextDataFormat;
-using OrderForm.SavingandPayment;
-using static System.Windows.Forms.DataFormats;
-using Application = System.Windows.Forms.Application;
-using System.Text;
-using System.Drawing;
-using Newtonsoft.Json.Linq;
-using System.Runtime.Remoting.Contexts;
-using Windows.ApplicationModel.DataTransfer;
-using System.Windows.Markup;
-using System.Diagnostics.Eventing.Reader;
-using Windows.UI.Notifications;
-using Clipboard = Windows.ApplicationModel.Background;
-using System.Windows;
-using System.Windows.Media.Animation;
-using Windows.ApplicationModel.Contacts;
-using System.Security.Cryptography;
-using Windows.Storage.Provider;
-using WK.Libraries.SharpClipboardNS;
 
 namespace OrderForm
 {
@@ -45,31 +30,15 @@ namespace OrderForm
 
     public partial class Orders : Form
     {
-
         public string APIConnection { get { return Properties.Settings.Default.API_Connection; } set { Properties.Settings.Default.API_Connection = value; } }
         public static bool servermode { get; set; }
         public bool APIAccess { get { return Properties.Settings.Default.Api_On; } set { Properties.Settings.Default.Api_On = value; } }
-
-        public Invoice CurrentInvoice;
 
         public static BindingList<POSItems> POS = new BindingList<POSItems>();
 
         public event EventHandler<string> UpdatedDraft;
 
         public static List<POSItems> ItemsLists = new List<POSItems>();
-
-        private List<string> MinutesList()
-        {
-            return new List<string>() { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" };
-        }
-        private List<string> HoursList()
-        {
-            return new List<string>() { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
-        }
-        private List<string> TODList()
-        {
-            return new List<string>() { "صباحا", "ظهرا", "عصرا", "مساء", "ليلا" };
-        }
 
         public static bool IsItPrinted { get; set; } = false;
         public bool AddingInProgress { get; set; } = false;
@@ -101,10 +70,6 @@ namespace OrderForm
             InitializeComponent();
 
         }
-
-
-
-
         #region Materials related logic
 
         #region loading materials
@@ -202,19 +167,12 @@ namespace OrderForm
             var item = sender as UButton;
             item.BackgroundImage = null;
             item.Text = ItemsLists.First(x => x.Barcode == item.Tag.ToString()).Price.ToString() + Environment.NewLine + item.Text;
-
-
-
         }
-
-
-
 
         private bool CheckFile(string picturePath)
         {
             if (System.IO.File.Exists(picturePath)) return true; else return false;
         }
-
         #endregion
 
         #region Mouse related logic for materials
@@ -224,8 +182,6 @@ namespace OrderForm
             {
                 var btn = (UButton)sender;
                 if (Properties.Settings.Default.showMenu) { OrderForm.MainWindow.FindByBarcode((string)btn.Tag); }
-
-
                 rightClickMenu.Show(Cursor.Position);
                 rightClickMenu.Items[3].Text = ItemsLists.First(x => x.Barcode == btn.Tag.ToString()).Name;
                 rightClickMenu.Items[2].Visible = false;
@@ -237,7 +193,6 @@ namespace OrderForm
         {
             if (Properties.Settings.Default.WheelEnabled)
             {
-
                 if (e.Delta > 0)
                 {
                     var itembtn = (System.Windows.Forms.Button)sender;
@@ -250,9 +205,7 @@ namespace OrderForm
                     var item = ItemsLists.First(x => x.Barcode == itembtn.Name);
                     EditItemGrid(item);
                 }
-
             }
-
         }
         protected void Section_Clicked(object sender, EventArgs e)
         {
@@ -275,7 +228,6 @@ namespace OrderForm
         }
         #endregion
 
-
         bool StopEditing = false;
         #region material insertion 
         public void AddtoGrid(POSItems items)
@@ -287,8 +239,7 @@ namespace OrderForm
                 {
                     NewBTN_Click(null, null);
                 }
-                bool alreadyExists = POS.Any(x => x.ID == item.ID);
-                if (alreadyExists == true)
+                if (POS.Any(x => x.ID == item.ID))
                 {
                     var found = POS.Single(x => x.ID == item.ID);
                     foreach (DataGridViewRow row in dvItems.Rows)
@@ -315,8 +266,7 @@ namespace OrderForm
 
             if (!StopEditing)
             {
-                bool alreadyExists = POS.Any(x => x.ID == item.ID);
-                if (alreadyExists)
+                if (POS.Any(x => x.ID == item.ID))
                 {
                     var found = POS.Single(x => x.ID == item.ID);
                     foreach (DataGridViewRow row in dvItems.Rows)
@@ -356,11 +306,7 @@ namespace OrderForm
 
                     }
                 }
-
-
-
                 SectionsPanel.Controls.Clear();
-
                 int c = -1;
                 lists.ForEach(l => { c += 1; CreateSectionBtns(SectionsPanel, l); dbQ.GetItemsForSection(l.Name).ForEach(i => ItemsLists.Add(i)); });
                 ItemsPanel1.Controls.Clear();
@@ -384,7 +330,7 @@ namespace OrderForm
                     KillandRestartAPI();
 
                 }
-                else { /*APIAccess = false*/; this.Text = "****Local Connection****"; }
+                else { this.Text = "****Local Connection****"; }
             }
 
         }
@@ -394,10 +340,9 @@ namespace OrderForm
 
         private void LoadMethods()
         {
-            //Properties.Settings.Default.DBConnection = "filename=c:\\db\\db.db;connection=shared";
             if (Properties.Settings.Default.showMenu &&
-                Screen.AllScreens.Count() > 1 &&
-                DM.Visibility != System.Windows.Visibility.Visible)
+                 Screen.AllScreens.Count() > 1 &&
+                 DM.Visibility != System.Windows.Visibility.Visible)
             {
 
 
@@ -409,31 +354,31 @@ namespace OrderForm
             POS.ListChanged += POS_ListChanged;
             UIVisuals();
             ShowSalahTimes();
-
             AmountLBL.TextChanged += AmountLBL_TextChanged1;
             this.UpdatedDraft += UpdateDraft;
         }
-        int c = 0;
         private void AmountLBL_TextChanged1(object sender, EventArgs e)
         {
             if (!AddingInProgress)
             {
-                c = 0;
-                POS.ToList().ForEach((x) => { c += x.RealQuantity; });
-                ItemCount.Text = c.ToString();
-
+                ItemCount.Text = CalculateItemCount();
             }
 
+        }
+        private string CalculateItemCount()
+        {
+            int count = 0;
+            if (!AddingInProgress)
+            {
+                POS.ToList().ForEach((x) => { count += x.RealQuantity; });
+            }
+            return count.ToString();
         }
 
         private void UpdateDraft(object sender, string e)
         {
-
-
             DbInv.CreateDraftInvoice(CreateDraftObject());
-
         }
-
         Invoice CreateDraftObject()
         {
             Invoice draftInvoice = new Invoice()
@@ -457,7 +402,6 @@ namespace OrderForm
 
         public static string GetDayName(int dayInt)
         {
-
             var culture = new System.Globalization.CultureInfo("ar-SA");
             string[] days = culture.DateTimeFormat.DayNames;
             return days[dayInt];
@@ -488,13 +432,12 @@ namespace OrderForm
 
         private void POS_ListChanged(object sender, ListChangedEventArgs e)
         {
+
             if (!AddingInProgress)
-            {
                 if (POS.Count > 0)
                 {
                     decimal total = POS.Sum((a) => a.TotalPrice);
                     AmountLBL.Text = total.ToString();
-                    ItemCount.Text = Orders.POS.Sum<POSItems>((x) => x.RealQuantity).ToString();
 
                     if (POS.Any(x => x.discount))
                     {
@@ -505,15 +448,13 @@ namespace OrderForm
                             POS.ListChanged += POS_ListChanged;
                         }
                     }
-
-
                 }
                 else
                 {
                     AmountLBL.Text = "0.0";
                     ItemCount.Text = "0";
                 }
-            }
+
         }
 
         private void Orders_FormClosed(object sender, FormClosedEventArgs e)
@@ -579,20 +520,15 @@ namespace OrderForm
                 AsrJurusticMethod = AsrJuristicMethods.Shafii
             };
             var times = calc.GetPrayerTimes(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day), 4);
-            //var ts = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             DhuhrBTN.Text = DateTime.Parse(times.Dhuhr.ToString()).ToString("hh:mm tt");
             AsrBTN.Text = DateTime.Parse(times.Asr.ToString()).ToString("hh:mm tt");
             MaghribBTN.Text = DateTime.Parse(times.Maghrib.ToString()).ToString("hh:mm tt");
             IshaBTN.Text = DateTime.Parse(times.Isha.ToString()).ToString("hh:mm tt");
-            //CultureInfo Culture = new CultureInfo("ar-SA");
             DayLBL.Text = Orders.GetDayName((int)DateTime.Now.DayOfWeek);
             DateLBL.Text = DateTime.Now.ToString("dd/MM/yyyy");
-            //TimeTB.Text = times.Sunrise.Subtract(ts).ToString();
-
             SalahTMR.Start();
         }
 
-        public NextPrayer.state state = NextPrayer.state.stateless;
         private void SalahTMR_Tick(object sender, EventArgs e)
         {
             bool afterPrayers = false;
@@ -664,7 +600,6 @@ namespace OrderForm
 
             dvItems.MouseWheel += new MouseEventHandler(DataGridView1_MouseWheel);
 
-            //  check if it exists first 
             if (dvItems.Columns["btnColumn"] != null) return;
 
             DataGridViewButtonColumn btnColumn = new DataGridViewButtonColumn();
@@ -674,9 +609,6 @@ namespace OrderForm
             btnColumn.UseColumnTextForButtonValue = true;
             btnColumn.Width = 20;
             dvItems.Columns.Add(btnColumn);
-
-
-
 
         }
 
@@ -692,7 +624,7 @@ namespace OrderForm
                     if (dv.CurrentCell.ColumnIndex == 1)
                     {
                         POSItems currentItem = (POSItems)dvItems.CurrentRow.DataBoundItem;
-                        if (currentItem.Quantity == 0) currentItem.Quantity = 1;
+                        if (currentItem.Quantity <= 0) currentItem.Quantity = 1;
                     }
 
                 }
@@ -712,7 +644,6 @@ namespace OrderForm
                 TextBox tb = (TextBox)e.Control;
                 if (tb != null)
                 {
-
                     tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
                 }
             }
@@ -809,7 +740,6 @@ namespace OrderForm
         {
             CultureInfo ar = new CultureInfo("ar-sa");
             InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(ar);
-
 
         }
 
@@ -983,7 +913,16 @@ namespace OrderForm
             if (ModifierKeys.HasFlag(Keys.Control))
             {
                 string n = Environment.NewLine;
-                MessageForm.SHOW(Application.ProductVersion + n + Properties.Settings.Default.API_Server_Path + n + Properties.Settings.Default.API_Connection, "معلومات", "تم");
+                if (MessageForm.SHOW(ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() + n + Properties.Settings.Default.API_Server_Path + n + Properties.Settings.Default.API_Connection, "معلومات", "تم", "إغلاق التزامن") == DialogResult.No)
+                {
+                    if (Process.GetProcessesByName("NetworkSynq").Length == 0)
+                    {
+                        foreach (var process in Process.GetProcessesByName("NetworkSynq"))
+                        {
+                            process.Kill();
+                        }
+                    }
+                }
             }
             else
             {
@@ -1000,7 +939,9 @@ namespace OrderForm
                 }
 
             }
+            
         }
+
         public static void SettingsClosed()
         {
             System.Windows.Forms.Application.Exit();
@@ -1023,8 +964,6 @@ namespace OrderForm
 
         public Invoice PrintNewInvoice()
         {
-
-
             Invoice inv = new Invoice()
             {
                 CustomerName = NameTB.Text,
@@ -1070,7 +1009,6 @@ namespace OrderForm
                     }
                     CurrentDep = deps[I].Name;
                     PrintInvoice.Print(deps[I].DefaultPrinter);
-                    //;
 
                 }
 
@@ -1079,7 +1017,6 @@ namespace OrderForm
 
         private void PrintSave_Click(object sender, EventArgs e)
         {
-
             MobileTB.Focus();
             if (POS.Count > 0)
             {
@@ -1130,12 +1067,11 @@ namespace OrderForm
 
         private void NewBTN_Click(object sender, EventArgs e)
         {
-
-
             var se = sender;
-            if (!IsItPrinted && POS.Count > 0 && se != null) { if (repeatedBehavior.AreYouSure("هل تريد حذف الفاتورة وبدء فاتورة جديدة؟", " تحذير الفاتورة غير مطبوعة")) Console.WriteLine("Yah"); else return; };
+            if (!IsItPrinted && POS.Count > 0 && se != null) { if (MessageForm.SHOW("هل تريد حذف الفاتورة وبدء فاتورة جديدة؟", " تحذير الفاتورة غير مطبوعة", "نعم", "لا") == DialogResult.No) return; };
             try
             {
+                AddingInProgress = true;
                 IsItPrinted = false;
                 ButtonStates(true);
                 StopEditing = false;
@@ -1148,23 +1084,22 @@ namespace OrderForm
                 };
                 InvoiceNumberID.Text = DbInv.CreatePreparingInvoice(draftInv).Replace("\"", "");
 
-                OrdersPanel.Enabled = true;
-                AddingInProgress = true;
-                POS.Clear();
-                AddingInProgress = false;
                 NameTB.Clear();
                 MobileTB.Clear();
                 TimeTB.Clear();
                 DOWTB.Clear();
                 CommentTB.Clear();
+                POS.Clear();
                 TimeInfo.Text = "الآن";
+                AmountLBL.Text = "0.00";
                 DayMenuBTN.Text = GetDayName((int)DateTime.Now.DayOfWeek);
                 OrderStatus.Text = InvoiceTypeOptions.Items[Properties.Settings.Default.defaultOrder].Text;
+                OrdersPanel.Enabled = true;
                 dvItems.BackgroundColor = Color.GhostWhite;
-                AmountLBL.Text = "0.00";
                 HoldInvoice.Enabled = true;
                 displayOffer.CloseNow();
                 Refresh();
+                AddingInProgress = false;
             }
             catch (Exception ex)
             {
@@ -1207,15 +1142,12 @@ namespace OrderForm
 
 
         }
-
-
         private void LoadOrders()
         {
             if (SearchTB.Text.Replace(" ", "") == "")
             {
                 CheckDay();
             }
-
             this.OrdersFlowLayoutPanel.Visible = true; this.OrdersFlowLayoutPanel.BringToFront();
             this.OrdersContainer.Visible = true; this.OrdersContainer.BringToFront();
             this.OrdersPanel.Visible = false;
@@ -1276,37 +1208,15 @@ namespace OrderForm
             Draft = -2
         }
 
-        private void switchCase(string se)
-        {
-
-        }
 
 
 
 
-        /// <summary>
-        /// Btn_Click
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_Click(object sender, EventArgs e)
-        {
-
-            var se = (ToolStripButton)sender;
-            string posid = (string)se.Tag;
-
-            if (posid != null)
-            {
-                new SavingandPayment.PaymentOptions(posid);
-            }
-
-        }
         private PaymentOptions NewPayForm(Invoice invoice)
         {
             return new SavingandPayment.PaymentOptions(invoice);
 
         }
-
 
         public void LoadInvoiceUI(Invoice heldInv)
         {
@@ -1464,11 +1374,10 @@ namespace OrderForm
 
         private void TimeInfo_Click(object sender, EventArgs e)
         {
-            HourPicker.Items.Clear();
-            foreach (var item in HoursList())
+            string result = TimePicker.SHOW();
+            if (result.Length > 1)
             {
-                HourPicker.Items.Add(item.ToString());
-                HourPicker.Show(TimeInfo, 0, 0);
+                TimeTB.Text = result;
             }
         }
 
@@ -1507,122 +1416,6 @@ namespace OrderForm
             DayMenuBTN.Text = e.ClickedItem.Text.Replace("-اليوم", "");
 
         }
-
-
-        private void TimePicker_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            TimeTB.Text = e.ClickedItem.Text;
-            MinutesPicker.Items.Clear();
-
-            foreach (var item in MinutesList())
-            {
-                MinutesPicker.Items.Add(item.ToString());
-                MinutesPicker.Show(TimeInfo, 0, 0);
-
-            }
-        }
-        private void MinutesPicker_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            TimeTB.Text += e.ClickedItem.Text;
-            TODPicker.Items.Clear();
-            string a = TimeInfo.Text[0].ToString();
-
-
-            foreach (var item in GetNewTODlist(a))
-            {
-                TODPicker.Items.Add(item.ToString());
-            }
-            TODPicker.Show(TimeInfo, 0, 0);
-
-        }
-
-
-        private List<string> GetNewTODlist(string a)
-        {
-            List<string> asr = new List<string>() { "عصرا" };
-            List<string> evening = new List<string>() { "مساء" };
-            List<string> morningEvening = new List<string>() { "صباحا", "مساء" };
-            List<string> morningNight = new List<string>() { "صباحا", "ليلا" };
-            List<string> duhrNight = new List<string>() { "ظهرا", "ليلا" };
-
-            switch (a)
-            {
-                case "1":
-                    if (TimeInfo.Text[1] == '1' && TimeInfo.Text[2] == ':')
-                    {
-                        return morningNight;
-                    }
-                    else if (TimeInfo.Text[1] == '0' && TimeInfo.Text[2] == ':')
-                    {
-                        return morningNight;
-                    }
-                    else
-                    {
-                        return duhrNight;
-                    }
-                case "2":
-                    return duhrNight;
-                case "3":
-                    return asr;
-                case "4":
-                case "5":
-                case "6":
-                    return evening;
-                case "7":
-                    return morningEvening;
-                case "8":
-                case "9":
-                    return morningNight;
-                default:
-                    return TODList();
-            }
-        }
-
-
-        private void TODPicker_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            TimeTB.Text += e.ClickedItem.Text.Remove(1, e.ClickedItem.Text.Length - 1);
-
-        }
-
-        private void TimeTB_Leave(object sender, EventArgs e)
-        {
-            string tod = "ص ظ ع م ل";
-            if (TimeTB.Text.Length > 0)
-            {
-                if (TimeTB.Text.IndexOfAny(tod.ToCharArray()) <= 0)
-                {
-
-                    TODPicker.Items.Clear();
-                    try
-                    {
-                        string a = TimeInfo.Text[0].ToString();
-                        foreach (var item in GetNewTODlist(a))
-                        {
-                            TODPicker.Items.Add(item.ToString());
-                            if (sender.GetType() == typeof(TextBox))
-                            {
-                                var tb = (TextBox)sender;
-                                TODPicker.Show(tb, 0, 0);
-                            }
-                            else
-                            {
-                                var tb = (Button)sender;
-                                TODPicker.Show(tb, 0, 0);
-                            }
-
-                        }
-
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-
-                }
-            }
-        }
-
         private void DOWTB_TextChanged(object sender, EventArgs e)
         {
             this.DOWTB.Clear();
@@ -1642,8 +1435,6 @@ namespace OrderForm
             DayMenu.Show(ptLowerLeft);
             DayMenu.Items[day].Select();
         }
-
-
 
 
         private void DOWTB_DoubleClick(object sender, EventArgs e)
@@ -1771,26 +1562,6 @@ namespace OrderForm
 
         }
 
-
-
-        private void TelButton_Click(object sender, EventArgs e)
-        {
-            var se = sender as ToolStripButton;
-            foreach (ToolStripButton btn in InvoiceTypeOptions.Items)
-            {
-                btn.Checked = false;
-            }
-            se.Checked = true;
-            OrderStatus.Text = se.Text;
-        }
-
-
-
-        private void OrdersPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void MobileTB_TextChanged(object sender, EventArgs e)
         {
             MobileLBL.Visible = string.IsNullOrWhiteSpace(MobileTB.Text);
@@ -1828,9 +1599,6 @@ namespace OrderForm
             }
 
         }
-
-
-
         private void MainMenu_Click(object sender, EventArgs e)
         {
             if (OrdersContainer.Visible)
@@ -1838,9 +1606,6 @@ namespace OrderForm
                 OrdersContainer.Visible = false;
                 this.OrdersPanel.Visible = true;
                 this.OrdersPanel.BringToFront();
-
-
-                //Update();
             }
             else
             {
@@ -1851,24 +1616,62 @@ namespace OrderForm
         }
 
         #region Invoices
-        /// <summary>
-        /// الطلبات المعلقة
-        ///</summary>
-        //private void AddDraftInvoices()
-        //{
-        //    var DraftList = DbInv.GetDraftInvoices();
-        //    foreach (var item in DraftList)
-        //    {
-        //        if (item.InvoiceItems.Count > 0)
-        //        {
-        //            _InvBTN draftBTN = new _InvBTN(item);
-        //            int ID = item.ID;
-        //            draftBTN.Tag = ID;
-        //            //draftBTN.Click += (o, i) => HeldOrder_click(o, i);
-        //            //HeldPanel.Controls.Add(draftBTN);
-        //        }
-        //    }
-        //}
+
+
+        private List<Invoice> GetListwithFilters()
+        {
+            var list = DbInv.GetSavedInvoices();
+
+            // list all checked items in FilterMenu 
+            // protect against finding a seperator in the list
+            // avoid null seperator in the cast
+            var checkedItems = FilterMenu.Items.OfType<ToolStripMenuItem>().Cast<ToolStripMenuItem>()
+                .Where(item => item is ToolStripMenuItem && item.Checked)
+                .Select(item => item.Name)
+                .ToList();
+
+            if (checkedItems.Any(item => item == todaysFilter.Name))
+            {
+                // account for if x.TimeOfSaving is null 
+                return list.Where(x => x.TimeOfSaving != null && x.TimeOfSaving.Date == DateTime.Now.Date).ToList();
+            }
+            if (checkedItems.Any(item => item == jahezFilter.Name))
+            {
+                return list.Where(x => x.OrderType == "تطبيقات").ToList();
+            }
+            else if (checkedItems.Any(item => item == notJahezFilter.Name))
+            {
+                return list.Where(x => x.OrderType != "تطبيقات" && x.Status != InvStat.Deleted).ToList();
+            }
+            if (checkedItems.Any(item => item == deletedFilter.Name))
+            {
+                return list.Where(x => x.Status == InvStat.Deleted).ToList();
+            }
+            if (checkedItems.Any(item => item == savingTimeFilter.Name))
+            {
+                //sort list by time of saving with a null check
+                return list.Where(x => x.TimeOfSaving != null).OrderByDescending(x => x.TimeOfSaving).ToList();
+            }
+            if (checkedItems.Any(item => item == multiPaymentFilter.Name))
+            {
+                //sort list by time of saving with a null check
+                return list.Where(x => x.PaymentName != null && x.PaymentName == "دفع متعدد").ToList();
+
+            }
+            else if (checkedItems.Any(item => item == CashFilter.Name))
+            {
+                //sort list by time of saving with a null check
+                return list.Where(x => x.PaymentName != null && x.PaymentName == "Cash").ToList();
+            }
+            else if (checkedItems.Any(item => item == madaFilter.Name))
+            {
+                //sort list by time of saving with a null check
+                return list.Where(x => x.PaymentName != null && x.PaymentName == "Mada").ToList();
+            }
+            else return list;
+        }
+
+
 
         /// <summary>
         /// الأيام والتاريخ
@@ -1878,71 +1681,28 @@ namespace OrderForm
         {
             if (day == 100)
             {
-                var list = DbInv.GetSavedInvoices();
+                var GetSavedlist = GetListwithFilters();
 
-                // list all checked items in FilterMenu 
-                // protect against finding a seperator in the list
-                // avoid null seperator in the cast
-                var checkedItems = FilterMenu.Items.OfType<ToolStripMenuItem>().Cast<ToolStripMenuItem>()
-                    .Where(item => item is ToolStripMenuItem && item.Checked)
-                    .Select(item => item.Name)
-                    .ToList();
-
-                if (checkedItems.Any(item => item == todaysFilter.Name))
-                {
-                    // account for if x.TimeOfSaving is null 
-                    list = list.Where(x => x.TimeOfSaving != null && x.TimeOfSaving.Date == DateTime.Now.Date).ToList();
-                }
-                if (checkedItems.Any(item => item == jahezFilter.Name))
-                {
-                    list = list.Where(x => x.OrderType == "تطبيقات").ToList();
-                }
-                else if (checkedItems.Any(item => item == notJahezFilter.Name))
-                {
-                    list = list.Where(x => x.OrderType != "تطبيقات" && x.Status != InvStat.Deleted).ToList();
-                }
-                if (checkedItems.Any(item => item == deletedFilter.Name))
-                {
-                    list = list.Where(x => x.Status == InvStat.Deleted).ToList();
-                }
-                if (checkedItems.Any(item => item == savingTimeFilter.Name))
-                {
-                    //sort list by time of saving with a null check
-                    list = list.Where(x => x.TimeOfSaving != null).OrderByDescending(x => x.TimeOfSaving).ToList();
-                }
-                if (checkedItems.Any(item => item == multiPaymentFilter.Name))
-                {
-                    //sort list by time of saving with a null check
-                    list = list.Where(x => x.PaymentName != null && x.PaymentName == "دفع متعدد").ToList();
-
-                }
-                else if (checkedItems.Any(item => item == CashFilter.Name))
-                {
-                    //sort list by time of saving with a null check
-                    list = list.Where(x => x.PaymentName != null && x.PaymentName == "Cash").ToList();
-                }
-                else if (checkedItems.Any(item => item == madaFilter.Name))
-                {
-                    //sort list by time of saving with a null check
-                    list = list.Where(x => x.PaymentName != null && x.PaymentName == "Mada").ToList();
-                }
-                InvoicesDG.DataSource = list;
+                InvoicesDG.DataSource = GetSavedlist;
                 radioChecked = day;
-                GridUISaved();
                 CountLBL.Text = InvoicesDG.RowCount.ToString();
+                GridUISaved();
+
+
             }
             else if (day == -1)
             {
                 InvoicesDG.DataSource = DbInv.GetPrintedInvoices();
                 radioChecked = day;
                 CountLBL.Text = InvoicesDG.RowCount.ToString();
-
+                GridUIPrinted();
             }
             else if (day == -2)
             {
                 InvoicesDG.DataSource = DbInv.GetDraftInvoices();
                 CountLBL.Text = InvoicesDG.RowCount.ToString();
                 radioChecked = day;
+
             }
             else
             {
@@ -1953,6 +1713,7 @@ namespace OrderForm
             }
 
         }
+
 
         private void GridUISaved()
         {
@@ -2034,8 +1795,6 @@ namespace OrderForm
             InvoicesDG.Columns["Status"].Visible = false;
         }
         #endregion`
-        public static string GetApiConnection() { return Properties.Settings.Default.API_Connection; }
-        public static string GetDBConnections() { return Properties.Settings.Default.DBConnection; }
         private void Orders_Load(object sender, EventArgs e)
         {
             Screen[] screens = Screen.AllScreens;
@@ -2044,10 +1803,6 @@ namespace OrderForm
             this.Top = screen1.WorkingArea.Height - Height;
 
             LoadApps();
-            if (Properties.Settings.Default.CallerIDEnabled)
-            {
-                //CIDWorker.RunWorkerAsync();
-            }
 
 
             APIConnection = Properties.Settings.Default.API_Connection;
@@ -2069,11 +1824,8 @@ namespace OrderForm
             //dbQ.CreatePayment();
             if (servermode && APIAccess)
             {
-
                 //KillandRestartAPI();
                 LoadMethods();
-
-
 
             }
             else
@@ -2087,12 +1839,6 @@ namespace OrderForm
 
             changeMenu.Enabled = Properties.Settings.Default.showMenu;
             langCheck.Enabled = Properties.Settings.Default.showMenu;
-
-
-            //ProcessStartInfo processInfo = new ProcessStartInfo("C:\\Users\\Admin\\source\\repos\\nabkawe\\OrderForm\\NetworkSynq\\bin\\Debug\\net6.0\\NetworkSynq.exe", "");
-            //processInfo.CreateNoWindow = true;
-            //processInfo.UseShellExecute = false;
-            //Process.Start(processInfo);
         }
 
         private void LoadApps()
@@ -2113,23 +1859,12 @@ namespace OrderForm
                     processInfo.UseShellExecute = false;
                     Process.Start(processInfo);
 
-
                 }
                 while (Process.GetProcessesByName("NetworkSynq").Length == 0)
                 {
                     Thread.Sleep(200);
                 }
 
-
-            }
-            if (Properties.Settings.Default.CallerIDEnabled)
-            {
-                if (Process.GetProcessesByName("CID").Length == 0)
-                {
-                    ProcessStartInfo processInfo = new ProcessStartInfo(Application.StartupPath + @"\CID.exe", "");
-                    processInfo.WorkingDirectory = Application.StartupPath;
-                    Process.Start(processInfo);
-                }
             }
         }
 
@@ -2167,16 +1902,6 @@ namespace OrderForm
 
         }
 
-        public static bool GetServerMode()
-        {
-            return Properties.Settings.Default.Api_Server;
-        }
-        public static bool GetAPIMode()
-        {
-            return Properties.Settings.Default.Api_On;
-        }
-
-
         private void DvItems_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             if (e.RowIndex > 0)
@@ -2186,16 +1911,6 @@ namespace OrderForm
             else if (dvItems.Rows.Count > 0) dvItems.Rows[e.RowIndex].Selected = true;
         }
 
-        private void Fri_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void SearchTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
         public InvDay GetWhatDay(int radioChecked)
         {
             InvDay day = (InvDay)radioChecked;
@@ -2237,7 +1952,7 @@ namespace OrderForm
 
             if (ModifierKeys.HasFlag(Keys.Control))
             {
-                SaveToPOS.TimeOfPrinting = DateTime.Now.ToString("hh:mmtt dd/MM/yy");
+                if (!string.IsNullOrEmpty(SaveToPOS.TimeOfPrinting)) SaveToPOS.TimeOfPrinting = DateTime.Now.ToString("hh:mmtt dd/MM/yy");
                 SaveToPOS.Comment = SaveToPOS.Comment == null ? " NP " : SaveToPOS.Comment + " NP ";
                 DbInv.UpdatePreparingInvoice(SaveToPOS);
                 Save2POS(SaveToPOS);
@@ -2321,22 +2036,7 @@ namespace OrderForm
                 }
                 else
                 {
-                    if (MessageForm.SHOW("هل قمت بتسليم الطلب للمندوب؟", "تأكيد تسليم الفاتورة", "نعم", "لا") == DialogResult.Yes)
-                    {
-                        SaveToPOS.Status = InvStat.SavedToPOS;
-                        SaveToPOS.POSInvoiceNumber = "جاهز";
-                        var payment = new Payment() { Name = "Jahez", Amount = SaveToPOS.InvoicePrice };
-                        SaveToPOS.Payments.Add(payment);
-                        SaveToPOS.TimeOfSaving = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
-
-
-                        SaveToPOS.TimeOfPrinting = DbInv.GetInvoiceByID(SaveToPOS.ID).TimeOfPrinting;
-
-                        DbInv.CreateAppOrder(SaveToPOS);
-                        return;
-
-                    }
-                    else return;
+                    MessageForm.SHOW("حاليا لا نقوم بتخزين طلبات التطبيقات، ستتم إضافة الميزة لاحقا", "لست بحاجة لتخزين الطلبات حاليا", "مفهوم");
 
                 }
             }
@@ -2344,7 +2044,6 @@ namespace OrderForm
         private void Save2POS(Invoice SaveToPOS)
         {
             this.Hide();
-            int id = SaveToPOS.ID;
             var a = NewPayForm(SaveToPOS);
             ShowMenuBTN.BackColor = Color.SlateGray;
             if (a.ShowDialog() == DialogResult.OK)
@@ -2365,11 +2064,6 @@ namespace OrderForm
                 this.Activate();
                 return;
             }
-        }
-
-        public CheckBox ParentCheckBox
-        {
-            get { return this.checkBox1; }
         }
 
 
@@ -2395,16 +2089,6 @@ namespace OrderForm
 
         }
 
-        private void GroupSave_CheckedChanged(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void Orders_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //DbInv.UpdateDraftInvoice(Convert.ToInt32(InvoiceNumberID.Text), false);
-        }
 
         private void NameTB_DragDrop(object sender, DragEventArgs e)
         {
@@ -2459,10 +2143,6 @@ namespace OrderForm
 
         }
 
-
-
-
-
         private void HoldInvoice_click(object sender, EventArgs e)
         {
             UpdatedDraft?.Invoke(this, null);
@@ -2484,8 +2164,6 @@ namespace OrderForm
 
         public static MainWindow DM = new MainWindow();
 
-
-        public bool DMShown = false;
 
         private void ShowMenuBTN_Click(object sender, EventArgs e)
         {
@@ -2613,8 +2291,7 @@ namespace OrderForm
             NewBTN_Click(null, null);
             NewPrices.ForEach(x => POS.Add(x));
             NewPrices.Clear();
-            DialogResult dialogResult = MessageForm.SHOW("هل تريد إستخدام الإسم والرقم؟", "هل الطلب لنفس العميل؟", "نعم", "لا");
-            if (dialogResult == DialogResult.Yes)
+            if (MessageForm.SHOW("هل تريد إستخدام الإسم والرقم؟", "هل الطلب لنفس العميل؟", "نعم", "لا") == DialogResult.Yes)
             {
                 NameTB.Text = name;
                 MobileTB.Text = number;
@@ -3024,26 +2701,11 @@ namespace OrderForm
 
         }
 
-        private void panel1_VisibleChanged(object sender, EventArgs e)
-        {
-            if (!OrdersFlowLayoutPanel.Visible)
-            {
-                this.OrdersContainer.Visible = false;
-            }
-            else { this.OrdersContainer.Visible = true; }
-
-
-        }
         private void TimeTB_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == ':') { e.Handled = true; }
 
         }
-
-
-
-
-
         private void WhatAppBTN_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && ModifierKeys.HasFlag(Keys.Control))
@@ -3109,8 +2771,6 @@ namespace OrderForm
         {
             if (!InvoicesDG.Visible)
             {
-
-
                 if (e.ClickedItem.Text == "نسخ وإرسال الفاتورة")
                 {
                     if (!string.IsNullOrEmpty(MobileTB.Text))
@@ -3246,27 +2906,7 @@ namespace OrderForm
         }
 
 
-        private void SaveAllJahez_Click(object sender, EventArgs e)
-        {
-            if (!History.Checked && repeatedBehavior.AreYouSure("هل تريد تخزين كل فواتير جاهز", ""))
-            {
-                foreach (DataGridViewRow row in InvoicesDG.Rows)
-                {
-                    Invoice item = (Invoice)row.DataBoundItem;
-                    if (item.OrderType == "تطبيقات")
-                    {
-                        item.Status = InvStat.SavedToPOS;
-                        item.POSInvoiceNumber = "جاهز";
-                        item.TimeOfSaving = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
-                        var payment = new Payment() { Name = "Jahez", Amount = item.InvoicePrice };
-                        item.Payments.Add(payment);
-                        DbInv.CreateAppOrder(item);
-                    }
-                }
-                GetRadioDict()[radioChecked].Checked = true;
-                Fri_CheckedChanged(GetRadioDict()[radioChecked], null);
-            }
-        }
+
 
         private void DateLBL_Click(object sender, EventArgs e)
         {
@@ -3275,11 +2915,6 @@ namespace OrderForm
                 var myReport = new MyReport();
                 myReport.Show();
             }
-        }
-
-        private void PrintedInvoices_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void DayLBL_Click(object sender, EventArgs e)
@@ -3291,20 +2926,6 @@ namespace OrderForm
             }
         }
 
-        private void Api_Health_Tick(object sender, EventArgs e)
-        {
-            //if (APIAccess)
-            //{
-            //    if (!DbInv.AreYouAlive())
-            //    {
-            //        this.Text = Title + " *** Failed to Connect to API";
-            //    }
-            //    else
-            //    {
-            //        this.Text = Title + "API Mode Connected " + DateTime.Now.ToString("HH:mm:ss");
-            //    }
-            //}
-        }
 
         private void langCheck_CheckedChanged(object sender, EventArgs e)
         {
@@ -3329,245 +2950,31 @@ namespace OrderForm
 
         private void SaveAllJahez_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            var menu = new ContextMenu();
+
+            // create a lambda handler for the M clicked event
+
+
+            DbInv.GetLastSaveApps().Take(20).ToList().ForEach(x =>
             {
-                var menu = new ContextMenu();
-
-                // create a lambda handler for the M clicked event
-
-
-                DbInv.GetLastSaveApps().Take(20).ToList().ForEach(x =>
+                var M = new MenuItem();
+                M.Tag = x.ID;
+                M.Text = x.CustomerName;
+                M.Click += (s, args) =>
                 {
-                    var M = new MenuItem();
-                    M.Tag = x.ID;
-                    M.Text = x.CustomerName;
-                    M.Click += (s, args) =>
-                    {
-                        var se = s as MenuItem;
-                        int setag = Convert.ToInt32(se.Tag);
+                    var se = s as MenuItem;
+                    int setag = Convert.ToInt32(se.Tag);
 
-                        LoadInvoiceUI(DbInv.GetInvoiceByID(setag));
-                    };
-                    menu.MenuItems.Add(M);
-                });
-
-
-
-
-                menu.Show(toolStrip1, new Point(0, 0));
-
-            }
+                    LoadInvoiceUI(DbInv.GetInvoiceByID(setag));
+                };
+                menu.MenuItems.Add(M);
+            });
+            menu.Show(JahezToolStrip, new Point(0, 0));
         }
 
-        private void M_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<ContextMenuStrip> getcontextMenu()
-        {
-
-            try
-            {
-
-                var context = new ContextMenuStrip();
-                context.Font = new Font("SegouUI", 17, System.Drawing.FontStyle.Bold);
-                //no image for context
-                context.ShowImageMargin = false;
-                context.BackColor = Color.FromArgb(255, 255, 255);
-                var empty = new ToolStripMenuItem(" ");
-                empty.Click += Menu_Click;
-                context.Items.Add(empty);
-
-                var items = await Windows.ApplicationModel.DataTransfer.Clipboard.GetHistoryItemsAsync();
-                var myClipList = items.Items.Where(item => { if (item.Content.Contains(StandardDataFormats.Text)) { item.Content.GetTextAsync().GetResults().StartsWith("0"); return true; } else return false; }).ToList().Distinct();
-                foreach (var item in myClipList)
-                {
-                    string data = item.Content.GetTextAsync().GetResults();
-                    if (data != null)
-                    {
-                        if (data.Length >= 10 && data.StartsWith("0"))
-                        {
-                            string name = string.Empty;
-                            if (dbQ.LoadContacts(data).Name != null)
-                            {
-                                name = dbQ.LoadContacts(data).Name;
-                            }
-                            else
-                            {
-                                name = "رقم جديد";
-                            }
-
-
-                            var menu = new ToolStripMenuItem(data + "-" + name);
-                            menu.Name = "toolStripMenuItem" + item.Id;
-                            menu.Click += Menu_Click;
-                            context.Items.Add(menu);
-                        }
-                    }
-                }
-                return context;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
 
 
 
-
-        }
-        private void Menu_Click(object sender, EventArgs e)
-        {
-
-            var mi = (ToolStripMenuItem)sender;
-
-            if (mi.Text.Trim() != "")
-            {
-                MobileTB.Text = mi.Text.Split('-')[0];
-                if (mi.Text.Split('-')[1] == "رقم جديد")
-                {
-                    NameTB.Focus();
-                    NameTB.Text = "";
-                }
-                else
-                {
-                    NameTB.Text = mi.Text.Split('-')[1];
-                }
-            }
-            else
-            {
-                MobileTB.Text = "";
-                NameTB.Text = "";
-            }
-
-
-
-        }
-
-        //private void CIDWorker_DoWork(object sender, DoWorkEventArgs e)
-        //{
-
-
-        //    var phoneLog = CIDMain.GetLastNumber();
-        //    if (phoneLog?.Count > 0)
-        //    {
-
-        //        foreach (var item in phoneLog)
-        //        {
-        //            item.CustomerName = dbQ.LoadContacts(item.PhoneNumber).Name;
-
-
-        //            if (servermode)
-
-        //            {
-        //                if (APIAccess)
-        //                {
-        //                    try
-        //                    {
-        //                        System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-        //                        var client = new RestClient(Properties.Settings.Default.API_Connection + "/CallerID/LogPhone");
-        //                        var request = new RestRequest();
-        //                        request.AddHeader("Content-Type", "application/json");
-        //                        request.AddHeader("Accept", "application/json");
-        //                        request.RequestFormat = RestSharp.DataFormat.Json;
-        //                        string i = Newtonsoft.Json.JsonConvert.SerializeObject(item, Newtonsoft.Json.Formatting.Indented);
-        //                        request.AddParameter("application/json", i, ParameterType.RequestBody);
-        //                        var response = client.Post(request);
-        //                    }
-        //                    catch (Exception) { }
-        //                }
-        //                else
-        //                {
-
-        //                    try
-        //                    {
-        //                        using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-        //                        {
-        //                            var phlog = db.GetCollection<PhoneLog>("PhoneLog");
-        //                            if (item != null)
-        //                            {
-        //                                phlog.Insert(item);
-        //                            }
-        //                        }
-
-        //                    }
-        //                    catch (Exception)
-        //                    {
-
-        //                    }
-        //                }
-        //            }
-        //            else
-        //            {
-        //                try
-        //                {
-        //                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-        //                    var client = new RestClient(Properties.Settings.Default.API_Connection + "/CallerID/LogPhone");
-        //                    var request = new RestRequest();
-        //                    request.AddHeader("Content-Type", "application/json");
-        //                    request.AddHeader("Accept", "application/json");
-        //                    request.RequestFormat = RestSharp.DataFormat.Json;
-        //                    string i = Newtonsoft.Json.JsonConvert.SerializeObject(phoneLog, Newtonsoft.Json.Formatting.Indented);
-        //                    request.AddParameter("application/json", i, ParameterType.RequestBody);
-        //                    var response = client.Post(request);
-        //                }
-        //                catch (Exception) { }
-
-
-
-        //            }
-        //        }
-        //    }
-        //    return;
-
-
-        //}
-
-        //private void CallerIDBTN_Click(object sender, EventArgs e)
-        //{
-
-        //    if (Application.OpenForms.OfType<CalLog>().Any())
-        //    {
-        //        Application.OpenForms.OfType<CalLog>().First().BringToFront();
-        //    }
-        //    else
-        //    {
-        //        CalLog calLog = new CalLog();
-        //        ///*calLog.Location */;
-        //        ///
-        //        calLog.Location = new Point(Cursor.Position.X - calLog.Width, Cursor.Position.Y - calLog.Height);
-        //        calLog.Show();
-        //    }
-
-
-
-        //}
-
-        //private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        //{
-
-        //}
-
-        private void CallerIDBTN_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-
-                try
-                {
-                    var last = dbQ.loadPhoneBook(1).First();
-                    MobileTB.Text = last.PhoneNumber;
-                    NameTB.Text = last.CustomerName;
-
-                }
-                catch (Exception)
-                {
-
-                }
-            }
-        }
 
         private void InvoicesDG_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -3701,11 +3108,6 @@ namespace OrderForm
                 { 100, History }  ,
                 { -2, Draft }
             };
-        }
-
-        private void GroupSave_MouseUp(object sender, MouseEventArgs e)
-        {
-
         }
 
         private void PrintMulti_Click(object sender, EventArgs e)
@@ -3950,11 +3352,6 @@ namespace OrderForm
 
         }
 
-        private void InvoicesDG_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void WhatsAppDataGrid(Invoice item)
         {
             var WhatsAppList = dbQ.GetAllShortcuts();
@@ -4103,15 +3500,7 @@ namespace OrderForm
             }
         }
 
-        private async void uButton1_Click(object sender, EventArgs e)
-        {
-            var a = await getcontextMenu();
-            if (a != null)
-            {
-                a.Show(MobileTB, new Point(0, 0));
-                a.Items[0].Select();
-            }
-        }
+
 
         private void FilterBTN_Click(object sender, EventArgs e)
         {
@@ -4185,11 +3574,6 @@ namespace OrderForm
             CommentTB.Clear();
         }
 
-        private void OrdersContainer_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void sharpClipboard1_ClipboardChanged(object sender, WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChangedEventArgs e)
         {
 
@@ -4201,7 +3585,7 @@ namespace OrderForm
                     if (POS.Count == 0)
                     {
 
-                        var result = MessageForm.SHOW("تم إلتقاط فاتورة عبر الحافظة، هل تريد محاولة قراءتها؟" + Environment.NewLine + e.Content.ToString(), "العثور الذكي على الفواتير", "نعم", "لا") ;
+                        var result = MessageForm.SHOW("تم إلتقاط فاتورة عبر الحافظة، هل تريد محاولة قراءتها؟" + Environment.NewLine + e.Content.ToString(), "العثور الذكي على الفواتير", "نعم", "لا");
                         if (result == DialogResult.Yes)
                         {
                             ParseInvoices(e.Content.ToString());
@@ -4238,8 +3622,6 @@ namespace OrderForm
 
                 Console.WriteLine(Ex.Message);
             }
-            
-            
         }
         private void EditName_TextChanged(object sender, EventArgs e)
         {
@@ -4279,6 +3661,21 @@ namespace OrderForm
                         POS.Add(discount);
                     }
                 }
+            }
+        }
+
+        private void uButton1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                CalLog cal = new CalLog();
+                cal.Top = uButton1.Top - 435;
+                cal.Left = uButton1.Left + 450;
+                cal.Show();
+            }
+            else
+            {
+                CalLog.LoadLastNumber();
             }
         }
     }

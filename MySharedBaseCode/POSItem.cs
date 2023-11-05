@@ -54,7 +54,6 @@ namespace sharedCode
     public class PhoneLog : INotifyPropertyChanged
     {
         public PhoneLog() { }
-        [BsonId]
         public int Id { get; set; }
         public DateTime CallDateTime { get; set; }
 
