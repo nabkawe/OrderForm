@@ -42,20 +42,20 @@ namespace OrderForm
             // Set the timer interval to 30000 second.
             timer.Interval = new TimeSpan(0, 0, 30);
             // Set the timer event handler. 
-            timer.Tick += new EventHandler(timer_Tick);
+            timer.Tick += new EventHandler(Timer_Tick);
             // Start the timer.
-            wd = this.HeadersPanel.ActualWidth;
             timer.Start();
         }
-        double wd;
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             Storyboard sb = new Storyboard();
-            DoubleAnimation da = new DoubleAnimation();
-            da.From = 60 ;
-            da.To = 0;
-            da.AutoReverse = true;  
-            da.Duration = new Duration(TimeSpan.FromSeconds(3));
+            var da = new DoubleAnimation
+            {
+                From = 60,
+                To = 0,
+                AutoReverse = true,
+                Duration = new Duration(TimeSpan.FromSeconds(3))
+            };
             sb.Children.Add(da);
             Storyboard.SetTarget(da, this.HeadersPanel);
             Storyboard.SetTargetProperty(da, new PropertyPath("Width"));

@@ -137,6 +137,7 @@
     <Compile Include="AppsSetting.Designer.cs">
       <DependentUpon>AppsSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="DisplayMenu_.cs" />
     <Compile Include="TimePicker.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -22,7 +22,6 @@ namespace NetworkSynq.Controllers
     public class CallerIDController : Controller
     {
 
-        static readonly string LogFile = @"C:\db";
 
         //http://192.168.1.5:5000/CallerID/LogPhone?PhoneNumber=0551987609
 
@@ -35,15 +34,15 @@ namespace NetworkSynq.Controllers
             try
             {
                 LoadDBController.LogMyAPI("Saving Contact");
-                var phlog = LoadDBController.db.GetCollection<PhoneLog>("PhoneLog");
+                var phlog = LoadDBController.Db.GetCollection<PhoneLog>("PhoneLog");
                 LoadDBController.LogMyAPI("Collection Init");
                 var phonelog = PhoneLog.NewPhoneLog(PhoneNumber);
                 LoadDBController.LogMyAPI("PhoneLog Created");
                 LoadDBController.LogMyAPI("loading Contact");
-                var con = LoadDBController.db.GetCollection<Contacts>("Customers");
+                var con = LoadDBController.Db.GetCollection<Contacts>("Customers");
                 LoadDBController.LogMyAPI("loaded Contacts");
                 LoadDBController.LogMyAPI("finding");
-                Contacts Contact = new Contacts();
+                Contacts Contact = new();
                 if (con.Exists(x => x.Number.Replace(" ", "") == PhoneNumber.Replace(" ", "")))
                 {
                     Contact = con.Find(x => x.Number.Replace(" ", "") == PhoneNumber.Replace(" ", "")).First();
@@ -81,7 +80,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LoadDBController.LogMyAPI("loading PhoneLog");
-                var con = LoadDBController.db.GetCollection<PhoneLog>("PhoneLog");
+                var con = LoadDBController.Db.GetCollection<PhoneLog>("PhoneLog");
                 if (max > 0)
                 {
                     LoadDBController.LogMyAPI("max > 0 ");

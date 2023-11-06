@@ -32,12 +32,6 @@ namespace sharedCode
         {
             Guid = Guid.NewGuid();
         }
-        public Payment(string Name,decimal Amount)
-        {
-            Guid = Guid.NewGuid();
-            Name = this.Name;
-            Amount = this.Amount;
-        }
         public static Payment NewPayment()
         {
 
@@ -253,7 +247,7 @@ namespace sharedCode
         {
             return $"{ID}-{CustomerName}-{CustomerNumber}";
         }
-        static bool t = true;
+
         public bool Equal(Invoice other)
         {
             if (other == null) return false;

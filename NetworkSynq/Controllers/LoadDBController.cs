@@ -22,18 +22,15 @@ namespace NetworkSynq.Controllers
     [Route("[controller]")]
     public class LoadDBController : ControllerBase
     {
+        private static readonly IConfiguration conf = (new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
+        public static readonly string DBConnection = conf["ConnectionString"].ToString();
+        private static LiteDatabase db = new(DBConnection);
+        public static LiteDatabase Db { get => db; set => db = value; }
+        private static readonly string LogFile = @"C:\db";
+        static int order = 0;
 
 
 
-        static readonly IConfiguration conf = (new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
-        private readonly static string DBConnection = conf["ConnectionString"].ToString();
-        public static LiteDatabase db = new(DBConnection);
-        static readonly string LogFile = @"C:\db";
-
-
-
-
-        //private static  LiteDatabase db = new LiteDatabase(DBConfig.GetDBstring());
 
         [HttpGet]
         [Route("AreYouAlive")]
@@ -62,7 +59,7 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI("Getting Invoice Count");
 
-                var s = db.GetCollection<Invoice>("Invoices");
+                var s = Db.GetCollection<Invoice>("Invoices");
                 int S = s.Max(x => x.ID);
                 if (S == 0)
                 {
@@ -75,7 +72,7 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI(ex.Message);
 
-                var s = db.GetCollection<Invoice>("Invoices");
+                var s = Db.GetCollection<Invoice>("Invoices");
                 if (s.Count() != 0)
                 {
                     int S = s.Max(x => x.ID);
@@ -103,18 +100,18 @@ namespace NetworkSynq.Controllers
                 }
 
 
-                db.Dispose();
+                Db.Dispose();
                 LogMyAPI("db disposed");
                 // create a back up file
                 System.IO.File.Copy(DBConnection.ToLower().Replace("filename=",""), backupFile, true);
                 LogMyAPI("File Copied");
-                db = new LiteDatabase(DBConnection);    
-                db.DropCollection("Invoices");
+                Db = new LiteDatabase(DBConnection);    
+                Db.DropCollection("Invoices");
                 LogMyAPI("Invoices Dropped");
-                db.Rebuild();
+                Db.Rebuild();
                 LogMyAPI("Rebuilt DB");
 
-                var newindexes = db.GetCollection<Invoice>("Invoices");
+                var newindexes = Db.GetCollection<Invoice>("Invoices");
                 newindexes.DropIndex("Status");
                 newindexes.DropIndex("SearchResult");
                 newindexes.DropIndex("CustomerNumber");
@@ -124,12 +121,12 @@ namespace NetworkSynq.Controllers
                 //newindexes.EnsureIndex(x => x.CustomerNumber);
             
                 //newindexes.EnsureIndex(x => x.ID);
-                var Materials = db.GetCollection<POSItems>("Materials");
+                var Materials = Db.GetCollection<POSItems>("Materials");
                 Materials.DropIndex("Materials"); 
                 //Materials.EnsureIndex(x => x.Barcode);
-                var sectionTable = db.GetCollection<POSsections>("Sections");
+                var sectionTable = Db.GetCollection<POSsections>("Sections");
                 //sectionTable.EnsureIndex(x => x.Name);
-                var Deps = db.GetCollection<Contacts>("Customers");
+                var Deps = Db.GetCollection<Contacts>("Customers");
                 Deps.DeleteMany(x => x.Number == null);
                 Deps.DropIndex("Number");
                 //Deps.EnsureIndex(x => x.Number);
@@ -151,10 +148,8 @@ namespace NetworkSynq.Controllers
         {
             try
             {
-                using (System.IO.StreamWriter w = new System.IO.StreamWriter(LogFile + @"\log.text", true))
-                {
-                    w.WriteLine(text);
-                }
+                using StreamWriter w = new(LogFile + @"\log.text", true);
+                w.WriteLine(text);
             }
             catch (Exception ex)
             {
@@ -169,7 +164,7 @@ namespace NetworkSynq.Controllers
         {
             try
             {
-                var draft = db.GetCollection<Invoice>("Invoices");
+                var draft = Db.GetCollection<Invoice>("Invoices");
                 LogMyAPI("Got List of " + inv + " Invoices");
                 if (inv == "draft")
                 {
@@ -188,7 +183,7 @@ namespace NetworkSynq.Controllers
                     var draftinv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x => x.TimeOfSaving > DateTime.Now.AddDays(-14)).OrderByDescending(x => x.ID).ToList();
 
 
-                    if (draftinv.Count() > 0)
+                    if (draftinv.Count > 0)
                     {
                         return Ok(draftinv.ToList());
                     }
@@ -251,7 +246,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Invoice Ready");
-                var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                var invoiceTable = Db.GetCollection<Invoice>("Invoices");
                 var a = invoiceTable.FindOne(x => x.IDstring == id);
                 a.InEditMode = !a.InEditMode;
                 invoiceTable.Update(a);
@@ -279,7 +274,7 @@ namespace NetworkSynq.Controllers
                 
                 string[] files = Directory.GetFiles(DBConnection.ToLower().Replace("filename=", "").Replace("db.db", ""), "*.db");
                 var dbs = files.Where(x => !x.Contains("db.db") && !x.Contains("log"));
-                LogMyAPI("Found " + files.Count() + " DBs");
+                LogMyAPI("Found " + files.Length + " DBs");
                 foreach (var item in dbs)
                 {
                     var newdb = new LiteDatabase("filename="+item);
@@ -296,7 +291,7 @@ namespace NetworkSynq.Controllers
                     }
                 }
                 LogMyAPI("Searched All old DBS");
-                var currentdb = db.GetCollection<Invoice>("Invoices");
+                var currentdb = Db.GetCollection<Invoice>("Invoices");
                 LogMyAPI(combined.Count.ToString());
                 combined.AddRange(currentdb.FindAll().Where(x => ToUnifiedArabic(x.SearchResult).Contains(search)));    
                 LogMyAPI(combined.Distinct().Count().ToString());
@@ -325,7 +320,7 @@ namespace NetworkSynq.Controllers
 
                 string[] files = Directory.GetFiles(DBConnection.ToLower().Replace("filename=", "").Replace("db.db", ""), "*.db");
                 var dbs = files.Where(x => x != @"c:\db\db.db" && x != @"c:\db\db-log.db");
-                LogMyAPI("Found " + files.Count() + " DBs");
+                LogMyAPI("Found " + files.Length + " DBs");
                 try
                 {
 
@@ -367,7 +362,7 @@ namespace NetworkSynq.Controllers
                 }
 
                 LogMyAPI("db reached.");
-                var invoicesdbdb = db.GetCollection<Invoice>("Invoices");
+                var invoicesdbdb = Db.GetCollection<Invoice>("Invoices");
                 LogMyAPI(  "GotInvoiceCollection Invoices");
                 combined.AddRange(invoicesdbdb.Find(z => z.Status == InvStat.SavedToPOS && z.OrderType != "تطبيقات"));
                 LogMyAPI( "AddedRange");
@@ -408,7 +403,7 @@ namespace NetworkSynq.Controllers
         {
             try
             {
-                var draft = db.GetCollection<Invoice>("Invoices");
+                var draft = Db.GetCollection<Invoice>("Invoices");
                 LogMyAPI("got the invoice # " + " " + id);
 
                 Invoice invoice = draft.FindOne(x => x.ID == id);
@@ -433,7 +428,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Loading Sections");
-                var s = db.GetCollection<POSsections>("Sections");
+                var s = Db.GetCollection<POSsections>("Sections");
                 var S = s.FindAll();
                 return Ok(S.ToList());
 
@@ -452,7 +447,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Getting Whatsapp Shortcuts");
-                var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
+                var cuts = Db.GetCollection<WhatsAppShortCut>("WhatsApp");
                 if (cuts.Count() > 0) return Ok(cuts.FindAll().ToList());
                 else { return NoContent(); }
             }
@@ -468,7 +463,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Getting Departments.");
-                var s = db.GetCollection<POSDepartments>("POSDepartment");
+                var s = Db.GetCollection<POSDepartments>("POSDepartment");
                 var S = s.FindAll().ToList();
                 return Ok(S);
             }
@@ -488,7 +483,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Getting materials for section.");
-                var materials = db.GetCollection<POSItems>("Materials");
+                var materials = Db.GetCollection<POSItems>("Materials");
                 List<POSItems> items = materials.Find(x => x.SectionName == section).ToList();
                 return items.OrderBy(x => x.order).ToList();
             }
@@ -503,7 +498,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Loading Materials for settings.");
-                var materials = db.GetCollection<POSItems>("Materials");
+                var materials = Db.GetCollection<POSItems>("Materials");
                 List<POSItems> items = materials.FindAll().ToList();
                 return items;
             }
@@ -522,9 +517,9 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("loading Contact");
-                var con = db.GetCollection<Contacts>("Customers");
+                var con = Db.GetCollection<Contacts>("Customers");
                 var Contact = con.Find(x => x.Number.Replace(" ", "") == number.Replace(" ", "")).Where(z=> z.Name.Replace(" ","") != "");
-                if (Contact.Count() > 0)
+                if (Contact.Any())
                 {
                     return Contact.First();
                 }
@@ -549,7 +544,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("loading Contact");
-                var con = db.GetCollection<Contacts>("Customers");
+                var con = Db.GetCollection<Contacts>("Customers");
                 var Contact = con.Find(x => x.Name.Contains(name)).Select(x => x.Name + ":" + x.Number).ToList();
                 return Contact;
 
@@ -562,7 +557,7 @@ namespace NetworkSynq.Controllers
         }
         public string ToUnifiedArabic(string original)
         {
-            StringBuilder Uniefied = new StringBuilder(original);
+            var Uniefied = new StringBuilder(original);
 
             string[] alefVariations = new string[] { "آ", "أ", "إ", "ٵ" };
             foreach (string variation in alefVariations)
@@ -591,7 +586,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Saving Whatsapp Shortcuts");
-                var cuts = db.GetCollection<WhatsAppShortCut>("WhatsApp");
+                var cuts = Db.GetCollection<WhatsAppShortCut>("WhatsApp");
                 cuts.DeleteAll();
 
                 list.ForEach(x => cuts.Upsert(x));
@@ -618,7 +613,7 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI(inv.ID.ToString());
 
-                var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                var invoiceTable = Db.GetCollection<Invoice>("Invoices");
                 bool Up = invoiceTable.Upsert(inv);
                 if (Up)
                 {
@@ -649,7 +644,7 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI(inv.ID.ToString());
 
-                var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                var invoiceTable = Db.GetCollection<Invoice>("Invoices");
                 bool Up = invoiceTable.Update(inv);
                 if (Up)
                 {
@@ -677,7 +672,7 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI(inv.ID.ToString());
 
-                var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                var invoiceTable = Db.GetCollection<Invoice>("Invoices");
                 bool Up = invoiceTable.Update(inv);
                 if (Up)
                 {
@@ -708,7 +703,7 @@ namespace NetworkSynq.Controllers
 
             try
             {
-                var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                var invoiceTable = Db.GetCollection<Invoice>("Invoices");
                 var readyinv = invoiceTable.Find(x => x.ID == ID).First();
                 if (readyinv != null)
                 {
@@ -740,7 +735,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI(inv.ID.ToString() + " Deleted");
-                var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                var invoiceTable = Db.GetCollection<Invoice>("Invoices");
                 bool Up = invoiceTable.Update(inv);
                 if (Up)
                 {
@@ -771,7 +766,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Saving Contact");
-                var con = db.GetCollection<Contacts>("Customers");
+                var con = Db.GetCollection<Contacts>("Customers");
                 if (contact != null)
                 {
                     var oldContact = con.FindOne(x => x.Number == contact.Number);
@@ -809,7 +804,7 @@ namespace NetworkSynq.Controllers
         {
             {
                 LogMyAPI("Creating New Invoice");
-                var invoiceTable = db.GetCollection<Invoice>("Invoices");
+                var invoiceTable = Db.GetCollection<Invoice>("Invoices");
                 try
                 {
                     LogMyAPI(" " + " Created and returned");
@@ -836,7 +831,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Updating Section notes");
-                var Sections = db.GetCollection<POSsections>("Sections");
+                var Sections = Db.GetCollection<POSsections>("Sections");
                 Sections.Update(POSsection);
                 return Ok();
             }
@@ -852,14 +847,14 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Saving Departments");
-                var Deps = db.GetCollection<POSDepartments>("POSDepartment");
+                var Deps = Db.GetCollection<POSDepartments>("POSDepartment");
                 if (Deps.Count() > 0)
                 {
                     Deps.DeleteAll();
                     int c = 0;
                     foreach (POSDepartments deps in list)
                     {
-                        POSDepartments a = new POSDepartments(deps.Name, deps.DefaultPrinter);
+                        var a = new POSDepartments(deps.Name, deps.DefaultPrinter);
                         c = c++;
                         a.ID = c;
                         Deps.Insert(a);
@@ -874,7 +869,7 @@ namespace NetworkSynq.Controllers
                     foreach (POSDepartments deps in list)
 
                     {
-                        POSDepartments a = new POSDepartments(deps.Name, deps.DefaultPrinter);
+                        var a = new POSDepartments(deps.Name, deps.DefaultPrinter);
                         c = c++;
                         a.ID = c;
                         Deps.Insert(a);
@@ -889,7 +884,7 @@ namespace NetworkSynq.Controllers
 
         }
 
-        static int order = 0;
+
         [HttpPost]
         [Route("UpdateSectionMaterials")]
         public ActionResult UpdateSectionMaterials([FromBody] List<POSItems> list, [FromQuery] string section)
@@ -897,7 +892,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Updating materials in section " + section);
-                var materials = db.GetCollection<POSItems>("Materials");
+                var materials = Db.GetCollection<POSItems>("Materials");
                 materials.Find(x => x.SectionName == section).ToList().ForEach(x => { x.SectionName = "بدون قسم"; materials.Update(x); });
                 list.ForEach(x => { order += 1; x.order = order; x.SectionName = section; materials.Update(x); });
                 return Ok();
@@ -915,8 +910,8 @@ namespace NetworkSynq.Controllers
 
                 LogMyAPI("Updating Sections");
 
-                var mat = db.GetCollection<POSItems>("Materials");
-                var sectionTable = db.GetCollection<POSsections>("Sections");
+                var mat = Db.GetCollection<POSItems>("Materials");
+                var sectionTable = Db.GetCollection<POSsections>("Sections");
                 sectionTable.DeleteAll();
                 list.ForEach(x => { x.ID = sectionTable.Count() + 1; sectionTable.Insert(x); });
                 //delete all groups
@@ -936,7 +931,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Updating Material Sections");
-                var materials = db.GetCollection<POSItems>("Materials");
+                var materials = Db.GetCollection<POSItems>("Materials");
                 list.ForEach(x => materials.Update(x));
 
                 return Ok();
@@ -951,7 +946,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Saving list of materials");
-                var mat = db.GetCollection<POSItems>("Materials");
+                var mat = Db.GetCollection<POSItems>("Materials");
                 var deleted = mat.FindAll().Except(list);
                 deleted.ToList().ForEach(x => mat.Delete(x.ID));
                 list.ForEach(x => mat.Upsert(x));
@@ -974,7 +969,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Saving Apps Materials");
-                var mat = db.GetCollection<AppSets>("Apps");
+                var mat = Db.GetCollection<AppSets>("Apps");
                 
                 mat.Upsert(Name);
                 
@@ -993,7 +988,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Saving Apps Materials");
-                var mat = db.GetCollection<AppSets>("Apps");
+                var mat = Db.GetCollection<AppSets>("Apps");
                 return Ok(mat.FindAll().Where(x=>x.Name != ""));
             }
             catch (Exception ex)
@@ -1009,7 +1004,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Saving Apps Materials");
-                var mat = db.GetCollection<AppSets>("Apps");
+                var mat = Db.GetCollection<AppSets>("Apps");
                 return Ok(mat.FindOne(x=> x.Name == name));
             }
             catch (Exception ex)
@@ -1026,7 +1021,7 @@ namespace NetworkSynq.Controllers
             try
             {
                 LogMyAPI("Delete all Apps Materials");
-                var mat = db.GetCollection<AppSets>("Apps");
+                var mat = Db.GetCollection<AppSets>("Apps");
                 mat.DeleteAll();
                 return Ok();
             }

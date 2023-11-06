@@ -11,7 +11,7 @@ namespace OrderForm
     public static class PrintInvoice
     {
         private static PrintDocument PrintDocument;
-        public static Invoice order = Orders.globalInvoice;
+        public static Invoice order = Orders.GlobalInvoice;
 
         //private static void AdjustHeight()
         //{
@@ -23,14 +23,14 @@ namespace OrderForm
 
         public static void Print(string printername)
         {
-            order = Orders.globalInvoice;
+            order = Orders.GlobalInvoice;
             PrintDocument = new PrintDocument();
             PrintDocument.PrinterSettings.PrinterName = printername;
 
             PrintDocument.PrintPage += new PrintPageEventHandler(FormatPage);
             PrintDocument.EndPrint += (sender, e) =>
             {
-                clearlist();
+                Clearlist();
             };
             try
             {
@@ -38,13 +38,13 @@ namespace OrderForm
             }
             catch (Exception ex)
             {
-                MessageForm.SHOW("قم بإضافة طابعة إفتراضية في الخيارات"+ Environment.NewLine + ex.Message, "لم يتم العثور على إسم الطابعة", "مفهوم");
+                MessageForm.SHOW("قم بإضافة طابعة إفتراضية في الخيارات" + Environment.NewLine + ex.Message, "لم يتم العثور على إسم الطابعة", "مفهوم");
             }
 
 
 
         }
-        private static void clearlist()
+        private static void Clearlist()
         {
             Orders.PrintingList.Clear();
         }
@@ -76,13 +76,21 @@ namespace OrderForm
             SolidBrush drawBrush = new SolidBrush(Color.Black);
 
             // Set format of string.
-            StringFormat drawFormatCenter = new StringFormat();
-            drawFormatCenter.Alignment = StringAlignment.Center;
-            StringFormat drawFormatLeft = new StringFormat();
-            drawFormatLeft.Alignment = StringAlignment.Near;
-            StringFormat drawFormatRight = new StringFormat();
-            drawFormatRight.Alignment = StringAlignment.Far;
-            StringFormat rtlFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
+            var drawFormatCenter = new StringFormat
+            {
+                Alignment = StringAlignment.Center
+            };
+
+            var drawFormatLeft = new StringFormat
+            {
+                Alignment = StringAlignment.Near
+            };
+            var drawFormatRight = new StringFormat
+            {
+                Alignment = StringAlignment.Far
+            };
+
+            var rtlFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
             y += 10;
 
             // Order Department
@@ -110,7 +118,7 @@ namespace OrderForm
 
             // drawstring should draw the last 4 digits of the order ID in a bigger font than the begining of the order ID
 
-            if (order.ID > 9999 && order.ID < 99999 )
+            if (order.ID > 9999 && order.ID < 99999)
             {
 
                 float xx = x;
@@ -281,7 +289,7 @@ namespace OrderForm
     public static class PrintInvoiceReady
     {
         private static PrintDocument PrintDocument;
-        public static Invoice order = Orders.globalInvoice;
+        public static Invoice order = Orders.GlobalInvoice;
 
         public static void Print(string printername, Invoice Orders)
         {
@@ -314,24 +322,30 @@ namespace OrderForm
 
             // الخطوط الافتراضية
             string FntName = "Arial";
-            Font fnt = new Font(FntName, 17, FontStyle.Bold);
-            Font tfnt = new Font(FntName, 7, FontStyle.Bold);
+            //Font fnt = new Font(FntName, 17, FontStyle.Bold);
+            //Font tfnt = new Font(FntName, 7, FontStyle.Bold);
             Font sfnt = new Font(FntName, 11, FontStyle.Bold);
             Font mfnt = new Font(FntName, 15, FontStyle.Bold);
             Font lfnt = new Font(FntName, 25, FontStyle.Bold);
             Font hfnt = new Font(FntName, 20, FontStyle.Bold);
-            Font cfnt = new Font(FntName, 16, FontStyle.Regular);
+            //Font cfnt = new Font(FntName, 16, FontStyle.Regular);
             // لون الخط
-            SolidBrush drawBrush = new SolidBrush(Color.Black);
+            var drawBrush = new SolidBrush(Color.Black);
 
             // Set format of string.
-            StringFormat drawFormatCenter = new StringFormat();
-            drawFormatCenter.Alignment = StringAlignment.Center;
-            StringFormat drawFormatLeft = new StringFormat();
-            drawFormatLeft.Alignment = StringAlignment.Near;
-            StringFormat drawFormatRight = new StringFormat();
-            drawFormatRight.Alignment = StringAlignment.Far;
-            StringFormat rtlFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
+            var drawFormatCenter = new StringFormat
+            {
+                Alignment = StringAlignment.Center
+            };
+            //var drawFormatLeft = new StringFormat
+            //{
+            //    Alignment = StringAlignment.Near
+            //};
+            //var drawFormatRight = new StringFormat
+            //{
+            //    Alignment = StringAlignment.Far
+            //};
+            //var rtlFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
 
 
             string text;

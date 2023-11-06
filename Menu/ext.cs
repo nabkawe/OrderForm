@@ -33,8 +33,8 @@ namespace OrderForm
 
         protected BoolToValueConverter()
         {
-            this.TrueValue = default(T);
-            this.FalseValue = default(T);
+            this.TrueValue = default;
+            this.FalseValue = default;
         }
 
         #endregion

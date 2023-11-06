@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="OrderForm.exe" version="1.0.1.158" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="OrderForm.exe" version="1.0.1.159" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="LibraSoft.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DisplayMenu.exe" size="70144">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DisplayMenu.exe" size="69632">
       <assemblyIdentity name="DisplayMenu" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fObmPBi42TCaXneIN8bRoH92zpzjxfLBQyjfOcXfIr4=</dsig:DigestValue>
+        <dsig:DigestValue>j5MHc/GhrDu0oXNIHtehQTDtmkRtJAdER7lRAN4Rr6c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -98,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>MUQVRfRd3To5nGmWQ5cJ4zBhCDT4A/VJlL00hVpv5FI=</dsig:DigestValue>
+        <dsig:DigestValue>JTXvyPHZPkClDj2IflSN/Fq2i51+bdXb0D9gK/8u6kY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -127,14 +127,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderForm.exe" size="833608">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderForm.exe" size="833096">
       <assemblyIdentity name="OrderForm" version="1.0.1.53" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>86b6mseE9gfvD2TPmAVkFy9DkPSJMQ9AH2EjSoacMXY=</dsig:DigestValue>
+        <dsig:DigestValue>fMX6ME9Pn5p15A7+t94sgESB5XnsQq6h6lXSwp67yzg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -324,7 +324,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>sthSWv7Y4DTXQyQSOuujvVjosfX4f4XsIb93qe40I28=</dsig:DigestValue>
+      <dsig:DigestValue>JTXvyPHZPkClDj2IflSN/Fq2i51+bdXb0D9gK/8u6kY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="API\MySharedBaseCode.pdb" size="155136">
@@ -333,7 +333,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>yNLyJal+lo2sMN18tNe4oaIEJTZsS2GXsk8b+UcEjYI=</dsig:DigestValue>
+      <dsig:DigestValue>Vvnuuab1YxI8ynSEa5FMwD3cuuCO7J7QHEzoOAC2yv0=</dsig:DigestValue>
     </hash>
   </file>
   <file name="API\NetworkSynq.deps.json" size="7512">
@@ -345,13 +345,13 @@
       <dsig:DigestValue>9XTcuSqxJIEMuPeToW+G4/Vw0OyMnkAS69SaSp3IrhM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="API\NetworkSynq.dll" size="41472">
+  <file name="API\NetworkSynq.dll" size="41984">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>xuzVib99ayqI98JgbA8NChF4+jugl95mWPKbJkuIf/4=</dsig:DigestValue>
+      <dsig:DigestValue>Jpx4mQj9KCCOO1uCrTFqieGSUI8pxZpS/CS+uARGgAg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="API\NetworkSynq.exe" size="118784">
@@ -363,13 +363,13 @@
       <dsig:DigestValue>O1V6MnaJ1x2Q2hN96r/uPzsgb7XVvQypnSa2n2HvjBo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="API\NetworkSynq.pdb" size="30944">
+  <file name="API\NetworkSynq.pdb" size="30960">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>prtWJX9eHc2J7U98IG/3kgOIg7+n26A+stY6E14Omr4=</dsig:DigestValue>
+      <dsig:DigestValue>lea8xn6FhCzHkEtTEZthh/DpgwgErMDkRjQGQC976Kg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="API\NetworkSynq.runtimeconfig.json" size="488">
@@ -525,13 +525,13 @@
       <dsig:DigestValue>eenZNjZUF9J0gbbwJAvJvIqP9INCwzcZNPxWjVwLVl4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="to do list.txt" size="1180">
+  <file name="to do list.txt" size="1285">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>a5+OWxOoEjiwGzDID0e/2ZK8zYwmx2Z7ctYgULcQ2/8=</dsig:DigestValue>
+      <dsig:DigestValue>YyEkX32EcLSsrBjLelmBq4qj0Jvh/xN5U4b+S6XT9Pc=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

@@ -352,7 +352,7 @@
             this.uButton6.Text = "إضافة خصم";
             this.uButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.uButton6.UseVisualStyleBackColor = false;
-            this.uButton6.Click += new System.EventHandler(this.uButton6_Click);
+            this.uButton6.Click += new System.EventHandler(this.UButton6_Click);
             // 
             // AppsSettings
             // 
@@ -400,7 +400,7 @@
             this.uButton5.Text = "X";
             this.uButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.uButton5.UseVisualStyleBackColor = false;
-            this.uButton5.Click += new System.EventHandler(this.uButton5_Click);
+            this.uButton5.Click += new System.EventHandler(this.UButton5_Click);
             // 
             // uButton4
             // 
@@ -423,7 +423,7 @@
             this.uButton4.Text = "X";
             this.uButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.uButton4.UseVisualStyleBackColor = false;
-            this.uButton4.Click += new System.EventHandler(this.xLabel_Click);
+            this.uButton4.Click += new System.EventHandler(this.XLabel_Click);
             // 
             // uButton3
             // 
@@ -446,7 +446,7 @@
             this.uButton3.Text = "X";
             this.uButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.uButton3.UseVisualStyleBackColor = false;
-            this.uButton3.Click += new System.EventHandler(this.label4_Click);
+            this.uButton3.Click += new System.EventHandler(this.Label4_Click);
             // 
             // uButton2
             // 
@@ -469,7 +469,7 @@
             this.uButton2.Text = "X";
             this.uButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.uButton2.UseVisualStyleBackColor = false;
-            this.uButton2.Click += new System.EventHandler(this.label8_Click);
+            this.uButton2.Click += new System.EventHandler(this.Label8_Click);
             // 
             // DeleteTouchBTN
             // 
@@ -510,7 +510,7 @@
             this.uButton1.Text = ")";
             this.uButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.uButton1.UseVisualStyleBackColor = false;
-            this.uButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.uButton1_MouseUp);
+            this.uButton1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.UButton1_MouseUp);
             // 
             // ItemsPanel1
             // 
@@ -778,7 +778,7 @@
             this.dvItems.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DvItems_RowsRemoved);
             this.dvItems.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DvItems_UserDeletingRow);
             this.dvItems.DragDrop += new System.Windows.Forms.DragEventHandler(this.DvItems_DragDrop);
-            this.dvItems.DragOver += new System.Windows.Forms.DragEventHandler(this.dvItems_DragOver);
+            this.dvItems.DragOver += new System.Windows.Forms.DragEventHandler(this.DvItems_DragOver);
             this.dvItems.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DvItems_MouseDown);
             // 
             // LastOrder
@@ -865,7 +865,7 @@
             this.label7.TabIndex = 160;
             this.label7.Text = "V";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label7.Click += new System.EventHandler(this.label7_Click);
+            this.label7.Click += new System.EventHandler(this.Label7_Click);
             // 
             // label5
             // 
@@ -2050,7 +2050,7 @@
             this.label2.Size = new System.Drawing.Size(13, 13);
             this.label2.TabIndex = 61;
             this.label2.Text = "x";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.label2.Click += new System.EventHandler(this.Label2_Click);
             // 
             // Search
             // 
@@ -2307,7 +2307,7 @@
             this.langCheck.TabIndex = 23;
             this.langCheck.Text = "قائمة عربية";
             this.langCheck.UseVisualStyleBackColor = true;
-            this.langCheck.CheckedChanged += new System.EventHandler(this.langCheck_CheckedChanged);
+            this.langCheck.CheckedChanged += new System.EventHandler(this.LangCheck_CheckedChanged);
             // 
             // changeMenu
             // 
@@ -2335,7 +2335,7 @@
             this.changeMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.changeMenu.UseCompatibleTextRendering = true;
             this.changeMenu.UseVisualStyleBackColor = false;
-            this.changeMenu.Click += new System.EventHandler(this.unfocusableButton3_Click);
+            this.changeMenu.Click += new System.EventHandler(this.UnfocusableButton3_Click);
             // 
             // TimeLeftLBL
             // 
@@ -2721,7 +2721,7 @@
             this.sharpClipboard1.ObservableFormats.Texts = true;
             this.sharpClipboard1.ObserveLastEntry = true;
             this.sharpClipboard1.Tag = null;
-            this.sharpClipboard1.ClipboardChanged += new System.EventHandler<WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChangedEventArgs>(this.sharpClipboard1_ClipboardChanged);
+            this.sharpClipboard1.ClipboardChanged += new System.EventHandler<WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChangedEventArgs>(this.SharpClipboard1_ClipboardChanged);
             // 
             // Orders
             // 
