@@ -208,6 +208,7 @@
             this.groupTB = new System.Windows.Forms.TextBox();
             this.SettingTabs = new System.Windows.Forms.TabControl();
             this.MaterialsEdit = new System.Windows.Forms.TabPage();
+            this.button14 = new System.Windows.Forms.Button();
             this.loadMat = new System.Windows.Forms.Button();
             this.backupMat = new System.Windows.Forms.Button();
             this.uButton1 = new OrderForm.UButton();
@@ -265,6 +266,8 @@
             this.MListLB = new System.Windows.Forms.ListBox();
             this.sectionsML = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.LoadFile = new System.Windows.Forms.OpenFileDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label57 = new System.Windows.Forms.Label();
             this.About.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.Pos.SuspendLayout();
@@ -934,7 +937,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.CIDCheck);
+            this.groupBox1.Controls.Add(this.label57);
+            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label76);
             this.groupBox1.Controls.Add(this.logoTB);
             this.groupBox1.Controls.Add(this.label75);
@@ -986,7 +990,7 @@
             this.CIDCheck.AutoSize = true;
             this.CIDCheck.Checked = global::OrderForm.Properties.Settings.Default.CallerIDEnabled;
             this.CIDCheck.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OrderForm.Properties.Settings.Default, "CallerIDEnabled", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.CIDCheck.Location = new System.Drawing.Point(244, 213);
+            this.CIDCheck.Location = new System.Drawing.Point(12, 136);
             this.CIDCheck.Name = "CIDCheck";
             this.CIDCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.CIDCheck.Size = new System.Drawing.Size(105, 17);
@@ -1067,6 +1071,7 @@
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.defaultOrder);
+            this.groupBox11.Controls.Add(this.CIDCheck);
             this.groupBox11.Controls.Add(this.label53);
             this.groupBox11.Controls.Add(this.CurrentTax);
             this.groupBox11.Controls.Add(this.label50);
@@ -2331,10 +2336,12 @@
             this.SettingTabs.Size = new System.Drawing.Size(1004, 538);
             this.SettingTabs.TabIndex = 0;
             this.SettingTabs.TabStop = false;
+            this.SettingTabs.SelectedIndexChanged += new System.EventHandler(this.SettingTabs_SelectedIndexChanged);
             this.SettingTabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // MaterialsEdit
             // 
+            this.MaterialsEdit.Controls.Add(this.button14);
             this.MaterialsEdit.Controls.Add(this.loadMat);
             this.MaterialsEdit.Controls.Add(this.backupMat);
             this.MaterialsEdit.Controls.Add(this.uButton1);
@@ -2372,6 +2379,16 @@
             this.MaterialsEdit.Text = "المواد";
             this.MaterialsEdit.UseVisualStyleBackColor = true;
             this.MaterialsEdit.Enter += new System.EventHandler(this.MaterialsEdit_Enter);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(234, 8);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(75, 23);
+            this.button14.TabIndex = 1003;
+            this.button14.Text = "Beta Mat";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // loadMat
             // 
@@ -3052,6 +3069,25 @@
             // 
             this.LoadFile.FileName = "NetworkSynq.exe";
             // 
+            // textBox1
+            // 
+            this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::OrderForm.Properties.Settings.Default, "PromotionLink", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox1.Location = new System.Drawing.Point(226, 233);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBox1.Size = new System.Drawing.Size(135, 20);
+            this.textBox1.TabIndex = 89;
+            this.textBox1.Text = global::OrderForm.Properties.Settings.Default.PromotionLink;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(229, 218);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(132, 13);
+            this.label57.TabIndex = 90;
+            this.label57.Text = "رابط صورة الإعلان عند الدفع";
+            // 
             // SettingsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3350,5 +3386,8 @@
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button loadMat;
         private System.Windows.Forms.Button backupMat;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

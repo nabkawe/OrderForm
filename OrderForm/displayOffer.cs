@@ -1,9 +1,11 @@
 ﻿using sharedCode;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
+using Windows.Foundation.Metadata;
 
 namespace OrderForm
 {
@@ -14,90 +16,94 @@ namespace OrderForm
 
         public displayOffer()
         {
-           if (!Application.OpenForms.OfType<ReadyOrders>().Any())
+            if (!Application.OpenForms.OfType<ReadyOrders>().Any())
             {
                 InitializeComponent();
                 TimeUp += DisplayOffer_TimeUp;
                 LogoPic.BackgroundImage = Bitmap.FromFile(Properties.Settings.Default.Logo);
             }
-            this.Hide();
+            else this.Hide();
         }
 
 
 
 
-        public static void showme(string ClientName, string ClientPhone, string ClientDate)
+        public static void showme(string _ClientName, string _ClientPhone, string _ClientDate)
         {
+            if (_ClientDate == null) _ClientDate = "";
+            if (_ClientName == null) _ClientName = "";
+            if (_ClientPhone == null) _ClientPhone = "";
+
 
             Orders.MenuShowing = true;
             var Show = new displayOffer();
             Show.timer1.Start();
             Show.timer1.Tick += Show.T_Tick;
-            if (!string.IsNullOrEmpty(ClientDate))
-            {
-                if (!string.IsNullOrWhiteSpace(ClientDate)) Show.ClientDate.Text = ClientDate;
-                else { Show.ClientDate.Visible = false; Show.DateTitle.Visible = false; }
-            }
-
-
-            if (!string.IsNullOrEmpty(ClientName))
-            {
-                if (!string.IsNullOrWhiteSpace(ClientName)) Show.ClientName.Text = ClientName;
-                else { Show.ClientName.Visible = false; Show.ClientTitle.Visible = false; }
-            }
-            if (!string.IsNullOrEmpty(ClientPhone))
-            {
-                if (!string.IsNullOrWhiteSpace(ClientPhone))
-                    Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6);
-                else { Show.ClientPhone.Visible = false; Show.PhoneTitle.Visible = false; }
-            }
-
             Show.Show();
+
+            Show.ClientDate.Visible = _ClientDate.Length > 0;
+            Show.DateTitle.Visible = Show.ClientDate.Visible;
+            Show.ClientDate.Text = _ClientDate;
+
+            Show.ClientDate.ForeColor =  Color.Black; 
+            Show.ClientName.Visible = _ClientName.Length > 0;
+            Show.ClientTitle.Visible = Show.ClientName.Visible;
+            Show.ClientName.Text = _ClientName;
+
+            Show.ClientPhone.Visible = _ClientPhone.Length > 0;
+            Show.PhoneTitle.Visible = Show.ClientPhone.Visible;
+            if(_ClientPhone.Length>0)Show.ClientPhone.Text = "05XXXX" + _ClientPhone.Substring(6); 
+            Show.Update();
             Show.POS_ListChanged(null, null);
+            Show.dvItems2.DataSource = Orders.POS;
+            Show.LoadUI();
+            if (Show.dvItems2.Rows.Count >= 1)
+            {
+                Show.dvItems2.Height = Show.dvItems2.Rows[0].Height * (Show.dvItems2.Rows.Count + 1);
+            }
 
         }
-        public static void showme(string ClientName, string ClientPhone, string ClientDate, Invoice inv)
+        public static void showme(string _ClientName, string _ClientPhone, string _ClientDate, Invoice inv)
         {
+            if (_ClientDate == null) _ClientDate = "";
+            if (_ClientName == null) _ClientName = "";
+            if (_ClientPhone == null) _ClientPhone = "";
             
+
             Orders.MenuShowing = true;
             var Show = new displayOffer();
             Show.timer1.Start();
             Show.timer1.Tick += Show.T_Tick;
-            if (!string.IsNullOrEmpty(ClientDate))
-            {
-                Show.ClientDate.Text = ClientDate;
-            }
-            else
-            {
-                Show.ClientDate.Visible = false;
-                Show.DateTitle.Visible = false;
-            }
-            if (!string.IsNullOrEmpty(ClientName))
-            {
-                Show.ClientName.Text = ClientName;
-            }
-            else
-            {
-                Show.ClientName.Visible = false;
-                Show.ClientTitle.Visible = false;
-            }
-            if (!string.IsNullOrEmpty(ClientPhone)&& ClientPhone.Length >= 9)
-            {
+          
+            
+            Show.ClientDate.Visible = _ClientDate.Length > 0;
+            Show.DateTitle.Visible = Show.ClientDate.Visible;
+            Show.ClientDate.Text = _ClientDate;
 
-                Show.ClientPhone.Text = "05XXXX" + ClientPhone.Substring(6);
-            }
-            else
-            {
-                Show.ClientPhone.Visible = false;
-                Show.PhoneTitle.Visible = false;
-            }
+            Show.ClientDate.ForeColor = Color.Black;
+            Show.ClientName.Visible = _ClientName.Length > 0;
+            Show.ClientTitle.Visible = Show.ClientName.Visible;
+            Show.ClientName.Text = _ClientName;
 
-            Show.Show();
-            Show.POS_ListChanged(null, null);
+            Show.ClientPhone.Visible = _ClientPhone.Length > 0;
+            Show.PhoneTitle.Visible = Show.ClientPhone.Visible;
+            if (_ClientPhone.Length > 0) Show.ClientPhone.Text = "05XXXX" + _ClientPhone.Substring(6);
             Show.dvItems2.DataSource = inv.InvoiceItems;
+
             Show.Price.Text = inv.InvoicePrice.ToString();
+
             var c = inv.InvoiceItems.Sum<POSItems>((x) => x.RealQuantity).ToString();
             Show.ItemCount.Text = $"عدد المواد المطلوبة: \n\n {c}";
+
+            Show.Show();
+            Show.dvItems2.DataSource = inv.InvoiceItems;
+            Show.LoadUI();
+            if (Show.dvItems2.Rows.Count >= 1)
+            {
+                Show.dvItems2.Height = Show.dvItems2.Rows[0].Height * (Show.dvItems2.Rows.Count + 1);
+            }
+
+
         }
 
 
@@ -105,6 +111,7 @@ namespace OrderForm
         {
             if (e == "Stop")
             {
+                Orders.POS.ListChanged -= POS_ListChanged;
                 Orders.MenuShowing = false;
                 timer1.Stop();
                 Close();
@@ -114,21 +121,22 @@ namespace OrderForm
 
         }
 
-
-        private void displayOffer_Load(object sender, EventArgs e)
+        void LoadUI()
         {
-            this.Location = Screen.AllScreens[1].WorkingArea.Location;
-            this.Height = Screen.AllScreens[1].WorkingArea.Height;
-            this.Width = Screen.AllScreens[1].WorkingArea.Width;
-            if (this.Height > this.Width)
+            List<string> ColumnsList = new List<string>();
+            // create a foreach loop to loop through columns and delete some of them that don't meet a certain condition
+            foreach (DataGridViewColumn x in dvItems2.Columns)
             {
-                //this.Payment.Height += 300;
-                //this.dvItems2.Height += 350;
+                if (x.DataPropertyName == "Name" || x.DataPropertyName == "Quantity" || x.DataPropertyName == "Price" || x.DataPropertyName == "TotalPrice" || x.DataPropertyName == "Comment" || x.Name == "btnColumn")
+                {
+                    continue;
+                }
+                ColumnsList.Add(x.Name);
             }
-            else { this.Payment.Visible = false; this.LogoPic.Visible = false; this.panel1.Dock = DockStyle.Top; this.panel1.SendToBack(); }
+
+            ColumnsList.ForEach(x => dvItems2.Columns.Remove(x));
 
 
-            dvItems2.DataSource = Orders.POS;
             Orders.POS.ListChanged += POS_ListChanged;
             var cellstyleMaterial = new DataGridViewCellStyle
             {
@@ -165,13 +173,13 @@ namespace OrderForm
             dvItems2.AlternatingRowsDefaultCellStyle = cellstyleAlternate;
             dvItems2.ColumnHeadersDefaultCellStyle.ApplyStyle(cellstyleHeader);
             dvItems2.ReadOnly = true;
-            dvItems2.Columns[0].Width = 300;// Name
-            dvItems2.Columns[0].HeaderText = "إسم المادة";
-            dvItems2.Columns[0].DefaultCellStyle = cellstyleMaterial;
+            dvItems2.Columns["Name"].Width = 300;// Name
+            dvItems2.Columns["Name"].HeaderText = "إسم المادة";
+            dvItems2.Columns["Name"].DefaultCellStyle = cellstyleMaterial;
 
-            dvItems2.Columns[1].Width = 100;// Quantity
-            dvItems2.Columns[1].HeaderText = "العدد";
-            dvItems2.Columns[1].DefaultCellStyle = cellstyleMaterial;
+            dvItems2.Columns["Quantity"].Width = 100;// Quantity
+            dvItems2.Columns["Quantity"].HeaderText = "العدد";
+            dvItems2.Columns["Quantity"].DefaultCellStyle = cellstyleMaterial;
 
             var cellstyle = new DataGridViewCellStyle
             {
@@ -183,21 +191,47 @@ namespace OrderForm
                 Alignment = DataGridViewContentAlignment.MiddleCenter
             };
 
-            dvItems2.Columns[2].Width = 200;// Price
-            dvItems2.Columns[2].HeaderText = " سعر المادة";
-            dvItems2.Columns[2].DefaultCellStyle = cellstyle;
+            dvItems2.Columns["Price"].Width = 200;// Price
+            dvItems2.Columns["Price"].HeaderText = " سعر المادة";
+            dvItems2.Columns["Price"].DefaultCellStyle = cellstyle;
 
-            dvItems2.Columns[3].Width = 100;// TotalPrice
-            dvItems2.Columns[3].HeaderText = "إجمالي";
-            dvItems2.Columns[3].DefaultCellStyle = cellstyle;
+            dvItems2.Columns["TotalPrice"].Width = 100;// TotalPrice
+            dvItems2.Columns["TotalPrice"].HeaderText = "إجمالي";
+            dvItems2.Columns["TotalPrice"].DefaultCellStyle = cellstyle;
 
-            dvItems2.Columns[4].Width = 150;// Comment
-            dvItems2.Columns[4].HeaderText = "ملاحظات";
-            dvItems2.Columns[4].DefaultCellStyle = cellstyle;
+            dvItems2.Columns["comment"].Width = 150;// Comment
+            dvItems2.Columns["comment"].HeaderText = "ملاحظات";
+            dvItems2.Columns["comment"].DefaultCellStyle = cellstyle;
             //dvItems2.Refresh();
             //dvItems2.Update();
 
-            dvItems2.Columns[4].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dvItems2.Columns["comment"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+
+        }
+        private void displayOffer_Load(object sender, EventArgs e)
+        {
+            this.Location = Screen.AllScreens[1].WorkingArea.Location;
+            this.Height = Screen.AllScreens[1].WorkingArea.Height;
+            this.Width = Screen.AllScreens[1].WorkingArea.Width;
+            if (this.Height > this.Width)
+            {
+                //this.Payment.Height += 300;
+                //this.dvItems2.Height += 350;
+            }
+            else { this.Payment.Visible = false; this.LogoPic.Visible = false; this.panel1.Dock = DockStyle.Top; this.panel1.SendToBack(); }
+            // check if this file exists C:\db\images\promotion.jpg
+            // if it does then show it in the picture box
+            // if it doesn't then hide the picture box
+            if (System.IO.File.Exists(Properties.Settings.Default.PromotionLink))
+            {
+                PromotionPic.BackgroundImage = Bitmap.FromFile(Properties.Settings.Default.PromotionLink);
+                
+            }
+            else
+            {
+                PromotionPic.Visible = false;
+            }
+
 
         }
 
@@ -210,11 +244,19 @@ namespace OrderForm
 
                 var c = Orders.POS.Sum<POSItems>((x) => x.RealQuantity).ToString();
                 ItemCount.Text = $"عدد المواد المطلوبة: \n\n {c}";
-                dvItems2.Height = dvItems2.Rows[0].Height * (dvItems2.Rows.Count + 1);
+                if (dvItems2.Rows.Count >= 1)
+                {
+                    dvItems2.Height = dvItems2.Rows[0].Height * (dvItems2.Rows.Count + 1);
+                }
             }
             else
             {
                 Price.Text = "0.0";
+            }
+
+            if (dvItems2.Rows.Count >= 1)
+            {
+                dvItems2.Height = dvItems2.Rows[0].Height * (dvItems2.Rows.Count + 1);
             }
         }
 
@@ -239,7 +281,7 @@ namespace OrderForm
             Orders.MenuShowing = false;
         }
 
-    
+
     }
 
 

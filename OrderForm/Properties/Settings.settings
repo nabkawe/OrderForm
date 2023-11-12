@@ -135,7 +135,7 @@
       <Value Profile="(Default)">22</Value>
     </Setting>
     <Setting Name="FontCombo" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Arial</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="POSPhoneNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)">[NAME:TextBox6]</Value>
@@ -175,6 +175,9 @@
     </Setting>
     <Setting Name="API_Server_Path" Type="System.String" Scope="User">
       <Value Profile="(Default)">null</Value>
+    </Setting>
+    <Setting Name="PromotionLink" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\db\images\promotion.jpg</Value>
     </Setting>
   </Settings>
 </SettingsFile>

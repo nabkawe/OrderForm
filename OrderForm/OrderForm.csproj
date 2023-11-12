@@ -29,7 +29,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>159</ApplicationRevision>
+    <ApplicationRevision>167</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -138,6 +138,18 @@
       <DependentUpon>AppsSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="DisplayMenu_.cs" />
+    <Compile Include="LogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogForm.Designer.cs">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaterialsForm.Designer.cs">
+      <DependentUpon>MaterialsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimePicker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -253,6 +265,12 @@
     <EmbeddedResource Include="AppsSetting.resx">
       <DependentUpon>AppsSetting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LogForm.resx">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaterialsForm.resx">
+      <DependentUpon>MaterialsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TimePicker.resx">
       <DependentUpon>TimePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -342,6 +360,7 @@
     <None Include="app.config" />
     <None Include="app.config.Sample" />
     <None Include="nabkawe%40gmail.com.pfx" />
+    <None Include="Properties\DataSources\sharedCode.POSItems.datasource" />
     <None Include="VS Studio Backend\app.config" />
     <Content Include="API\LiteDB.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

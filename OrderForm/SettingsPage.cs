@@ -190,6 +190,12 @@ namespace OrderForm
 
                 }
             }
+            if (e.TabPage.Name != "MaterialsEdit")
+            {
+
+            }
+            
+
 
 
         }
@@ -1551,6 +1557,17 @@ namespace OrderForm
                 matLB.DataSource = MAT;
                 json = null;
             }
+        }
+
+        private void SettingTabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            MaterialsForm f = new MaterialsForm();
+            f.Show();
         }
     }
 }

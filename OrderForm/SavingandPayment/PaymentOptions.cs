@@ -56,9 +56,6 @@ namespace OrderForm.SavingandPayment
         public string POSClientName = Properties.Settings.Default.POSClientName;
         public AutoItX3 AutoItX = new AutoItX3();
 
-        public bool SingleInvoice;
-        public List<Invoice> MultipleInvoices = new List<Invoice>();
-        public List<POSItems> MultipleItems = new List<POSItems>();
 
         public static Invoice invoice;
 
@@ -83,7 +80,7 @@ namespace OrderForm.SavingandPayment
 
 
 
-        public PaymentOptions(Invoice inv) // SingleInvoice Constructor
+        public PaymentOptions(Invoice inv)
         {
             InitializeComponent();
             dueLBL.Text = inv.InvoicePrice.ToString();
@@ -95,7 +92,6 @@ namespace OrderForm.SavingandPayment
                     TB.GotFocus += TB_GotFocus;
 
                 }
-            SingleInvoice = true;
             invoice = inv;
             if (invoice.InvoiceItems.Any(x => x.discount))
             {
@@ -145,7 +141,7 @@ namespace OrderForm.SavingandPayment
 
                 AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
                 if (IsCtrlKeyPressed()) { return; }
-                AddItemsToPOS(SingleInvoice);
+                AddItemsToPOS();
                 if (IsCtrlKeyPressed()) { return; }
 
                 if (Convert.ToInt32(AutoItX.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
@@ -180,11 +176,11 @@ namespace OrderForm.SavingandPayment
                 {
                     if (discount > 0)
                     {
-                        if(invoice.InvoiceItems.Any(x=>x.discount))
+                        if (invoice.InvoiceItems.Any(x => x.discount))
                         {
                             var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
                             invoice.Payments.Add(Dispayment);
-                        
+
                         }
                         else
                         {
@@ -194,7 +190,7 @@ namespace OrderForm.SavingandPayment
                         }
                     }
                 }
-                SaveInvoiceNumber(SingleInvoice);
+                SaveInvoiceNumber();
             }
             else if (!CheckIfReadyToSave())
             {
@@ -234,7 +230,7 @@ namespace OrderForm.SavingandPayment
 
                 AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
                 if (IsCtrlKeyPressed()) { return; }
-                AddItemsToPOS(SingleInvoice);
+                AddItemsToPOS();
                 if (IsCtrlKeyPressed()) { return; }
 
 
@@ -265,7 +261,7 @@ namespace OrderForm.SavingandPayment
                             }
                         }
                     }
-                    SaveInvoiceNumber(SingleInvoice);
+                    SaveInvoiceNumber();
                     //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
                 }
                 else
@@ -295,7 +291,7 @@ namespace OrderForm.SavingandPayment
                             }
                         }
                     }
-                    SaveInvoiceNumber(SingleInvoice);
+                    SaveInvoiceNumber();
                     //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
                 }
 
@@ -352,7 +348,7 @@ namespace OrderForm.SavingandPayment
 
                 AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
                 if (IsCtrlKeyPressed()) { return; }
-                AddItemsToPOS(SingleInvoice);
+                AddItemsToPOS();
                 if (IsCtrlKeyPressed()) { return; }
 
 
@@ -431,7 +427,7 @@ namespace OrderForm.SavingandPayment
                 }
 
 
-                SaveInvoiceNumber(SingleInvoice);
+                SaveInvoiceNumber();
                 //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
             }
             else if (!CheckIfReadyToSave())
@@ -456,7 +452,7 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         /// 
 
-        private void SaveInvoiceNumber(bool single)
+        private void SaveInvoiceNumber()
         {
 
             string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
@@ -466,97 +462,23 @@ namespace OrderForm.SavingandPayment
                 this.DialogResult = DialogResult.Cancel;
                 this.Close();
             }
-
-            if (single)
+            invoice.POSInvoiceNumber = invoiceNTB;
+            invoice.Status = InvStat.SavedToPOS;
+            invoice.TimeOfPrinting = DbInv.GetInvoiceByID(invoice.ID).TimeOfPrinting;
+            invoice.TimeOfSaving = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
+            DbInv.UpdateInvoice(invoice);
+            if (Orders.MyCheckBox.Checked)
             {
-                invoice.POSInvoiceNumber = invoiceNTB;
-                invoice.Status = InvStat.SavedToPOS;
-                invoice.TimeOfPrinting = DbInv.GetInvoiceByID(invoice.ID).TimeOfPrinting;
-                invoice.TimeOfSaving = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
-                DbInv.UpdateInvoice(invoice);
-                if (Orders.MyCheckBox.Checked)
+                if (invoice.InvoicePrice >= 25 || invoice.OrderType == "محلي")
                 {
-                    if (invoice.InvoicePrice >= 25 || invoice.OrderType == "محلي")
-                    {
-                        PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
-                    }
+                    PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
                 }
-                else
-                {
-                    if (invoice.OrderType == "محلي")
-                    {
-                        PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
-                    }
-                }
-
             }
             else
             {
-                if (MultipleInvoices.Count > 1)
+                if (invoice.OrderType == "محلي")
                 {
-
-
-                    DateTime DT = DateTime.Now.AddTicks(-(DateTime.Now.Ticks % TimeSpan.TicksPerSecond));
-
-                    var Update = new Invoice();
-                    CreateNewListOfItems().ForEach(x => Update.InvoiceItems.Add(x));
-                    Update.POSInvoiceNumber = invoiceNTB;
-                    Update.Status = InvStat.SavedToPOS;
-                    Update.InvoicePrice = Update.InvoiceItems.Sum(x => x.TotalPrice);
-                    string c = invoice.Comment;
-                    Update.Comment = "فاتورة مجمعة" + " " + c;
-                    Update.ID = invoice.ID; Update.OrderType = invoice.OrderType;
-                    Update.CustomerName = invoice.CustomerName;
-                    Update.CustomerNumber = invoice.CustomerNumber;
-                    Update.InvoiceDay = invoice.InvoiceDay;
-                    Update.Tax = invoice.Tax;
-                    Update.TimeAMPM = invoice.TimeAMPM;
-                    Update.TimeOfPrinting = DbInv.GetInvoiceByID(invoice.ID).TimeOfPrinting;
-                    Update.TimeOfSaving = DT;
-                    Update.TimeinArabic = invoice.TimeinArabic;
-                    invoice.Payments.ForEach(x => Update.Payments.Add(x));
-
-                    CheckBox parentCheckBox = (CheckBox)this.Owner.GetType().GetProperty("ParentCheckBox").GetValue(this.Owner, null);
-                    if (Application.OpenForms.OfType<Orders>().First().checkBox1.Checked)
-                    {
-                        if (invoice.InvoicePrice >= 15 || invoice.OrderType == "محلي")
-                        {
-                            PrintInvoiceReady.Print(dbQ.CashierPrinter(), Update);
-                        }
-                    }
-                    else
-                    {
-                        if (invoice.OrderType == "محلي")
-                        {
-                            PrintInvoiceReady.Print(dbQ.CashierPrinter(), Update);
-                        }
-                    }
-
-
-                    for (int i = 0; i < MultipleInvoices.Count; i++)
-                    {
-                        if (MultipleInvoices[i].ID != invoice.ID)
-                        {
-                            MultipleInvoices[i].InvoiceItems.Clear();
-                            MultipleInvoices[i].Comment = "فاتورة مجمعة تابعة لرقم: " + invoice.ID;
-                            MultipleInvoices[i].Status = InvStat.Deleted;
-                            MultipleInvoices[i].InvoicePrice = 0;
-
-                            DbInv.UpdateInvoice(MultipleInvoices[i]);
-                            DbInv.LogAction($"Multiple Saved in {invoice.ID}", MultipleInvoices[i].ID, InvStat.Deleted);
-                        }
-                        else
-                        {
-                            DbInv.UpdateInvoice(Update);
-                        }
-
-                    }
-
-
-                }
-                else
-                {
-                    SaveInvoiceNumber(true);
+                    PrintInvoiceReady.Print(dbQ.CashierPrinter(), invoice);
                 }
             }
             this.DialogResult = DialogResult.OK;
@@ -570,12 +492,11 @@ namespace OrderForm.SavingandPayment
         /// </summary>
         /// 
 
-        private void AddItemsToPOS(bool single)
+        private void AddItemsToPOS()
         {
             if (DiscountTB.Text != "0" || !string.IsNullOrEmpty(DiscountTB.Text)) { DoDiscount(); }
 
-            if (SingleInvoice)
-            {
+            
                 AutoItX.ControlClick(pos, "", POSClearNumber, "left", 1);
                 foreach (var item in invoice.InvoiceItems)
                 {
@@ -596,41 +517,8 @@ namespace OrderForm.SavingandPayment
                 }
                 else AutoItX.ControlSetText(pos, "", invoicenotes, "#" + invoice.ID.ToString() + " " + Orders.GetDayName((int)invoice.InvoiceDay) + Environment.NewLine + " | " + invoice.Comment);
 
-            }
-            else
-            {
+            
 
-                var InvoiceItems = CreateNewListOfItems();
-                AutoItX.ControlClick(pos, "", POSClearNumber, "left", 1);
-
-                foreach (var item in InvoiceItems)
-                {
-
-                    AutoItX.ControlClick(pos, "", barcodetb, "left", 1);
-                    AutoItX.ControlSend(pos, "", barcodetb, item.Barcode, 0);
-                    AutoItX.ControlSend(pos, "", barcodetb, "{ENTER}", 0);
-                    int q = Convert.ToInt32(item.Quantity);
-                    AutoItX.ControlSetText(pos, "", amountlbl, q.ToString());
-                    AutoItX.ControlClick(pos, "", btnsubmit, "left", 1);
-
-                }
-                List<string> invoiceIDS = new List<string>();
-                MultipleInvoices.ForEach(x => invoiceIDS.Add(x.ID.ToString()));
-
-                var joinedNames = invoiceIDS.Aggregate((a, b) => a + "-" + b);
-                string invoiceNTB = AutoItX.ControlGetText(pos, "", InvoiceNumberTB);
-
-
-                AutoItX.ControlSetText(pos, "", POSClientName, this.MultipleInvoices[0].CustomerName);
-                AutoItX.ControlSetText(pos, "", POSPhoneNumber, this.MultipleInvoices[0].CustomerNumber);
-
-                AutoItX.ControlSetText(pos, "", invoicenotes, "أوراق تحضير:" + joinedNames);
-                AutoItX.ControlSetText(pos, "", invoicenotes, "رقم التحضير:" + " " + this.MultipleInvoices[0].ID.ToString() + Environment.NewLine + " | " + this.MultipleInvoices[0].Comment);
-
-
-
-
-            }
         }
 
 
@@ -639,31 +527,6 @@ namespace OrderForm.SavingandPayment
             AutoItX.ControlSetText(pos, "", "[NAME:TextBox2]", DiscountTB.Text);
         }
 
-        private List<POSItems> CreateNewListOfItems()
-        {
-            MultipleItems.Clear();
-            foreach (var item in this.MultipleInvoices)
-            {
-                foreach (var i in item.InvoiceItems)
-                {
-                    if (MultipleItems.Any(x => x.Name == i.Name))
-                    {
-                        MultipleItems.Where(w => w.Name == i.Name).ToList().ForEach(s => s.Quantity += i.Quantity);
-                    }
-                    else
-                    {
-                        MultipleItems.Add(i);
-                    }
-
-                }
-            }
-            var list = new List<POSItems>();
-            foreach (var x in MultipleItems)
-            {
-                list.Add(x);
-            }
-            return list;
-        }
 
 
         /// <summary>
@@ -735,11 +598,7 @@ namespace OrderForm.SavingandPayment
             }
         }
 
-
-
-
-
-        ///Pure UI Related  Code
+            ///Pure UI Related  Code
         /// Payment Math
         public decimal PaidAmount;
         public string targetTextBox;
@@ -930,6 +789,8 @@ namespace OrderForm.SavingandPayment
         {
 
             QuickItems.Clear();
+            dataGridView1.DataSource = QuickItems;
+            GridViewUI();
             if (Properties.Settings.Default.CloseWindow)
             {
                 while (AutoItX.WinExists(pos, "") == 1)
@@ -968,7 +829,7 @@ namespace OrderForm.SavingandPayment
                 }
             }
             displayOffer.CloseNow();
-            Application.OpenForms[0].Activate();
+            //Application.OpenForms.OfType<Orders>().First().Activate();
 
 
 
@@ -980,15 +841,7 @@ namespace OrderForm.SavingandPayment
             DiscountTB.Text = "0.5";
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
 
         private void panel1_Click(object sender, EventArgs e)
         {
@@ -1000,9 +853,7 @@ namespace OrderForm.SavingandPayment
         {
 
 
-            dataGridView1.DataSource = QuickItems;
 
-            GridViewUI();
 
             var ContextMenu = new ContextMenu();
             ContextMenu.RightToLeft = RightToLeft.Yes;
@@ -1028,12 +879,22 @@ namespace OrderForm.SavingandPayment
         private void GridViewUI()
         {
 
+            List<string> ColumnsList = new List<string>();
+            // create a foreach loop to loop through columns and delete some of them that don't meet a certain condition
+            foreach (DataGridViewColumn x in dataGridView1.Columns)
+            {
+                if (x.DataPropertyName == "Name" || x.DataPropertyName == "Quantity" || x.Name == "Increment")
+                {
+                    continue;
+                }
+                ColumnsList.Add(x.Name);
+            }
+
+            ColumnsList.ForEach(x => dataGridView1.Columns.Remove(x));
+
             if (!dataGridView1.Columns.Contains("Increment"))
             {
 
-                dataGridView1.Columns[2].Visible = false;
-                dataGridView1.Columns[3].Visible = false;
-                dataGridView1.Columns[4].Visible = false;
 
                 DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
                 buttonColumn.Name = "Increment";
@@ -1046,19 +907,18 @@ namespace OrderForm.SavingandPayment
             }
 
 
-
         }
 
         private void onClick(object sender, EventArgs e)
         {
+
             if (!quickPayGB.Visible) { quickPayGB.Visible = true; }
 
             var se = sender as MenuItem;
             var order = Orders.ItemsLists.First(x => x.Barcode == se.Tag.ToString());
             order.Quantity = 1;
             QuickItems.Add(order);
-            dataGridView1.Refresh();
-            dataGridView1.Update();
+            GridViewUI();
 
 
         }
@@ -1182,26 +1042,26 @@ namespace OrderForm.SavingandPayment
 
 
 
-        private void Btn50_Click(object sender, EventArgs e)
-        {
-            if (ModifierKeys.HasFlag(Keys.Control))
-            {
+        //private void Btn50_Click(object sender, EventArgs e)
+        //{
+        //    if (ModifierKeys.HasFlag(Keys.Control))
+        //    {
 
-                SaveInvoiceNumber(false);
-            }
-            else
-            {
+        //        SaveInvoiceNumber();
+        //    }
+        //    else
+        //    {
 
-                var s = (Button)sender;
-                if (s != null)
-                {
-                    Cash.Text = s.Text;
-                    Cash.Focus();
-                    SendKeys.Send("{End}");
-                }
+        //        var s = (Button)sender;
+        //        if (s != null)
+        //        {
+        //            Cash.Text = s.Text;
+        //            Cash.Focus();
+        //            SendKeys.Send("{End}");
+        //        }
 
-            }
-        }
+        //    }
+        //}
         private void Cash_KeyDown(object sender, KeyEventArgs e)
         {
 

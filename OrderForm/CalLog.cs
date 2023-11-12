@@ -96,6 +96,7 @@ namespace OrderForm
             Application.OpenForms.OfType<Orders>().First().MobileTB.Text = item.PhoneNumber;
             Application.OpenForms.OfType<Orders>().First().NameTB.Text = item.CustomerName;
 
+
         }
 
         private void SearchLog_TextChanged(object sender, EventArgs e)

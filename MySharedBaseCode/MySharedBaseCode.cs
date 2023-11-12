@@ -14,7 +14,7 @@ namespace sharedCode
 
     {
 
-        [Browsable(false)]
+        [Browsable(true)]
         public int ID { get; set; }
 
         [DisplayName("اسم المادة")]
@@ -45,11 +45,11 @@ namespace sharedCode
             get { return Price * Quantity; }
         }
 
-        [Browsable(false)]
+        [Browsable(true)]
         public string Parent { get; set; }
 
 
-        [Browsable(false)]
+        [Browsable(true)]
         public decimal PricewithoutTax
         {
             get
@@ -59,7 +59,8 @@ namespace sharedCode
             }
         }
 
-        [Browsable(false)]
+        [DisplayName("الباركود")]
+        [Browsable(true)]
         public string Barcode { get; set; }
         [DisplayName("ملاحظة المادة")]
         private string comment { get; set; }
@@ -68,22 +69,22 @@ namespace sharedCode
             get { return comment; }
             set { comment = value; NotifyPropertyChanged("Comment"); }
         }
-        [Browsable(false)]
+        [Browsable(true)]
         public int realquan { get; set; }
-        [Browsable(false)]
+        [Browsable(true)]
         public decimal Tax { get; set; }
-        [Browsable(false)]
+        [Browsable(true)]
         public string PicturePath { get; set; }
-        [Browsable(false)]
+        [Browsable(true)]
         public List<string> printerlist = new List<string>();
         public event PropertyChangedEventHandler PropertyChanged;
-        [Browsable(false)]
+        [Browsable(true)]
         public int RealQuantity
         {
             get { return realquan * Quantity; }
             set {; }
         }
-        [Browsable(false)]
+        [Browsable(true)]
         public string PrinterName
         {
             get
@@ -110,16 +111,16 @@ namespace sharedCode
                 else printerlist.Clear();
             }
         }
-        [Browsable(false)]
+        [Browsable(true)]
         public bool Available { get; set; }
-        [Browsable(false)]
+        [Browsable(true)]
         public string SectionName { get; set; }
-        [Browsable(false)]
+        [Browsable(true)]
         public string NameAndPrinter
         {
             get { return Name + " " + PrinterName; }
         }
-        [Browsable(false)]
+        [Browsable(true)]
         public int order { get; set; }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -130,7 +131,7 @@ namespace sharedCode
             }
         }
         private decimal price { get; set; }
-        [Browsable(false)]
+        [Browsable(true)]
         public bool discount { get{ return this.Barcode == "discount"; }  }
         /// <summary>
         /// Pass 1 to increase quantity, Pass -1 to decrease quantity.
@@ -185,6 +186,8 @@ namespace sharedCode
             string text = $"الإسم: {Name} -  السعر: {Price}";
             return text;
         }
+
+
     }
     public class POSsections
     {

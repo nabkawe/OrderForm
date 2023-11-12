@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dvItems2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -49,10 +49,12 @@
             this.DateTitle = new OrderForm.UButton();
             this.ClientDate = new OrderForm.UButton();
             this.LogoPic = new OrderForm.UButton();
+            this.PromotionPic = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dvItems2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Payment)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PromotionPic)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -74,7 +76,7 @@
             this.dvItems2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dvItems2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dvItems2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dvItems2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dvItems2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dvItems2.ColumnHeadersHeight = 30;
             this.dvItems2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dvItems2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -86,13 +88,13 @@
             this.dvItems2.MultiSelect = false;
             this.dvItems2.Name = "dvItems2";
             this.dvItems2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvItems2.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvItems2.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dvItems2.RowHeadersVisible = false;
             this.dvItems2.RowHeadersWidth = 10;
             this.dvItems2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle9.NullValue = null;
-            this.dvItems2.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.NullValue = null;
+            this.dvItems2.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dvItems2.RowTemplate.Height = 30;
             this.dvItems2.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dvItems2.ScrollBars = System.Windows.Forms.ScrollBars.None;
@@ -113,7 +115,7 @@
             this.panel1.Controls.Add(this.unfocusableButton3);
             this.panel1.Controls.Add(this.uButton1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 797);
+            this.panel1.Location = new System.Drawing.Point(0, 816);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1004, 177);
             this.panel1.TabIndex = 37;
@@ -221,7 +223,7 @@
             this.Payment.Location = new System.Drawing.Point(0, 697);
             this.Payment.Margin = new System.Windows.Forms.Padding(0, 0, 0, 30);
             this.Payment.Name = "Payment";
-            this.Payment.Size = new System.Drawing.Size(1004, 100);
+            this.Payment.Size = new System.Drawing.Size(1004, 119);
             this.Payment.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Payment.TabIndex = 41;
             this.Payment.TabStop = false;
@@ -236,7 +238,7 @@
             this.panel2.Controls.Add(this.DateTitle);
             this.panel2.Controls.Add(this.ClientDate);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 974);
+            this.panel2.Location = new System.Drawing.Point(0, 993);
             this.panel2.Margin = new System.Windows.Forms.Padding(1);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(5);
@@ -384,12 +386,23 @@
             this.LogoPic.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LogoPic.UseVisualStyleBackColor = false;
             // 
+            // PromotionPic
+            // 
+            this.PromotionPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.PromotionPic.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PromotionPic.Location = new System.Drawing.Point(0, 1064);
+            this.PromotionPic.Name = "PromotionPic";
+            this.PromotionPic.Size = new System.Drawing.Size(1004, 891);
+            this.PromotionPic.TabIndex = 42;
+            this.PromotionPic.TabStop = false;
+            // 
             // displayOffer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1004, 1019);
+            this.ClientSize = new System.Drawing.Size(1004, 1940);
+            this.Controls.Add(this.PromotionPic);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Payment);
@@ -412,6 +425,7 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Payment)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PromotionPic)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -424,15 +438,16 @@
         private System.Windows.Forms.PictureBox Payment;
         public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel2;
-        private UButton ClientDate;
         private UButton DateTitle;
-        private UButton ClientPhone;
         private UButton PhoneTitle;
-        private UButton ClientName;
         private UButton ClientTitle;
-        private UButton Price;
         private UButton ItemCount;
         private UButton LogoPic;
         private UButton uButton1;
+        public UButton ClientDate;
+        public UButton ClientPhone;
+        public UButton ClientName;
+        private System.Windows.Forms.PictureBox PromotionPic;
+        public UButton Price;
     }
 }

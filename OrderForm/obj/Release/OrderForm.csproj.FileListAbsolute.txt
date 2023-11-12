@@ -200,3 +200,5 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.cs
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.exe
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.pdb
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.TimePicker.resources
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.MaterialsForm.resources
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.LogForm.resources

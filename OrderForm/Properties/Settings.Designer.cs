@@ -12,7 +12,7 @@ namespace OrderForm.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.7.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -553,7 +553,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Arial")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string FontCombo {
             get {
                 return ((string)(this["FontCombo"]));
@@ -716,6 +716,18 @@ namespace OrderForm.Properties {
             }
             set {
                 this["API_Server_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\db\\images\\promotion.jpg")]
+        public string PromotionLink {
+            get {
+                return ((string)(this["PromotionLink"]));
+            }
+            set {
+                this["PromotionLink"] = value;
             }
         }
     }
