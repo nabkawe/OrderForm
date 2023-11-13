@@ -220,7 +220,7 @@ namespace NetworkSynq.Controllers
                 else if (inv == "last42invoices")
                 {
 
-                    var d = draft.Find(x => x.Status != InvStat.Deleted).OrderByDescending(x => x.ID).Take(42).ToList();
+                    var d = draft.Find(x => x.Status != InvStat.Deleted && x.Status != InvStat.Draft).OrderByDescending(x => x.ID).Take(42).ToList();
                     return Ok(d);
                 }
                 else

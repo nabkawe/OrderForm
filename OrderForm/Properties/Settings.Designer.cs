@@ -325,7 +325,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[NAME:ComboBox15]")]
+        [global::System.Configuration.DefaultSettingValueAttribute("[NAME:ComboBox12]")]
         public string Mada1Combo {
             get {
                 return ((string)(this["Mada1Combo"]));

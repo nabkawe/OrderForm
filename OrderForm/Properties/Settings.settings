@@ -78,7 +78,7 @@
       <Value Profile="(Default)">[NAME:TextBox29]</Value>
     </Setting>
     <Setting Name="Mada1Combo" Type="System.String" Scope="User">
-      <Value Profile="(Default)">[NAME:ComboBox15]</Value>
+      <Value Profile="(Default)">[NAME:ComboBox12]</Value>
     </Setting>
     <Setting Name="Mada2Combo" Type="System.String" Scope="User">
       <Value Profile="(Default)">[NAME:ComboBox16]</Value>

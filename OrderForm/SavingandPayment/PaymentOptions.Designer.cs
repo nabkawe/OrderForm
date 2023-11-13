@@ -65,7 +65,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.PreviewOrder = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.invoiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -76,10 +75,12 @@
             this.quickPayGB = new System.Windows.Forms.GroupBox();
             this.AddQuickItemsToInvoice = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.TryOrderBTN = new System.Windows.Forms.Button();
+            this.invoiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).BeginInit();
             this.quickPayGB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // CashBTN
@@ -569,10 +570,6 @@
             this.label9.TabIndex = 6;
             this.label9.Text = "ملاحظة الطلب";
             // 
-            // invoiceBindingSource
-            // 
-            this.invoiceBindingSource.DataSource = typeof(sharedCode.Invoice);
-            // 
             // label7
             // 
             this.label7.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.invoiceBindingSource, "TimeinArabic", true));
@@ -647,7 +644,7 @@
             this.QuickAddBTN.ForeColor = System.Drawing.Color.GhostWhite;
             this.QuickAddBTN.Location = new System.Drawing.Point(11, 673);
             this.QuickAddBTN.Name = "QuickAddBTN";
-            this.QuickAddBTN.Size = new System.Drawing.Size(622, 77);
+            this.QuickAddBTN.Size = new System.Drawing.Size(300, 77);
             this.QuickAddBTN.TabIndex = 53;
             this.QuickAddBTN.Text = "إضافة مواد سريعة";
             this.QuickAddBTN.UseVisualStyleBackColor = false;
@@ -694,12 +691,31 @@
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
+            // TryOrderBTN
+            // 
+            this.TryOrderBTN.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.TryOrderBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.TryOrderBTN.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TryOrderBTN.ForeColor = System.Drawing.Color.GhostWhite;
+            this.TryOrderBTN.Location = new System.Drawing.Point(390, 673);
+            this.TryOrderBTN.Name = "TryOrderBTN";
+            this.TryOrderBTN.Size = new System.Drawing.Size(242, 66);
+            this.TryOrderBTN.TabIndex = 55;
+            this.TryOrderBTN.Text = "تطبيق TryOrder";
+            this.TryOrderBTN.UseVisualStyleBackColor = false;
+            this.TryOrderBTN.Click += new System.EventHandler(this.TryOrderBTN_Click);
+            // 
+            // invoiceBindingSource
+            // 
+            this.invoiceBindingSource.DataSource = typeof(sharedCode.Invoice);
+            // 
             // PaymentOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(645, 751);
+            this.Controls.Add(this.TryOrderBTN);
             this.Controls.Add(this.quickPayGB);
             this.Controls.Add(this.QuickAddBTN);
             this.Controls.Add(this.label1);
@@ -754,9 +770,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PaymentOptions_FormClosing);
             this.Load += new System.EventHandler(this.PaymentOptions_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).EndInit();
             this.quickPayGB.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -811,5 +827,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button AddQuickItemsToInvoice;
         private System.Windows.Forms.Button PreviewOrder;
+        private System.Windows.Forms.Button TryOrderBTN;
     }
 }

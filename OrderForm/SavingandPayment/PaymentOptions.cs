@@ -369,8 +369,7 @@ namespace OrderForm.SavingandPayment
                 if (!string.IsNullOrEmpty(Mada2_.Text))
                 {
                     AutoItX.ControlSetText(pos, "", Mada2, Mada2_.Text);
-                    AutoItX.ControlClick(pos, "", Mada2CB, "Left");
-                    AutoItX.ControlSend(pos, "", Mada2CB, "{DOWN}{ENTER}", 0);
+                    AutoItX.ControlSend(pos, "", Mada2CB, "م{ENTER}", 0);
                     AutoItX.Sleep(100);
 
 
@@ -379,8 +378,7 @@ namespace OrderForm.SavingandPayment
                 if (!string.IsNullOrEmpty(Mada3_.Text))
                 {
                     AutoItX.ControlSetText(pos, "", Mada3, Mada3_.Text);
-                    AutoItX.ControlClick(pos, "", Mada3CB, "Left");
-                    AutoItX.ControlSend(pos, "", Mada3CB, "{DOWN}{ENTER}", 0);
+                    AutoItX.ControlSend(pos, "", Mada3CB, "م{ENTER}", 0);
                     AutoItX.Sleep(100);
 
                 }
@@ -498,7 +496,7 @@ namespace OrderForm.SavingandPayment
 
             
                 AutoItX.ControlClick(pos, "", POSClearNumber, "left", 1);
-                foreach (var item in invoice.InvoiceItems)
+                foreach (var item in invoice.InvoiceItems.Where(x=> !x.discount))
                 {
                     AutoItX.ControlClick(pos, "", barcodetb, "left", 1);
                     AutoItX.ControlSend(pos, "", barcodetb, item.Barcode, 0);
@@ -1025,6 +1023,108 @@ namespace OrderForm.SavingandPayment
             if (ChangeLBL.Text != "0.00" && ChangeLBL.Text != "0.0" && !ChangeLBL.Text.Contains("-"))
             {
                 Mada2_.Text = ChangeLBL.Text;
+            }
+        }
+
+        private void TryOrderBTN_Click(object sender, EventArgs e)
+        {
+            if (MessageForm.SHOW("هل أنت متأكد من رغبتك في تخزين الفاتورة كفاتورة تطبيق ؟", "متأكد؟", "نعم", "لا") == DialogResult.No)
+            {
+                return;
+            }
+            repeat += 1;
+            if (repeat > 6)
+            {
+                this.Close();
+                return;
+
+            }
+            if (GetPOSWindow() && CheckIfReadyToSave())
+            {
+                AutoItX.WinActivate(pos);
+
+                AutoItX.WinWaitActive(pos, "", 5000);
+                
+                AutoItX.ControlClick(pos, "", POSNewBTN, "left", 1);
+                if (IsCtrlKeyPressed()) { return; }
+                AddItemsToPOS();
+                if (IsCtrlKeyPressed()) { return; }
+
+
+
+                if (Convert.ToInt32(AutoItX.ControlCommand(pos, "", CashTextBox, "IsEnabled", "")) == 1)
+                {
+                    AutoItX.ControlClick(pos, "", SwitchBTN, "left", 1);
+                    AutoItX.Sleep(500);
+                    AutoItX.ControlSetText(pos, "", Mada1, "0");
+                    AutoItX.ControlSetText(pos, "", Mada3, invoice_price);
+                    AutoItX.ControlCommand(pos, "", Mada3CB, "ShowDropDown", "");
+                    AutoItX.ControlSend(pos, "", Mada3CB, "T{ENTER}", 0);
+                    AutoItX.Sleep(100);
+                    //AutoItX.ControlSetText("T{RETURN}");
+
+
+                    var payment = new Payment() { Name = "TryOrder", Amount = invoice.InvoicePrice };
+                    invoice.Payments.Clear();
+                    invoice.Payments.Add(payment);
+                    if (Decimal.TryParse(DiscountTB.Text, out decimal discount))
+                    {
+                        if (discount > 0)
+                        {
+                            if (invoice.InvoiceItems.Any(x => x.discount))
+                            {
+                                var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                                invoice.Payments.Add(Dispayment);
+
+                            }
+                            else
+                            {
+                                var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                                invoice.Payments.Add(Dispayment);
+                                invoice.InvoicePrice = invoice.InvoicePrice + Dispayment.Amount;
+                            }
+                        }
+                    }
+                    SaveInvoiceNumber();
+                    //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
+                }
+                else
+                {
+                    AutoItX.ControlClick(pos, "", SwitchBTN, "left", 1);
+                    AutoItX.Sleep(1000);
+                    AutoItX.ControlClick(pos, "", SwitchBTN, "left", 1);
+                    AutoItX.Sleep(1000);
+                    var payment = new Payment() { Name = "TryOrder", Amount = invoice.InvoicePrice };
+                    invoice.Payments.Clear();
+                    invoice.Payments.Add(payment);
+                    if (Decimal.TryParse(DiscountTB.Text, out decimal discount))
+                    {
+                        if (discount > 0)
+                        {
+                            if (invoice.InvoiceItems.Any(x => x.discount))
+                            {
+                                var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                                invoice.Payments.Add(Dispayment);
+
+                            }
+                            else
+                            {
+                                var Dispayment = new Payment() { Name = "Discount", Amount = -1 * Convert.ToDecimal(discount) };
+                                invoice.Payments.Add(Dispayment);
+                                invoice.InvoicePrice = invoice.InvoicePrice + Dispayment.Amount;
+                            }
+                        }
+                    }
+                    SaveInvoiceNumber();
+                    //AutoItX.ControlClick(pos, "", SaveBTN, "left", 1);
+                }
+
+
+            }
+            else if (!CheckIfReadyToSave())
+            {
+                if (!ModifierKeys.HasFlag(Keys.Control)) { AutoItX.ControlClick(pos, "", POSNewBTN, "left", 2); }
+                
             }
         }
 

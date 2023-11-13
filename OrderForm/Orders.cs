@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using Newtonsoft.Json.Linq;
 using OrderForm.SavingandPayment;
 using PrayerTimes;
 using sharedCode;
@@ -535,6 +536,10 @@ namespace OrderForm
         private void SalahTMR_Tick(object sender, EventArgs e)
         {
             TimeButton.Text = DateTime.Now.ToString("hh:mm tt");
+            if (SalahPanels.Size != new Size(321, 63))
+            {
+                return;
+            }
             TimeTillCountdown.Text = NextPrayer.UpdateCounter();
             if (afterPrayers) return;
             switch (NextPrayer.UpdateCounter(true))
@@ -1411,7 +1416,7 @@ namespace OrderForm
         private void TimeInfo_Click(object sender, EventArgs e)
         {
             string result = TimePicker.SHOW();
-            
+
             if (result.Length > 1)
             {
                 TimeTB.Text = result;
@@ -2259,7 +2264,7 @@ namespace OrderForm
             }
         }
 
-        private void UnfocusableButton3_Click(object sender, EventArgs e)
+        private void ShowMenu_Click(object sender, EventArgs e)
         {
 
             if (Screen.AllScreens.Count() > 1)
@@ -3736,7 +3741,7 @@ namespace OrderForm
         {
 
 
-            if (e.Content.ToString().Contains('×') || e.Content.ToString().Contains("المُقدَّر") || e.Content.ToString().Contains("estimated") || e.Content.ToString().Contains("Order#"))
+            if (e.Content.ToString().Contains('×') || e.Content.ToString().Contains("app_id") || e.Content.ToString().Contains("المُقدَّر") || e.Content.ToString().Contains("estimated") || e.Content.ToString().Contains("Order#"))
             {
                 try
                 {
@@ -3746,17 +3751,17 @@ namespace OrderForm
                         var result = MessageForm.SHOW("تم إلتقاط فاتورة عبر الحافظة، هل تريد محاولة قراءتها؟" + Environment.NewLine + e.Content.ToString(), "العثور الذكي على الفواتير", "نعم", "لا");
                         if (result == DialogResult.Yes)
                         {
-                            ParseInvoices(e.Content.ToString());
-                            DeleteLastCliboard(e.Content.ToString());
-
-
-
+                            if (e.Content.ToString().Contains("app_id"))
+                            {
+                                ParseJson(e.Content.ToString());
+                            }
+                            else
+                            {
+                                ParseInvoices(e.Content.ToString());
+                                DeleteLastCliboard(e.Content.ToString());
+                            }
                         }
-
-
-
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -3767,6 +3772,53 @@ namespace OrderForm
             }
 
         }
+
+        private void ParseJson(string v)
+        {
+            Console.WriteLine("Parsing JSON...");
+            // parse json
+            var json = v;
+            var jObject = JObject.Parse(json);
+            // find customer_name
+            var customer_name = jObject["customer_name"].ToString();
+            Console.WriteLine("Customer name found: " + customer_name);
+            NameTB.Text = customer_name;
+            // find customer_phone
+            var customer_mobile = jObject["customer_mobile"].ToString();
+            Console.WriteLine("Customer mobile found: " + customer_mobile);
+            MobileTB.Text = "0" + customer_mobile;
+            var vehicle_brand_name = jObject["vehicle_brand_name"].ToString();
+            var vehicle_color_name = jObject["vehicle_color_name"].ToString();
+            if (vehicle_brand_name != null)
+            {
+                CommentTB.Text += " " + vehicle_brand_name + " " + vehicle_color_name;
+                Console.WriteLine("Vehicle brand and color found: " + vehicle_brand_name + " " + vehicle_color_name);
+            }
+
+            // get list of items 
+            var items = jObject["items"].ToList();
+            Console.WriteLine("Items found:");
+            // go through each item and add it to POS   
+            foreach (var item in items)
+            {
+                var TryOrderMaterials = DbInv.LoadApp("tryorder");
+                var name = item["item_name"].ToString();
+                var price = item["item_price"].ToString();
+                var quantity = item["qty"].ToString();
+                string barcode = TryOrderMaterials.list.First(z => z.Name == name.Trim()).Barcode;
+
+                var positem = new POSItems()
+                {
+                    Name = name,
+                    Price = Convert.ToDecimal(price),
+                    Quantity = Convert.ToInt32(quantity),
+                    Barcode = barcode,
+                };
+                POS.Add(positem);
+                Console.WriteLine("- " + name + " added to POS");
+            }
+        }
+
         private async void DeleteLastCliboard(string e)
         {
             try
@@ -3844,6 +3896,24 @@ namespace OrderForm
             if (MobileTB.Text.Length > 8 && dbQ.LoadContacts(MobileTB.Text).comments != null)
                 CommentTB.Text = dbQ.LoadContacts(MobileTB.Text).comments;
 
+
+
+        }
+
+        private void SalahTimeBTN_Click(object sender, EventArgs e)
+        {
+            if (SalahPanels.Size == new Size(321, 63))
+            {
+                SalahPanels.Size = new Size(20, 63);
+                SalahPanels.Visible = false;
+                SalahTimeBTN.Text = ">";
+            }
+            else
+            {
+                SalahPanels.Size = new Size(321, 63);
+                SalahPanels.Visible = true;
+                SalahTimeBTN.Text = "<";
+            }
 
 
         }
