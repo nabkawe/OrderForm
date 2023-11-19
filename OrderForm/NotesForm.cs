@@ -86,5 +86,16 @@ namespace OrderForm
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SettingsPage.MoveItem(-1, noteList);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SettingsPage.MoveItem(1, noteList);
+
+        }
     }
 }

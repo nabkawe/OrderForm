@@ -56,6 +56,8 @@ namespace OrderForm
             float y = 50;
             float width = 270.0F; // max width I found through trial and error
             float height = 0F;
+       
+
 
             // الخطوط الافتراضية
             string FntName = Properties.Settings.Default.FontCombo;
@@ -74,6 +76,8 @@ namespace OrderForm
             Font cfnt = new Font(FntName, 16, FontStyle.Regular);
             // لون الخط
             SolidBrush drawBrush = new SolidBrush(Color.Black);
+            SolidBrush drawBrush2 = new SolidBrush(Color.White);
+            SolidBrush drawBrush3 = new SolidBrush(Color.Gray);
 
             // Set format of string.
             var drawFormatCenter = new StringFormat
@@ -89,7 +93,14 @@ namespace OrderForm
             {
                 Alignment = StringAlignment.Far
             };
-
+            if (order.IDstring.Length > 3)
+            {
+                string texts = order.IDstring.Substring(order.IDstring.Length - 3);
+                e.Graphics.RotateTransform(270);
+                e.Graphics.FillRectangle(drawBrush3, x - 100, y - 50, width +50, height+50);    
+                e.Graphics.DrawString(texts, lfnt, drawBrush2, new RectangleF(x - 95, y - 40, width, height), drawFormatLeft);
+                e.Graphics.ResetTransform();
+            }
             var rtlFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
             y += 10;
 
@@ -101,10 +112,10 @@ namespace OrderForm
                 y += 5;
                 e.Graphics.DrawLine(new Pen(Color.Black), new Point(0, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
                 y += 5;
-
             }
             string text;
 
+         
 
 
             text = order.OrderType;
@@ -123,6 +134,8 @@ namespace OrderForm
 
                 float xx = x;
                 float yy = y + 10;
+
+               
 
                 string ntext = string.Join("", order.IDstring.Take(order.IDstring.Length - 4).ToArray());
                 e.Graphics.DrawString(ntext, mfnt, drawBrush, new RectangleF(x - 45, yy, width, height), drawFormatCenter);
@@ -337,15 +350,6 @@ namespace OrderForm
             {
                 Alignment = StringAlignment.Center
             };
-            //var drawFormatLeft = new StringFormat
-            //{
-            //    Alignment = StringAlignment.Near
-            //};
-            //var drawFormatRight = new StringFormat
-            //{
-            //    Alignment = StringAlignment.Far
-            //};
-            //var rtlFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
 
 
             string text;
@@ -382,41 +386,7 @@ namespace OrderForm
             y += e.Graphics.MeasureString(text, mfnt).Height;
 
 
-            // Customer Name Check and print
-            //if (!string.IsNullOrEmpty(order.CustomerName))
-            //{
-            //    y += 5;
-            //    e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
-            //    y += 5;
-
-            //    text = order.CustomerName;
-            //    e.Graphics.DrawString(text, hfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-
-            //    y += e.Graphics.MeasureString(text, hfnt).Height;
-            //    y += 5;
-            //    e.Graphics.DrawLine(new Pen(Color.Black), new Point(2, Convert.ToInt32(y)), new Point(270, Convert.ToInt32(y)));
-            //    y += 5;
-
-            //    // Customer Number Check and print
-
-            //    //if (order.CustomerNumber != "")
-            //    //{
-            //    //    text = order.CustomerNumber;
-            //    //    e.Graphics.DrawString(text, mfnt, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-            //    //}
-
-            //}
-            // Order Notes Check and print
-
-
-            //if (!string.IsNullOrEmpty(order.Comment))
-            //{
-            //    text = order.Comment;
-            //    e.Graphics.DrawString("ملاحظة الفاتورة", tfnt, drawBrush, new RectangleF(2, y - 3, width, height), drawFormatRight);
-            //    y += e.Graphics.MeasureString(text, sfnt).Height;
-            //    e.Graphics.DrawString(text, tfnt, drawBrush, new RectangleF(2, y, width, height), drawFormatRight);
-            //    y += e.Graphics.MeasureString(text, fnt).Height;
-            //}
+           
 
             e.Graphics.DrawRectangle(new Pen(Color.Black), 2, 2, 270, y);
 

@@ -195,7 +195,7 @@
       <Value Profile="(Default)">\+\d+</Value>
     </Setting>
     <Setting Name="mrsoolItemsRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">(.*?)\s*(\d+)x\s*(\d+\.\d{2}</Value>
+      <Value Profile="(Default)">(.*?)\s*(\d+)x\s*(\d+\.\d{2})</Value>
     </Setting>
     <Setting Name="jahezIDregex" Type="System.String" Scope="User">
       <Value Profile="(Default)">Order#\s(\d+)</Value>
@@ -204,7 +204,7 @@
       <Value Profile="(Default)">Comment:(.*?)[\r\n]+</Value>
     </Setting>
     <Setting Name="jahezItemsRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">([\s\S]*?)\r?\n""(\d+)"".*?\r?\n.*?\r?\n(\d+)\s+([\d.]+)</Value>
+      <Value Profile="(Default)">([\s\S]*?)\r?\n\"(\d+)\".*?\r?\n.*?\r?\n(\d+)\s+([\d.]+)</Value>
     </Setting>
     <Setting Name="hungerComment" Type="System.String" Scope="User">
       <Value Profile="(Default)">\s*(.*?)\s*</Value>
@@ -213,7 +213,7 @@
       <Value Profile="(Default)">^(\d+)x\s*(.*?)\s*(\d+\.\d{2})$</Value>
     </Setting>
     <Setting Name="whatsappItems" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\""(.+)\""\s*(\d+)\s*\u200F.+٫..</Value>
+      <Value Profile="(Default)">"(.+)"\s*(\d+)\s*\u200F.+٫..</Value>
     </Setting>
     <Setting Name="whatsappPrice" Type="System.String" Scope="User">
       <Value Profile="(Default)">\u200F(.+٫..)</Value>

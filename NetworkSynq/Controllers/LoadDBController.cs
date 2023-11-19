@@ -197,10 +197,8 @@ namespace NetworkSynq.Controllers
                     else return Ok(new List<Invoice>());
                 }
                 else if (inv == "saved")
-                {// get all invoices that are saved to POS or deleted in the last 2 days
+                {
                     var draftinv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x => x.TimeOfSaving > DateTime.Now.AddDays(-14)).OrderByDescending(x => x.ID).ToList();
-
-
                     if (draftinv.Count > 0)
                     {
                         return Ok(draftinv.ToList());

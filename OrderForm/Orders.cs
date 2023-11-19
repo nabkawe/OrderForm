@@ -1618,8 +1618,14 @@ namespace OrderForm
             if (checkedItems.Any(item => item == todaysFilter.Name))
             {
                 // account for if x.TimeOfSaving is null 
-                Result.AddRange(list.Where(x => x.TimeOfSaving != null && x.TimeOfSaving.Date == DateTime.Now.Date && x.Status != InvStat.Deleted));
+                Result.AddRange(list.Where(x => x.TimeOfSaving != null && x.TimeOfSaving.Day == DateTime.Now.Day).Where(z => z.Status == InvStat.SavedToPOS || z.Status == InvStat.Deleted));
             }
+            else
+            {
+                Result.AddRange(list.Where(x => x.TimeOfSaving != null).Where(z => z.Status == InvStat.SavedToPOS || z.Status == InvStat.Deleted));
+            }
+
+
             if (checkedItems.Any(item => item == jahezFilter.Name))
             {
                 Result = Result.Where(x => x.OrderType == "تطبيقات").ToList();
@@ -2322,7 +2328,7 @@ namespace OrderForm
             {
                 POS.Clear();
                 String input = JahezParser.Replace("Product", "").Replace("Quantity", "").Replace("Price", "");
-                string pattern = $@"{Properties.Settings.Default.jahezIDregex}";
+                string pattern = $"{Properties.Settings.Default.jahezIDregex}";
                 match = Regex.Match(input, pattern);
                 if (match.Success)
                 {
@@ -2330,14 +2336,14 @@ namespace OrderForm
                     NameTB.Text = "جاهز" + match.Groups[1].Value;
                     jahezID = "جاهز" + match.Groups[1].Value;
                 }
-                pattern = $@"{Properties.Settings.Default.jahezCommentRegex}";
+                pattern = $"{Properties.Settings.Default.jahezCommentRegex}";
 
                 match = Regex.Match(input, pattern);
                 if (match.Success)
                 {
                     CommentTB.Text = match.Groups[1].Value;
                 }
-                pattern = $@"{Properties.Settings.Default.jahezItemsRegex}";
+                pattern = Properties.Settings.Default.jahezItemsRegex;
                 var mymatches = Regex.Matches(input, pattern);
                 if (mymatches.Count == 0)
                 {
@@ -2407,7 +2413,7 @@ namespace OrderForm
             {
                 string HungerParser = string.Empty;
                 HungerParser = Invoicedata;
-                string patternComment = $@"firstword{Properties.Settings.Default.hungerComment}lastword";
+                string patternComment = $"firstword{Properties.Settings.Default.hungerComment}lastword";
                 Match matchnew = Regex.Match(Invoicedata.Replace("تفاصيل الطلب الإضافية", "firstword").Replace("نوع التوصيل", "lastword"), patternComment);
                 CommentTB.Text = matchnew.Success ? matchnew.Groups[1].Value : "";
                 POS.Clear();
@@ -2494,15 +2500,15 @@ namespace OrderForm
                 MrsoolParser = Invoicedata;
 
 
-                Match orderMatch = Regex.Match(Invoicedata, $@"{Properties.Settings.Default.mrsoolIDRegex}");
+                Match orderMatch = Regex.Match(Invoicedata, Properties.Settings.Default.mrsoolIDRegex);
                 var OrderID = orderMatch.Value;
                 NameTB.Text = "مرسول:" + OrderID.Trim();
                 string oldname = "مرسول:" + OrderID.Trim();
 
-                string commentPattern = $@"{Properties.Settings.Default.mrsoolCommentRegex}";
+                string commentPattern = Properties.Settings.Default.mrsoolCommentRegex;
                 Match VerificationCode = Regex.Match(Invoicedata, commentPattern);
                 CommentTB.Text = VerificationCode.Success ? VerificationCode.Value : "";
-                string totalPricePattern = $@"{Properties.Settings.Default.mrsoolPriceFirstRegex}";
+                string totalPricePattern = Properties.Settings.Default.mrsoolPriceFirstRegex;
                 Match totalPriceMatch = Regex.Match(Invoicedata, totalPricePattern);
                 if (totalPriceMatch.Success)
                 {
@@ -2510,7 +2516,7 @@ namespace OrderForm
                 }
                 else
                 {
-                    string totalPricePattern2 = $@"{Properties.Settings.Default.mrsoolPriceSecondRegex}";
+                    string totalPricePattern2 = Properties.Settings.Default.mrsoolPriceSecondRegex;
                     Match totalPriceMatch2 = Regex.Match(Invoicedata, totalPricePattern2);
                     if (totalPriceMatch2.Success)
                     {
@@ -2518,7 +2524,7 @@ namespace OrderForm
                     }
                 }
 
-                string patternDriverNo = $@"{Properties.Settings.Default.mrsoolDriverRegex}";
+                string patternDriverNo = Properties.Settings.Default.mrsoolDriverRegex;
                 Match DriverNo = Regex.Match(Invoicedata, patternDriverNo);
                 MobileTB.Text = DriverNo.Success ? DriverNo.Value : "";
 
@@ -2527,51 +2533,61 @@ namespace OrderForm
 
                 string[] lines = MatParser.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 MatParser = string.Join(Environment.NewLine, lines);
-                string patterns = @"(.*?)\s*(\d+)x\s*(\d+\.\d{2})";
+                string patterns = Properties.Settings.Default.mrsoolItemsRegex;
                 var mat4Mrsool = DbInv.LoadApp("mrsool");
 
                 MatchCollection materialMatches = Regex.Matches(MatParser, patterns, RegexOptions.Multiline);
                 if (materialMatches.Count == 0) return;
-                foreach (Match matchMrsool in materialMatches)
+                try
                 {
-                    Console.WriteLine("Quantity: " + matchMrsool.Groups[2].Value);
-                    Console.WriteLine("Name: " + matchMrsool.Groups[1].Value);
-                    Console.WriteLine("Price: " + matchMrsool.Groups[3].Value);
 
-                    var ProductName = matchMrsool.Groups[1].Value;
-                    var Quantity = matchMrsool.Groups[2].Value;
-                    var Price = matchMrsool.Groups[3].Value;
-                    string barcode;
-                    if (mat4Mrsool.list.Any(x => x.Name == ProductName.Trim()))
+                    foreach (Match matchMrsool in materialMatches)
                     {
-                        barcode = mat4Mrsool.list.First(z => z.Name.Trim() == ProductName.Trim()).Barcode;
-                        var Item = ItemsLists.First(x => x.Barcode == barcode);
-                        if (Item != null)
+                        Console.WriteLine("Quantity: " + matchMrsool.Groups[2].Value);
+                        Console.WriteLine("Name: " + matchMrsool.Groups[1].Value);
+                        Console.WriteLine("Price: " + matchMrsool.Groups[3].Value);
+
+                        var ProductName = matchMrsool.Groups[1].Value;
+                        var Quantity = matchMrsool.Groups[2].Value;
+                        var Price = matchMrsool.Groups[3].Value;
+                        string barcode;
+                        if (mat4Mrsool.list.Any(x => x.Name == ProductName.Trim()))
                         {
-                            Item.Comment = string.Empty;
-                            var New = new POSItems
+                            barcode = mat4Mrsool.list.First(z => z.Name.Trim() == ProductName.Trim()).Barcode;
+                            var Item = ItemsLists.First(x => x.Barcode == barcode);
+                            if (Item != null)
                             {
-                                Name = Item.Name,
-                                Quantity = Convert.ToInt32(Quantity),
-                                realquan = Item.realquan,
-                                Barcode = Item.Barcode,
-                                ID = Item.ID,
-                                Parent = Item.Parent,
-                                Available = Item.Available
-                                ,
-                                Price = Convert.ToDecimal(Price)
-                            };
+                                Item.Comment = string.Empty;
+                                var New = new POSItems
+                                {
+                                    Name = Item.Name,
+                                    Quantity = Convert.ToInt32(Quantity),
+                                    realquan = Item.realquan,
+                                    Barcode = Item.Barcode,
+                                    ID = Item.ID,
+                                    Parent = Item.Parent,
+                                    Available = Item.Available
+                                    ,
+                                    Price = Convert.ToDecimal(Price)
+                                };
 
-                            if (barcode == "010052")
-                            {
-                                New.Comment = ProductName;
+                                if (barcode == "010052")
+                                {
+                                    New.Comment = ProductName;
+                                }
+                                Item.printerlist.ForEach(x => New.printerlist.Add(x));
+                                POS.Add(New);
                             }
-                            Item.printerlist.ForEach(x => New.printerlist.Add(x));
-                            POS.Add(New);
                         }
-                    }
 
+                    }
                 }
+                catch (Exception)
+                {
+
+                    MessageForm.SHOW("قد تكون أحد المواد غير مدخلة بشكل صحيح في قائمة أسماء مواد التطبيقات", "خطأ", "مفهوم");
+                }
+
                 OrderStatus.Text = "تطبيقات";
                 if (AmountLBL.Text != totalamount) { MessageForm.SHOW("قد يكون هناك خطأ في أحد المواد لأن المبالغ لم تتطابق", "تنبيه", "مفهوم"); return; }
 
@@ -2604,8 +2620,9 @@ namespace OrderForm
                     try
                     {
                         string pattern = Properties.Settings.Default.whatsappItems;
+                        //string pattern = @"\""(.+)\""\s*(\d+)\s*\u200F.+٫..";
                         MatchCollection WhatsappMatches = Regex.Matches(Invoicedata, pattern, RegexOptions.Multiline);
-
+                        Console.WriteLine(WhatsappMatches.Count);
                         foreach (Match matchWhatsapp in WhatsappMatches)
                         {
                             string whatsappBarcode = matchWhatsapp.Groups[1].Value;
@@ -2639,6 +2656,27 @@ namespace OrderForm
                         MessageForm.SHOW(ex.Message, ex.ToString(), "تنبيه", "مفهوم");
                     }
 
+                    if (Invoicedata.Contains("contact"))
+                    {
+                        string keyword = "contact";
+                        int index = Invoicedata.IndexOf(keyword) + keyword.Length;
+                        string result = Invoicedata.Substring(index);
+                        if (result.Contains("+"))
+                        {
+                            result = MobileTB.Text = result;
+                            NameTB.Focus();
+                            NameTB.SelectionLength = 0;
+                        }
+                        else
+                        {
+
+                            System.Windows.Clipboard.SetText(result);
+                            PasteBTN_Click(null, null);
+
+                        }
+                    }
+
+
                     Double due = Convert.ToDouble(AmountLBL.Text);
                     string CartPrice = Regex.Match(Invoicedata, @"").Captures[0].Value; ;
                     if (Double.TryParse(ToEnglishNumbers(CartPrice), out Double decimalPrice))
@@ -2648,19 +2686,7 @@ namespace OrderForm
                             MessageForm.SHOW("السعر لا يساوي السعر بالسلة", "تنبيه", "مفهوم");
                             return;
                         }
-                        else
-                        {
-                            if (Invoicedata.Contains("contact"))
-                            {
-                                string keyword = "contact";
-                                int index = Invoicedata.IndexOf(keyword) + keyword.Length;
-                                string result = Invoicedata.Substring(index);
-                                System.Windows.Clipboard.SetText(result);
-                                PasteBTN_Click(null, null);
-                            }
 
-
-                        }
                     }
 
 
@@ -3543,12 +3569,24 @@ namespace OrderForm
 
         private void EditName_Click(object sender, EventArgs e)
         {
-            try
+            if (EditName.Tag is Contacts con && MobileTB.Text == con.Number)
             {
-                if (EditName.Tag is Contacts con && MobileTB.Text == con.Number)
+                con.Name = NameTB.Text;
+                dbQ.SaveContacts(con);
+                string old = EditName.Text;
+                EditName.Text = "تم التعديل";
+                // wait 10 seconds then return to original text of EditName.Text;
+                Task.Delay(5000).ContinueWith(t => { EditName.Text = old; });
+
+            }
+            else
+            {
+            Contacts ccc = dbQ.LoadContacts(MobileTB.Text);
+              var name =  ccc.Name ?? " ";  
+                if (name != " ")
                 {
-                    con.Name = NameTB.Text;
-                    dbQ.SaveContacts(con);
+                    EditName.Tag = ccc;
+                    dbQ.SaveContacts(ccc);
                     string old = EditName.Text;
                     EditName.Text = "تم التعديل";
                     // wait 10 seconds then return to original text of EditName.Text;
@@ -3557,13 +3595,8 @@ namespace OrderForm
                 }
                 else
                 {
-                    EditName.Tag = dbQ.LoadContacts(MobileTB.Text);
-                    EditName_Click(sender, e);
+                    dbQ.SaveContacts(new Contacts() { Name = NameTB.Text, Number = MobileTB.Text });
                 }
-            }
-            catch (Exception)
-            {
-
 
             }
         }

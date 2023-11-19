@@ -34,6 +34,8 @@
             this.DeleteItem = new System.Windows.Forms.Button();
             this.AddNoteBTN = new System.Windows.Forms.Button();
             this.noteTB = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // noteList
@@ -92,11 +94,33 @@
             this.noteTB.TabIndex = 5;
             this.noteTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(250, 320);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(36, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "ت";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(210, 320);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(36, 23);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "أ";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // NotesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(291, 350);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.noteTB);
             this.Controls.Add(this.DeleteItem);
             this.Controls.Add(this.AddNoteBTN);
@@ -125,5 +149,7 @@
         private System.Windows.Forms.Button AddNoteBTN;
         private System.Windows.Forms.TextBox noteTB;
         public System.Windows.Forms.ListBox noteList;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

@@ -50,7 +50,7 @@ namespace OrderForm
         private void Fonts_Click(object sender, EventArgs e)
         {
             // pick the font and size
-            FontDialog MyDialog = new FontDialog();
+            var MyDialog = new FontDialog();
             MyDialog.ShowColor = true;
             MyDialog.Color = this.Fonts.ForeColor;
             MyDialog.Font = this.Fonts.Font;
@@ -98,7 +98,7 @@ namespace OrderForm
 
         private headerObject createNewHeader()
         {
-            headerObject h = new headerObject();
+            var h = new headerObject();
             h.HeaderName = titleBox.Text;
             h.FontFamily = Fonts.Font.FontFamily.Name;
             h.FontSize = (int)Fonts.Font.Size;

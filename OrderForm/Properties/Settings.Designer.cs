@@ -793,7 +793,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(.*?)\\s*(\\d+)x\\s*(\\d+\\.\\d{2}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(.*?)\\s*(\\d+)x\\s*(\\d+\\.\\d{2})")]
         public string mrsoolItemsRegex {
             get {
                 return ((string)(this["mrsoolItemsRegex"]));
@@ -829,7 +829,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("([\\s\\S]*?)\\r?\\n\"\"(\\d+)\"\".*?\\r?\\n.*?\\r?\\n(\\d+)\\s+([\\d.]+)")]
+        [global::System.Configuration.DefaultSettingValueAttribute("([\\s\\S]*?)\\r?\\n\\\"(\\d+)\\\".*?\\r?\\n.*?\\r?\\n(\\d+)\\s+([\\d.]+)")]
         public string jahezItemsRegex {
             get {
                 return ((string)(this["jahezItemsRegex"]));
@@ -865,7 +865,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\"\"(.+)\\\"\"\\s*(\\d+)\\s*\\u200F.+٫..")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"(.+)\"\\s*(\\d+)\\s*\\u200F.+٫..")]
         public string whatsappItems {
             get {
                 return ((string)(this["whatsappItems"]));

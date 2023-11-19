@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="OrderForm.exe" version="1.0.1.177" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="OrderForm.exe" version="1.0.1.191" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="LibraSoft.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -127,14 +127,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderForm.exe" size="940616">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderForm.exe" size="942152">
       <assemblyIdentity name="OrderForm" version="1.0.1.53" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>k9CXMv8ckV5ZYTxe3gmOmjdMwb62JZdCnbflyHRK0EM=</dsig:DigestValue>
+        <dsig:DigestValue>8j3Vf44Z0urmhnsPf/EMmV7abbei68yrr8Ph/eD1zYE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -507,13 +507,13 @@
       <dsig:DigestValue>LsQi8S+PsdVxzgsyYjcn93WuX/QvOcV03W/8AVT7epw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OrderForm.exe.config" size="10340">
+  <file name="OrderForm.exe.config" size="10337">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>MHXMvof+FhsCDDBwj83LYjDfXE1ruo8RBGQUjAgfsWQ=</dsig:DigestValue>
+      <dsig:DigestValue>7yyGUMjVBu5ik79fZIMWjXxB+vIt/YfOztMCgRKD4oM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Resources\message.ico" size="67646">

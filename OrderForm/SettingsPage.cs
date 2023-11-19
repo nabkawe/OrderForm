@@ -315,7 +315,7 @@ namespace OrderForm
         /// </summary>
         /// <param name="direction"></param>
         /// <param name="listBox1"></param>
-        public void MoveItem(int direction, ListBox listBox1)
+        public static void MoveItem(int direction, ListBox listBox1)
         {
             // Checking selected item
             if (listBox1.SelectedItem == null || listBox1.SelectedIndex < 0)
