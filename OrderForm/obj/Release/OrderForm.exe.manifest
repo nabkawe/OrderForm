@@ -351,7 +351,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>qOldr30JeA20+6FrdO2hamSlwAx54K4Gbnl5KBxKdyA=</dsig:DigestValue>
+      <dsig:DigestValue>oQaGUfJHrwEtPqfMrKGXkdRSsqB8OaEGQhDQXmGBnuw=</dsig:DigestValue>
     </hash>
   </file>
   <file name="API\NetworkSynq.exe" size="118784">
@@ -369,7 +369,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>NL+vQ9Ghj2G4+lHLrc49DemQqjAJ+AzLR2NzDEukh4Q=</dsig:DigestValue>
+      <dsig:DigestValue>20dpnLCHT+AF8LadogHu0CKHSPvWBOVOpzatOtZoe9I=</dsig:DigestValue>
     </hash>
   </file>
   <file name="API\NetworkSynq.runtimeconfig.json" size="488">

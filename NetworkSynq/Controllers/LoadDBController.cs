@@ -239,12 +239,7 @@ namespace NetworkSynq.Controllers
                 else if (inv == "last42invoices")
                 {
 
-                    // I want to only get invoices that has the same day as today but I want to not get any invoices from last week so basically I want to keep getting invoices till I reach the same day in the old invoices
-                    // 
-
-                    // how can I search only the previous 5 days and not the whole database?
-
-                    var idFirst = draft.Find(x=> x.TimeOfSaving < DateTime.Now.AddDays(-6)).First().ID;
+                    var idFirst = draft.Find(x=> x.TimeOfSaving > DateTime.Now.AddDays(-6)).First().ID;
                     var d = draft.Find(x => !x.InEditMode  && (int)x.InvoiceDay == (int)DateTime.Now.DayOfWeek && x.Status != InvStat.Deleted && x.Status != InvStat.Draft && x.ID > idFirst).OrderByDescending(x => x.TimeinArabic == "الآن").ThenBy(x => x.TimeOfInv).ToList();
                     return Ok(d);
                 }
