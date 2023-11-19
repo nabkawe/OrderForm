@@ -4,6 +4,7 @@ using sharedCode;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -16,40 +17,7 @@ namespace OrderForm
 {
     public static class DbInv
     {
-        //log backcode
-        public static void LogAction(string action, int id, InvStat status)
-        {
-            //if (Properties.Settings.Default.Api_On)
-            //{
-            //    var Logged = GetInvoiceByID(id);
-            //    Logged.LogThis(action);
-            //    CreateDraftInvoice(Logged);
 
-
-
-            //}
-            //else
-            //{
-            //    using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-            //    {
-            //        if (status == InvStat.Draft)
-            //        {
-            //            var Invoices = db.GetCollection<Invoice>("Invoices");
-            //            var Logged = Invoices.FindById(id);
-            //            Logged.LogThis(action);
-            //            Invoices.Update(Logged);
-
-            //        }
-            //        else
-            //        {
-            //            var Invoices = db.GetCollection<Invoice>("Invoices");
-            //            var Logged = Invoices.FindById(id);
-            //            Logged.LogThis(action);
-            //            Invoices.Update(Logged);
-            //        }
-            //    }
-            //}
-        }
 
         public static bool AreYouAlive()
         {
@@ -57,8 +25,11 @@ namespace OrderForm
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/AreYouAlive");
-                var request = new RestRequest();
-                request.Timeout = 1000;
+                var request = new RestRequest()
+                {
+                    Timeout = 1000
+                };
+
                 var response = client.Get(request);
                 if (response != null) { return true; } else { return false; }
 
@@ -207,7 +178,7 @@ namespace OrderForm
                 //check if response is true 
                 if (response.Content == "true")
                 {
-                    MessageForm.SHOW("إعادة تهيئة قاعدة البيانات و نسخها احتياطيا","تمت العملية","مفهوم");
+                    MessageForm.SHOW("إعادة تهيئة قاعدة البيانات و نسخها احتياطيا", "تمت العملية", "مفهوم");
                 }
                 else
                 {
@@ -230,7 +201,7 @@ namespace OrderForm
                 }
                 catch (Exception)
                 {
-                    MessageForm.SHOW("لا يمكنك حذف الفواتير من الإي بي آي","تنويه","مفهوم");
+                    MessageForm.SHOW("لا يمكنك حذف الفواتير من الإي بي آي", "تنويه", "مفهوم");
 
                 }
 
@@ -552,7 +523,7 @@ namespace OrderForm
             return new List<String>();
         }
 
-        public static List<Invoice> GetAllSavedInvoicesDB(string searchstring)
+        public static List<Invoice> GetAllSavedInvoicesDB(string searchstring, bool DeepSearch)
         {
             if (Properties.Settings.Default.Api_On)
             {
@@ -560,6 +531,7 @@ namespace OrderForm
                 var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/SearchALLDB");
                 var request = new RestRequest();
                 request.AddParameter("search", searchstring);
+                request.AddParameter("DeepSearch", DeepSearch);
                 RestResponse response = client.Get(request);
                 if (response != null)
                 {
@@ -616,7 +588,6 @@ namespace OrderForm
                 if (comment == 1)
                 {
 
-                    DbInv.LogAction("Printed Invoice Deleted Canceled", id, InvStat.Deleted);
                     Deleted = GetInvoiceByID(id);
                     Deleted.Comment = "تم الإلغاء من العميل";
                     Deleted.Status = InvStat.Deleted;
@@ -638,7 +609,6 @@ namespace OrderForm
                 }
                 else
                 {
-                    DbInv.LogAction($"Printed Invoice Deleted wasn't picked up", id, InvStat.Deleted);
                     Deleted = GetInvoiceByID(id);
                     Deleted.Comment = "لم يتم الإستلام من العميل";
                     Deleted.Status = InvStat.Deleted;
@@ -674,13 +644,11 @@ namespace OrderForm
                     if (comment != 0)
                     {
                         Deleted.Comment = "تم الإلغاء من العميل";
-                        DbInv.LogAction("Printed Invoice Deleted Canceled", Deleted.ID, Deleted.Status);
                         return Invoices.Update(Deleted);
                     }
                     else
                     {
                         Deleted.Comment = "لم يتم الإستلام من العميل";
-                        DbInv.LogAction($"Printed Invoice Deleted wasn't picked up", Deleted.ID, Deleted.Status);
                         return Invoices.Update(Deleted);
                     }
                 }
@@ -957,8 +925,7 @@ namespace OrderForm
                             var f = Convert.ToInt32(row.Cells[5].Value);
                             var g = Convert.ToDecimal(row.Cells[6].Value);
                             var h = Convert.ToString(row.Cells[7].Value);
-                            var i = Convert.ToString(row.Cells[8].Value);
-                            if (i == null) i = "Default";
+                            var i = Convert.ToString(row.Cells[8].Value) ?? "Default";
                             POSItems item = new POSItems(a, b, c, d, e, f, g, h, i);
                             Materials.Upsert(item);
                             list.Add(item);
@@ -1026,66 +993,6 @@ namespace OrderForm
 
         }
 
-        public static void CreateDraft(Invoice inv)
-        {
-
-        }
-        public static void CreateAppOrder(Invoice inv)
-        {
-
-            if (Properties.Settings.Default.Api_On)
-            {
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/UpdateInvoiceSaved");
-                var request = new RestRequest();
-                request.AddHeader("Content-Type", "application/json");
-                request.AddHeader("Accept", "application/json");
-                request.RequestFormat = DataFormat.Json;
-                string i = Newtonsoft.Json.JsonConvert.SerializeObject(inv, Newtonsoft.Json.Formatting.Indented);// <Invoice>(item);
-                request.AddParameter("application/json", i, ParameterType.RequestBody);
-                var response = client.Post(request);
-            }
-            else
-            {
-                using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-
-                {
-
-                    var Invoices = db.GetCollection<Invoice>("Invoices");
-                    Invoices.Upsert(inv);
-                }
-            }
-        }
-
-        //internal static GetInvoiceByPhoneNumber(string number)
-        //{
-        //    if (Properties.Settings.Default.Api_On)
-        //    {
-        //        try
-        //        {
-        //            var c = GetSavedInvoices();
-        //            var result = c.Find(x => x.CustomerNumber == number);
-        //            if (result == null) return null; else return result;
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return null;
-
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
-        //        {
-        //            var Invoices = db.GetCollection<Invoice>("Invoices");
-        //            var c = Invoices.Find(x => x.CustomerNumber.Contains(number));
-        //            var b = c.ToList();
-        //            if (b[0] == null) return null; else return b[0];
-        //        }
-
-        //    }
-        //}
 
         internal static void DeleteAllEmptyDrafts()
         {
@@ -1098,29 +1005,65 @@ namespace OrderForm
 
         }
 
-        internal static void InsureIndexes()
+        public static void InsureIndexes()
         {
-            using (var db = new LiteDatabase(Properties.Settings.Default.DBConnection))
+            try
             {
-                var draft = db.GetCollection<Invoice>("Invoices");
-                draft.DropIndex("Status");
-                draft.DropIndex("SearchResult");
-                draft.DropIndex("CustomerNumber");
-                draft.DropIndex("ID");
-                draft.EnsureIndex(x => x.Status);
-                draft.EnsureIndex(x => x.SearchResult);
-                draft.EnsureIndex(x => x.CustomerNumber);
-                draft.EnsureIndex(x => x.ID);
-                var Materials = db.GetCollection<POSItems>("Materials");
-                Materials.EnsureIndex(x => x.Barcode);
-                var sectionTable = db.GetCollection<POSsections>("Sections");
-                sectionTable.EnsureIndex(x => x.Name);
+                if (MessageForm.SHOW("هل تريد قتل التزامن لتنفيذ هذه العملية، لا يمكنكم التراجع، الرجاء الانتظار حتى ظهور رسالة انتهاء التحسينات", "تنويه", "البدء بالتحسينات", "إلغاء الأمر") == DialogResult.No)
+                {
+                    return;
+                }
 
-                var Deps = db.GetCollection<Contacts>("Customers");
-                Deps.DeleteMany(x => x.Number == null);
-                Deps.DropIndex("Number");
-                Deps.EnsureIndex(x => x.Number);
+                if (Process.GetProcessesByName("NetworkSynq").Length >= 0)
+                {
+                    foreach (var process in Process.GetProcessesByName("NetworkSynq"))
+                    {
+                        process.Kill();
+                    }
+                }
+                // look for every file inside Properties.Settings.Default.DBConnection folder if it ends in .db and is not the same as DBConnection  and has a collection called ("Invoices") and loop this method over each of them them
+                if (Properties.Settings.Default.DBConnection != "Filename=C:\\db\\db.db;Connection=Shared")
+                {
+                    string[] files = Directory.GetFiles("C:\\db\\", "*.db");
+                    foreach (string file in files)
+                    {
+                        using (var db = new LiteDatabase(file))
+                        {
+                            if (db.CollectionExists("Invoices"))
+                            {
+                                var draft = db.GetCollection<Invoice>("Invoices");
+                                draft.DropIndex("Status");
+                                draft.DropIndex("SearchResult");
+                                draft.DropIndex("CustomerNumber");
+                                draft.DropIndex("InEditMode");
+                                draft.DropIndex("OrderType");
 
+                                draft.EnsureIndex(x => x.Status);
+                                draft.EnsureIndex(x => x.SearchResult);
+                                draft.EnsureIndex(x => x.CustomerNumber);
+                                draft.EnsureIndex(x => x.InEditMode);
+                                draft.EnsureIndex(x => x.OrderType);
+
+                                var Materials = db.GetCollection<POSItems>("Materials");
+                                Materials.EnsureIndex(x => x.Barcode);
+                                var sectionTable = db.GetCollection<POSsections>("Sections");
+                                sectionTable.EnsureIndex(x => x.Name);
+
+                                var Deps = db.GetCollection<Contacts>("Customers");
+                                Deps.DropIndex("Number");
+                                Deps.EnsureIndex(x => x.Number);
+                            }
+
+
+
+                        }
+                    }
+                    MessageForm.SHOW("تمت العملية بنجاح يمكنكم الآن إعادة تشغيل البرنامج سيعود نظام التزامن للعمل مباشرة ", "تمت العملية", "مفهوم");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageForm.SHOW(ex.ToString(), ex.Message, "مفهوم");
             }
         }
 
@@ -1225,11 +1168,11 @@ namespace OrderForm
             if (Properties.Settings.Default.Api_On)
             {
                 //get from api
-                
+
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/LoadApp");
                 var request = new RestRequest();
-                    request.AddParameter("name", name.ToLower());
+                request.AddParameter("name", name.ToLower());
                 var response = client.Get(request);
                 if (response != null)
                 {
@@ -1253,7 +1196,7 @@ namespace OrderForm
                     return mat.FindOne(x => x.Name == name);
                 }
             }
-            
+
 
         }
 
@@ -1261,27 +1204,46 @@ namespace OrderForm
         {
             if (Properties.Settings.Default.Api_On)
             {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/GetList");
-                    var request = new RestRequest();
-                    request.AddParameter("inv", "readyOrdersOnly");
-                    RestResponse response = client.Get(request);
-                    if (response != null)
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/GetList");
+                var request = new RestRequest();
+                request.AddParameter("inv", "readyOrdersOnly");
+                RestResponse response = client.Get(request);
+                if (response != null)
+                {
+                    if (response.StatusCode.ToString() == "OK")
                     {
-                        if (response.StatusCode.ToString() == "OK")
-                        {
-                            var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Invoice>>(response.Content.ToString());// <Invoice>(item);
-                            return i;
-                        }
-                        else return new List<Invoice>();
-
+                        var i = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Invoice>>(response.Content.ToString());// <Invoice>(item);
+                        return i;
                     }
                     else return new List<Invoice>();
-                
+
+                }
+                else return new List<Invoice>();
+
             }
             else
             {
                 return new List<Invoice>();
+            }
+        }
+
+        internal static void KillServer()
+        {
+            if (Properties.Settings.Default.Api_On)
+            {
+                try
+                {
+                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                    var client = new RestClient(Properties.Settings.Default.API_Connection + "/LoadDB/KillServer");
+                    var request = new RestRequest();
+                    client.Get(request);
+
+                }
+                catch (Exception)
+                {
+
+                }
             }
         }
     }

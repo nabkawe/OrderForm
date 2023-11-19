@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="OrderForm.exe" version="1.0.1.169" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="OrderForm.exe" version="1.0.1.177" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="LibraSoft.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -127,14 +127,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderForm.exe" size="855624">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderForm.exe" size="940616">
       <assemblyIdentity name="OrderForm" version="1.0.1.53" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Q+2tXHaeR+k6retgjd7Z0lfc102wLJ0MaY7xM/yuMzQ=</dsig:DigestValue>
+        <dsig:DigestValue>k9CXMv8ckV5ZYTxe3gmOmjdMwb62JZdCnbflyHRK0EM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -282,13 +282,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="API\appsettings.Development.json" size="127">
+  <file name="API\appsettings.Development.json" size="454">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>c/lfngzrIF/BxNxQwHaX/Pop1wh4aMKu8dUEyzjHcew=</dsig:DigestValue>
+      <dsig:DigestValue>Yl7cTlm5IvkkBaPzUNai8cBIpiXAFAYLhXw3OJzD/VQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="API\appsettings.json" size="259">
@@ -345,13 +345,13 @@
       <dsig:DigestValue>9XTcuSqxJIEMuPeToW+G4/Vw0OyMnkAS69SaSp3IrhM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="API\NetworkSynq.dll" size="41984">
+  <file name="API\NetworkSynq.dll" size="43008">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>KQL6p6v7/xad+wawEE/H2QjLJ3hBTUXhFitbRk29pFc=</dsig:DigestValue>
+      <dsig:DigestValue>qOldr30JeA20+6FrdO2hamSlwAx54K4Gbnl5KBxKdyA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="API\NetworkSynq.exe" size="118784">
@@ -363,13 +363,13 @@
       <dsig:DigestValue>O1V6MnaJ1x2Q2hN96r/uPzsgb7XVvQypnSa2n2HvjBo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="API\NetworkSynq.pdb" size="30960">
+  <file name="API\NetworkSynq.pdb" size="31260">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>mXdjvG2xF7UrskpFqQ1KpX9ojGR5W/ljmfrIWI/00qY=</dsig:DigestValue>
+      <dsig:DigestValue>NL+vQ9Ghj2G4+lHLrc49DemQqjAJ+AzLR2NzDEukh4Q=</dsig:DigestValue>
     </hash>
   </file>
   <file name="API\NetworkSynq.runtimeconfig.json" size="488">
@@ -507,13 +507,13 @@
       <dsig:DigestValue>LsQi8S+PsdVxzgsyYjcn93WuX/QvOcV03W/8AVT7epw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OrderForm.exe.config" size="8668">
+  <file name="OrderForm.exe.config" size="10340">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>QGtTrAQtTvNDihudkpTJq+m05CfpUv2irCgevCftHT8=</dsig:DigestValue>
+      <dsig:DigestValue>MHXMvof+FhsCDDBwj83LYjDfXE1ruo8RBGQUjAgfsWQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Resources\message.ico" size="67646">

@@ -649,7 +649,7 @@ namespace OrderForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\db\\images\\debes.png")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\db\\images\\HeaderSource\\logo.png")]
         public string Logo {
             get {
                 return ((string)(this["Logo"]));
@@ -698,12 +698,12 @@ namespace OrderForm.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CallerIDEnabled {
+        public bool ReadyOrdersEnabled {
             get {
-                return ((bool)(this["CallerIDEnabled"]));
+                return ((bool)(this["ReadyOrdersEnabled"]));
             }
             set {
-                this["CallerIDEnabled"] = value;
+                this["ReadyOrdersEnabled"] = value;
             }
         }
         
@@ -728,6 +728,162 @@ namespace OrderForm.Properties {
             }
             set {
                 this["PromotionLink"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#(\\d+)")]
+        public string mrsoolIDRegex {
+            get {
+                return ((string)(this["mrsoolIDRegex"]));
+            }
+            set {
+                this["mrsoolIDRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("رمز التحقق: (\\d+)")]
+        public string mrsoolCommentRegex {
+            get {
+                return ((string)(this["mrsoolCommentRegex"]));
+            }
+            set {
+                this["mrsoolCommentRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("(\\d+\\.\\d{2}) sar\\s*نقبل")]
+        public string mrsoolPriceFirstRegex {
+            get {
+                return ((string)(this["mrsoolPriceFirstRegex"]));
+            }
+            set {
+                this["mrsoolPriceFirstRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("(\\d+\\.\\d{2}) sar\\s*الفرع")]
+        public string mrsoolPriceSecondRegex {
+            get {
+                return ((string)(this["mrsoolPriceSecondRegex"]));
+            }
+            set {
+                this["mrsoolPriceSecondRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\+\\d+")]
+        public string mrsoolDriverRegex {
+            get {
+                return ((string)(this["mrsoolDriverRegex"]));
+            }
+            set {
+                this["mrsoolDriverRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("(.*?)\\s*(\\d+)x\\s*(\\d+\\.\\d{2}")]
+        public string mrsoolItemsRegex {
+            get {
+                return ((string)(this["mrsoolItemsRegex"]));
+            }
+            set {
+                this["mrsoolItemsRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Order#\\s(\\d+)")]
+        public string jahezIDregex {
+            get {
+                return ((string)(this["jahezIDregex"]));
+            }
+            set {
+                this["jahezIDregex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Comment:(.*?)[\\r\\n]+")]
+        public string jahezCommentRegex {
+            get {
+                return ((string)(this["jahezCommentRegex"]));
+            }
+            set {
+                this["jahezCommentRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("([\\s\\S]*?)\\r?\\n\"\"(\\d+)\"\".*?\\r?\\n.*?\\r?\\n(\\d+)\\s+([\\d.]+)")]
+        public string jahezItemsRegex {
+            get {
+                return ((string)(this["jahezItemsRegex"]));
+            }
+            set {
+                this["jahezItemsRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\s*(.*?)\\s*")]
+        public string hungerComment {
+            get {
+                return ((string)(this["hungerComment"]));
+            }
+            set {
+                this["hungerComment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("^(\\d+)x\\s*(.*?)\\s*(\\d+\\.\\d{2})$")]
+        public string hungerItems {
+            get {
+                return ((string)(this["hungerItems"]));
+            }
+            set {
+                this["hungerItems"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\"\"(.+)\\\"\"\\s*(\\d+)\\s*\\u200F.+٫..")]
+        public string whatsappItems {
+            get {
+                return ((string)(this["whatsappItems"]));
+            }
+            set {
+                this["whatsappItems"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\u200F(.+٫..)")]
+        public string whatsappPrice {
+            get {
+                return ((string)(this["whatsappPrice"]));
+            }
+            set {
+                this["whatsappPrice"] = value;
             }
         }
     }

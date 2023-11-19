@@ -115,7 +115,7 @@ namespace OrderForm
             this.Close();
         }
 
-        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        private void TabControl1_Selected(object sender, TabControlEventArgs e)
         {
             if (e.TabPage.Name == "Sections")
             {
@@ -127,20 +127,28 @@ namespace OrderForm
 
             else if (e.TabPage.Name == "prntSetting")
             {
-                GetListOfPrinters();
-                List<POSsections> l = dbQ.GetSections();
-                sectionsListCB.Items.Clear();
-                foreach (var i in l)
+                try
                 {
-                    sectionsListCB.Items.Add(i);
+
+                    GetListOfPrinters();
+                    List<POSsections> l = dbQ.GetSections();
+                    sectionsListCB.Items.Clear();
+                    foreach (var i in l)
+                    {
+                        sectionsListCB.Items.Add(i);
+                    }
+                    defaultPrinterTB.Text = dbQ.DefaultPrinters();
+                    CashierPrinterTB.Text = dbQ.CashierPrinter();
+                    sectionList.Items.Clear();
+                    PrepareList.Items.Clear();
+                    foreach (var item in dbQ.LoadDepartments())
+                    {
+                        PrepareList.Items.Add(item);
+                    }
                 }
-                defaultPrinterTB.Text = dbQ.DefaultPrinters();
-                CashierPrinterTB.Text = dbQ.CashierPrinter();
-                sectionList.Items.Clear();
-                PrepareList.Items.Clear();
-                foreach (var item in dbQ.LoadDepartments())
+                catch (Exception ex)
                 {
-                    PrepareList.Items.Add(item);
+                    MessageForm.SHOW(ex.ToString(), ex.Message, "مفهوم");
                 }
             }
             else if (e.TabPage.Name == "Pos")
@@ -149,52 +157,52 @@ namespace OrderForm
             }
             else if (e.TabPage.Name == "About")
             {
-                infolist.Items.Clear();
-                var list = MenuDB.LoadInfo();
-                if (list != null)
-                {
-                    if (list.list.Count > 0)
-                    {
-                        foreach (string item in list.list)
-                        {
-                            infolist.Items.Add(item);
-                        }
-                    }
-                }
                 try
                 {
+                    infolist.Items.Clear();
+                    var list = MenuDB.LoadInfo();
+                    if (list != null)
+                    {
+                        if (list.list.Count > 0)
+                        {
+                            foreach (string item in list.list)
+                            {
+                                infolist.Items.Add(item);
+                            }
+                        }
+                    }
+
                     label54.Text = "dev: Nabkawe@gmail.com" + Environment.NewLine + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Console.Beep(500, 500);
+                    MessageForm.SHOW(ex.ToString(), ex.Message, "مفهوم");
                 }
             }
             else if (e.TabPage.Name == "MenuDisplaySettings")
             {
-                MIX.Clear();
-                MIZ.Clear();
-                MenuLB.DataSource = MIZ;
-                AddingGrid.DataSource = MIX;
-                SaveMenu.Enabled = false;
-                MListLB.Items.Clear();
-                SectionsName.Text = "NoMenu";
                 try
                 {
+                    MIX.Clear();
+                    MIZ.Clear();
+                    MenuLB.DataSource = MIZ;
+                    AddingGrid.DataSource = MIX;
+                    SaveMenu.Enabled = false;
+                    MListLB.Items.Clear();
+                    SectionsName.Text = "NoMenu";
                     MenuDB.GetMenus().ForEach(x => MListLB.Items.Add(x));
-
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    MessageForm.SHOW(ex.ToString(), ex.Message, "مفهوم");
                 }
             }
             if (e.TabPage.Name != "MaterialsEdit")
             {
 
             }
-            
+
 
 
 
@@ -215,10 +223,9 @@ namespace OrderForm
 
         private void GetFonts()
         {
-            List<string> fonts = new List<string>();
             foreach (FontFamily font in System.Drawing.FontFamily.Families)
             {
-                comboBox1.Items.Add(font.Name);
+                FontComboBox.Items.Add(font.Name);
             }
         }
         private void GetListOfPrinters()
@@ -330,21 +337,6 @@ namespace OrderForm
             // Restore selection
             listBox1.SetSelected(newIndex, true);
         }
-
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-            for (int i = 0; i < sectionList.Items.Count; i++)
-            {
-                var a = (POSsections)sectionList.Items[i];
-            }
-
-            dbQ.SaveSections(sectionList);
-
-            this.Close();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (PrintersList1.SelectedItems.Count == 1)
@@ -354,8 +346,6 @@ namespace OrderForm
             }
 
         }
-
-
 
         private void sectionList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -367,22 +357,6 @@ namespace OrderForm
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (sectionList.SelectedItems.Count > 0)
-            {
-                //var a = (POSsections)sectionList.SelectedItem;
-                //a.DefaultPrinter = "";
-                //SectionName.Text = a.Name;
-                //printerLBL.Text = a.DefaultPrinter;
-
-            }
-        }
-
-
-
-
-
         private void sectionsListCB_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (sectionsListCB.SelectedIndex >= 0)
@@ -392,10 +366,6 @@ namespace OrderForm
                 dbQ.GetItemsForSection(slct).ForEach(x => sectionList.Items.Add(x));
 
                 sectionList.SelectedItems.Clear();
-                //for (int i = 0; i < sectionList.Items.Count; i++)
-                //{
-                //    sectionList.SetSelected(i, true);
-                //}
 
             }
         }
@@ -406,16 +376,6 @@ namespace OrderForm
             Properties.Settings.Default.DefaultPrinter = "";
             Properties.Settings.Default.Save();
             defaultPrinterTB.Text = "";
-        }
-
-        private void button6_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddNewDepartment_Click_1(object sender, EventArgs e)
-        {
-
         }
 
         private void button6_Click_2(object sender, EventArgs e) //adding printers to items
@@ -550,7 +510,7 @@ namespace OrderForm
                 var a = PrepareList.SelectedItem as POSDepartments;
 
                 MessageForm.SHOW("الطابعة الحالية للقسم هي: " + a.DefaultPrinter, "الطابعة الحالية", "مفهوم");
-   
+
             }
         }
 
@@ -647,7 +607,7 @@ namespace OrderForm
                 NameTB.Focus();
                 matLB.Enabled = true;
             }
-            else MessageForm.SHOW("إسم المادة متكرر","خطأ","مفهوم");
+            else MessageForm.SHOW("إسم المادة متكرر", "خطأ", "مفهوم");
 
 
 
@@ -777,10 +737,6 @@ namespace OrderForm
 
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void NameTB_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -791,17 +747,15 @@ namespace OrderForm
             }
         }
 
-        private void MenuDisplaySettings_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void AddMlist_Click(object sender, EventArgs e)
         {
             if (mlistTB.Text != "")
             {
-                MenuSection sect = new MenuSection();
-                sect.Name = mlistTB.Text;
+                MenuSection sect = new MenuSection
+                {
+                    Name = mlistTB.Text
+                };
                 if (MListLB.Items.Count > 0)
                 {
                     bool exists = false;
@@ -1009,6 +963,7 @@ namespace OrderForm
 
         private void ChoosePicPath_click(object sender, EventArgs e)
         {
+
             var filePath = string.Empty;
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -1022,12 +977,15 @@ namespace OrderForm
                     filePath = openFileDialog.FileName;
                 }
             }
+
+            if (sender is TextBox)
+            { var se = sender as TextBox; se.Text = filePath; }
+
+
+
         }
 
-        private void MenuDisplaySettings_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
         private void AddInfo_Click(object sender, EventArgs e)
         {
@@ -1079,7 +1037,7 @@ namespace OrderForm
                 MIZ.ResetBindings();
                 MIX.Clear();
             }
-            else { MessageForm.SHOW("قم بإختيار المجموعة التي تريد تحديثها قبل محاولة الحفظ ","تنويه","مفهوم"); }
+            else { MessageForm.SHOW("قم بإختيار المجموعة التي تريد تحديثها قبل محاولة الحفظ ", "تنويه", "مفهوم"); }
         }
 
         private void sectionsML_Opening(object sender, CancelEventArgs e)
@@ -1108,16 +1066,6 @@ namespace OrderForm
 
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SettingsPage_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
-
         private void button16_Click(object sender, EventArgs e)
         {
             if (ipTB.Text == "")
@@ -1141,7 +1089,7 @@ namespace OrderForm
                 Orders.KillandRestartAPI();
                 if (DbInv.AreYouAlive())
                 {
-                    MessageForm.SHOW("الإتصال سليم","تم الإتصال","مفهوم");
+                    MessageForm.SHOW("الإتصال سليم", "تم الإتصال", "مفهوم");
                 }
                 else
                 {
@@ -1176,31 +1124,19 @@ namespace OrderForm
             var OwnIp = GetLocalIPAddress().Split('.');
             string NetworkIP = $"{OwnIp[0]}.{OwnIp[1]}.{OwnIp[2]}.";
             Console.WriteLine(NetworkIP);
-            Parallel.For(1, 256, i =>
+            for (int i = 1; i < 256; i++)
             {
+                Console.WriteLine($"{NetworkIP}{i}");
                 if (scanForAPI($"{NetworkIP}{i}"))
                 {
                     Console.WriteLine(i);
                     e.Result = $"{NetworkIP}{i}";
                     return;
                 }
-            });
+            }
             e.Result = "فشل العثور على السيرفر";
 
-            //Console.WriteLine("I'm Here.");
-            //var OwnIp = GetLocalIPAddress().Split('.');
-            //string NetworkIP = OwnIp[0] + "." + OwnIp[1] + "." + OwnIp[2] + ".";
-            //Console.WriteLine(NetworkIP);
-            //for (int i = 1; i <= 255; i++)
-            //{
-            //    if (scanForAPI(NetworkIP + i.ToString()))
-            //    {
-            //        Console.WriteLine(i);
-            //        e.Result = NetworkIP + i.ToString();
-            //        return;
-            //    }
-            //}
-            //e.Result = "فشل العثور على السيرفر";
+
         }
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1218,14 +1154,16 @@ namespace OrderForm
             {
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new RestClient("http://" + ip + ":5000" + "/LoadDB/AreYouAlive");
-                var request = new RestRequest();
-                request.Timeout = 2000;
+                var request = new RestRequest
+                {
+                    Timeout = 2000
+                };
                 var response = client.Get(request);
                 if (response != null) { return true; } else { return false; }
             }
             catch (Exception)
             {
-                Console.WriteLine(ip + "Failed");
+                Console.WriteLine(ip + " Failed");
 
                 return false;
             }
@@ -1237,6 +1175,10 @@ namespace OrderForm
 
         public static string GetLocalIPAddress()
         {
+
+            // how can I avoid getting IPv4 returned for virtual ethernet connections?
+
+
             var EthernetNetwork = GetLocalIPv4(NetworkInterfaceType.Ethernet);
             var WifiNetwork = GetLocalIPv4(NetworkInterfaceType.Wireless80211);
 
@@ -1250,16 +1192,9 @@ namespace OrderForm
             }
             else
             {
-                throw new Exception("لم يتم العثور على أي شبكة محلية الرجاء الإتصال بنفس الشبكة المحلية التي يتصل عليها السيرفر");
+                MessageForm.SHOW("لم يتم العثور على أي شبكة محلية الرجاء الإتصال بنفس الشبكة المحلية التي يتصل عليها السيرفر", "عذرا", "مفهوم");
+                return "";
             }
-
-
-
-        }
-
-        private void SettingsPage_Load(object sender, EventArgs e)
-        {
-
         }
 
 
@@ -1272,7 +1207,7 @@ namespace OrderForm
                 {
                     foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
                     {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork && !item.Description.Contains("Virtual"))
                         {
                             output = ip.Address.ToString();
                         }
@@ -1346,21 +1281,6 @@ namespace OrderForm
             CashierPrinterTB.Text = "";
         }
 
-        private void groupBox5_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void AddingGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void MenuLB_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void CancelMIX_Click(object sender, EventArgs e)
         {
@@ -1371,14 +1291,8 @@ namespace OrderForm
             MenuLB.Refresh();
         }
 
-        private void groupBox12_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void SaveOrder_Click(object sender, EventArgs e)
         {
-            MenuSection sect = new MenuSection();
             for (int i = 0; i < MListLB.Items.Count; i++)
             {
                 MenuDB.UpdateMenuSection(MListLB.Items[i].ToString(), i);
@@ -1391,8 +1305,10 @@ namespace OrderForm
 
             if (mlistTB.Text != "")
             {
-                MenuSection sect = new MenuSection();
-                sect.Name = mlistTB.Text;
+                var sect = new MenuSection
+                {
+                    Name = mlistTB.Text
+                };
                 MListLB.Items.Add(sect);
 
                 sect.order = MListLB.FindString(sect.Name);
@@ -1442,17 +1358,19 @@ namespace OrderForm
 
         private void OpenDB_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.InitialDirectory = @"c:\db";
-            openFileDialog1.Filter = "db files (*.db)|*.db|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;
-            openFileDialog1.RestoreDirectory = true;
-            openFileDialog1.CheckFileExists = false;
-            openFileDialog1.CheckPathExists = false;
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            using (var openFileDialog1 = new OpenFileDialog())
             {
-                DBConnection.Text = "filename=" + openFileDialog1.FileName;
+                openFileDialog1.InitialDirectory = @"c:\db";
+                openFileDialog1.Filter = "db files (*.db)|*.db|All files (*.*)|*.*";
+                openFileDialog1.FilterIndex = 2;
+                openFileDialog1.RestoreDirectory = true;
+                openFileDialog1.CheckFileExists = false;
+                openFileDialog1.CheckPathExists = false;
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    DBConnection.Text = "filename=" + openFileDialog1.FileName;
+                }
             }
         }
 
@@ -1484,7 +1402,7 @@ namespace OrderForm
             }
         }
 
-        private void uButton1_Click(object sender, EventArgs e)
+        private void UButton1_Click(object sender, EventArgs e)
         {
             MAT.Clear();
             dbQ.LoadMaterialItems().ForEach(x => MAT.Add(x));
@@ -1531,43 +1449,57 @@ namespace OrderForm
         {
             if (!uButton1.Visible) return;// backup the mat list to a json file
 
-            string json = JsonConvert.SerializeObject(MAT, Formatting.Indented);
-            string name = DateTime.Now.ToString("hh-mm-dd-MM-yy");
-            File.WriteAllText(@"c:\db\" + name+ "mat.backup", json);
-            json = null;
-            name = null;
-            
+            var json = JsonConvert.SerializeObject(MAT, Formatting.Indented);
+            var name = DateTime.Now.ToString("hh-mm-dd-MM-yy");
+            File.WriteAllText(@"c:\db\" + name + "mat.backup", json);
         }
 
         private void loadMat_Click(object sender, EventArgs e)
         {
             if (!uButton1.Visible) return;
             // load the mat list from a json file
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.InitialDirectory = @"c:\db";
-            openFileDialog1.Filter = "backup files (*.backup)|*.backup|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;
-            openFileDialog1.RestoreDirectory = true;
-            openFileDialog1.CheckFileExists = true;
-            openFileDialog1.CheckPathExists = true; 
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            using (var openFileDialog1 = new OpenFileDialog())
             {
-                string json = File.ReadAllText(openFileDialog1.FileName);
-                MAT = JsonConvert.DeserializeObject<BindingList<POSItems>>(json);
-                matLB.DataSource = MAT;
-                json = null;
+                openFileDialog1.InitialDirectory = @"c:\db";
+                openFileDialog1.Filter = "backup files (*.backup)|*.backup|All files (*.*)|*.*";
+                openFileDialog1.FilterIndex = 2;
+                openFileDialog1.RestoreDirectory = true;
+                openFileDialog1.CheckFileExists = true;
+                openFileDialog1.CheckPathExists = true;
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    var json = File.ReadAllText(openFileDialog1.FileName);
+                    MAT = JsonConvert.DeserializeObject<BindingList<POSItems>>(json);
+                    matLB.DataSource = MAT;
+                }
             }
         }
 
-        private void SettingTabs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
 
         private void button14_Click(object sender, EventArgs e)
         {
             MaterialsForm f = new MaterialsForm();
             f.Show();
+        }
+
+        private void ReadyOrdersCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            showMenu.Checked = !ReadyOrdersCheck.Checked;
+        }
+
+        private void showMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            ReadyOrdersCheck.Checked = !showMenu.Checked;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DbInv.InsureIndexes();
+        }
+
+        private void uButton2_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }

@@ -83,6 +83,7 @@ namespace OrderForm.SavingandPayment
         public PaymentOptions(Invoice inv)
         {
             InitializeComponent();
+            if (inv.InEditMode) this.Text += "الطلب جاهز الآن"; 
             dueLBL.Text = inv.InvoicePrice.ToString();
             invoice_price = dueLBL.Text;
             targetTextBox = Cash.Name;

@@ -14,6 +14,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Text;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace NetworkSynq.Controllers
 {
@@ -22,8 +24,8 @@ namespace NetworkSynq.Controllers
     [Route("[controller]")]
     public class LoadDBController : ControllerBase
     {
-        private static readonly IConfiguration conf = (new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
-        public static readonly string DBConnection = conf["ConnectionString"].ToString();
+        private static readonly IConfiguration conf = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+        public static readonly string DBConnection =  conf["ConnectionString"].ToString();
         private static LiteDatabase db = new(DBConnection);
         public static LiteDatabase Db { get => db; set => db = value; }
         private static readonly string LogFile = @"C:\db";
@@ -31,6 +33,22 @@ namespace NetworkSynq.Controllers
 
 
 
+        [HttpGet]
+        [Route("KillServer")]
+        public ActionResult KillServer()
+        {
+            try
+            {
+                LogMyAPI("Killing Server");
+                Environment.Exit(0);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                LogMyAPI(ex.Message.ToString());
+                return NoContent();
+            }
+        }
 
         [HttpGet]
         [Route("AreYouAlive")]
@@ -103,9 +121,9 @@ namespace NetworkSynq.Controllers
                 Db.Dispose();
                 LogMyAPI("db disposed");
                 // create a back up file
-                System.IO.File.Copy(DBConnection.ToLower().Replace("filename=",""), backupFile, true);
+                System.IO.File.Copy(DBConnection.ToLower().Replace("filename=", ""), backupFile, true);
                 LogMyAPI("File Copied");
-                Db = new LiteDatabase(DBConnection);    
+                Db = new LiteDatabase(DBConnection);
                 Db.DropCollection("Invoices");
                 LogMyAPI("Invoices Dropped");
                 Db.Rebuild();
@@ -119,10 +137,10 @@ namespace NetworkSynq.Controllers
                 //newindexes.EnsureIndex(x => x.Status);
                 //newindexes.EnsureIndex(x => x.SearchResult);
                 //newindexes.EnsureIndex(x => x.CustomerNumber);
-            
+
                 //newindexes.EnsureIndex(x => x.ID);
                 var Materials = Db.GetCollection<POSItems>("Materials");
-                Materials.DropIndex("Materials"); 
+                Materials.DropIndex("Materials");
                 //Materials.EnsureIndex(x => x.Barcode);
                 var sectionTable = Db.GetCollection<POSsections>("Sections");
                 //sectionTable.EnsureIndex(x => x.Name);
@@ -130,7 +148,7 @@ namespace NetworkSynq.Controllers
                 Deps.DeleteMany(x => x.Number == null);
                 Deps.DropIndex("Number");
                 //Deps.EnsureIndex(x => x.Number);
-                
+
                 return true;
 
 
@@ -208,37 +226,88 @@ namespace NetworkSynq.Controllers
                     var d = draft.Query().Where(x => x.Status == InvStat.Draft && x.InvoiceItems.Count > 0).Limit(100).ToList();
                     return Ok(d);
                 }
-                else if(inv == "lastapps")
+                else if (inv == "lastapps")
                 {
-                    var d = draft.Find(x => x.OrderType == "تطبيقات" && x.Status == InvStat.SavedToPOS).OrderByDescending(x=> x.ID).Take(100).ToList();
+                    var d = draft.Find(x => x.OrderType == "تطبيقات" && x.Status == InvStat.SavedToPOS).OrderByDescending(x => x.ID).Take(100).ToList();
                     return Ok(d);
-                }else if(inv == "readyOrdersOnly")
+                }
+                else if (inv == "readyOrdersOnly")
                 {
-                    var d = draft.Find(x => x.InEditMode && x.Status != InvStat.Deleted ).OrderByDescending(x => x.ID).Take(42).ToList();
+                        var d = draft.Find(x => x.InEditMode  && x.Status != InvStat.Deleted).OrderByDescending(x => x.ID).Take(42).ToList();
                     return Ok(d);
                 }
                 else if (inv == "last42invoices")
                 {
 
-                    var d = draft.Find(x => x.Status != InvStat.Deleted && x.Status != InvStat.Draft).OrderByDescending(x => x.ID).Take(42).ToList();
+                    // I want to only get invoices that has the same day as today but I want to not get any invoices from last week so basically I want to keep getting invoices till I reach the same day in the old invoices
+                    // 
+
+                    // how can I search only the previous 5 days and not the whole database?
+
+                    var idFirst = draft.Find(x=> x.TimeOfSaving < DateTime.Now.AddDays(-6)).First().ID;
+                    var d = draft.Find(x => !x.InEditMode  && (int)x.InvoiceDay == (int)DateTime.Now.DayOfWeek && x.Status != InvStat.Deleted && x.Status != InvStat.Draft && x.ID > idFirst).OrderByDescending(x => x.TimeinArabic == "الآن").ThenBy(x => x.TimeOfInv).ToList();
                     return Ok(d);
                 }
                 else
-                {                   
-                        var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x => x.SearchResult.Contains(inv));
-                        var d = draftInv.OrderByDescending(i => Convert.ToInt32(i.IDstring)).ToList();
-                        return Ok(d);
-                    
+                {
+                    var draftInv = draft.Find(x => x.Status == InvStat.SavedToPOS || x.Status == InvStat.Deleted).Where(x => x.SearchResult.Contains(inv));
+                    var d = draftInv.OrderByDescending(i => Convert.ToInt32(i.IDstring)).ToList();
+                    return Ok(d);
+
                 }
             }
             catch (Exception ex)
             {
-                LogMyAPI("Error in GetList");   
-                LogMyAPI(ex.Message);   
+                LogMyAPI("Error in GetList");
+                LogMyAPI(ex.Message);
                 return new List<Invoice>();
             }
 
         }
+        [HttpPost]
+        [Route("UpdateReady")] // to Saved.
+        public ActionResult<string> UpdateReady(int ID, bool Ready)
+        {
+
+
+            try
+            {
+                var invoiceTable = Db.GetCollection<Invoice>("Invoices");
+                var readyinv = invoiceTable.Find(x => x.ID == ID).First();
+                if (readyinv != null)
+                {
+                    readyinv.InEditMode = Ready;
+                    if (Ready)
+                    {
+                        readyinv.InvoiceTimeloglist.Clear();
+                        readyinv.InvoiceTimeloglist.Add(string.Format("OrderReady:{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+                        invoiceTable.Update(readyinv);
+                        return Ok("Success");
+                    }
+                    else
+                    {
+                        readyinv.InvoiceTimeloglist.Clear();
+                        invoiceTable.Update(readyinv);
+                        return Ok("Success");
+                    }
+
+                }
+                else
+                {
+                    return Ok("Failure");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                LogMyAPI("Failed to Update");
+                LogMyAPI(ex.Message.ToString());
+                return Ok("Failed to Update");
+            }
+        }
+
+
         [HttpPost]
         [Route("InvoiceReady")]
         public void InvoiceReady(string id)
@@ -250,7 +319,7 @@ namespace NetworkSynq.Controllers
                 var a = invoiceTable.FindOne(x => x.IDstring == id);
                 a.InEditMode = !a.InEditMode;
                 invoiceTable.Update(a);
-                
+
             }
             catch (Exception ex)
             {
@@ -262,7 +331,7 @@ namespace NetworkSynq.Controllers
 
         [HttpGet]
         [Route("SearchALLDB")]
-        public ActionResult<IEnumerable<Invoice>> SearchALLDB(string search)
+        public ActionResult<IEnumerable<Invoice>> SearchALLDB(string search,bool DeepSearch)
         {
             LogMyAPI("Search Started ");
             try
@@ -270,14 +339,15 @@ namespace NetworkSynq.Controllers
                 var combined = new List<Invoice>();
                 LogMyAPI("Combined List");
 
+                if (DeepSearch)
+                {
                 // find all databases with .db extension in the folder DBConnection
-                
                 string[] files = Directory.GetFiles(DBConnection.ToLower().Replace("filename=", "").Replace("db.db", ""), "*.db");
                 var dbs = files.Where(x => !x.Contains("db.db") && !x.Contains("log"));
                 LogMyAPI("Found " + files.Length + " DBs");
                 foreach (var item in dbs)
                 {
-                    var newdb = new LiteDatabase("filename="+item);
+                    var newdb = new LiteDatabase("filename=" + item);
                     if (newdb.GetCollectionNames().Contains("Invoices"))
                     {
                         var searched = newdb.GetCollection<Invoice>("Invoices");
@@ -288,14 +358,15 @@ namespace NetworkSynq.Controllers
                     else
                     {
                         newdb.Dispose();
+                        }
                     }
+                    LogMyAPI("Searched All old DBS");
                 }
-                LogMyAPI("Searched All old DBS");
                 var currentdb = Db.GetCollection<Invoice>("Invoices");
                 LogMyAPI(combined.Count.ToString());
-                combined.AddRange(currentdb.FindAll().Where(x => ToUnifiedArabic(x.SearchResult).Contains(search)));    
+                combined.AddRange(currentdb.FindAll().Where(x => ToUnifiedArabic(x.SearchResult).Contains(search)));
                 LogMyAPI(combined.Distinct().Count().ToString());
-                return Ok(combined.OrderByDescending(x => x.ID).DistinctBy(x=> x.TimeOfSaving));
+                return Ok(combined.OrderByDescending(x => x.ID).DistinctBy(x => x.TimeOfSaving));
 
             }
 
@@ -363,9 +434,9 @@ namespace NetworkSynq.Controllers
 
                 LogMyAPI("db reached.");
                 var invoicesdbdb = Db.GetCollection<Invoice>("Invoices");
-                LogMyAPI(  "GotInvoiceCollection Invoices");
+                LogMyAPI("GotInvoiceCollection Invoices");
                 combined.AddRange(invoicesdbdb.Find(z => z.Status == InvStat.SavedToPOS && z.OrderType != "تطبيقات"));
-                LogMyAPI( "AddedRange");
+                LogMyAPI("AddedRange");
                 combined = combined.DistinctBy(x => x.TimeOfSaving).ToList();
                 LogMyAPI("distinct combined.");
 
@@ -375,7 +446,7 @@ namespace NetworkSynq.Controllers
                     .Select(g => new { CustomerNumber = g.Key, TotalSales = g.Sum(i => i.InvoicePrice), OrderCount = g.Count() })
                     .OrderByDescending(x => x.TotalSales)
                     .ThenByDescending(x => x.OrderCount)
-                    .Select(g =>  $"TotalSales: {g.TotalSales} | OrderCount: {g.OrderCount} | Customer: {string.Join(",", combined.Where(x => x.CustomerNumber == g.CustomerNumber).Select(x => x.CustomerName).Distinct())} | Number: {g.CustomerNumber} ")
+                    .Select(g => $"TotalSales: {g.TotalSales} | OrderCount: {g.OrderCount} | Customer: {string.Join(",", combined.Where(x => x.CustomerNumber == g.CustomerNumber).Select(x => x.CustomerName).Distinct())} | Number: {g.CustomerNumber} ")
                     .ToList();
                 return Ok(loyalCustomers.Take(200));
 
@@ -518,16 +589,16 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI("loading Contact");
                 var con = Db.GetCollection<Contacts>("Customers");
-                var Contact = con.Find(x => x.Number.Replace(" ", "") == number.Replace(" ", "")).Where(z=> z.Name.Replace(" ","") != "");
+                var Contact = con.Find(x => x.Number.Replace(" ", "") == number.Replace(" ", "")).Where(z => z.Name.Replace(" ", "") != "");
                 if (Contact.Any())
                 {
                     return Contact.First();
                 }
                 else
                 {
-                    return new Contacts();  
+                    return new Contacts();
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -695,36 +766,7 @@ namespace NetworkSynq.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("UpdateReady")] // to Saved.
-        public ActionResult<string> UpdateReady(int ID, bool Ready)
-        {
-
-
-            try
-            {
-                var invoiceTable = Db.GetCollection<Invoice>("Invoices");
-                var readyinv = invoiceTable.Find(x => x.ID == ID).First();
-                if (readyinv != null)
-                {
-                    readyinv.InEditMode = Ready;
-                    invoiceTable.Update(readyinv);
-                    return Ok("Success");
-                }
-                else
-                {
-                    return Ok("Failure");
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                LogMyAPI("Failed to Update");
-                LogMyAPI(ex.Message.ToString());
-                return Ok("Failed to Update");
-            }
-        }
+     
 
         [HttpPost]
         [Route("DeleteInvoice")] // to Saved.
@@ -752,7 +794,7 @@ namespace NetworkSynq.Controllers
             catch (Exception ex)
             {
 
-                LogMyAPI(ex.Message.ToString());    
+                LogMyAPI(ex.Message.ToString());
                 return Ok(false);
 
             }
@@ -936,7 +978,7 @@ namespace NetworkSynq.Controllers
 
                 return Ok();
             }
-            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return Ok();  }
+            catch (Exception ex) { LogMyAPI(ex.Message.ToString()); return Ok(); }
         }
 
         [HttpPost]
@@ -970,9 +1012,9 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI("Saving Apps Materials");
                 var mat = Db.GetCollection<AppSets>("Apps");
-                
+
                 mat.Upsert(Name);
-                
+
                 return Ok();
             }
             catch (Exception ex)
@@ -989,7 +1031,7 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI("Saving Apps Materials");
                 var mat = Db.GetCollection<AppSets>("Apps");
-                return Ok(mat.FindAll().Where(x=>x.Name != ""));
+                return Ok(mat.FindAll().Where(x => x.Name != ""));
             }
             catch (Exception ex)
             {
@@ -1005,7 +1047,7 @@ namespace NetworkSynq.Controllers
             {
                 LogMyAPI("Saving Apps Materials");
                 var mat = Db.GetCollection<AppSets>("Apps");
-                return Ok(mat.FindOne(x=> x.Name == name));
+                return Ok(mat.FindOne(x => x.Name == name));
             }
             catch (Exception ex)
             {
@@ -1013,7 +1055,7 @@ namespace NetworkSynq.Controllers
                 return Ok();
             }
         }
-        
+
         [HttpPost]
         [Route("DeleteApps")]
         public ActionResult DeleteAllApps()

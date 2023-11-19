@@ -159,7 +159,7 @@
       <Value Profile="(Default)">سحائب طيبه</Value>
     </Setting>
     <Setting Name="Logo" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\db\images\debes.png</Value>
+      <Value Profile="(Default)">C:\db\images\HeaderSource\logo.png</Value>
     </Setting>
     <Setting Name="CashierPrinter" Type="System.String" Scope="User">
       <Value Profile="(Default)">POS</Value>
@@ -170,7 +170,7 @@
     <Setting Name="Api_On" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="CallerIDEnabled" Type="System.Boolean" Scope="User">
+    <Setting Name="ReadyOrdersEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="API_Server_Path" Type="System.String" Scope="User">
@@ -178,6 +178,45 @@
     </Setting>
     <Setting Name="PromotionLink" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\db\images\promotion.jpg</Value>
+    </Setting>
+    <Setting Name="mrsoolIDRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#(\d+)</Value>
+    </Setting>
+    <Setting Name="mrsoolCommentRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">رمز التحقق: (\d+)</Value>
+    </Setting>
+    <Setting Name="mrsoolPriceFirstRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(\d+\.\d{2}) sar\s*نقبل</Value>
+    </Setting>
+    <Setting Name="mrsoolPriceSecondRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(\d+\.\d{2}) sar\s*الفرع</Value>
+    </Setting>
+    <Setting Name="mrsoolDriverRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\+\d+</Value>
+    </Setting>
+    <Setting Name="mrsoolItemsRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(.*?)\s*(\d+)x\s*(\d+\.\d{2}</Value>
+    </Setting>
+    <Setting Name="jahezIDregex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Order#\s(\d+)</Value>
+    </Setting>
+    <Setting Name="jahezCommentRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Comment:(.*?)[\r\n]+</Value>
+    </Setting>
+    <Setting Name="jahezItemsRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">([\s\S]*?)\r?\n""(\d+)"".*?\r?\n.*?\r?\n(\d+)\s+([\d.]+)</Value>
+    </Setting>
+    <Setting Name="hungerComment" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\s*(.*?)\s*</Value>
+    </Setting>
+    <Setting Name="hungerItems" Type="System.String" Scope="User">
+      <Value Profile="(Default)">^(\d+)x\s*(.*?)\s*(\d+\.\d{2})$</Value>
+    </Setting>
+    <Setting Name="whatsappItems" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\""(.+)\""\s*(\d+)\s*\u200F.+٫..</Value>
+    </Setting>
+    <Setting Name="whatsappPrice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\u200F(.+٫..)</Value>
     </Setting>
   </Settings>
 </SettingsFile>

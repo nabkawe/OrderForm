@@ -202,3 +202,4 @@ C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.pd
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.TimePicker.resources
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.MaterialsForm.resources
 C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.LogForm.resources
+C:\Users\Admin\source\repos\nabkawe\OrderForm\OrderForm\obj\Release\OrderForm.ItemComments.resources

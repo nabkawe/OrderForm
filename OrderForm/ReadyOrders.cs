@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.ApplicationModel.Background;
 
 namespace OrderForm
 {
@@ -25,16 +27,25 @@ namespace OrderForm
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }
+        private DateTime ParseExactS(string datestring)
+        {
+            datestring = datestring.Replace("OrderReady:", "").Trim();
+            var DT = DateTime.ParseExact(datestring,"yyyy-MM-dd HH:mm:ss",CultureInfo.InvariantCulture);
+            Console.WriteLine(DT);
+            return DT;
+        }
+
         List<Invoice> oldinvoices;
         private void timer_Tick(object sender, EventArgs e)
         {
-            timer.Interval = 5000;
+            timer.Interval = 10000;
 
             if (Properties.Settings.Default.Api_On)
             {
                 var invoices = new List<Invoice>();
                 invoices.AddRange(DbInv.GetLast42Ready());
-                invoices = invoices.OrderByDescending(x => x.CustomerName?.Contains("جاهز")).ThenByDescending(x => x.CustomerName?.Contains("هنقر")).ThenByDescending(x => x.CustomerName?.Length > 0).ThenByDescending(x => x.CustomerName == "").ToList();
+                invoices = invoices.Where(x => x.InvoiceTimeloglist.Any(z => z.Contains("OrderReady")) && (DateTime.Now - ParseExactS(x.InvoiceTimeloglist.First())).TotalHours <= 1 ).OrderByDescending(x => x.CustomerName?.Contains("جاهز")).ThenByDescending(x => x.CustomerName?.Contains("هنقر")).ThenByDescending(x => x.CustomerName?.Contains("مرسول")).ThenByDescending(x => x.CustomerName?.Length > 0).ThenByDescending(x => x.CustomerName == "").Take(24).ToList();
+                Console.WriteLine("ReadyOrders: " + invoices.Count);
                 if (!CompareLists(invoices))
                 {
                     flowLayoutPanel1.Controls.Clear();
@@ -73,43 +84,79 @@ namespace OrderForm
             var btn = new Button();
             if (name.Trim() != "" && Phonenumber.Length < 4) 
             {
-                btn.Text = name;
+                btn.Text = name + "";
             }
             if (name.Trim() == "" && Phonenumber.Trim()=="")
             {
-                btn.Text = $"رقم الطلب: {id}";
+                btn.Text = $"طلب سفري \n 💳 \n {id}";
                 
             }
             if (name.Trim() != "" && Phonenumber.Trim() != "" && Phonenumber.Length > 4)
             {
-                btn.Text = name + "\n" + "0XXXXX" + Phonenumber.Substring(Phonenumber.Length - 4);
+                if (name.Length > 12)
+                {
+                    btn.Text = name.Substring(0, 12) + "..." + "\n" + "📱" + "\n" + "0XXXXX" + Phonenumber.Trim().Substring(Phonenumber.Length - 4);
+                }
+                else
+                {
+                    btn.Text = name + "\n" + "📱" + "\n" + "0XXXXX" + Phonenumber.Trim().Substring(Phonenumber.Length - 4);
+                }
+                
             }
             
             if (name.Contains("هنقر"))
             {
-                btn.BackColor = System.Drawing.Color.Yellow;
-                btn.ForeColor = System.Drawing.Color.Brown;
+                btn.ForeColor = System.Drawing.Color.Yellow;
+                btn.BackColor = System.Drawing.Color.Brown;
+                btn.Text += "🛵";
+                btn.Text = btn.Text.Replace(":", "");
+                btn.Text = btn.Text.Replace("هنقر", "هنقرستيشين");
 
             }
             else if (name.Contains("جاهز"))
             {
                 btn.BackColor = System.Drawing.Color.Red;
                 btn.ForeColor = System.Drawing.Color.White;
+                btn.Text += Environment.NewLine+  "🛵";
+
+            }
+            else if (name.Contains("مرسول"))
+            {
+                btn.Text += "🛵";
+                btn.Text = btn.Text.Replace(":#", "");
+                btn.BackColor = System.Drawing.Color.Green;
+                btn.ForeColor = System.Drawing.Color.White;
 
             }
             else
             {
+                btn.ForeColor = Color.FromArgb(0, 104, 66, 25);
                 btn.BackColor = System.Drawing.Color.White;
 
             }
 
 
-            btn.Anchor = System.Windows.Forms.AnchorStyles.Top;
+
             btn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            btn.Size = new System.Drawing.Size(312, 200);
+
             btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btn.Size = new System.Drawing.Size(291, 130);
+            btn.FlatAppearance.BorderColor = Color.FromArgb(0, 104, 66, 25);
+            btn.FlatAppearance.BorderSize = 10;
+            btn.FlatStyle = FlatStyle.Popup;
+        
+            // can I add a skooter emoji in the btn text?
+            btn.Font = new System.Drawing.Font("Segoe UI Emoji", 35F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            
+            
+            
+            
+            
+
+            
+
             btn.TabStop = false;
-            btn.UseVisualStyleBackColor = false;
+            btn.UseVisualStyleBackColor = true;
             return btn;
         }
         private void ReadyOrders_Load(object sender, EventArgs e)

@@ -127,9 +127,9 @@
             this.addAppsGroup.Controls.Add(this.lb);
             this.addAppsGroup.Controls.Add(this.SaveAppsNames);
             this.addAppsGroup.Controls.Add(this.label1);
-            this.addAppsGroup.Location = new System.Drawing.Point(492, 12);
+            this.addAppsGroup.Location = new System.Drawing.Point(495, 12);
             this.addAppsGroup.Name = "addAppsGroup";
-            this.addAppsGroup.Size = new System.Drawing.Size(535, 254);
+            this.addAppsGroup.Size = new System.Drawing.Size(532, 254);
             this.addAppsGroup.TabIndex = 8;
             this.addAppsGroup.TabStop = false;
             this.addAppsGroup.Text = "إضافة تطبيقات جديدة";
@@ -258,12 +258,11 @@
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Location = new System.Drawing.Point(498, 292);
+            this.groupBox1.Location = new System.Drawing.Point(482, 292);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(535, 254);
+            this.groupBox1.Size = new System.Drawing.Size(551, 254);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
             // 
             // button7
             // 
