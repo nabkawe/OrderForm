@@ -5,3 +5,9 @@
 /OrdersApp
 /OrderApp
 /.vs
+/OrderForm/bin/Release/
+/packages/cef.redist.x64.114.2.12/CEF/libcef.dll
+/packages/cef.redist.x64.114.2.12/cef.redist.x64.114.2.12.nupkg
+/packages/cef.redist.x86.114.2.12/CEF/libcef.dll
+/packages/cef.redist.x86.114.2.12/cef.redist.x86.114.2.12.nupkg
+/OrderForm/OrderForm.csproj
